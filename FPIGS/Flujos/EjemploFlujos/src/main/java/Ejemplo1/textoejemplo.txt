@@ -1,0 +1,3 @@
+Los flujos se implementan en las clases del paquete java.io
+Esencialmente, todos funcionan igual, independientemente de la fuente de datos
+Clases java.io.reader y java.io.writer
