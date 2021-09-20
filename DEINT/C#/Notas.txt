@@ -1,0 +1,25 @@
+Para crear un proyecto en C#: 
+en cmd:
+	dotnet new console
+Para ejecutar los archivos:
+en cmd/en "terminal" en VSCode:
+	dotnet run
+
+Para crear un nuevo archivo C#:
+	click dcho en la carpeta -> new File -> darle un nombre con .cs
+
+Para funciones que se van a sobreescribir se usa "override" en minúsculas y 
+sin "@".
+
+Para una cantidad variable de parámetros:
+params int[] numeros
+
+Para hacer los parse:
+De string a int (ejemplo):
+	Int32.TryParse(Console.ReadLine(), out numero);
+En la variable "numero" se almacenará el dato leído, solo si se puede
+hacer el parse. Si no, se quedará con el dato que tenía antes.
+
+Si queremos recorrer un array, se puede usar el siguiente for: (maravilla)
+foreach (int n in numeros)
+	Console.WriteLine(n);
