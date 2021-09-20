@@ -1,0 +1,63 @@
+Sistemas de información:
+	-aplicaciones para la administración de los procesos de la empresa
+	-factor productivo de las empresas (junto a trabajo y capital)
+	-a diferencia de los otros factores, es intangible
+
+	-gestión de los procesos de la empresa (no de las funciones)
+	-mejorar resultados (orientados al cliente)
+	-mejorar la sinergia entre trabajadores y máquinas para mejorar la eficiencia
+	-gestionar bases de datos, planificación, procedimientos, toma de decisiones, etc.
+	-OBJETIVO: mejorar productividad y eficacia de cada eslabón de la empresa. Optimización de recursos (ERP) y maximizar rentabilidad (CRM).
+
+Información:
+	-veraz, fiel reflejo de la realidad, buena calidad
+	-a mayor cantidad de información, mejor
+	-relevante, datos a los que se pueda sacar provecho Y que no provoquen malas decisiones
+	-tener la información con antelación, para anticiparse a las necesidades de la empresa y tener mayor control
+
+Componentes de un SI:
+	-Personas: propietarios, usuarios, admins, diseñadores, desarrolladores, etc.
+	-Datos: recoger la mayor cantidad de datos necesarios para asegurar un buen sistema.
+	-Actividades: las que lleve a cabo la empresa, necesario para el desarrollo del sistema.
+	-Tecnología e infraestructura: equipos informáticos y de comunicaciones, almacenamiento de datos y aplicaciones.
+
+Actividades de un SI:
+	-Entrada de info: manual (dada por el usuario) o automática (recaudada de otros sistemas). La entrada se realiza con medios como ratón, teclado, y otros tipos de formas de comunicación con el sistema (terminales).
+	-Almacenamiento de la info: guardar la info recogida en la entrada.
+	-Procesamiento de la info: La info puede procesarse y luego almacenarse, o almacenarse y luego procesarse. El objetivo del procesamiento es convertir los datos en información útil para la empresa.
+	-Salida de la info: Exponer la información de una forma clara y resoluta, presentaciones, impresiones, gráficas o algún otro medio de almacenamiento, para luego servir de entrada a otro SI.
+
+Clasificación de los SI (según propósito):
+	-Transaccionales: Automatizan procesos operativos de una empresa (pagos y facturas, por ejeplo).
+	-Soporte al decision making: Sistemas para el análisis de información y ayuda a la toma de decisiones.	
+	-Estratégicos: tienen el fin de crear ventajas en el mercado.
+
+Clasificación de los SI (según estructura y funcionamiento):
+	-Manuales: Cuando las actividades del SI se realizan manualmente, con o sin ayuda de alguna herramienta (no ordenadores).
+	-Mecanizados: las actividades son realizadas por máquinas.
+	-Computerizados: las actividades son realizadas con ayuda de un ordenador, dos tipos: batch (el pc realiza el proceso automáticamente, solo con la entrada de datos); en línea (el usuario usa el ordenador mediante la ejecución del proceso).
+
+Clasificación de los SI (según organización física):
+	-Centralizado: los recursos se encuentran en una sola zona determinada, y se acceden insitu o remotamente.
+	-Distribuido: los recursos están repartidos en diferentes zonas, y se acceden a ellos insitu, pudiendo compartirlos entre las diversas instalaciones mediante una red de comunicaciones.
+
+Tipos de SI:
+	-ERP: Enterpirse Resource Planning, sistemas integrados que controlan los procesos de toda la empresa. Principalmente la producción, logística, inventario, distribución, facturas y contabilidad. OBJETIVO reducir costes.
+	-CRM: Customer Relationship Management, gestiona las relaciones con los clientes y contactos comerciales. Es un software, para tener acceso a toda la info de los clientes. OBJETIVO incrementar beneficios.
+	-SCM: Supply Chain Management, controla y organiza la cadena de suministros.
+	-Business Intelligence: explotación y recaudación de datos para la toma de decisiones.
+	-GIS: Geographical Information System, gestiona la información y la segrega respecto a su origen y/o destino.
+	-SGSI: Sistema de gestión de la seguridad de la información, se encarga de que la información se transmite de forma segura.
+	-TPS: Transaction Processing System, procesos de transacciones y operaciones.
+	-MIS: Management Information System, para la gestión de la empresa.*
+	-BPM: business Process Management, diseño, ejecución y control de procesos.
+	-DATAWAREHOUSING: almacenamiento de datos.
+	-DATA MINING: Extracción de datos de distintos tios y fuentes.
+	-Queries and reporting: consultas e informes de los datos.
+	-Balanced Scorecard: sandbox para extrategias de la empresa.
+	-Website corporativo: Control de la imagen de la empresa, la comunicación, coordinación y de las operaciones empresariales.
+	-Gestión documental: soporte a todas las fases de todas las gestiones documentales.
+	-CTI: Computer Telephony Integration, integración de los sistemas informáticos y los de comunicación.
+	-EDI: Electronic Data Interchange, intercambio de info a nivel logístico y comercial.
+	-CAD: Computer Aided Design.
+
