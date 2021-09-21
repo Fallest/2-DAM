@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\NumerosPrimos\\NumerosPrimos.csproj": {}
+    "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\c#\\NumerosPrimos\\NumerosPrimos.csproj": {}
   },
   "projects": {
-    "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\NumerosPrimos\\NumerosPrimos.csproj": {
+    "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\c#\\NumerosPrimos\\NumerosPrimos.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\NumerosPrimos\\NumerosPrimos.csproj",
+        "projectUniqueName": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\c#\\NumerosPrimos\\NumerosPrimos.csproj",
         "projectName": "NumerosPrimos",
-        "projectPath": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\NumerosPrimos\\NumerosPrimos.csproj",
+        "projectPath": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\c#\\NumerosPrimos\\NumerosPrimos.csproj",
         "packagesPath": "C:\\Users\\David\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\NumerosPrimos\\obj\\",
+        "outputPath": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\c#\\NumerosPrimos\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\David\\AppData\\Roaming\\NuGet\\NuGet.Config"

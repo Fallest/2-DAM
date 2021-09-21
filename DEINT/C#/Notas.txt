@@ -23,3 +23,17 @@ hacer el parse. Si no, se quedará con el dato que tenía antes.
 Si queremos recorrer un array, se puede usar el siguiente for: (maravilla)
 foreach (int n in numeros)
 	Console.WriteLine(n);
+
+Operador ternario:
+Comprueba la operación lógica, si es true, escoge lo anterior a ":", si es
+false, coge lo posterior a ":".
+Se lee tal que así:
+
+condición ? consecuencia : alternativa
+
+int x = a < b ? a : b;
+
+Para comprobar (o desactivar la comprobación) de overflows:
+checked {<código a comprobar>}
+unchecked {<código a comprobar>}
+También se pueden usar paréntesis con la expresión a comprobar.

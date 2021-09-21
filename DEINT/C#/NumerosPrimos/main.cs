@@ -10,10 +10,24 @@ namespace NumerosPrimos {
             Este programa tiene que mostrar todos los números primos
             que haya hasta un número límite introducido por el usuario.
             */
-            do {
-            int numTop = askNum();
-            showPrimes(numTop);
-            } while(askAgain());
+            int numTop;
+
+            if (args.Length != 0) {
+                if (int.TryParse(args[0], out numTop)) showPrimes(numTop);
+
+                else {
+                    Console.WriteLine("Ha introducido un carácter no válido.\n\nHa ocurrido un error. El programa se cerrará.");
+                    System.Environment.Exit(1);
+                }
+            }
+
+            else {
+                showPrimes(askNum());
+            }
+            
+            while(askAgain()) {
+                showPrimes(askNum());
+            }
         }
 
         // Función para pedir el número
@@ -58,13 +72,12 @@ namespace NumerosPrimos {
                         break;
                     }
                 }
-                if (prime is true) {
+                if (prime) {
                     count++;
                     Console.WriteLine($"Número primo {count}: {n}");
-                } 
+                }
             }
         }
-
         static bool askAgain() {
             Console.WriteLine("¿Quieres consultar otro número (s/n)?: ");
             string ask = Console.ReadLine();
@@ -72,15 +85,12 @@ namespace NumerosPrimos {
             switch(ask) {
                 case "s": {
                     return true;
-                    break;
                 }
                 case "n": {
                     return false;
-                    break;
                 }
                 default: {
                     return askAgain();
-                    break;
                 }
             }
         }

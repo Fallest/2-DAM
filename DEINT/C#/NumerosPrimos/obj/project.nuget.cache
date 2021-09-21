@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "4q/35+oO6dDHYCRb1ChsZGFAEvvmTw/vXIjivtftkw2NV+fGQYroBAL0dc74DH4f+KJsZKJ1P+JDy3Epm5nZOA==",
+  "dgSpecHash": "PG8zftmfd68otjV4BuJhkuQzYV7YIuK6FRaWWQNi7FR3EKEJxd975ivz+kg2TWk943uSgOLzGBLZtkOJOXN/GQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\NumerosPrimos\\NumerosPrimos.csproj",
+  "projectFilePath": "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\c#\\NumerosPrimos\\NumerosPrimos.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
