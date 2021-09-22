@@ -16,8 +16,7 @@ alter table Departamentos add constraint chk_dir check(tipodir_de in ('F', 'P'))
 
 alter table Empleados add constraint chk_nom_mayus check(nomb_em = upper(nomb_em));
 
-update Empleados where trunc(months_between(fecnac_em, fecinc_em) / 12) < 18
-set
+update Empleados set fecinc_em=add_months(fecinc_em, 12) where trunc(months_between(fecnac_em, fecinc_em) / 12) < 18;
 alter table Empleados add constraint chk_emp_adulto check(trunc(months_between(fecnac_em, fecinc_em) / 12) >= 18);
 
 /*---------------------------------------------------------------------*/
