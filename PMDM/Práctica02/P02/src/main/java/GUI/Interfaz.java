@@ -46,13 +46,24 @@ public class Interfaz extends JFrame{
         JButton siguienteButton = new JButton("Siguiente");
         JButton cancelarButton = new JButton("Cancelar");
         JButton aceptarButton = new JButton("Aceptar");
+        anteriorButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        nuevoButton.setFont(new Font("Arial", Font.PLAIN, 15));    
+        siguienteButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        cancelarButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        aceptarButton.setFont(new Font("Arial", Font.PLAIN, 15));
+        
         
         // Creamos las JLabels
         JLabel tituloLabel = new JLabel("Título: ");
-        JLabel fechaLabel = new JLabel("Fecha de lanzamiento: ");
+        JLabel fechaLabel = new JLabel("Fecha de lanzamiento (DD/MM/YYYY): ");
         JLabel desarrolladoraLabel = new JLabel("Desarroladora: ");
         JLabel precioLabel = new JLabel("Precio: ");
         JLabel ofertaLabel = new JLabel("En oferta: ");
+        tituloLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        fechaLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        desarrolladoraLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        precioLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        ofertaLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         
         // Creamos los TextFields
         // Al inicio del programa, tienen los valores del primer elemento (actual)
@@ -66,28 +77,34 @@ public class Interfaz extends JFrame{
         tituloField.setEditable(false);
         tituloField.setFocusable(false);
         tituloField.setBackground(Color.LIGHT_GRAY);
+        tituloField.setFont(new Font("Arial", Font.PLAIN, 20));
         
         fechaField.setEditable(false);
         fechaField.setFocusable(false);
         fechaField.setBackground(Color.LIGHT_GRAY);
+        fechaField.setFont(new Font("Arial", Font.PLAIN, 20));
         
         desarrolladoraField.setEditable(false);
         desarrolladoraField.setFocusable(false);
         desarrolladoraField.setBackground(Color.LIGHT_GRAY);
+        desarrolladoraField.setFont(new Font("Arial", Font.PLAIN, 20));
         
         precioField.setEditable(false);
         precioField.setFocusable(false);
         precioField.setBackground(Color.LIGHT_GRAY);
+        precioField.setFont(new Font("Arial", Font.PLAIN, 20));
         
         ofertaField.setEditable(false);
         ofertaField.setFocusable(false);
         ofertaField.setBackground(Color.LIGHT_GRAY);
+        ofertaField.setFont(new Font("Arial", Font.PLAIN, 20));
         
         // Creación de los paneles independientes
         
             // Panel de JLabels (Siempre va a estar presente)
         JPanel labelPane = new JPanel();
         labelPane.setLayout(new GridLayout(0, 1)); // 0 filas, 1 columna
+        labelPane.setBackground(Color.getHSBColor(0.47f, 0.32f, 0.78f));
         labelPane.add(tituloLabel);
         labelPane.add(fechaLabel);
         labelPane.add(desarrolladoraLabel);
@@ -107,6 +124,7 @@ public class Interfaz extends JFrame{
             // (solo presente mientras no se esté editando un nuevo registro)
         JPanel moveButtonsPane = new JPanel();
         moveButtonsPane.setLayout(new BorderLayout());
+        moveButtonsPane.setBackground(Color.getHSBColor(0.47f, 0.32f, 0.78f));
         moveButtonsPane.add(anteriorButton, BorderLayout.WEST);
         moveButtonsPane.add(nuevoButton, BorderLayout.CENTER);
         moveButtonsPane.add(siguienteButton, BorderLayout.EAST);
@@ -116,6 +134,7 @@ public class Interfaz extends JFrame{
             // al hacer clic en "Cancelar" o en "Aceptar")
         JPanel actionButtonsPane = new JPanel();
         actionButtonsPane.setLayout(new BorderLayout());
+        actionButtonsPane.setBackground(Color.getHSBColor(0.47f, 0.32f, 0.78f));
         actionButtonsPane.add(cancelarButton, BorderLayout.WEST);
         actionButtonsPane.add(aceptarButton, BorderLayout.EAST);
         
@@ -124,6 +143,7 @@ public class Interfaz extends JFrame{
             // Los botones van abajo
         JPanel contentPane = new JPanel();
         contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        contentPane.setBackground(Color.getHSBColor(0.47f, 0.32f, 0.78f));
         contentPane.setLayout(new BorderLayout());
         contentPane.add(labelPane, BorderLayout.CENTER);
         contentPane.add(fieldPane, BorderLayout.EAST);
@@ -373,6 +393,7 @@ public class Interfaz extends JFrame{
         });
         
         app.pack();
+        app.setLocationRelativeTo(null);
         app.setVisible(true);
     }
 }
