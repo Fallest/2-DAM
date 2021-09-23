@@ -1,8 +1,6 @@
 package Exceptions;
 
-import java.util.GregorianCalendar;
-
-public class Exceptions extends Exception {
+public final class Exceptions extends Exception {
     
     public Exceptions(String s) {
         switch (s) {

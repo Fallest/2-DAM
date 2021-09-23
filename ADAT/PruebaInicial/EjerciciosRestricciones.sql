@@ -16,14 +16,17 @@ alter table Departamentos add constraint chk_dir check(tipodir_de in ('F', 'P'))
 
 alter table Empleados add constraint chk_nom_mayus check(nomb_em = upper(nomb_em));
 
-update Empleados set fecinc_em=add_months(fecinc_em, 12) where trunc(months_between(fecnac_em, fecinc_em) / 12) < 18;
-alter table Empleados add constraint chk_emp_adulto check(trunc(months_between(fecnac_em, fecinc_em) / 12) >= 18);
+update Empleados set fecinc_em=add_months(fecinc_em, 12) where trunc(months_between(fecnac_em, fecinc_em) / 12-) < 18;
+alter table Empleados add constraint chk_emp_adulto check(trunc(months_between(fecinc_em, fecnac_em) / 12) >= 18);
 
 /*---------------------------------------------------------------------*/
 /* 3. Añade la columna NIVEL_HE NUMBER(2), a la tabla HABIEMPL con las siguientes restricciones:
 	
 	- Por defecto vale 5.
 	- Valores válidos entre 1 y 10.
+
+alter table Habiempl add(nivel_he number(2) default 5);
+alter table Habiempl add constraint chk_nivel_he check(nivel_he between 1 and 10);
 */
 
 
