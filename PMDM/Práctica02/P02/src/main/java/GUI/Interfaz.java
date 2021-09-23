@@ -102,6 +102,53 @@ public class Interfaz extends JFrame{
         ofertaField.setEditable(false);
         ofertaField.setBackground(Color.LIGHT_GRAY);
         
+        // Coloca las etiquetas en un panel
+        JPanel labelPane = new JPanel();
+        labelPane.setLayout(new GridLayout(0, 1)); // 0 filas, 1 columna
+        labelPane.add(tituloLabel);
+        labelPane.add(fechaLabel);
+        labelPane.add(desarrolladoraLabel);
+        labelPane.add(precioLabel);
+        labelPane.add(ofertaLabel);
+
+        // Coloca los campos en otro panel
+        JPanel fieldPane = new JPanel();
+        fieldPane.setLayout(new GridLayout(0, 1)); // 0 filas, 1 columna
+        fieldPane.add(tituloField);
+        fieldPane.add(fechaField);
+        fieldPane.add(desarrolladoraField);
+        fieldPane.add(precioField);
+        fieldPane.add(ofertaField);
+        
+        // Coloca los botones (atrás, siguiente) en otro panel
+        JPanel moveButtonsPane = new JPanel();
+        moveButtonsPane.setLayout(new BorderLayout()); // 1 fila, 0 columnas
+        moveButtonsPane.add(anteriorButton, BorderLayout.WEST);
+        moveButtonsPane.add(siguienteButton, BorderLayout.EAST);
+        
+        // Coloca los botones (cancelar, aceptar) en otro panel
+        JPanel actionButtonsPane = new JPanel();
+        actionButtonsPane.setLayout(new BorderLayout());
+        actionButtonsPane.add(cancelarButton, BorderLayout.WEST);
+        actionButtonsPane.add(aceptarButton, BorderLayout.EAST);
+
+        // Coloca los 4 botones en un mismo panel
+        JPanel buttons = new JPanel();
+        buttons.setLayout(new BorderLayout());
+        buttons.add(moveButtonsPane, BorderLayout.CENTER);
+        
+        // Incluye tres paneles en otro panel permanente.
+        // Las etiquetas van a la izquierda y los textFields a la derecha.
+        // Los botones van abajo
+        JPanel contentPane = new JPanel();
+        contentPane.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(labelPane, BorderLayout.CENTER);
+        contentPane.add(fieldPane, BorderLayout.EAST);
+        contentPane.add(buttons, BorderLayout.SOUTH);
+        
+        setContentPane(contentPane);
+        
         // Acciones al presionar Enter en los textFields (solo si están activos)
         tituloField.addActionListener((ActionEvent e) -> {
             String n = tituloField.getText();
@@ -124,6 +171,7 @@ public class Interfaz extends JFrame{
             oferta = n;
         });
         
+        // Al inicio
         anteriorButton.setEnabled(false);
         siguienteButton.setEnabled(true);
         
@@ -134,16 +182,18 @@ public class Interfaz extends JFrame{
                 actual = actual.getPrevious();
                 // Comprobaciones para activar/desactivar el botón "Anterior"
                 if (actual.getPrevious() == null) anteriorButton.setEnabled(false);
-                else anteriorButton.setEnabled(true);
+                else  {
+                    anteriorButton.setEnabled(true);
+                    
+                    tituloField.setText(actual.getTitulo());
+                    fechaField.setText(actual.getFecha());
+                    desarrolladoraField.setText(actual.getDesarrolladora());
+                    precioField.setText(String.valueOf(actual.getPrecio()) + " €");
+                    ofertaField.setText(actual.getOferta());
+                }
                 
                 siguienteButton.setEnabled(true);
                 
-                tituloField.setText(actual.getTitulo());
-                fechaField.setText(actual.getFecha());
-                desarrolladoraField.setText(actual.getDesarrolladora());
-                precioField.setText(String.valueOf(actual.getPrecio()) + " €");
-                ofertaField.setText(actual.getOferta());
-
                 tituloField.setEditable(false);
                 tituloField.setBackground(Color.LIGHT_GRAY);
                 fechaField.setEditable(false);
@@ -154,6 +204,12 @@ public class Interfaz extends JFrame{
                 precioField.setBackground(Color.LIGHT_GRAY);
                 ofertaField.setEditable(false);
                 ofertaField.setBackground(Color.LIGHT_GRAY);
+                
+                if (siguienteButton.isEnabled()) {
+                    buttons.remove(actionButtonsPane);
+                    buttons.validate();
+                    contentPane.validate();
+                }
             }
         });
         
@@ -162,16 +218,17 @@ public class Interfaz extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 actual = actual.getNext();
                 // Comprobaciones para activar/desactivar el botón "Siguiente"
-                if (actual.getNext() == null) siguienteButton.setEnabled(false);
-                else siguienteButton.setEnabled(true);
-                
+                if (actual == null) siguienteButton.setEnabled(false);
+                else {
+                    siguienteButton.setEnabled(true);
+
+                    tituloField.setText(actual.getTitulo());
+                    fechaField.setText(actual.getFecha());
+                    desarrolladoraField.setText(actual.getDesarrolladora());
+                    precioField.setText(String.valueOf(actual.getPrecio()) + " €");
+                    ofertaField.setText(actual.getOferta());
+                }
                 anteriorButton.setEnabled(true);
-                
-                tituloField.setText(actual.getTitulo());
-                fechaField.setText(actual.getFecha());
-                desarrolladoraField.setText(actual.getDesarrolladora());
-                precioField.setText(String.valueOf(actual.getPrecio()) + " €");
-                ofertaField.setText(actual.getOferta());
 
                 tituloField.setEditable(false);
                 tituloField.setBackground(Color.LIGHT_GRAY);
@@ -184,51 +241,16 @@ public class Interfaz extends JFrame{
                 ofertaField.setEditable(false);
                 ofertaField.setBackground(Color.LIGHT_GRAY);
                 
+                if (!siguienteButton.isEnabled()) {
+                    buttons.add(moveButtonsPane, BorderLayout.CENTER);
+                    buttons.add(actionButtonsPane, BorderLayout.SOUTH);
+                    buttons.validate();
+                    contentPane.validate();
+                }
             }
         });
         
-        // Coloca las etiquetas en un panel
-        JPanel labelPane = new JPanel();
-        labelPane.setLayout(new GridLayout(0, 1)); // 0 filas, 1 columna
-        labelPane.add(tituloLabel);
-        labelPane.add(fechaLabel);
-        labelPane.add(desarrolladoraLabel);
-        labelPane.add(precioLabel);
-        labelPane.add(ofertaLabel);
-
-        // Coloca los campos en otro panel
-        JPanel fieldPane = new JPanel();
-        fieldPane.setLayout(new GridLayout(0, 1)); // 0 filas, 1 columna
-        fieldPane.add(tituloField);
-        fieldPane.add(fechaField);
-        fieldPane.add(desarrolladoraField);
-        fieldPane.add(precioField);
-        fieldPane.add(ofertaField);
         
-        // Coloca los botones (atrás, siguiente) en otro panel
-        JPanel moveButtonsPane = new JPanel();
-        moveButtonsPane.setLayout(new GridLayout(1, 0)); // 1 fila, 0 columnas
-        moveButtonsPane.add(anteriorButton);
-        moveButtonsPane.add(siguienteButton);
-        
-        // Coloca los botones (cancelar, aceptar) en otro panel
-        JPanel actionButtonsPane = new JPanel();
-        actionButtonsPane.setLayout(new GridLayout(1, 0)); // 1 fila, 0 columnas
-        actionButtonsPane.add(cancelarButton);
-        actionButtonsPane.add(aceptarButton);
-
-        // Incluye tres paneles en otro panel permanente.
-        // Las etiquetas van a la izquierda y los textFields a la derecha.
-        // Los botones van abajo
-        JPanel textContentPane = new JPanel();
-        textContentPane.setBorder(
-               BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        textContentPane.setLayout(new BorderLayout());
-        textContentPane.add(labelPane, BorderLayout.CENTER);
-        textContentPane.add(fieldPane, BorderLayout.EAST);
-        textContentPane.add(moveButtonsPane, BorderLayout.SOUTH);
-        
-        setContentPane(textContentPane);
     }
 
     public static void main(String[] args) {
