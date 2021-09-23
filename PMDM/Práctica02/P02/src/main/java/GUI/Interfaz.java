@@ -8,9 +8,8 @@ import javax.swing.*;
 public class Interfaz extends JFrame{
     // Atributos:
     
-        // Nodo actual y último
+        // Nodo actual
     private static Videojuego actual;
-    private static Videojuego last;
     
         // Elementos de la estructura
     Videojuego vj1 = new Videojuego("League of legends", "Riot Games", "29/02/2020", "0.0", "s");
@@ -57,11 +56,11 @@ public class Interfaz extends JFrame{
         
         // Creamos los TextFields
         // Al inicio del programa, tienen los valores del primer elemento (actual)
-        TextField tituloField = new TextField(actual.getTitulo(), 40);
-        TextField fechaField = new TextField(actual.getFecha(), 40);
-        TextField desarrolladoraField = new TextField(actual.getDesarrolladora(), 40);
-        TextField precioField = new TextField(String.valueOf(actual.getPrecio()), 40);
-        TextField ofertaField = new TextField(actual.getOferta(), 40);
+        TextField tituloField = new TextField(actual.getTitulo(), 30);
+        TextField fechaField = new TextField(actual.getFecha(), 10);
+        TextField desarrolladoraField = new TextField(actual.getDesarrolladora(), 30);
+        TextField precioField = new TextField(String.valueOf(actual.getPrecio()), 6);
+        TextField ofertaField = new TextField(actual.getOferta(), 4);
         // Al inicio del programa, ninguno es editable, y se les modifica el
         // color para hacerlo visible
         tituloField.setEditable(false);
@@ -141,7 +140,7 @@ public class Interfaz extends JFrame{
         /*-------------------------------------------------*/
         // ----- INICIO DEL CONTROL DE EVENTOS ----- //
         
-        // Acciones de JButtons
+        // Acciones de JButtons de moveButtonsPane
         
             // JButton "Anterior"
         anteriorButton.addActionListener(new ActionListener() {  // Evento de boton.
@@ -160,6 +159,10 @@ public class Interfaz extends JFrame{
                         // hay que activarlo (puesto que hemos retrocido y ya
                         // volvería a existir un elemento siguiente)
                         siguienteButton.setEnabled(true);
+                    if (actual.getPrevious() == null)
+                        // Volvemos a comprobar si estamos en el primero
+                        anteriorButton.setEnabled(false);
+
                 }
                 
                 // Hay que actualizar el texto de los TextFields
@@ -172,55 +175,165 @@ public class Interfaz extends JFrame{
         });
         
             // JButton "Nuevo"
-            siguienteButton.addActionListener(new ActionListener() {  // Evento de boton.
+            nuevoButton.addActionListener(new ActionListener() {  // Evento de boton.
             @Override
             public void actionPerformed(ActionEvent e) {
-                // A escribir código para el botón "Nuevo".
+                // Primero hacemos desaparecer moveButtonsPane
+                contentPane.remove(moveButtonsPane);
+                contentPane.validate();
+                // Luego colocamos actionButtonsPane
+                contentPane.add(actionButtonsPane, BorderLayout.SOUTH);
+                contentPane.validate();
+                
+                // Cambiamos los TextFields por unos vacíos
+                tituloField.setText("");
+                fechaField.setText("");
+                desarrolladoraField.setText("");
+                precioField.setText("");
+                ofertaField.setText("");
+                // Activamos los TextFields y les cambiamos el color
+                tituloField.setEditable(true);
+                tituloField.setFocusable(true);
+                tituloField.setBackground(Color.WHITE);
+
+                fechaField.setEditable(true);
+                fechaField.setFocusable(true);
+                fechaField.setBackground(Color.WHITE);
+
+                desarrolladoraField.setEditable(true);
+                desarrolladoraField.setFocusable(true);
+                desarrolladoraField.setBackground(Color.WHITE);
+
+                precioField.setEditable(true);
+                precioField.setFocusable(true);
+                precioField.setBackground(Color.WHITE);
+
+                ofertaField.setEditable(true);
+                ofertaField.setFocusable(true);
+                ofertaField.setBackground(Color.WHITE);
             }
         });
-        
-        
+            
             // JButton "Siguiente"
         siguienteButton.addActionListener(new ActionListener() {  // Evento de boton.
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                
-                actual = actual.getNext();
-                
+                // Comprobar límites
                 if (actual.getNext() == null)
-                    last = actual;
-                
-                // Comprobaciones para activar/desactivar el botón "Siguiente"
-                if (actual == null) siguienteButton.setEnabled(false);
+                    // Si estamos en el último elemento desactivamos el botón
+                    siguienteButton.setEnabled(false);
                 else {
-                    siguienteButton.setEnabled(true);
-
-                    tituloField.setText(actual.getTitulo());
-                    fechaField.setText(actual.getFecha());
-                    desarrolladoraField.setText(actual.getDesarrolladora());
-                    precioField.setText(String.valueOf(actual.getPrecio()) + " €");
-                    ofertaField.setText(actual.getOferta());
+                    // En caso de que sea cualquier otro, pasamos al siguiente
+                    actual = actual.getNext();
+                    if (!anteriorButton.isEnabled())
+                        // Si el botón "Anterior" está desactivado, lo activamos
+                        // porque al haber avanzado, ya existe uno posterior
+                        anteriorButton.setEnabled(true);
+                    if (actual.getNext() == null)
+                        // Comprobamos ahora por si estamos en el último, de nuevo
+                        siguienteButton.setEnabled(false);
                 }
-                anteriorButton.setEnabled(true);
 
+                // Hay que actualizar el texto de los TextFields
+                tituloField.setText(actual.getTitulo());
+                fechaField.setText(actual.getFecha());
+                desarrolladoraField.setText(actual.getDesarrolladora());
+                precioField.setText(String.valueOf(actual.getPrecio()) + " €");
+                ofertaField.setText(actual.getOferta());
+            }
+        });
+        
+        // Acciones de JButtons de actionButtonsPane
+        
+            // JButton "Cancelar"
+        cancelarButton.addActionListener(new ActionListener() {  // Evento de boton.
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Tenemos que restablecer moveButtonsPane
+                contentPane.remove(actionButtonsPane);
+                contentPane.validate();
+                contentPane.add(moveButtonsPane, BorderLayout.SOUTH);
+                contentPane.validate();
+                
+                // Hay que actualizar el texto de los TextFields
+                tituloField.setText(actual.getTitulo());
+                fechaField.setText(actual.getFecha());
+                desarrolladoraField.setText(actual.getDesarrolladora());
+                precioField.setText(String.valueOf(actual.getPrecio()) + " €");
+                ofertaField.setText(actual.getOferta());
+                
+                // Volvemos a desactivar los campos
                 tituloField.setEditable(false);
+                tituloField.setFocusable(false);
                 tituloField.setBackground(Color.LIGHT_GRAY);
+
                 fechaField.setEditable(false);
+                fechaField.setFocusable(false);
                 fechaField.setBackground(Color.LIGHT_GRAY);
+
                 desarrolladoraField.setEditable(false);
+                desarrolladoraField.setFocusable(false);
                 desarrolladoraField.setBackground(Color.LIGHT_GRAY);
+
                 precioField.setEditable(false);
+                precioField.setFocusable(false);
                 precioField.setBackground(Color.LIGHT_GRAY);
+
                 ofertaField.setEditable(false);
+                ofertaField.setFocusable(false);
                 ofertaField.setBackground(Color.LIGHT_GRAY);
                 
-                if (!siguienteButton.isEnabled()) {
-                    buttons.add(moveButtonsPane, BorderLayout.CENTER);
-                    buttons.add(actionButtonsPane, BorderLayout.SOUTH);
-                    buttons.validate();
-                    contentPane.validate();
-                }
+            }
+        });
+        
+            // JButton "Aceptar"
+        aceptarButton.addActionListener(new ActionListener() {  // Evento de boton.
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Tenemos que restablecer moveButtonsPane
+                contentPane.remove(actionButtonsPane);
+                contentPane.validate();
+                contentPane.add(moveButtonsPane, BorderLayout.SOUTH);
+                contentPane.validate();
+                
+                // Creamos el nuevo elemento
+                // Al crearlo se añade automáticamente a la estructura
+                actual = new Videojuego(
+                        tituloField.getText(),
+                        desarrolladoraField.getText(),
+                        fechaField.getText(),
+                        precioField.getText(),
+                        ofertaField.getText()
+                );
+                
+                // Hay que actualizar el texto de los TextFields
+                tituloField.setText(actual.getTitulo());
+                fechaField.setText(actual.getFecha());
+                desarrolladoraField.setText(actual.getDesarrolladora());
+                precioField.setText(String.valueOf(actual.getPrecio()) + " €");
+                ofertaField.setText(actual.getOferta());
+                
+                // Volvemos a desactivar los campos
+                tituloField.setEditable(false);
+                tituloField.setFocusable(false);
+                tituloField.setBackground(Color.LIGHT_GRAY);
+
+                fechaField.setEditable(false);
+                fechaField.setFocusable(false);
+                fechaField.setBackground(Color.LIGHT_GRAY);
+
+                desarrolladoraField.setEditable(false);
+                desarrolladoraField.setFocusable(false);
+                desarrolladoraField.setBackground(Color.LIGHT_GRAY);
+
+                precioField.setEditable(false);
+                precioField.setFocusable(false);
+                precioField.setBackground(Color.LIGHT_GRAY);
+
+                ofertaField.setEditable(false);
+                ofertaField.setFocusable(false);
+                ofertaField.setBackground(Color.LIGHT_GRAY);
+                
             }
         });
         

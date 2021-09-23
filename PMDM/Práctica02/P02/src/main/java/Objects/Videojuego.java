@@ -76,7 +76,6 @@ public final class Videojuego {
     /*------------------------------*/
     public void setFecha(String s) {
         /* s debe tener el formato (DD/MM/YYYY)*/
-        s = s.trim();
         this.fecha = new GregorianCalendar(
                 Integer.parseInt(s.substring(6, 10)),
                 Integer.parseInt(s.substring(3, 5)) - 1, // Porque el calendario va de 0 a 11
@@ -109,7 +108,7 @@ public final class Videojuego {
     }
     
     public void setOferta(String oferta) {
-        this.enOferta = oferta.equals("s");
+        this.enOferta = oferta.trim().equals("Sí");
     }
     
     /*------------------------------*/
