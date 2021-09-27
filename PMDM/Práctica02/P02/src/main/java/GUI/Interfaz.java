@@ -23,13 +23,6 @@ public class Interfaz extends JFrame{
     Videojuego vj9 = new Videojuego("Portal 2", "Valve", "18/12/2006", "20.0", "n");
     Videojuego vj10 = new Videojuego("Forza Horizon 5", "Playground Games", "09/11/2021", "59.99", "n");
     
-        // Valores para los campos de texto
-    private String titulo;
-    private String fecha;
-    private String desarrolladora;
-    private String precio;
-    private String oferta;
-    
     /*---------------------------------------------------------------*/
     // Constructores: 
     public Interfaz() {
@@ -355,28 +348,6 @@ public class Interfaz extends JFrame{
                 ofertaField.setBackground(Color.LIGHT_GRAY);
                 
             }
-        });
-        
-        // Acciones al presionar Enter en los textFields (solo si están activos)
-        tituloField.addActionListener((ActionEvent e) -> {
-            String n = tituloField.getText();
-            titulo = n;
-        });
-        fechaField.addActionListener((ActionEvent e) -> {
-            String n = fechaField.getText();
-            fecha = n;
-        });
-        desarrolladoraField.addActionListener((ActionEvent e) -> {
-            String n = desarrolladoraField.getText();
-            desarrolladora = n;
-        });
-        precioField.addActionListener((ActionEvent e) -> {
-            String n = precioField.getText();
-            precio = n;
-        });
-        ofertaField.addActionListener((ActionEvent e) -> {
-            String n = ofertaField.getText();
-            oferta = n;
         });
     }
 
