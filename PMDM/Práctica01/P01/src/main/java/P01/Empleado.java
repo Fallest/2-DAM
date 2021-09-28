@@ -58,7 +58,6 @@ public class Empleado {
     
     public void setSueldo() {
         boolean ejec;
-        int sueldo;
         
         InputStreamReader stream = new InputStreamReader(System.in);
         BufferedReader teclado = new BufferedReader(stream);
