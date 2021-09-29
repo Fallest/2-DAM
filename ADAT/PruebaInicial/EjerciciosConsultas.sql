@@ -234,62 +234,292 @@ VENTAS ZONA SUR
 12.- Para cada extensión telefónica, hallar cuántos empleados la usan y el salario medio de éstos.
 
 SQL>
+select exttel_em, count(*), avg(salario_em)
+from Empleados
+group by exttel_em;
 
 RESULTADO:
+EXTTEL_EM   COUNT(*) AVG(SALARIO_EM)
+--------- ---------- ---------------
+1111               1         7200000
+12124              1         3100000
+1239               1         6200000
+2133               1         5200000
+2233               1         4500000
+23838              1         5000000
+3838               1         3200000
+                   3         1500000
 
 ************************************************************************
 13.- Hallar el salario medio por departamento para aquellos departamentos cuyo salario máximo es inferior al salario medio de todos los empleados.
 
 SQL>
+select nomb_de, avg(salario_em)
+from Empleados, Departamentos
+where dept_em = cod_de
+group by nomb_de
+having max(salario_em) < (
+  select avg(E.salario_em)
+  from Empleados E
+);
 
 RESULTADO:
-
+NOMB_DE                                  AVG(SALARIO_EM)
+---------------------------------------- ---------------
+PRODUCCIÓN ZONA SUR                              1900000
 
 ************************************************************************
 14.- Mostrar la habilidad que no tiene ningún empleado.
 
 SQL>
+select cod_ha 
+from Habilidades, Habiempl
+where codha_he (+) = cod_ha
+minus
+select cod_ha 
+from Habilidades, Habiempl
+where codha_he = cod_ha;
 
 RESULTADO:
+COD_H
+-----
+MECAN
+TELEF
+
 ************************************************************************
 15.- Mostrar los nombres propios de los empleados que tienen al menos dos habilidades.
 
 SQL>
+select nomb_em 
+from Empleados, Habiempl
+where cod_em = codem_he
+group by nomb_em
+having 2 <= count(*);
 
 RESULTADO:
+NOMB_EM
+----------------------------------------
+ALADA VERAZ, JUANA
+RUIZ DE LOPERA, MANUEL
+
 ************************************************************************
 16.- Realiza un informe que muestre el nombre de cada departamento, nombre y salario de cada empleado y salario medio por departamento.
 
 SQL>
+set headsep |
+ttitle "ACTIVIDAD 16"
+
+column departamento heading 'Nombre Departamento'
+column empleado heading 'Nombre de Empleado'
+column salario_empleado heading 'Salario Empleado'
+
+set linesize 80
+set pagesize 100
+set newpage 1
+
+break on departamento skip 1
+compute avg label "-Media" of salario_empleado on departamento
+
+select nomb_de "departamento", nomb_em "empleado", salario_em 
+
+"salario_empleado" 
+from empleados, departamentos
+where dept_em = cod_de
+order by nomb_de;
+
+ttitle off;
 
 RESULTADO:
+Mié Sep 29                                                           página    2
+                                  ACTIVIDAD 16
+
+Nombre Departamento
+----------------------------------------
+Nombre de Empleado                       Salario Empleado
+---------------------------------------- ----------------
+
+
+PRODUCCIÓN ZONA SUR
+FORZADO LÓPEZ, JUAN                               1600000
+
+
+PÉREZ MUÑOZ, ALFONSO                              1300000
+
+
+MANDO CORREA, ROSA                                3100000
+
+
+MASCULLAS ALTO, ELOISA                            1600000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  1900000
+
+
+
+VENTAS ZONA SUR
+MONFORTE CID, ROLDÁN                              5200000
+
+
+TOPAZ ILLÁN, CARLOS                               3200000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  4200000
+
+
+
+
+10 filas seleccionadas.
+
+
+Mié Sep 29                                                           página    1
+                                  ACTIVIDAD 16
+
+Nombre Departamento
+----------------------------------------
+Nombre de Empleado                       Salario Empleado
+---------------------------------------- ----------------
+ADMINISTRACIÓN ZONA SUR
+ALADA VERAZ, JUANA                                6200000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  6200000
+
+
+DIRECCIÓN GENERAL
+RUIZ DE LOPERA, MANUEL                            7200000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  7200000
+
+
+INVESTIGACIÓN Y DISEÑO
+MANRIQUE BACTERIO, LUISA                          4500000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  4500000
+
+
+JEFATURA FÁBRICA ZONA SUR
+GOZQUE ALTANERO, CARLOS                           5000000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  5000000
+
+
+PRODUCCIÓN ZONA SUR
+FORZADO LÓPEZ, JUAN                               1600000
+
+
+PÉREZ MUÑOZ, ALFONSO                              1300000
+
+
+MANDO CORREA, ROSA                                3100000
+
+
+MASCULLAS ALTO, ELOISA                            1600000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  1900000
+
+
+VENTAS ZONA SUR
+MONFORTE CID, ROLDÁN                              5200000
+
+
+TOPAZ ILLÁN, CARLOS                               3200000
+
+****************************************
+                                         ----------------
+
+-Media
+                                                  4200000
 
 ************************************************************************
 17.- Crear la tabla TEMP(CODEMP, NOMDEPT, NOMEMP, SALEMP) cuyas columnas tienen el mismo tipo y tamaño las similares existentes en la BD. Insertar en dicha tabla el código de empleado, nombre de dpto, nombre de empleado y salario de los empleados de los centros de MURCIA.
 
 SQL>
+create table Temp (codemp, nomdept, nomemp, salemp)
+as select cod_em, nomb_de, nomb_em, salario_em
+from Empleados, Departamentos, Centros
+where dept_em = cod_de
+and cod_ce = centro_de
+and poblac_ce = 'MURCIA';
 
 RESULTADO:
+CODEMP NOMDEPT
+---------- ----------------------------------------
+NOMEMP                                       SALEMP
+---------------------------------------- ----------
+         2 INVESTIGACIÓN Y DISEÑO
+MANRIQUE BACTERIO, LUISA                    4500000
+
+         1 DIRECCIÓN GENERAL
+RUIZ DE LOPERA, MANUEL                      7200000
+
 
 ************************************************************************
 18.- Incrementar en un 10% los salarios de los empleados que ganen menos de 5.000.000 de ptas.
 
 SQL>
-
+update Empleados
+set salario_em = salario_em*1.10
+where salario_em < 5000000;
 RESULTADO:
+6 filas actualizadas.
 
 ************************************************************************
 19.- Deshacer la operación anterior.
 
 SQL>
-
+rollback;
 RESULTADO:
-
+Rollback terminado.
 ************************************************************************
 20.- Borrar la tabla TEMP y todas las anteriores.
 
 SQL>
+drop table Temp cascade constraints;
+drop table Departamentos cascade constraints;
+drop table Empleados cascade constraints;
+drop table Centros cascade constraints;
+drop table Habilidades cascade constraints;
+drop table Habiempl cascade constraints;
+drop table Hijos cascade constraints;
 
 RESULTADO:
+Tabla borrada.
+
+Tabla borrada.
+
+Tabla borrada.
+
+Tabla borrada.
+
+Tabla borrada.
+
+Tabla borrada.
+
+Tabla borrada.
 
 ************************************************************************
