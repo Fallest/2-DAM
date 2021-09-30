@@ -1,0 +1,116 @@
+set serveroutput on
+
+
+// Esto es un bloque anónimo:
+declare
+vnombre varchar2(15):='David';
+
+begin
+  dbms_output.put_line('Hola ' || vnombre);
+  
+  dbms_output.put_line(9/3);
+end;
+/*--------------------------------------*/
+// Esto es un bloque con nombre:
+create procedure saludo
+as
+	nom varchar2(15):='David';
+begin
+	dbms_output.put_line('Hola ' || nom);
+end;
+/*--------------------------------------*/
+create or replace procedure saludo
+as
+	nom varchar2(15):='David';
+	fecha date:=sysdate;
+begin
+	dbms_output.put_line('Hola ' || nom);
+	dbms_output.put_line('Hoy es ' || to_char(fecha));
+end;
+/*--------------------------------------*/
+// Si quiero ver los errores:
+set showerrors on
+/*--------------------------------------*/
+// para pasar params
+create or replace procedure saludo (nom varchar2)
+as
+	fecha date:=sysdate;
+begin
+	dbms_output.put_line('Hola ' || nom);
+	dbms_output.put_line('Hoy es ' || to_char(fecha));
+end;
+/*--------------------------------------*/
+// las funciones se ejecutan con dual o construyendo un bloque donde se use un put_line con lo que devuelve la funcion
+create or replace function saludo1 (nom varchar2)
+return varchar2
+as
+	fecha date:=sysdate;
+begin
+	dbms_output.put_line('Hola ' || nom);
+	return ('Hoy es ' || to_char(fecha));
+end;
+
+/*--------------------------------------*/
+create or replace procedure primeros30
+as
+    n number(3):=1;
+begin
+    while n <= 30 
+    loop
+        dbms_output.put_line('Número ' || (n+1) || ': ' || n);
+        n:=n+1;
+        
+    end loop;
+end;
+/*--------------------------------------*/
+create or replace procedure pares30
+as
+    n number(3):=1;
+    i number(3):=1;
+begin
+    while n <= 30
+    loop
+    
+        if n/2=trunc(n/2) then
+            dbms_output.put_line('Número ' || i || ': ' || n);
+            i:=i+1;
+        end if;
+        
+        n:=n+1;
+        
+    end loop;
+end;
+/*--------------------------------------*/
+create or replace procedure sumas
+as
+    n number(3):=1;
+    sumaPar number(3):=0;
+    sumaImpar number(3):=0;
+begin
+    while n <= 30
+    loop
+        if n/2=trunc(n/2) then
+            sumaPar:=sumaPar+n;
+	      else
+	         sumaImpar:=sumaImpar+n;
+        end if;
+        
+        n:=n+1;
+    end loop;
+    dbms_output.put_line('Suma de pares: ' || sumaPar);
+    dbms_output.put_line('Suma de impares: ' || sumaImpar);
+end;
+/*--------------------------------------*/
+create or replace function suma30
+return varchar2
+as
+    n number(3):=1;
+    suma number(3):=0;
+begin
+    while n <= 30
+    loop
+        suma:=suma+n;
+        n:=n+1;
+    end loop;
+    return ('Suma: ' || suma);
+end;

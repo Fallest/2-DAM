@@ -1,0 +1,23 @@
+create or replace procedure insertar(cod number)
+as
+begin
+  insert into emple(emp_no, dept_no) values (cod, 0);
+end;
+/*-------------------------------------------------*/
+create or replace procedure actualizar(cod number, nombre varchar2)
+as
+begin
+  update emple
+  set apellido=nombre
+  where emp_no = cod;
+end;
+/*-------------------------------------------------*/
+create or replace procedure guardar(cod number)
+as
+  nombre varchar2(30):='';
+begin
+  select apellido
+  into nombre
+  from emple
+  where emp_no = cod;
+end;

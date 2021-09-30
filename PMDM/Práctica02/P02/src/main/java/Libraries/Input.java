@@ -1,5 +1,10 @@
 package Libraries;
 
+
+/*
+    ESTA CLASE NO HACE NADA EN ESTE PROYECTO
+    Es una clase para leer datos por consola: NO SE USA EN ESTE PROYECTO.
+*/
 import Exceptions.Exceptions;
 import java.io.BufferedReader;
 import java.io.IOException;

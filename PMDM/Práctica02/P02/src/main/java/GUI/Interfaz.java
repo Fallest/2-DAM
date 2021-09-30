@@ -1,17 +1,170 @@
 package GUI;
-
+// Hay que importar Objects.Videojuego porque está en otro paquete.
 import Objects.Videojuego;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+/**
+ * Llegamos al asunto.
+ * Al crear una interfaz, diría que lo que más importa es organizarse, y qué mejor
+ * que comentar? Así que si quieres aprender a organizarte, usa mis comentarios 
+ * como una guía.
+ * Al final, lo que importa es que sepas plasmar tus ideas en comentarios, para 
+ * luego leer tu porpio comentario y entender exactamente qué quieres hacer y dónde.
+ * 
+ * Clase Interfaz, hereda de JFrame, lo que significa que no tendremos que crear 
+ * un JFrame (puesto que lo crearemos con super() en este constructor).
+ * Por si no sabéis lo que es aún, super es la clase de la que hereda esta (en este
+ * caso, es JFrame). Si haces super() es como si hicieras JFrame(), es decir, llamas
+ * al Constructor de JFrame.
+ * 
+ * Ahora, vamos en orden. 
+ * Una clase tiene atributos, y los atributos van a ser las cosas que vas a necesitar.
+ * Qué voy a necesitar? Pues la lista es larga, pero la vamos a resumir:
+ * -Saber donde estoy en la lista, para poder recorrerla.
+ * -Una lista que NO esté vacía, así que vamos a darle valores.
+ * -Un constructor, para, tu sabes, hacer cosas.
+ * 
+ * -Un método main, que en realidad puede estar hasta en una clase diferente, 
+ * pero aquí está bien.
+ * 
+ * Las dos primeras cosas son fáciles, lo tocho es el constructor.
+ * Y en realidad, también es fácil, vamos a ver por qué.
+ * Primero que nada, qué hace un constructor?
+ * 
+ * Exacto, construir, muy bien.
+ * 
+ * Pues vamos a ver, qué necesitas para construir algo?
+ * 
+ * Exacto, los materiales, muy bien.
+ * 
+ * Pues vamos a pensar qué necesitamos:
+ * -Muchos botones.
+ * -Muchas etiquetas.
+ * -Muchos campos de texto.
+ * -Paneles para colocar cada cosa encima.
+ * 
+ * Hasta ahí está bien de materiales. Ahora vamos a profundizar un poco en cada
+ * uno:
+ * Los botones tienen que tener:
+ * -Un texto que muestren.
+ * Y los botones tienen que hacer:
+ * -Hacer lo que indican.
+ * -Activarse o desactivarse, según lo que toque.
+ * 
+ * Las etiquetas tienen que tener:
+ * -Un texto que muestran.
+ * -Y poco más, solo hacen eso vaya.
+ * 
+ * Los campos de texto tienen que tener:
+ * -Mostrar los datos del campo correspondiente cuando toque.
+ * -Estar en blanco cuando toque.
+ * 
+ * Y los campos tienen que hacer:
+ * -No ser editables cuando muestren datos.
+ * -Ser editables cuando no muestren datos.
+ * -Registrar los datos que se escriban en ellos cuando toque.
+ * 
+ * Hasta aquí espero que se entienda. Ahora viene lo que puede tener más complicación.
+ * El tipo de programación que vamos a usar se llama Programación por Eventos.
+ * Este tipo de programación se basa en uno (o varios) escuchadores (Listeners).
+ * Estos listeners van a estar atentos a que algo ocurra. Cuando algo ocurre se 
+ * le llama Evento. El programa va a reaccionar a estos eventos.
+ * Un evento puede ser: hacer un clic, escribir, pasar el ratón por encima... cualquier
+ * cosa básicamente.
+ * 
+ * Los eventos principales que vamos a registrar son...
+ * Exacto! Clics. En concreto, clics en los botones.
+ * Pues ya sabemos a qué aplicacarle estos "escuchadores": a los botones!
+ * Se les añade con addActionListener(new ActionPerformed())
+ * addActionListener es añadirle el escuchador, y ActionPerformed es el objeto
+ * que se lanza cuando "algo" ocurre.
+ * Esto de por sí va a hacer que el programa detecte cuando "algo" ocurre (en
+ * este caso, un clic en el botón). Pero también queremos que haga algo cuando
+ * lo detecte, no? Pues para decírselo hay que usar una clase anónima (esas tan
+ * bonitas) para sobreescribir el método que existe en ActionPerformed (y que está
+ * vacío) para decirle qué hacer cuando se presione el botón.
+ * Entonces, dentro de esta clase anónima vamos a sobreescribir el método 
+ * ActionPerformed(ActionEvent e).
+ * Este ActionEvent es el clic en cuestión, pero a lo que vamos.
+ * Dentro de este método vamos a hacer todos los ifs y lo que nos haga falta para
+ * que los botones hagan lo que tienen que hacer, así que veamos cada caso a parte.
+ * 
+ * Qué hacer cuando queremos ir hacia atrás:
+ * -Si estamos en el primero, desactivamos el botón (no podemos retroceder).
+ * -En cualquier otro caso, retrocedemos (actual = anterior).
+ * -Y actualizamos los datos que estamos mostrando (campoTexto.setText(nuevo texto)).
+ * -Comprobamos si el botón "siguiente" está desactivado. Si lo está, lo volvemos 
+ * a activar (si estaba desactivado, era porque estabamos en el final de la lista
+ * y no había siguiente, sin embargo, al haber retrocedido, podemos volverlo a activar).
+ * -Comprobamos si hemos llegado al primero (sí, otra vez), y si estamos en el primero,
+ * desactivamos el botón "retroceder" (no se puede retroceder más).
+ * 
+ * Qué hacer cuando queremos avanzar: (pues lo contrario que cuando quiero retroceder)
+ * -Si estamos en el último, desactivamos el botón (no podemos avanzar).
+ * -En cualquier otro caso, avanzamos (actual = siguiente).
+ * -Y actualizamos los datos que estamos mostrando (campoTexto.setText(nuevo texto)).
+ * -Comprobamos si el botón "anterior" está desactivado. Si lo está, lo volvemos 
+ * a activar (si estaba desactivado, era porque estabamos en el principio de la lista
+ * y no había anterior, sin embargo, al haber avanzado, podemos volverlo a activar).
+ * -Comprobamos si hemos llegado al último (sí, otra vez), y si estamos en el último,
+ * desactivamos el botón "avanzar" (no se puede avanzar más).
+ * 
+ * (Como comprobaréis, son exactamente iguales)
+ * 
+ * Qué hacer cuando queremos crear un nuevo Videojuego (u objeto en cualquier caso):
+ * -Tenemos, primero que nada, esconder los botones de avanzar, nuevo, y retroceder.
+ * -Tenemos que limpiar los campos de texto.
+ * -Tenemos que activar los campos de texto.
+ * -Tenemos que activar los botones "cancelar" y "guardar".
+ * -Y ea, ya está.
+ * 
+ * Vamos con guardar datos o no.
+ * Qué hacer cuando queremos CANCELAR y no guardar lo que hemos escrito:
+ * -Quitamos los botones "cancelar" y "guardar".
+ * -Volvemos a poner los botones "avanzar", "retroceder", y "nuevo".
+ * -Desactivamos los campos de texto.
+ * -Rescatamos los datos que tenían los campos antes de darle a "nuevo" con el 
+ * atributo "actual", y asignamos a los campos de texto los datos de ese juego.
+ * -Y ea, terminado.
+ * 
+ * Qué hacer cuando queremos guardar los datos que has escrito: (casi igual a cancelar)
+ * -Quitamos los botones "cancelar" y "guardar".
+ * -Volvemos a poner los botones "avanzar", "retroceder", y "nuevo".
+ * -Desactivamos los campos de texto.
+ * -En vez de rescatar los datos de "actual", vamos a crear un nuevo juego. Al
+ * crearlo, se inserta solo en la estructura (por la forma en la que hemos creado 
+ * los videojuegos), y además se va a insertar en el principio (importante). Así que
+ * en vez de crear una nueva variable Videojuego, y luego volver a asignar el actual
+ * al inicio, directamente hacemos actual = new Videojuego(datos extraidos de los campos)
+ * y así, al guardar, ya empezamos en el primero otra vez (que es el que tiene los
+ * datos que acabamos de crear).
+ * -Aginamos a los campos de texto los datos de nuestro nuevo juego.
+ * -Profit (???).
+ * 
+ * Y nos queda un último botón, eh.
+ * Y es ni nada más ni nada menos que esa X tan bonita que tienes arriba a tu derecha.
+ * Si la pulsas en la interfaz, has parado la INTERFAZ, no el programa, que son dos
+ * cosas diferentes. El programa invoca a la interfaz, pero son independientes.
+ * Así que tenemos que indicarle al programa, que si la interfaz se ha cerrado, él
+ * también. Eso se hace con un... Evento! Y este evento ahora está en main! Porque
+ * en main tenemos la interfaz, y a ella le podemos añadir un escuchador también,
+ * no solo a los botones. En este caso vamos a añadir un listener que se llama
+ * WindowListener(new WindowAdapter()), y como antes, le vamos a meter una clase 
+ * anónima para sobreescribir el método WindowClosed (que es cuando se cierra la
+ * ventana). Dentro de ese método vamos a añadir el intricado código para terminar
+ * el programa: System.exit(segundos hasta que se cierre).
+ * 
+ * Y ea, hasta aquí la explicación de cómo funciona la interfaz. Son 5€.
+ */
 public class Interfaz extends JFrame{
     // Atributos:
     
-        // Nodo actual
+        // Esto es para saber dónde estoy actualmente.
     private static Videojuego actual;
     
-        // Elementos de la estructura
+        // Esto es para no tener una lista vacía
     Videojuego vj1 = new Videojuego("League of legends", "Riot Games", "29/02/2020", "0.0", "s");
     Videojuego vj2 = new Videojuego("GOD EATER 3", "Marvelous", "08/02/2019", "60.0", "n");
     Videojuego vj3 = new Videojuego("Dying Light", "Techland", "27/01/2015", "20.0", "s");
@@ -24,7 +177,7 @@ public class Interfaz extends JFrame{
     Videojuego vj10 = new Videojuego("Forza Horizon 5", "Playground Games", "09/11/2021", "59.99", "n");
     
     /*---------------------------------------------------------------*/
-    // Constructores: 
+    // Constructor: Esto es para tener algo con lo que trabajar.
     public Interfaz() {
         
         // Primero tenemos que crear el JFrame con super()
