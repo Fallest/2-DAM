@@ -12,7 +12,7 @@ public final class Exceptions extends Exception {
     }
     
     public void invalidDep() {
-        System.out.println("\n\tError - Departamento no válido.");
+        System.out.println("\n\tError - Departamento no válido. Formato inválido.");
     }
     
     public void invalidBool() {

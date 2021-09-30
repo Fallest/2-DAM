@@ -31,9 +31,23 @@ public class DateParser extends GregorianCalendar {
     
     // Primer método: de String a GregorianCalendar.
     public static GregorianCalendar parseDate(String fecha) {
-        /*
-        * Convierte una cadena con formato dd/mm/yyyy a un objeto GregorianCalendar.
-        */
+        /** s debe tener el formato (DD/MM/YYYY)
+         * Vamos a crear un nuevo calendario usando el constructor que toma la 
+         * siguiente forma:
+         * GregorianCalendar(int año, int mes, int dia)
+         * Para extraer los números de una cadena, tenemos que estraer cada número
+         * independiente en forma de cadena, y luego convertirlo a entero, y LUEGO
+         * se lo podemos pasar al constructor.
+         * Para el primer paso, usamos s.substring(n, m), y va a extraer la cadena
+         * que haya entre las posiciones n y n+m (hay que tener en cuenta que si
+         * tenemos "hola" y hacemos "hola".substring(2, 1) vamos a extraer "a", 
+         * es decir, la primera posición es 0).
+         * Para convertir la subcadena en un número, lo hacemos con
+         * Integer.parseInt(cadena).
+         * Hay una nota en la posición del entero del mes, esto es porque los meses
+         * los pido (en el formato) de 1 a 12, y GregorianCalendar los toma de 0 a 11,
+         * lo que significa que al dato que yo pida hay que quitarle 1.
+         */
         GregorianCalendar cal = null;
         
         try {
@@ -46,8 +60,11 @@ public class DateParser extends GregorianCalendar {
             System.out.println("\n\tError: Formato incorrecto.");
         }
         catch (Exception e) {
+            // Por si, aunque tenga el formato correcto, los números
+            // se pasan de un dia/mes/año válido.
             System.out.println("\n\tError: Valores fuera de rango.");
         }
+        
         return cal;
     }
      
@@ -64,8 +81,20 @@ public class DateParser extends GregorianCalendar {
     @Override
     public String toString()
     {
+        /**
+         * Tenemos que sobreescribir el método toString
+         * de GregorianCalendar (que a su vez es el método de la superclase Calendar, 
+         * de la cual hereda GregorianCalendar) y así poder convertir de GregorianCalendar
+         * a String sin tener que hacer mucho más lío que esto.
+         * No es necesario comprender el código dentro del método toString, pero
+         * lo voy a explicar porque puedo.
+         * 
+         * Básicamente va a crear un objeto de tipo Date (la versión más facil de 
+         * usar de GregorianCalendar), y va a pasar de usar un GregorianCalendar
+         * a un Date, y lo va a convertir, usando el formato declarado en los 
+         * atributos, a una cadena.
+         */
         try {
-            // Sobreescribe el método toString de java.util.Calendar.
             Date thisDate = this.getTime();
             return sdf.format(thisDate);
         }

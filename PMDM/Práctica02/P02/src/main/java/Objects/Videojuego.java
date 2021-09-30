@@ -115,7 +115,7 @@ public final class Videojuego {
          * Por eso, uso una clase anónima para sobreescribir el método toString
          * de GregorianCalendar (que a su vez es el método de la superclase Calendar, 
          * de la cual hereda GregorianCalendar) y así poder convertir de GregorianCalendar
-         * a String sin tener que ahcer mucho más lío que esto.
+         * a String sin tener que hacer mucho más lío que esto.
          * No es necesario comprender el código dentro del método toString, pero
          * lo voy a explicar porque puedo.
          * 

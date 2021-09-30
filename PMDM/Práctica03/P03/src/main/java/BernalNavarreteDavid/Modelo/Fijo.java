@@ -3,8 +3,35 @@ package BernalNavarreteDavid.Modelo;
 import BernalNavarreteDavid.Controlador.*;
 
 /**
-* Clase hija de Empleado.
-* Tiene que implementar todos los métodos abstractas (toString(), getDato()).
+* Clase Fijo, extiende a Empleado.
+* Tiene que implementar todos los métodos abstractas (toString(), getDato(), calcularSueldo()).
+* Los dos atributos extras que tiene son: horasMes (el atributo que va a devolver
+* getDato()), y departamento.
+* 
+* Va a tener dos constructores:
+* -Uno que toma el nombre, el sueldoMaximo, las horas al mes y la fecha de alta.
+* -Otro que toma todos los atributos existentes, y crea el sueldo a partir del 
+* departamento y de las horas al mes.
+* En ambos casos se llama al constructor de Empleado con super().
+* 
+* Los fijos trabajan todos la misma cantidad de horas, lo que varía su sueldo
+* es el departamento en el que se encuentran.
+* 
+* De nuevo, van a tener setters y getter para cada uno de los nuevos atributos,
+* realizando las comprobaciones necesarias tanto en las horas al mes (para que
+* no sobrepase el salario tope) y el departamento en el que se encuentra (comprobando
+* que el departamento existe).
+* 
+* Al final tenemos las implementaciones de los métodos abstractos:
+* 
+* getDato() devuelve el atributo horasMes.
+* 
+* calcularSueldo() tiene dos implementaciones:
+* -Una para calcular el sueldo cuando tenemos tanto las horasMes como el departamento.
+* -Otro para cuando queremos comprobar que unas horas que nos han dado no sobrepasan
+* el sueldo máximo.
+* 
+* toString() para convertir de Fijo a String.
 */ 
 
 public class Fijo extends Empleado {
@@ -33,8 +60,8 @@ public class Fijo extends Empleado {
     /*------------------------------------------------------------------------*/
     // Setters
     public void setHorasMes(float horasMes) {
-        /* Hay que comprobar que al actualizar las horas al mes no superamos
-        el sueldo máximo establecido.
+        /** Hay que comprobar que al actualizar las horas al mes no superamos
+        * el sueldo máximo establecido.
         */
         if (calcularSueldo(horasMes) > super.getSueldoMaximo()
                 || calcularSueldo(horasMes) <= 0f)
@@ -47,11 +74,14 @@ public class Fijo extends Empleado {
     }
     
     public void setDepart(String depart) {
+        // Tenemos que comprobar que el departamento existe.
         try {
-        if(!depart.equals("RRHH") || !depart.equals("Admisiones") || !depart.equals("Restauración"))
-            throw new Exceptions("dep");
+            if(!depart.equals("RRHH") || !depart.equals("Admisiones") || !depart.equals("Restauración"))
+                throw new Exceptions("dep");
+            else this.departamento = depart;
+            }
+        catch (Exceptions ex) {// No hacemos nada   
         }
-        catch (Exceptions ex) {}
     }
     
     /*------------------------------------------------------------------------*/
