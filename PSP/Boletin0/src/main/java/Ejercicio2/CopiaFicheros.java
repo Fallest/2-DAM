@@ -6,6 +6,6 @@ public class CopiaFicheros {
     File copiaFichero;
     
     public CopiaFicheros(String ruta, String nombreFichero) {
-        copiaFichero = new File
+        copiaFichero = new File(ruta + "\\" + nombreFichero);
     }
 }
