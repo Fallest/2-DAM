@@ -1,4 +1,4 @@
-package Ejercicio1;
+package Ejercicio3;
 
 /**
  * Clase AccesoFichero:
@@ -7,7 +7,7 @@ package Ejercicio1;
 
 public class AccesoFichero {
     public static void main(String args[]) {
-        String archivo = "C:\\Flujo\\Ejercicio1\\fichero.txt";
+        String archivo = "C:\\Flujo\\Ejercicio3\\fichero.txt";
         LeerFichero lector = new LeerFichero(archivo);
         lector.lee();
     }

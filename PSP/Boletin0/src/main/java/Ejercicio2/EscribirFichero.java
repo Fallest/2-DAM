@@ -1,8 +1,6 @@
 package Ejercicio2;
 
 import java.io.*;
-import java.util.ArrayList;
-import static java.util.stream.IntStream.range;
 /**
  * Clase EscribirFichero:
  * Se encarga de acceder a un fichero y guardar información en él.

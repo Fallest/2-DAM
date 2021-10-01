@@ -7,9 +7,9 @@ package Ejercicio2;
 
 public class AccesoFichero {
     public static void main(String args[]) {
-        String archivo = "C:\\Users\\David\\Desktop\\fichero.txt";
-        EscribirFichero lector = new EscribirFichero(archivo);
+        String ruta = "C:\\Flujo\\Ejercicio2\\Desktop";
+        String archivo = "fichero.txt";
         
-        lector.escribe();
+        CopiaFicheros copiar = new CopiaFicheros(ruta, archivo);
     }
 }

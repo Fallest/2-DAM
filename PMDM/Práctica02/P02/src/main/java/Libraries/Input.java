@@ -96,6 +96,7 @@ public class Input {
                 Integer.parseInt(str.substring(6, 10)),
                 Integer.parseInt(str.substring(3, 5)) - 1, // Porque el calendario va de 0 a 11
                 Integer.parseInt(str.substring(0, 2))) {
+                    @Override
                     public String toString()
                     {
                         Date thisDate = this.getTime();
