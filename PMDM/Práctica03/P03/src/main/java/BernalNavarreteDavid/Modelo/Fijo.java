@@ -51,9 +51,10 @@ public class Fijo extends Empleado {
         Fijo.horasMes = horasMes;
     }
     
-    public Fijo(String nombre, float sueldoMaximo, float horasMes, float eurosHora, String fechaAlta) {
+    public Fijo(String nombre, float sueldoMaximo, float horasMes, String departamento, String fechaAlta) {
         // Como la fecha la recibimos en forma de cadena, la parseamos.
         super(nombre, 0f, DateParser.parseDate(fechaAlta), sueldoMaximo);
+        setDepart(departamento);
         Fijo.horasMes = horasMes;
     }
     
