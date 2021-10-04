@@ -18,21 +18,208 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        paneListado = new javax.swing.JPanel();
+        paneAtributos = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        paneTextfields = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField2 = new javax.swing.JTextField();
+        paneBienvenida = new javax.swing.JPanel();
+        labelVersion = new javax.swing.JLabel();
+        labelAutor = new javax.swing.JLabel();
+        labelBienvenida = new javax.swing.JLabel();
+        menuBar = new javax.swing.JMenuBar();
+        menuAcciones = new javax.swing.JMenu();
+        mItemAlta = new javax.swing.JMenuItem();
+        mItemListado = new javax.swing.JMenuItem();
+        menuVersion = new javax.swing.JMenu();
+        mItemVersion = new javax.swing.JMenuItem();
+
+        paneListado.setLayout(new java.awt.BorderLayout(20, 20));
+
+        jLabel1.setText("Tipo de empleado: ");
+
+        jLabel2.setText("Nombre:");
+
+        jLabel3.setText("Salario máximo:");
+
+        javax.swing.GroupLayout paneAtributosLayout = new javax.swing.GroupLayout(paneAtributos);
+        paneAtributos.setLayout(paneAtributosLayout);
+        paneAtributosLayout.setHorizontalGroup(
+            paneAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneAtributosLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(paneAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        paneAtributosLayout.setVerticalGroup(
+            paneAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneAtributosLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addContainerGap(155, Short.MAX_VALUE))
+        );
+
+        paneListado.add(paneAtributos, java.awt.BorderLayout.WEST);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Temporal", "Fijo" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout paneTextfieldsLayout = new javax.swing.GroupLayout(paneTextfields);
+        paneTextfields.setLayout(paneTextfieldsLayout);
+        paneTextfieldsLayout.setHorizontalGroup(
+            paneTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneTextfieldsLayout.createSequentialGroup()
+                .addGroup(paneTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 15, Short.MAX_VALUE))
+        );
+        paneTextfieldsLayout.setVerticalGroup(
+            paneTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneTextfieldsLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(9, 9, 9)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(149, Short.MAX_VALUE))
+        );
+
+        paneListado.add(paneTextfields, java.awt.BorderLayout.LINE_END);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Datos de Empleados");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        paneBienvenida.setVisible(true);
+
+        labelVersion.setText("Versión 1.0 - 04/10/2021");
+
+        labelAutor.setText("David Bernal Navarrete");
+
+        labelBienvenida.setFont(new java.awt.Font("Tw Cen MT", 0, 24)); // NOI18N
+        labelBienvenida.setText("Listado de Empleados");
+
+        javax.swing.GroupLayout paneBienvenidaLayout = new javax.swing.GroupLayout(paneBienvenida);
+        paneBienvenida.setLayout(paneBienvenidaLayout);
+        paneBienvenidaLayout.setHorizontalGroup(
+            paneBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paneBienvenidaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(paneBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(labelVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelAutor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+            .addGroup(paneBienvenidaLayout.createSequentialGroup()
+                .addGap(98, 98, 98)
+                .addComponent(labelBienvenida)
+                .addContainerGap(81, Short.MAX_VALUE))
+        );
+        paneBienvenidaLayout.setVerticalGroup(
+            paneBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneBienvenidaLayout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(labelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addComponent(labelAutor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelVersion)
+                .addContainerGap())
+        );
+
+        menuAcciones.setText("Acciones");
+
+        mItemAlta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mItemAlta.setText("Alta de empleado");
+        mItemAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemAltaActionPerformed(evt);
+            }
+        });
+        menuAcciones.add(mItemAlta);
+
+        mItemListado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        mItemListado.setText("Listado de empleados");
+        menuAcciones.add(mItemListado);
+
+        menuBar.add(menuAcciones);
+
+        menuVersion.setText("Versión");
+
+        mItemVersion.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        mItemVersion.setText("Versión 1.0");
+        mItemVersion.setEnabled(false);
+        mItemVersion.setVerifyInputWhenFocusTarget(false);
+        menuVersion.add(mItemVersion);
+
+        menuBar.add(menuVersion);
+
+        setJMenuBar(menuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(paneBienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(paneBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void mItemAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_mItemAltaActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -63,6 +250,7 @@ public class GUI extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new GUI().setVisible(true);
             }
@@ -70,5 +258,24 @@ public class GUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel labelAutor;
+    private javax.swing.JLabel labelBienvenida;
+    private javax.swing.JLabel labelVersion;
+    private javax.swing.JMenuItem mItemAlta;
+    private javax.swing.JMenuItem mItemListado;
+    private javax.swing.JMenuItem mItemVersion;
+    private javax.swing.JMenu menuAcciones;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuVersion;
+    private javax.swing.JPanel paneAtributos;
+    private javax.swing.JPanel paneBienvenida;
+    private javax.swing.JPanel paneListado;
+    private javax.swing.JPanel paneTextfields;
     // End of variables declaration//GEN-END:variables
 }
