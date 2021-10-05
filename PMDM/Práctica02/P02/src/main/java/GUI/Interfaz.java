@@ -202,7 +202,7 @@ public class Interfaz extends JFrame{
         // Creamos las JLabels
         JLabel tituloLabel = new JLabel("Título: ");
         JLabel fechaLabel = new JLabel("Fecha de lanzamiento (DD/MM/YYYY): ");
-        JLabel desarrolladoraLabel = new JLabel("Desarroladora: ");
+        JLabel desarrolladoraLabel = new JLabel("Desarrolladora: ");
         JLabel precioLabel = new JLabel("Precio: ");
         JLabel ofertaLabel = new JLabel("En oferta: ");
         tituloLabel.setFont(new Font("Arial", Font.PLAIN, 20));

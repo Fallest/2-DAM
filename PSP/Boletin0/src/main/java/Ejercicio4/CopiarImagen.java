@@ -12,10 +12,10 @@ public class CopiarImagen {
     private File imagen;
     private File imagenCopia;
     
-    public CopiarImagen(String ruta) {
+    public CopiarImagen(String ruta, String archivo) {
         this.rutaImagen = ruta;
         
-        this.imagen = new File(ruta) {
+        this.imagen = new File(ruta + "\\" + archivo) {
             /**
              * Clase anónima para escribirle un método a la clase File.
              * El método es para contar los Bytes que tiene un archivo.
@@ -25,13 +25,14 @@ public class CopiarImagen {
                 int cont = 0;
                 
                 try {
-                    FileInputStream archivo = new FileInputStream(this);
+                    FileInputStream arch = new FileInputStream(this);
                     
-                    while(archivo.read() != -1) {
+                    while(arch.read() != -1) {
                         cont++;
                     }
                     
-                    archivo.close();
+                    arch.close();
+                    System.out.println("Ha contado los bytes");
                 }
                 catch(IOException e) {}
                 
@@ -43,13 +44,14 @@ public class CopiarImagen {
                 int numBytes = this.calcularBytes();
                 
                 try {
-                    FileInputStream archivo = new FileInputStream(this);
+                    FileInputStream arch = new FileInputStream(this);
                     
                     for (int i = 0; i < numBytes; i++) {
-                        data[i] = archivo.read();
+                        data[i] = arch.read();
                     }
                     
-                    archivo.close();
+                    arch.close();
+                    System.out.println("Ha extraído los bytes");
                 }
                 catch (IOException e) {}
                 
@@ -57,8 +59,14 @@ public class CopiarImagen {
             }
             
             public File copiar() {
-                File copia = new File(this.getPath() + "\\Copia\\" 
-                        + this.getName().substring(0, this.getName().length() - 4) + ".jpeg");
+                File copia = new File(ruta + "\\Copia\\" 
+                        + archivo.substring(0, archivo.length() - 5) + "-copia.jpeg");
+                try {
+                    if(copia.createNewFile())
+                        System.out.println("Copia creada.");
+                } catch (IOException ex) {
+                    System.out.println(ex.toString());
+                }
                 
                 BufferedWriter flujoEscritura;
                 try {
@@ -68,10 +76,10 @@ public class CopiarImagen {
                     {
                         // Copiamos byte a byte
                         int[] byteArray = this.extraerBytes();
-                        for (int i = 0; i < this.calcularBytes(); i++)
+                        for (int i = 0; i <= byteArray.length; i++)
                             flujoEscritura.write(byteArray[i]);
                     }
-                    
+                    System.out.println("Ha escrito los bytes");
                     flujoEscritura.close();
                 } catch (FileNotFoundException ex) {
                     System.out.println("Error: El archivo no existe.");
@@ -92,7 +100,8 @@ public class CopiarImagen {
     }
     
     public static void main(String args[]) {
-        String ruta = "C:\\Flujo\\Ejercicio4\\imagen.jpeg";
-        CopiarImagen copiar = new CopiarImagen(ruta);
+        String ruta = "C:\\Flujo\\Ejercicio4";
+        String archivo = "imagen.jpeg";
+        CopiarImagen copiar = new CopiarImagen(ruta, archivo);
     }
 }
