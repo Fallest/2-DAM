@@ -3,18 +3,13 @@ package Ejercicio4;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 public class CopiarImagen {
-    private String rutaImagen;
-    private String rutaCopia;
     private File imagen;
     private File imagenCopia;
     
     public CopiarImagen(String ruta, String archivo) {
-        this.rutaImagen = ruta;
-        
         this.imagen = new File(ruta + "\\" + archivo) {
             /**
              * Clase anónima para escribirle un método a la clase File.
@@ -40,8 +35,9 @@ public class CopiarImagen {
             }
             
             public int[] extraerBytes() {
-                int data[] = new int[2963860];
                 int numBytes = this.calcularBytes();
+                int data[] = new int[numBytes];
+                
                 
                 try {
                     FileInputStream arch = new FileInputStream(this);
@@ -68,15 +64,15 @@ public class CopiarImagen {
                     System.out.println(ex.toString());
                 }
                 
-                BufferedWriter flujoEscritura;
+                FileOutputStream flujoEscritura;
                 try {
-                    flujoEscritura = new BufferedWriter(new FileWriter(copia));
+                    flujoEscritura = new FileOutputStream(copia);
                     
                     if (this.exists())
                     {
                         // Copiamos byte a byte
                         int[] byteArray = this.extraerBytes();
-                        for (int i = 0; i <= byteArray.length; i++)
+                        for (int i = 0; i < byteArray.length; i++)
                             flujoEscritura.write(byteArray[i]);
                     }
                     System.out.println("Ha escrito los bytes");
@@ -90,6 +86,13 @@ public class CopiarImagen {
         };
         
         try {
+            /**
+             * Usamos un objeto de tipo Method para extraer el método de la clase
+             * anónima que acabamos de construir. Luego podemos acceder al método
+             * "copiar" utilizando el método invoke.
+             * ¿Por qué este lio?
+             * Porque por alguna razon no puedo llamar a imagen.copiar().
+             */
             Method m = imagen.getClass().getMethod("copiar");
             imagenCopia = (File) m.invoke(imagen);
         } 
