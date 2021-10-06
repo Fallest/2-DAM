@@ -1,6 +1,8 @@
 package Ejercicio2;
 
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CopiaFicheros {
     File copiaFichero;
@@ -10,6 +12,13 @@ public class CopiaFicheros {
         this.copiaFichero = new File(ruta + "\\" 
                 + nombreFichero.substring(0, nombreFichero.length() - 4)
                 + "-copia.txt");
+        
+        if (!this.copiaFichero.exists() || !ficheroOriginal.exists()) try {
+            this.copiaFichero.createNewFile();
+            ficheroOriginal.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("Oops.");
+        }
         /**
          * Tenemos que crear dos flujos:
          * Uno para leer del archivo que queremos copiar.

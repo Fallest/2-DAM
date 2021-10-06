@@ -105,6 +105,6 @@ public class CopiarImagen {
     public static void main(String args[]) {
         String ruta = "C:\\Flujo\\Ejercicio4";
         String archivo = "imagen.jpeg";
-        CopiarImagen copiar = new CopiarImagen(ruta, archivo);
+        new CopiarImagen(ruta, archivo);
     }
 }

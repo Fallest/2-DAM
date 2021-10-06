@@ -14,6 +14,12 @@ public class LeerFichero {
     
     public LeerFichero(String archivo) {
         fichero = new File(archivo);
+        
+        if (!fichero.exists()) try {
+            fichero.createNewFile();
+        } catch (IOException ex) {
+            System.out.println("Oops.");
+        }
     }
     
     public void lee() {

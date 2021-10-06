@@ -1,5 +1,6 @@
 package Ejercicio3;
 
+
 /**
  * Clase AccesoFichero:
  * Se encarga de acceder al fichero colocado en el escritorio.
@@ -7,7 +8,7 @@ package Ejercicio3;
 
 public class AccesoFichero {
     public static void main(String args[]) {
-        String archivo = "C:\\Flujo\\Ejercicio3\\fichero.txt";
+        String archivo = "C:\\Flujo\\Ejercicio1\\fichero.txt";
         LeerFichero lector = new LeerFichero(archivo);
         lector.lee();
     }
