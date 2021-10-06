@@ -1,5 +1,7 @@
 package BernalNavarreteDavid.Controlador;
 
+import BernalNavarreteDavid.Modelo.*;
+
 /**
  * La clase Lista se va a encargar de:
  * -El primer nodo.
@@ -133,6 +135,102 @@ public class Lista {
     public void resetIter() {
         // Resetea el iterador para volver al inicio de la lista.
         iter = inicial;
+    }
+    
+    // Filtros por elementos de una fecha
+    public Lista filtrarDia(int dia) {
+        Lista listaFiltrada = new Lista();
+        resetIter();
+        Temporal auxT = null;
+        Fijo auxF = null;
+        
+        while(iter != null) {
+            // Para poder acceder a la fecha, tenemos que hacer esto.
+            if(iter.getObjeto() instanceof Temporal temporal)
+                auxT = temporal;
+            else 
+                auxF = (Fijo) iter.getObjeto();
+            
+            // Filtramos por el día y lo añadimos a la lista.
+            if (auxT != null && dia == auxT.getDiaFecha())
+                listaFiltrada.añadirNodo(new Nodo(auxT));
+            else if (auxF != null && dia == auxF.getDiaFecha())
+                listaFiltrada.añadirNodo(new Nodo(auxF));
+            
+            iter = iter.getSiguiente();
+        }
+        
+        return listaFiltrada;
+    }
+    
+    public Lista filtrarMes(int mes) {
+        Lista listaFiltrada = new Lista();
+        resetIter();
+        Temporal auxT = null;
+        Fijo auxF = null;
+        
+        while(iter != null) {
+            // Para poder acceder a la fecha, tenemos que hacer esto.
+            if(iter.getObjeto() instanceof Temporal temporal)
+                auxT = temporal;
+            else 
+                auxF = (Fijo) iter.getObjeto();
+            
+            // Filtramos por el mes y lo añadimos a la lista.
+            if (auxT != null && mes == auxT.getMesFecha())
+                listaFiltrada.añadirNodo(new Nodo(auxT));
+            else if (auxF != null && mes == auxF.getMesFecha())
+                listaFiltrada.añadirNodo(new Nodo(auxF));
+            
+            iter = iter.getSiguiente();
+        }
+        
+        return listaFiltrada;
+    }
+    
+    public Lista filtrarAño(int año) {
+        Lista listaFiltrada = new Lista();
+        resetIter();
+        Temporal auxT = null;
+        Fijo auxF = null;
+        
+        while(iter != null) {
+            // Para poder acceder a la fecha, tenemos que hacer esto.
+            if(iter.getObjeto() instanceof Temporal temporal)
+                auxT = temporal;
+            else 
+                auxF = (Fijo) iter.getObjeto();
+            
+            // Filtramos por el año y lo añadimos a la lista.
+            if (auxT != null && año == auxT.getAñoFecha())
+                listaFiltrada.añadirNodo(new Nodo(auxT));
+            else if (auxF != null && año == auxF.getAñoFecha())
+                listaFiltrada.añadirNodo(new Nodo(auxF));
+            
+            iter = iter.getSiguiente();
+        }
+        
+        return listaFiltrada;
+    }
+    
+    // Filtrar por tipo de objeto
+    public Lista filtrarTipo(String tipo) {
+        Lista listaFiltrada = new Lista();
+        resetIter();
+        // Bandera: true si es temporal, false si es fijo
+        boolean flag = (tipo.equals("Temporal"));
+        
+        while(iter != null) {
+            // Filtramos usando nuestra bandera e instanceof
+            if(flag && iter.getObjeto() instanceof Temporal temporal)
+                listaFiltrada.añadirNodo(new Nodo(temporal));
+            else if (!flag && iter.getObjeto() instanceof Fijo fijo)
+                listaFiltrada.añadirNodo(new Nodo(fijo));
+            
+            iter = iter.getSiguiente();
+        }
+        
+        return listaFiltrada;
     }
 }
 

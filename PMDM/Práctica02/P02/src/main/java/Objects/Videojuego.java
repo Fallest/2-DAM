@@ -134,7 +134,7 @@ public final class Videojuego {
                         Date thisDate = this.getTime();
                         return sdf.format(thisDate);
                     }
-                };;
+                };
     }
     /*------------------------------*/
     public void setPrecio(String s) {

@@ -1,5 +1,6 @@
 package BernalNavarreteDavid.Modelo;
 
+import BernalNavarreteDavid.Controlador.DateParser;
 import java.util.*;
 
 /**
@@ -105,6 +106,27 @@ public abstract class Empleado {
     public float getSueldoMaximo() {
         return Empleado.sueldoMaximo;
     }
+    
+    public int getDiaFecha() {
+        return Integer.parseInt(
+                DateParser
+                        .parseDate(this.fechaAlta)
+                        .substring(0,2));
+    }
+    
+    public int getMesFecha() {
+        return Integer.parseInt(
+                DateParser
+                        .parseDate(this.fechaAlta)
+                        .substring(3,5));
+    }
+    
+    public int getAñoFecha() {
+        return Integer.parseInt(
+                DateParser
+                        .parseDate(this.fechaAlta)
+                        .substring(6,10));
+    }    
     
     public abstract float getDato();
     /*------------------------------------------------------------------------*/

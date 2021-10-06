@@ -16,14 +16,14 @@ package BernalNavarreteDavid.Controlador;
  * -Devolver el objeto.
  */
 
-public class Nodo {
+public class Nodo<T> {
     // Atributos
-    private Object objeto;
+    private T objeto;
     private Nodo siguiente;
     private Nodo anterior;
     
     // Constructor
-    public Nodo(Object nuevoObjeto) {
+    public Nodo(T nuevoObjeto) {
         this.objeto = nuevoObjeto;
     }
     
@@ -36,7 +36,7 @@ public class Nodo {
         this.anterior = nuevoAnterior;
     }
     
-    public void setObjeto(Object nuevoObjeto) {
+    public void setObjeto(T nuevoObjeto) {
         this.objeto = nuevoObjeto;
     }
     
@@ -48,7 +48,7 @@ public class Nodo {
         return this.anterior;
     }
     
-    public Object getObjeto() {
+    public T getObjeto() {
         return this.objeto;
     }
 }

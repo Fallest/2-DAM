@@ -15,11 +15,11 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         
         // Fijos: new Fijo(nombre, sueldo máximo, horas al mes, departamento, fecha alta)
-        listaEmpleados.añadirNodo(new Nodo(new Fijo("Sacramento Mayo", 2000, 160, "RRHH", "02/02/2020")));
-        listaEmpleados.añadirNodo(new Nodo(new Fijo("Brigida Alvarado", 2000, 170, "Admisiones", "19/06/2021")));
+        listaEmpleados.añadirNodo(new Nodo(new Fijo("Sacramento Mayo", 2500, 160, "RRHH", "02/02/2020")));
+        listaEmpleados.añadirNodo(new Nodo(new Fijo("Brigida Alvarado", 2500, 170, "Admisiones", "19/06/2021")));
         // Temporales: new Temporal(nombre, horas trabajadas, euros hora, sueldo máximo, fecha alta)
-        listaEmpleados.añadirNodo(new Nodo(new Temporal("Federico Becerra", 205, 5.6f, 1800, "02/07/2021")));
-        listaEmpleados.añadirNodo(new Nodo(new Temporal("Carolina Morán", 178, 6.2f, 1800, "02/02/2019")));
+        listaEmpleados.añadirNodo(new Nodo(new Temporal("Federico Becerra", 205, 5.6f, 2000, "02/07/2021")));
+        listaEmpleados.añadirNodo(new Nodo(new Temporal("Carolina Morán", 178, 6.2f, 2000, "02/02/2019")));
         // Inicializamos el actual.
         actual = listaEmpleados.primero();
         
@@ -69,6 +69,7 @@ public class GUI extends javax.swing.JFrame {
         paneMovimiento = new javax.swing.JPanel();
         buttonAtras = new javax.swing.JButton();
         buttonSiguiente = new javax.swing.JButton();
+        cboxFiltro = new javax.swing.JComboBox<>();
         paneAtributos = new javax.swing.JPanel();
         labelTipoEmpleados = new javax.swing.JLabel();
         labelNombre = new javax.swing.JLabel();
@@ -262,9 +263,9 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Datos de Empleados");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setPreferredSize(new java.awt.Dimension(400, 300));
+        setPreferredSize(new java.awt.Dimension(400, 400));
         setResizable(false);
-        setSize(new java.awt.Dimension(400, 300));
+        setSize(new java.awt.Dimension(400, 400));
 
         paneDatos.setLayout(new java.awt.BorderLayout(20, 20));
 
@@ -293,8 +294,8 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(paneTextfieldsListadoLayout.createSequentialGroup()
                 .addGroup(paneTextfieldsListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tfieldMaxSalarioListado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfieldNombreListado, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfieldTipoEmpleadoListado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfieldTipoEmpleadoListado, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldNombreListado, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         paneTextfieldsListadoLayout.setVerticalGroup(
@@ -311,7 +312,7 @@ public class GUI extends javax.swing.JFrame {
 
         paneDatos.add(paneTextfieldsListado, java.awt.BorderLayout.EAST);
 
-        paneTemporal.setLayout(new java.awt.BorderLayout());
+        paneTemporal.setLayout(new java.awt.BorderLayout(20, 0));
 
         labelHorasTrabajadas.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelHorasTrabajadas.setText("Horas trabajadas:");
@@ -361,10 +362,11 @@ public class GUI extends javax.swing.JFrame {
         paneTFTemporalLayout.setHorizontalGroup(
             paneTFTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneTFTemporalLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(paneTFTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfieldhorasTrabajadas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfieldEurosHora, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(31, 31, 31)
+                .addGroup(paneTFTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(tfieldEurosHora, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldhorasTrabajadas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         paneTFTemporalLayout.setVerticalGroup(
             paneTFTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -376,7 +378,7 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        paneTemporal.add(paneTFTemporal, java.awt.BorderLayout.EAST);
+        paneTemporal.add(paneTFTemporal, java.awt.BorderLayout.CENTER);
 
         buttonAtras.setText("Atrás");
         buttonAtras.addActionListener(new java.awt.event.ActionListener() {
@@ -392,6 +394,13 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        cboxFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Por día", "Por mes", "Por año", "Por dato", "Por Atributo" }));
+        cboxFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxFiltroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneMovimientoLayout = new javax.swing.GroupLayout(paneMovimiento);
         paneMovimiento.setLayout(paneMovimientoLayout);
         paneMovimientoLayout.setHorizontalGroup(
@@ -400,6 +409,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(buttonAtras)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cboxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47)
                 .addComponent(buttonSiguiente)
                 .addContainerGap())
         );
@@ -409,7 +420,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(paneMovimientoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(buttonAtras)
-                    .addComponent(buttonSiguiente))
+                    .addComponent(buttonSiguiente)
+                    .addComponent(cboxFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -594,6 +606,10 @@ public class GUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonAceptarActionPerformed
 
+    private void cboxFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxFiltroActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -635,6 +651,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton buttonAtras;
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonSiguiente;
+    private javax.swing.JComboBox<String> cboxFiltro;
     private javax.swing.JComboBox<String> cboxTipoEmpleadoAlta;
     private javax.swing.JLabel labelAutor;
     private javax.swing.JLabel labelBienvenida;
