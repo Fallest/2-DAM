@@ -5,17 +5,27 @@
  */
 package BernalNavarreteDavid.Vista;
 
+import BernalNavarreteDavid.Controlador.*;
+
 /**
  *
  * @author David
  */
 public class GUI2 extends javax.swing.JFrame {
 
+    // La lista que contendrá los datos.
+    Lista lista = new Lista();
     /**
      * Creates new form GUI2
      */
     public GUI2() {
         initComponents();
+        
+        // Creamos el estado inicial, en el que el panel de bienvenida se muestra.
+        panelAlta.show(false);
+        panelListado.show(false);
+        panelBienvenida.show(true);
+        this.validate();
     }
 
     /**
@@ -27,10 +37,63 @@ public class GUI2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        panelListado = new javax.swing.JPanel();
+        panelListadoLabels = new javax.swing.JPanel();
+        labelListadoTipoEmple = new javax.swing.JLabel();
+        labelListadoNombre = new javax.swing.JLabel();
+        labelListadoFechaAlta = new javax.swing.JLabel();
+        panelListadoTextfields = new javax.swing.JPanel();
+        tfieldListadoTipoEmple = new javax.swing.JTextField();
+        tfieldListadoNombre = new javax.swing.JTextField();
+        tfieldListadoFechaAlta = new javax.swing.JTextField();
+        panelListadoAtributos = new javax.swing.JPanel();
+        panelListadoAtributosTemporal = new javax.swing.JPanel();
+        labelListadoAtributosTemporalHorasTrabajadas = new javax.swing.JLabel();
+        labelListadoAtributosTemporalEurosHora = new javax.swing.JLabel();
+        tfieldListadoAtributosTemporalEurosHora = new javax.swing.JTextField();
+        tfieldListadoAtributosTemporalHorasTrabajadas = new javax.swing.JTextField();
+        panelListadoAtributosFijo = new javax.swing.JPanel();
+        labelListadoAtributosFijoHorasMes = new javax.swing.JLabel();
+        labelListadoAtributosFijoDepartamento = new javax.swing.JLabel();
+        tfieldListadoAtributosFijoDepartamento = new javax.swing.JTextField();
+        tfieldListadoAtributosFijoHorasMes = new javax.swing.JTextField();
+        panelListadoBotones = new javax.swing.JPanel();
+        botonListadoBotonesSiguiente = new javax.swing.JButton();
+        botonListadoBotonesAnterior = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        panelListadoTitulo = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         panelBienvenida = new javax.swing.JPanel();
         labelBienvenidaTitulo = new javax.swing.JLabel();
         labelBienvenidaAutor = new javax.swing.JLabel();
         labelBienvenidaAutor1 = new javax.swing.JLabel();
+        panelAlta = new javax.swing.JPanel();
+        panelAltaLabels = new javax.swing.JPanel();
+        labelAltaTipoEmple = new javax.swing.JLabel();
+        labelAltaNombre = new javax.swing.JLabel();
+        labelAltaFechaAlta = new javax.swing.JLabel();
+        panelAltaTextfields = new javax.swing.JPanel();
+        cboxAltaTipoEmple = new javax.swing.JComboBox<>();
+        tfieldAltaNombre = new javax.swing.JTextField();
+        tfieldAltaFechaAlta = new javax.swing.JTextField();
+        panelAltaAtributos = new javax.swing.JPanel();
+        panelAltaAtributosFijo = new javax.swing.JPanel();
+        labelAltaAtributosFijoHorasMes = new javax.swing.JLabel();
+        labelAltaAtributosFijoDepartamento = new javax.swing.JLabel();
+        tfieldAltaAtributosFijoDepartamento = new javax.swing.JTextField();
+        tfieldAltaAtributosFijoHorasMes = new javax.swing.JTextField();
+        panelAltaAtributosTemporal = new javax.swing.JPanel();
+        labelAltaAtributosTemporalHorasTrabajadas = new javax.swing.JLabel();
+        labelAltaAtributosTemporalEurosHora = new javax.swing.JLabel();
+        tfieldAltaAtributosTemporalEurosHora = new javax.swing.JTextField();
+        tfieldAltaAtributosTemporalHorasTrabajadas = new javax.swing.JTextField();
+        panelAltaBotones = new javax.swing.JPanel();
+        botonAltaBotonesGuardar = new javax.swing.JButton();
+        botonAltaBotonesLimpiar = new javax.swing.JButton();
+        panelAltaTitulo = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         mbarGUI = new javax.swing.JMenuBar();
         menuAcciones = new javax.swing.JMenu();
         mitemAlta = new javax.swing.JMenuItem();
@@ -38,6 +101,285 @@ public class GUI2 extends javax.swing.JFrame {
         menuMas = new javax.swing.JMenu();
         mitenAutor = new javax.swing.JMenuItem();
         mitemVersion = new javax.swing.JMenuItem();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        panelListado.setPreferredSize(new java.awt.Dimension(461, 337));
+
+        labelListadoTipoEmple.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoTipoEmple.setText("Tipo de empleado:");
+
+        labelListadoNombre.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoNombre.setText("Nombre:");
+
+        labelListadoFechaAlta.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoFechaAlta.setText("Fecha de Alta (DD/MM/YYYY):");
+
+        javax.swing.GroupLayout panelListadoLabelsLayout = new javax.swing.GroupLayout(panelListadoLabels);
+        panelListadoLabels.setLayout(panelListadoLabelsLayout);
+        panelListadoLabelsLayout.setHorizontalGroup(
+            panelListadoLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoLabelsLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelListadoLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelListadoFechaAlta)
+                    .addComponent(labelListadoNombre)
+                    .addComponent(labelListadoTipoEmple))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelListadoLabelsLayout.setVerticalGroup(
+            panelListadoLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoLabelsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelListadoTipoEmple)
+                .addGap(15, 15, 15)
+                .addComponent(labelListadoNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelListadoFechaAlta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelListadoTextfieldsLayout = new javax.swing.GroupLayout(panelListadoTextfields);
+        panelListadoTextfields.setLayout(panelListadoTextfieldsLayout);
+        panelListadoTextfieldsLayout.setHorizontalGroup(
+            panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoTextfieldsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(tfieldListadoTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldListadoNombre)
+                    .addComponent(tfieldListadoFechaAlta))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+        panelListadoTextfieldsLayout.setVerticalGroup(
+            panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoTextfieldsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(tfieldListadoTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfieldListadoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfieldListadoFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        labelListadoAtributosTemporalHorasTrabajadas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoAtributosTemporalHorasTrabajadas.setText("Horas trabajadas:");
+
+        labelListadoAtributosTemporalEurosHora.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoAtributosTemporalEurosHora.setText("Euros por hora (€/h):");
+
+        tfieldListadoAtributosTemporalHorasTrabajadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelListadoAtributosTemporalLayout = new javax.swing.GroupLayout(panelListadoAtributosTemporal);
+        panelListadoAtributosTemporal.setLayout(panelListadoAtributosTemporalLayout);
+        panelListadoAtributosTemporalLayout.setHorizontalGroup(
+            panelListadoAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoAtributosTemporalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelListadoAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelListadoAtributosTemporalHorasTrabajadas)
+                    .addComponent(labelListadoAtributosTemporalEurosHora))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelListadoAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfieldListadoAtributosTemporalHorasTrabajadas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldListadoAtributosTemporalEurosHora, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
+        );
+        panelListadoAtributosTemporalLayout.setVerticalGroup(
+            panelListadoAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoAtributosTemporalLayout.createSequentialGroup()
+                .addGroup(panelListadoAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelListadoAtributosTemporalHorasTrabajadas)
+                    .addComponent(tfieldListadoAtributosTemporalHorasTrabajadas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelListadoAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelListadoAtributosTemporalEurosHora)
+                    .addComponent(tfieldListadoAtributosTemporalEurosHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        labelListadoAtributosFijoHorasMes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoAtributosFijoHorasMes.setText("Horas al mes:");
+
+        labelListadoAtributosFijoDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoAtributosFijoDepartamento.setText("Departamento:");
+
+        tfieldListadoAtributosFijoHorasMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfieldListadoAtributosFijoHorasMesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelListadoAtributosFijoLayout = new javax.swing.GroupLayout(panelListadoAtributosFijo);
+        panelListadoAtributosFijo.setLayout(panelListadoAtributosFijoLayout);
+        panelListadoAtributosFijoLayout.setHorizontalGroup(
+            panelListadoAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoAtributosFijoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelListadoAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelListadoAtributosFijoHorasMes)
+                    .addComponent(labelListadoAtributosFijoDepartamento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelListadoAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfieldListadoAtributosFijoHorasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldListadoAtributosFijoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
+        );
+        panelListadoAtributosFijoLayout.setVerticalGroup(
+            panelListadoAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoAtributosFijoLayout.createSequentialGroup()
+                .addGroup(panelListadoAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelListadoAtributosFijoHorasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldListadoAtributosFijoHorasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelListadoAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelListadoAtributosFijoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldListadoAtributosFijoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelListadoAtributosLayout = new javax.swing.GroupLayout(panelListadoAtributos);
+        panelListadoAtributos.setLayout(panelListadoAtributosLayout);
+        panelListadoAtributosLayout.setHorizontalGroup(
+            panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelListadoAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListadoAtributosTemporal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelListadoAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListadoAtributosFijo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        panelListadoAtributosLayout.setVerticalGroup(
+            panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 78, Short.MAX_VALUE)
+            .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelListadoAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListadoAtributosTemporal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelListadoAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListadoAtributosFijo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        botonListadoBotonesSiguiente.setText("Siguiente");
+        botonListadoBotonesSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListadoBotonesSiguienteActionPerformed(evt);
+            }
+        });
+
+        botonListadoBotonesAnterior.setText("Anterior");
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Día del mes", "Mes del año", "Año", "Tipo de dato", "Departamento", "Euros por hora" }));
+        jComboBox1.setToolTipText("");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setText("FIltrar por");
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelListadoBotonesLayout = new javax.swing.GroupLayout(panelListadoBotones);
+        panelListadoBotones.setLayout(panelListadoBotonesLayout);
+        panelListadoBotonesLayout.setHorizontalGroup(
+            panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoBotonesLayout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 140, Short.MAX_VALUE))
+                    .addGroup(panelListadoBotonesLayout.createSequentialGroup()
+                        .addComponent(botonListadoBotonesAnterior)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonListadoBotonesSiguiente)))
+                .addContainerGap())
+        );
+        panelListadoBotonesLayout.setVerticalGroup(
+            panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGroup(panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonListadoBotonesAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonListadoBotonesSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel3.setText("Listado de Empleados");
+
+        javax.swing.GroupLayout panelListadoTituloLayout = new javax.swing.GroupLayout(panelListadoTitulo);
+        panelListadoTitulo.setLayout(panelListadoTituloLayout);
+        panelListadoTituloLayout.setHorizontalGroup(
+            panelListadoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoTituloLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addContainerGap())
+        );
+        panelListadoTituloLayout.setVerticalGroup(
+            panelListadoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout panelListadoLayout = new javax.swing.GroupLayout(panelListado);
+        panelListado.setLayout(panelListadoLayout);
+        panelListadoLayout.setHorizontalGroup(
+            panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelListadoLayout.createSequentialGroup()
+                        .addComponent(panelListadoLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelListadoTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelListadoAtributos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelListadoTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelListadoBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+        panelListadoLayout.setVerticalGroup(
+            panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelListadoTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(4, 4, 4)
+                .addGroup(panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelListadoLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelListadoTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(panelListadoAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panelListadoBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(2, 2, 2))
+        );
 
         labelBienvenidaTitulo.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         labelBienvenidaTitulo.setText("Listado de Empleados");
@@ -51,34 +393,296 @@ public class GUI2 extends javax.swing.JFrame {
         panelBienvenidaLayout.setHorizontalGroup(
             panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBienvenidaLayout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addGroup(panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelBienvenidaAutor1)
-                    .addComponent(labelBienvenidaAutor))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBienvenidaLayout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(labelBienvenidaTitulo)
-                .addGap(25, 25, 25))
+                .addContainerGap(58, Short.MAX_VALUE)
+                .addGroup(panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBienvenidaLayout.createSequentialGroup()
+                        .addComponent(labelBienvenidaTitulo)
+                        .addGap(57, 57, 57))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBienvenidaLayout.createSequentialGroup()
+                        .addComponent(labelBienvenidaAutor)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBienvenidaLayout.createSequentialGroup()
+                        .addComponent(labelBienvenidaAutor1)
+                        .addContainerGap())))
         );
         panelBienvenidaLayout.setVerticalGroup(
             panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBienvenidaLayout.createSequentialGroup()
-                .addGap(85, 85, 85)
+                .addGap(84, 84, 84)
                 .addComponent(labelBienvenidaTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
                 .addComponent(labelBienvenidaAutor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelBienvenidaAutor1)
                 .addGap(8, 8, 8))
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        panelAlta.setPreferredSize(new java.awt.Dimension(461, 337));
+
+        labelAltaTipoEmple.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaTipoEmple.setText("Tipo de empleado:");
+
+        labelAltaNombre.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaNombre.setText("Nombre:");
+
+        labelAltaFechaAlta.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaFechaAlta.setText("Fecha de Alta (DD/MM/YYYY):");
+
+        javax.swing.GroupLayout panelAltaLabelsLayout = new javax.swing.GroupLayout(panelAltaLabels);
+        panelAltaLabels.setLayout(panelAltaLabelsLayout);
+        panelAltaLabelsLayout.setHorizontalGroup(
+            panelAltaLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaLabelsLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(panelAltaLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAltaFechaAlta)
+                    .addComponent(labelAltaNombre)
+                    .addComponent(labelAltaTipoEmple))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAltaLabelsLayout.setVerticalGroup(
+            panelAltaLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaLabelsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelAltaTipoEmple)
+                .addGap(15, 15, 15)
+                .addComponent(labelAltaNombre)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelAltaFechaAlta)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        cboxAltaTipoEmple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Temporal", "Fijo" }));
+
+        javax.swing.GroupLayout panelAltaTextfieldsLayout = new javax.swing.GroupLayout(panelAltaTextfields);
+        panelAltaTextfields.setLayout(panelAltaTextfieldsLayout);
+        panelAltaTextfieldsLayout.setHorizontalGroup(
+            panelAltaTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaTextfieldsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAltaTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(cboxAltaTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
+        panelAltaTextfieldsLayout.setVerticalGroup(
+            panelAltaTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaTextfieldsLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cboxAltaTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfieldAltaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfieldAltaFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        labelAltaAtributosFijoHorasMes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaAtributosFijoHorasMes.setText("Horas al mes:");
+
+        labelAltaAtributosFijoDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaAtributosFijoDepartamento.setText("Departamento:");
+
+        tfieldAltaAtributosFijoHorasMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfieldAltaAtributosFijoHorasMesActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAltaAtributosFijoLayout = new javax.swing.GroupLayout(panelAltaAtributosFijo);
+        panelAltaAtributosFijo.setLayout(panelAltaAtributosFijoLayout);
+        panelAltaAtributosFijoLayout.setHorizontalGroup(
+            panelAltaAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaAtributosFijoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAltaAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAltaAtributosFijoHorasMes)
+                    .addComponent(labelAltaAtributosFijoDepartamento))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelAltaAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfieldAltaAtributosFijoHorasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaAtributosFijoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
+        );
+        panelAltaAtributosFijoLayout.setVerticalGroup(
+            panelAltaAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaAtributosFijoLayout.createSequentialGroup()
+                .addGroup(panelAltaAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelAltaAtributosFijoHorasMes)
+                    .addComponent(tfieldAltaAtributosFijoHorasMes, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAltaAtributosFijoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelAltaAtributosFijoDepartamento)
+                    .addComponent(tfieldAltaAtributosFijoDepartamento, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        labelAltaAtributosTemporalHorasTrabajadas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaAtributosTemporalHorasTrabajadas.setText("Horas trabajadas:");
+
+        labelAltaAtributosTemporalEurosHora.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaAtributosTemporalEurosHora.setText("Euros por hora (€/h):");
+
+        tfieldAltaAtributosTemporalHorasTrabajadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAltaAtributosTemporalLayout = new javax.swing.GroupLayout(panelAltaAtributosTemporal);
+        panelAltaAtributosTemporal.setLayout(panelAltaAtributosTemporalLayout);
+        panelAltaAtributosTemporalLayout.setHorizontalGroup(
+            panelAltaAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaAtributosTemporalLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAltaAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAltaAtributosTemporalHorasTrabajadas)
+                    .addComponent(labelAltaAtributosTemporalEurosHora))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelAltaAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(tfieldAltaAtributosTemporalHorasTrabajadas, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaAtributosTemporalEurosHora, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(70, 70, 70))
+        );
+        panelAltaAtributosTemporalLayout.setVerticalGroup(
+            panelAltaAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaAtributosTemporalLayout.createSequentialGroup()
+                .addGroup(panelAltaAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelAltaAtributosTemporalHorasTrabajadas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaAtributosTemporalHorasTrabajadas, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panelAltaAtributosTemporalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelAltaAtributosTemporalEurosHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaAtributosTemporalEurosHora, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+        );
+
+        javax.swing.GroupLayout panelAltaAtributosLayout = new javax.swing.GroupLayout(panelAltaAtributos);
+        panelAltaAtributos.setLayout(panelAltaAtributosLayout);
+        panelAltaAtributosLayout.setHorizontalGroup(
+            panelAltaAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 449, Short.MAX_VALUE)
+            .addGroup(panelAltaAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelAltaAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAltaAtributosFijo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(panelAltaAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelAltaAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAltaAtributosTemporal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+        panelAltaAtributosLayout.setVerticalGroup(
+            panelAltaAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 78, Short.MAX_VALUE)
+            .addGroup(panelAltaAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelAltaAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAltaAtributosFijo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+            .addGroup(panelAltaAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAltaAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAltaAtributosTemporal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        botonAltaBotonesGuardar.setText("Guardar");
+        botonAltaBotonesGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAltaBotonesGuardarActionPerformed(evt);
+            }
+        });
+
+        botonAltaBotonesLimpiar.setText("Limpiar campos");
+        botonAltaBotonesLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAltaBotonesLimpiarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panelAltaBotonesLayout = new javax.swing.GroupLayout(panelAltaBotones);
+        panelAltaBotones.setLayout(panelAltaBotonesLayout);
+        panelAltaBotonesLayout.setHorizontalGroup(
+            panelAltaBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAltaBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botonAltaBotonesLimpiar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonAltaBotonesGuardar)
+                .addContainerGap())
+        );
+        panelAltaBotonesLayout.setVerticalGroup(
+            panelAltaBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAltaBotonesLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAltaBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAltaBotonesGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonAltaBotonesLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(2, 2, 2))
+        );
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel2.setText("Alta de Empleados");
+
+        javax.swing.GroupLayout panelAltaTituloLayout = new javax.swing.GroupLayout(panelAltaTitulo);
+        panelAltaTitulo.setLayout(panelAltaTituloLayout);
+        panelAltaTituloLayout.setHorizontalGroup(
+            panelAltaTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaTituloLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelAltaTituloLayout.setVerticalGroup(
+            panelAltaTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaTituloLayout.createSequentialGroup()
+                .addComponent(jLabel2)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout panelAltaLayout = new javax.swing.GroupLayout(panelAlta);
+        panelAlta.setLayout(panelAltaLayout);
+        panelAltaLayout.setHorizontalGroup(
+            panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelAltaTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAltaAtributos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelAltaLayout.createSequentialGroup()
+                        .addComponent(panelAltaLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelAltaTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelAltaBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        panelAltaLayout.setVerticalGroup(
+            panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelAltaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panelAltaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(panelAltaLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelAltaTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(7, 7, 7)
+                .addComponent(panelAltaAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addComponent(panelAltaBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
 
         menuAcciones.setText("Acciones");
 
         mitemAlta.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         mitemAlta.setText("Alta de empleados");
+        mitemAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mitemAltaActionPerformed(evt);
+            }
+        });
         menuAcciones.add(mitemAlta);
 
         mitemListado.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -114,19 +718,109 @@ public class GUI2 extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
+            .addGap(0, 473, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 349, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap()))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void mitemListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemListadoActionPerformed
-        // TODO add your handling code here:
+        /**
+         * En este método se define lo que ocurrirá al seleccionar el elemento
+         * "Listado de empleados" en el menú "Acciones".
+         * -Dejamos de mostrar los otros dos paneles (Bienvenida y Alta).
+         * -Mostramos el panel del Listado.
+         */
+        panelBienvenida.show(false);
+        panelAlta.show(false);
+        panelListado.show(true);
+        
+        if (lista.getActual().getObjeto());
+        
+        this.validate();
     }//GEN-LAST:event_mitemListadoActionPerformed
+
+    private void botonAltaBotonesGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaBotonesGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAltaBotonesGuardarActionPerformed
+
+    private void tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed
+
+    private void tfieldAltaAtributosFijoHorasMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaAtributosFijoHorasMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfieldAltaAtributosFijoHorasMesActionPerformed
+
+    private void tfieldListadoAtributosFijoHorasMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldListadoAtributosFijoHorasMesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfieldListadoAtributosFijoHorasMesActionPerformed
+
+    private void tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed
+
+    private void botonListadoBotonesSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoBotonesSiguienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonListadoBotonesSiguienteActionPerformed
+
+    private void mitemAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAltaActionPerformed
+        /**
+         * En este método se define lo que ocurrirá al seleccionar el elemento
+         * "Alta de empleados" en el menú "Acciones".
+         * -Dejamos de mostrar los otros dos paneles (Bienvenida y Listado).
+         * -Mostramos el panel de Altas.
+         * -Por defecto, en el tipo de empleado está Temporal, así que vamos
+         * a mostrar solo el panel de atributos de los temporales.
+         */
+        panelBienvenida.show(false);
+        panelListado.show(false);
+        panelAlta.show(true);
+        panelAltaAtributosFijo.show(false);
+        this.validate();
+    }//GEN-LAST:event_mitemAltaActionPerformed
+
+    private void botonAltaBotonesLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaBotonesLimpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonAltaBotonesLimpiarActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,9 +858,35 @@ public class GUI2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonAltaBotonesGuardar;
+    private javax.swing.JButton botonAltaBotonesGuardar1;
+    private javax.swing.JButton botonAltaBotonesLimpiar;
+    private javax.swing.JButton botonAltaBotonesLimpiar1;
+    private javax.swing.JButton botonListadoBotonesAnterior;
+    private javax.swing.JButton botonListadoBotonesSiguiente;
+    private javax.swing.JComboBox<String> cboxAltaTipoEmple;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelAltaAtributosFijoDepartamento;
+    private javax.swing.JLabel labelAltaAtributosFijoHorasMes;
+    private javax.swing.JLabel labelAltaAtributosTemporalEurosHora;
+    private javax.swing.JLabel labelAltaAtributosTemporalHorasTrabajadas;
+    private javax.swing.JLabel labelAltaFechaAlta;
+    private javax.swing.JLabel labelAltaNombre;
+    private javax.swing.JLabel labelAltaTipoEmple;
     private javax.swing.JLabel labelBienvenidaAutor;
     private javax.swing.JLabel labelBienvenidaAutor1;
     private javax.swing.JLabel labelBienvenidaTitulo;
+    private javax.swing.JLabel labelListadoAtributosFijoDepartamento;
+    private javax.swing.JLabel labelListadoAtributosFijoHorasMes;
+    private javax.swing.JLabel labelListadoAtributosTemporalEurosHora;
+    private javax.swing.JLabel labelListadoAtributosTemporalHorasTrabajadas;
+    private javax.swing.JLabel labelListadoFechaAlta;
+    private javax.swing.JLabel labelListadoNombre;
+    private javax.swing.JLabel labelListadoTipoEmple;
     private javax.swing.JMenuBar mbarGUI;
     private javax.swing.JMenu menuAcciones;
     private javax.swing.JMenu menuMas;
@@ -174,6 +894,36 @@ public class GUI2 extends javax.swing.JFrame {
     private javax.swing.JMenuItem mitemListado;
     private javax.swing.JMenuItem mitemVersion;
     private javax.swing.JMenuItem mitenAutor;
+    private javax.swing.JPanel panelAlta;
+    private javax.swing.JPanel panelAltaAtributos;
+    private javax.swing.JPanel panelAltaAtributosFijo;
+    private javax.swing.JPanel panelAltaAtributosTemporal;
+    private javax.swing.JPanel panelAltaBotones;
+    private javax.swing.JPanel panelAltaBotones1;
+    private javax.swing.JPanel panelAltaLabels;
+    private javax.swing.JPanel panelAltaTextfields;
+    private javax.swing.JPanel panelAltaTitulo;
     private javax.swing.JPanel panelBienvenida;
+    private javax.swing.JPanel panelListado;
+    private javax.swing.JPanel panelListadoAtributos;
+    private javax.swing.JPanel panelListadoAtributosFijo;
+    private javax.swing.JPanel panelListadoAtributosTemporal;
+    private javax.swing.JPanel panelListadoBotones;
+    private javax.swing.JPanel panelListadoLabels;
+    private javax.swing.JPanel panelListadoTextfields;
+    private javax.swing.JPanel panelListadoTitulo;
+    private javax.swing.JTextField tfieldAltaAtributosFijoDepartamento;
+    private javax.swing.JTextField tfieldAltaAtributosFijoHorasMes;
+    private javax.swing.JTextField tfieldAltaAtributosTemporalEurosHora;
+    private javax.swing.JTextField tfieldAltaAtributosTemporalHorasTrabajadas;
+    private javax.swing.JTextField tfieldAltaFechaAlta;
+    private javax.swing.JTextField tfieldAltaNombre;
+    private javax.swing.JTextField tfieldListadoAtributosFijoDepartamento;
+    private javax.swing.JTextField tfieldListadoAtributosFijoHorasMes;
+    private javax.swing.JTextField tfieldListadoAtributosTemporalEurosHora;
+    private javax.swing.JTextField tfieldListadoAtributosTemporalHorasTrabajadas;
+    private javax.swing.JTextField tfieldListadoFechaAlta;
+    private javax.swing.JTextField tfieldListadoNombre;
+    private javax.swing.JTextField tfieldListadoTipoEmple;
     // End of variables declaration//GEN-END:variables
 }

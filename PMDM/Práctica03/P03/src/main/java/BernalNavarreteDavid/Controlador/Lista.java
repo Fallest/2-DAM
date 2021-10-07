@@ -30,7 +30,10 @@ public class Lista {
          * Para el funcionamiento en detalle de esta lista, revisar la 
          * explicación en la Práctica02, en el constructor de la clase Videojuego.
          */
-        if (inicial == null) inicial = nodo;
+        if (inicial == null) {
+            inicial = nodo;
+            iter = inicial;
+        }
         else {
             nodo.setSiguiente(inicial);
             nodo.getSiguiente().setAnterior(nodo);
@@ -135,6 +138,10 @@ public class Lista {
     public void resetIter() {
         // Resetea el iterador para volver al inicio de la lista.
         iter = inicial;
+    }
+    
+    public Nodo getActual() {
+        return this.iter;
     }
     
     // Filtros por elementos de una fecha
