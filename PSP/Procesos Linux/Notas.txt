@@ -1,0 +1,8 @@
+Crear un archivo ejecutable C:
+gcc nombrearchivo.c -o nombrearchivo
+
+Cómo ejecutar:
+./nombrearchivo
+
+Función de C execl():
+execl("/bin/ls", "ls", "-l", (char *)NULL);
