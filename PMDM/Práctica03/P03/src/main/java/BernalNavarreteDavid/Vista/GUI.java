@@ -11,14 +11,14 @@ import BernalNavarreteDavid.Controlador.*;
  *
  * @author David
  */
-public class GUI2 extends javax.swing.JFrame {
+public class GUI extends javax.swing.JFrame {
 
     // La lista que contendrá los datos.
     Lista lista = new Lista();
     /**
      * Creates new form GUI2
      */
-    public GUI2() {
+    public GUI() {
         initComponents();
         
         // Creamos el estado inicial, en el que el panel de bienvenida se muestra.
@@ -666,7 +666,7 @@ public class GUI2 extends javax.swing.JFrame {
                 .addGap(4, 4, 4)
                 .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(panelAltaLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelAltaTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(panelAltaTextfields, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
                 .addGap(7, 7, 7)
                 .addComponent(panelAltaAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
@@ -769,7 +769,7 @@ public class GUI2 extends javax.swing.JFrame {
         panelAlta.show(false);
         panelListado.show(true);
         
-        if (lista.getActual().getObjeto());
+//        if (lista.getActual().getObjeto());
         
         this.validate();
     }//GEN-LAST:event_mitemListadoActionPerformed
@@ -839,29 +839,28 @@ public class GUI2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUI2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUI2().setVisible(true);
+                new GUI().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAltaBotonesGuardar;
-    private javax.swing.JButton botonAltaBotonesGuardar1;
     private javax.swing.JButton botonAltaBotonesLimpiar;
-    private javax.swing.JButton botonAltaBotonesLimpiar1;
     private javax.swing.JButton botonListadoBotonesAnterior;
     private javax.swing.JButton botonListadoBotonesSiguiente;
     private javax.swing.JComboBox<String> cboxAltaTipoEmple;
@@ -899,7 +898,6 @@ public class GUI2 extends javax.swing.JFrame {
     private javax.swing.JPanel panelAltaAtributosFijo;
     private javax.swing.JPanel panelAltaAtributosTemporal;
     private javax.swing.JPanel panelAltaBotones;
-    private javax.swing.JPanel panelAltaBotones1;
     private javax.swing.JPanel panelAltaLabels;
     private javax.swing.JPanel panelAltaTextfields;
     private javax.swing.JPanel panelAltaTitulo;
