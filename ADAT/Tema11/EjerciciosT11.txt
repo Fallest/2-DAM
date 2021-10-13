@@ -3,15 +3,83 @@
 
 declare
 	empleado_no number(4,0);
-	cantEmple
+	cantEmple number(2);
+	aumento number(7) default 0;
+	ofic varchar2(10);
+begin 
+	empleado_no := &vt_empno;
+	
+	select oficio into ofic from emple
+	where emp_no = empleado_no;
+
+	if ofic = 'PRESIDENTE' then
+		aumento := 30;
+	end if;
+
+	select count(*) into cantEmple from emple
+	where dir = empleado_no;
+	
+	if cantEmple = 0 then
+		aumento := aumento + 50;
+	elsif cantEmple = 1 then
+		aumento := aumento + 80;
+	elsif cantEmple = 2 then
+		aumento := aumento + 100;
+	else 
+		aumento := aumento + 110;
+	end if;
+
+	update emple set salario = salario + aumento
+	where emp_no = empleado_no;
+
+	dbms_output.put_line(aumento);
+end;
 
 /*------------------------------------------------------*/
 /* 2 */
 
+/*2.1*/
+declare
+	vApellidos varchar2(25);
+	v1Apel varchar2(25);
+	vCaracter char;
+	vPosicion integer := 1;
 
+begin
+	vApellidos := '&vsApellidos';
+	vCaracter := substr(vApellidos, vPosicion, 1);
+	while vCaracter between 'A' and 'Z' loop
+		v1Apel := v1Apel || vCaracter;
+		vPosicion := vPosicion +1;
+		vCaracter := substr(vApellidos, vPosicion, 1);
+	end loop;
+	dbms_output.put_line('1er apellido: ' || v1Apel);
+end;
+
+/*2.2*/
+declare
+	vApellidos varchar2(25);
+	v1Apel varchar2(25);
+	vCaracter char;
+	vPosicion integer := 1;
+
+begin
+	vApellidos := '&vsApellidos';
+	loop
+		vCaracter := substr(vApellidos, vPosicion, 1);
+		exit when vCaracter not between 'A' and 'Z';
+		v1Apel := v1Apel || vCaracter;
+		vPosicion := vPosicion + 1;
+	end loop;
+	dbms_output.put_line('1er apellido: ' || v1Apel);
+end;
 
 /*------------------------------------------------------*/
 /* 3 */
+
+/*3.1*/
+
+/*3.2*/
 
 /*------------------------------------------------------*/
 /* 4 */
