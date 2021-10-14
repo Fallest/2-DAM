@@ -6,6 +6,7 @@
 package BernalNavarreteDavid.Vista;
 
 import BernalNavarreteDavid.Controlador.*;
+import BernalNavarreteDavid.Modelo.*;
 
 /**
  *
@@ -14,7 +15,7 @@ import BernalNavarreteDavid.Controlador.*;
 public class GUI extends javax.swing.JFrame {
 
     // La lista que contendrá los datos.
-    Lista lista = new Lista();
+    public static Lista lista = new Lista();
     /**
      * Creates new form GUI2
      */
@@ -42,11 +43,15 @@ public class GUI extends javax.swing.JFrame {
         labelListadoTipoEmple = new javax.swing.JLabel();
         labelListadoNombre = new javax.swing.JLabel();
         labelListadoFechaAlta = new javax.swing.JLabel();
+        labelListadoSueldoMaximo = new javax.swing.JLabel();
         panelListadoTextfields = new javax.swing.JPanel();
         tfieldListadoTipoEmple = new javax.swing.JTextField();
         tfieldListadoNombre = new javax.swing.JTextField();
         tfieldListadoFechaAlta = new javax.swing.JTextField();
+        tfieldListadoSueldoMax = new javax.swing.JTextField();
         panelListadoAtributos = new javax.swing.JPanel();
+        panelListadoAtributosVacio = new javax.swing.JPanel();
+        labelListadoAtributosVacioMensaje = new javax.swing.JLabel();
         panelListadoAtributosTemporal = new javax.swing.JPanel();
         labelListadoAtributosTemporalHorasTrabajadas = new javax.swing.JLabel();
         labelListadoAtributosTemporalEurosHora = new javax.swing.JLabel();
@@ -60,9 +65,10 @@ public class GUI extends javax.swing.JFrame {
         panelListadoBotones = new javax.swing.JPanel();
         botonListadoBotonesSiguiente = new javax.swing.JButton();
         botonListadoBotonesAnterior = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cboxListadoBotonesFiltro = new javax.swing.JComboBox<>();
+        labelListadoBotonesFiltro = new javax.swing.JLabel();
+        tfieldListadoBotonesFiltro = new javax.swing.JTextField();
+        botonListadoFiltroAplicar = new javax.swing.JButton();
         panelListadoTitulo = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         panelBienvenida = new javax.swing.JPanel();
@@ -74,10 +80,12 @@ public class GUI extends javax.swing.JFrame {
         labelAltaTipoEmple = new javax.swing.JLabel();
         labelAltaNombre = new javax.swing.JLabel();
         labelAltaFechaAlta = new javax.swing.JLabel();
+        labelAltaSueldoMaximo = new javax.swing.JLabel();
         panelAltaTextfields = new javax.swing.JPanel();
         cboxAltaTipoEmple = new javax.swing.JComboBox<>();
         tfieldAltaNombre = new javax.swing.JTextField();
         tfieldAltaFechaAlta = new javax.swing.JTextField();
+        tfieldAltaSueldoMax = new javax.swing.JTextField();
         panelAltaAtributos = new javax.swing.JPanel();
         panelAltaAtributosFijo = new javax.swing.JPanel();
         labelAltaAtributosFijoHorasMes = new javax.swing.JLabel();
@@ -105,7 +113,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        panelListado.setPreferredSize(new java.awt.Dimension(461, 337));
+        panelListado.setPreferredSize(new java.awt.Dimension(475, 382));
 
         labelListadoTipoEmple.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelListadoTipoEmple.setText("Tipo de empleado:");
@@ -116,6 +124,9 @@ public class GUI extends javax.swing.JFrame {
         labelListadoFechaAlta.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelListadoFechaAlta.setText("Fecha de Alta (DD/MM/YYYY):");
 
+        labelListadoSueldoMaximo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelListadoSueldoMaximo.setText("Sueldo máximo:");
+
         javax.swing.GroupLayout panelListadoLabelsLayout = new javax.swing.GroupLayout(panelListadoLabels);
         panelListadoLabels.setLayout(panelListadoLabelsLayout);
         panelListadoLabelsLayout.setHorizontalGroup(
@@ -123,6 +134,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(panelListadoLabelsLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(panelListadoLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelListadoSueldoMaximo)
                     .addComponent(labelListadoFechaAlta)
                     .addComponent(labelListadoNombre)
                     .addComponent(labelListadoTipoEmple))
@@ -137,8 +149,18 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(labelListadoNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelListadoFechaAlta)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelListadoSueldoMaximo)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
+
+        tfieldListadoTipoEmple.setEditable(false);
+
+        tfieldListadoNombre.setEditable(false);
+
+        tfieldListadoFechaAlta.setEditable(false);
+
+        tfieldListadoSueldoMax.setEditable(false);
 
         javax.swing.GroupLayout panelListadoTextfieldsLayout = new javax.swing.GroupLayout(panelListadoTextfields);
         panelListadoTextfields.setLayout(panelListadoTextfieldsLayout);
@@ -146,10 +168,12 @@ public class GUI extends javax.swing.JFrame {
             panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelListadoTextfieldsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(tfieldListadoTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfieldListadoNombre)
-                    .addComponent(tfieldListadoFechaAlta))
+                .addGroup(panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelListadoTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(tfieldListadoTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfieldListadoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfieldListadoFechaAlta))
+                    .addComponent(tfieldListadoSueldoMax, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         panelListadoTextfieldsLayout.setVerticalGroup(
@@ -161,7 +185,31 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(tfieldListadoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfieldListadoFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfieldListadoSueldoMax, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+
+        panelListadoAtributosVacio.setPreferredSize(new java.awt.Dimension(344, 78));
+
+        labelListadoAtributosVacioMensaje.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelListadoAtributosVacioMensaje.setText("Lista vacía. Vaya al panel de altas para añadir elementos.");
+
+        javax.swing.GroupLayout panelListadoAtributosVacioLayout = new javax.swing.GroupLayout(panelListadoAtributosVacio);
+        panelListadoAtributosVacio.setLayout(panelListadoAtributosVacioLayout);
+        panelListadoAtributosVacioLayout.setHorizontalGroup(
+            panelListadoAtributosVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelListadoAtributosVacioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelListadoAtributosVacioMensaje)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panelListadoAtributosVacioLayout.setVerticalGroup(
+            panelListadoAtributosVacioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoAtributosVacioLayout.createSequentialGroup()
+                .addContainerGap(13, Short.MAX_VALUE)
+                .addComponent(labelListadoAtributosVacioMensaje)
+                .addGap(26, 26, 26))
         );
 
         labelListadoAtributosTemporalHorasTrabajadas.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -170,6 +218,9 @@ public class GUI extends javax.swing.JFrame {
         labelListadoAtributosTemporalEurosHora.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelListadoAtributosTemporalEurosHora.setText("Euros por hora (€/h):");
 
+        tfieldListadoAtributosTemporalEurosHora.setEditable(false);
+
+        tfieldListadoAtributosTemporalHorasTrabajadas.setEditable(false);
         tfieldListadoAtributosTemporalHorasTrabajadas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed(evt);
@@ -248,7 +299,12 @@ public class GUI extends javax.swing.JFrame {
         panelListadoAtributos.setLayout(panelListadoAtributosLayout);
         panelListadoAtributosLayout.setHorizontalGroup(
             panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 467, Short.MAX_VALUE)
+            .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panelListadoAtributosLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(panelListadoAtributosVacio, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addContainerGap()))
             .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelListadoAtributosLayout.createSequentialGroup()
                     .addContainerGap()
@@ -263,6 +319,11 @@ public class GUI extends javax.swing.JFrame {
         panelListadoAtributosLayout.setVerticalGroup(
             panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 78, Short.MAX_VALUE)
+            .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoAtributosLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(panelListadoAtributosVacio, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(8, Short.MAX_VALUE)))
             .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelListadoAtributosLayout.createSequentialGroup()
                     .addContainerGap()
@@ -284,17 +345,13 @@ public class GUI extends javax.swing.JFrame {
 
         botonListadoBotonesAnterior.setText("Anterior");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Día del mes", "Mes del año", "Año", "Tipo de dato", "Departamento", "Euros por hora" }));
-        jComboBox1.setToolTipText("");
+        cboxListadoBotonesFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Día del mes", "Mes del año", "Año", "Tipo de dato", "Departamento", "Euros por hora" }));
+        cboxListadoBotonesFiltro.setToolTipText("");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel1.setText("FIltrar por");
+        labelListadoBotonesFiltro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelListadoBotonesFiltro.setText("FIltrar por");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+        botonListadoFiltroAplicar.setText("Aplicar");
 
         javax.swing.GroupLayout panelListadoBotonesLayout = new javax.swing.GroupLayout(panelListadoBotones);
         panelListadoBotones.setLayout(panelListadoBotonesLayout);
@@ -303,29 +360,31 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(panelListadoBotonesLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoBotonesLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 140, Short.MAX_VALUE))
                     .addGroup(panelListadoBotonesLayout.createSequentialGroup()
                         .addComponent(botonListadoBotonesAnterior)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(botonListadoBotonesSiguiente)))
+                        .addComponent(botonListadoBotonesSiguiente))
+                    .addGroup(panelListadoBotonesLayout.createSequentialGroup()
+                        .addComponent(labelListadoBotonesFiltro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboxListadoBotonesFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(tfieldListadoBotonesFiltro)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonListadoFiltroAplicar)
+                        .addGap(89, 89, 89)))
                 .addContainerGap())
         );
         panelListadoBotonesLayout.setVerticalGroup(
             panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelListadoBotonesLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                    .addComponent(labelListadoBotonesFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboxListadoBotonesFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldListadoBotonesFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonListadoFiltroAplicar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelListadoBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonListadoBotonesAnterior, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botonListadoBotonesSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -342,7 +401,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel3)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
         panelListadoTituloLayout.setVerticalGroup(
             panelListadoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,22 +421,22 @@ public class GUI extends javax.swing.JFrame {
                         .addComponent(panelListadoTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(panelListadoAtributos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(panelListadoTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelListadoBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelListadoBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelListadoLayout.setVerticalGroup(
             panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelListadoTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(4, 4, 4)
+                .addComponent(panelListadoTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panelListadoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelListadoLabels, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(panelListadoTextfields, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelListadoAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelListadoBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(panelListadoBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2))
         );
 
@@ -428,6 +487,9 @@ public class GUI extends javax.swing.JFrame {
         labelAltaFechaAlta.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelAltaFechaAlta.setText("Fecha de Alta (DD/MM/YYYY):");
 
+        labelAltaSueldoMaximo.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
+        labelAltaSueldoMaximo.setText("Sueldo máximo:");
+
         javax.swing.GroupLayout panelAltaLabelsLayout = new javax.swing.GroupLayout(panelAltaLabels);
         panelAltaLabels.setLayout(panelAltaLabelsLayout);
         panelAltaLabelsLayout.setHorizontalGroup(
@@ -435,6 +497,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(panelAltaLabelsLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(panelAltaLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelAltaSueldoMaximo)
                     .addComponent(labelAltaFechaAlta)
                     .addComponent(labelAltaNombre)
                     .addComponent(labelAltaTipoEmple))
@@ -449,10 +512,23 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(labelAltaNombre)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelAltaFechaAlta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelAltaSueldoMaximo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         cboxAltaTipoEmple.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Temporal", "Fijo" }));
+        cboxAltaTipoEmple.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxAltaTipoEmpleActionPerformed(evt);
+            }
+        });
+
+        tfieldAltaSueldoMax.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tfieldAltaSueldoMaxActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelAltaTextfieldsLayout = new javax.swing.GroupLayout(panelAltaTextfields);
         panelAltaTextfields.setLayout(panelAltaTextfieldsLayout);
@@ -460,10 +536,11 @@ public class GUI extends javax.swing.JFrame {
             panelAltaTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAltaTextfieldsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelAltaTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelAltaTextfieldsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cboxAltaTipoEmple, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfieldAltaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfieldAltaFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfieldAltaFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfieldAltaSueldoMax, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         panelAltaTextfieldsLayout.setVerticalGroup(
@@ -475,6 +552,8 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(tfieldAltaNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfieldAltaFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfieldAltaSueldoMax, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -664,12 +743,12 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(panelAltaTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(4, 4, 4)
-                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(panelAltaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelAltaLabels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelAltaTextfields, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE))
-                .addGap(7, 7, 7)
+                    .addComponent(panelAltaTextfields, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelAltaAtributos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(panelAltaBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -722,17 +801,17 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
@@ -741,17 +820,17 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
         );
 
@@ -769,13 +848,68 @@ public class GUI extends javax.swing.JFrame {
         panelAlta.show(false);
         panelListado.show(true);
         
-//        if (lista.getActual().getObjeto());
+        // Reseteamos el filtro
+        cboxListadoBotonesFiltro.setSelectedIndex(0);
+        tfieldListadoBotonesFiltro.setText("");
         
+        if (lista.getActual() != null) {
+            // Activamos todos los botones, por si se han desactivado antes.
+            panelListadoAtributosVacio.show(false);
+            botonListadoBotonesAnterior.setEnabled(true);
+            botonListadoBotonesSiguiente.setEnabled(true);
+            botonListadoFiltroAplicar.setEnabled(true);
+            // Desactivamos el botón anterior si estamos en el primero
+            if (lista.getActual() == lista.primero())
+                botonListadoBotonesAnterior.setEnabled(false);
+            // Desactivamos el botón siguiente si estamos en el último
+            if (lista.getActual() == lista.fin())
+                botonListadoBotonesSiguiente.setEnabled(false);
+
+            // Dividimos los datos que mostramos dependiendo del tipo de Empleado.
+            actualizar();
+        }
+        else {
+            // En el caso en el que no haya ningún dato en la lista
+            panelListadoAtributosFijo.show(false);
+            panelListadoAtributosTemporal.show(false);
+            panelListadoAtributosVacio.show(true);
+            botonListadoBotonesAnterior.setEnabled(false);
+            botonListadoBotonesSiguiente.setEnabled(false);
+            botonListadoFiltroAplicar.setEnabled(false);
+            panelListado.updateUI();
+
+            tfieldListadoTipoEmple.setText("");
+            tfieldListadoFechaAlta.setText("");
+            tfieldListadoNombre.setText("");
+            tfieldListadoSueldoMax.setText("");
+        }
+        panelListado.updateUI();
         this.validate();
     }//GEN-LAST:event_mitemListadoActionPerformed
 
     private void botonAltaBotonesGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaBotonesGuardarActionPerformed
-        // TODO add your handling code here:
+        // Crear un nuevo Empleado y añadirlo a la estructura
+        if (cboxAltaTipoEmple.getSelectedIndex() == 0) {
+            // Si es un temporal
+            lista.añadirNodo(new Nodo(new Temporal(
+                    tfieldAltaNombre.getText(),
+                    Float.parseFloat(tfieldAltaAtributosTemporalHorasTrabajadas.getText()),
+                    Float.parseFloat(tfieldAltaAtributosTemporalEurosHora.getText()),
+                    Float.parseFloat(tfieldAltaSueldoMax.getText()),
+                    tfieldAltaFechaAlta.getText()
+            )));
+        }
+        else if (cboxAltaTipoEmple.getSelectedIndex() == 1) {
+            // Si es un fijo
+            lista.añadirNodo(new Nodo(new Fijo(
+                    tfieldAltaNombre.getText(),
+                    Float.parseFloat(tfieldAltaSueldoMax.getText()),
+                    Float.parseFloat(tfieldAltaAtributosFijoHorasMes.getText()),
+                    tfieldAltaAtributosFijoDepartamento.getText(),
+                    tfieldAltaFechaAlta.getText()
+            )));
+        }
+        limpiar();
     }//GEN-LAST:event_botonAltaBotonesGuardarActionPerformed
 
     private void tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed
@@ -795,7 +929,17 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed
 
     private void botonListadoBotonesSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoBotonesSiguienteActionPerformed
-        // TODO add your handling code here:
+        // Pasamos al siguiente elemento
+        if (!lista.tieneSiguiente()) 
+            botonListadoBotonesSiguiente.setEnabled(false);
+        else {
+            lista.siguiente();
+            if (!lista.tieneSiguiente())
+                botonListadoBotonesSiguiente.setEnabled(false);
+            if (!botonListadoBotonesAnterior.isEnabled())
+                botonListadoBotonesAnterior.setEnabled(true);
+            actualizarListado();
+        }
     }//GEN-LAST:event_botonListadoBotonesSiguienteActionPerformed
 
     private void mitemAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAltaActionPerformed
@@ -810,17 +954,38 @@ public class GUI extends javax.swing.JFrame {
         panelBienvenida.show(false);
         panelListado.show(false);
         panelAlta.show(true);
+        
         panelAltaAtributosFijo.show(false);
+        cboxAltaTipoEmple.setSelectedIndex(0);
+        
+        if (Empleado.getSueldoMaximo() != 0)
+            tfieldAltaSueldoMax.setText(String.valueOf(Empleado.getSueldoMaximo()));
+        
+        panelAlta.updateUI();
         this.validate();
     }//GEN-LAST:event_mitemAltaActionPerformed
 
     private void botonAltaBotonesLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaBotonesLimpiarActionPerformed
-        // TODO add your handling code here:
+        // Limpiamos todos los campos
+        limpiar();
     }//GEN-LAST:event_botonAltaBotonesLimpiarActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void cboxAltaTipoEmpleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxAltaTipoEmpleActionPerformed
+        if (cboxAltaTipoEmple.getSelectedIndex() == 0) {
+            panelAltaAtributosFijo.show(false);
+            panelAltaAtributosTemporal.show(true);
+            panelAlta.updateUI();
+        }
+        else if (cboxAltaTipoEmple.getSelectedIndex() == 1) {
+            panelAltaAtributosTemporal.show(false);
+            panelAltaAtributosFijo.show(true);
+            panelAlta.updateUI();
+        }
+    }//GEN-LAST:event_cboxAltaTipoEmpleActionPerformed
+
+    private void tfieldAltaSueldoMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaSueldoMaxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfieldAltaSueldoMaxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -849,9 +1014,17 @@ public class GUI extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        
+        /* Añadir elementos a la lista */
+        lista.añadirNodo(new Nodo(new Temporal("Antonio", 160f, 10f, 1800f, "23/07/2014")));
+//        lista.añadirNodo(new Nodo(new Temporal()));
+//        lista.añadirNodo(new Nodo(new Fijo()));
+//        lista.añadirNodo(new Nodo(new Temporal()));
+//        lista.añadirNodo(new Nodo(new Fijo()));
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new GUI().setVisible(true);
             }
@@ -863,18 +1036,18 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton botonAltaBotonesLimpiar;
     private javax.swing.JButton botonListadoBotonesAnterior;
     private javax.swing.JButton botonListadoBotonesSiguiente;
+    private javax.swing.JButton botonListadoFiltroAplicar;
     private javax.swing.JComboBox<String> cboxAltaTipoEmple;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cboxListadoBotonesFiltro;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelAltaAtributosFijoDepartamento;
     private javax.swing.JLabel labelAltaAtributosFijoHorasMes;
     private javax.swing.JLabel labelAltaAtributosTemporalEurosHora;
     private javax.swing.JLabel labelAltaAtributosTemporalHorasTrabajadas;
     private javax.swing.JLabel labelAltaFechaAlta;
     private javax.swing.JLabel labelAltaNombre;
+    private javax.swing.JLabel labelAltaSueldoMaximo;
     private javax.swing.JLabel labelAltaTipoEmple;
     private javax.swing.JLabel labelBienvenidaAutor;
     private javax.swing.JLabel labelBienvenidaAutor1;
@@ -883,8 +1056,11 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelListadoAtributosFijoHorasMes;
     private javax.swing.JLabel labelListadoAtributosTemporalEurosHora;
     private javax.swing.JLabel labelListadoAtributosTemporalHorasTrabajadas;
+    private javax.swing.JLabel labelListadoAtributosVacioMensaje;
+    private javax.swing.JLabel labelListadoBotonesFiltro;
     private javax.swing.JLabel labelListadoFechaAlta;
     private javax.swing.JLabel labelListadoNombre;
+    private javax.swing.JLabel labelListadoSueldoMaximo;
     private javax.swing.JLabel labelListadoTipoEmple;
     private javax.swing.JMenuBar mbarGUI;
     private javax.swing.JMenu menuAcciones;
@@ -906,6 +1082,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JPanel panelListadoAtributos;
     private javax.swing.JPanel panelListadoAtributosFijo;
     private javax.swing.JPanel panelListadoAtributosTemporal;
+    private javax.swing.JPanel panelListadoAtributosVacio;
     private javax.swing.JPanel panelListadoBotones;
     private javax.swing.JPanel panelListadoLabels;
     private javax.swing.JPanel panelListadoTextfields;
@@ -916,12 +1093,56 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField tfieldAltaAtributosTemporalHorasTrabajadas;
     private javax.swing.JTextField tfieldAltaFechaAlta;
     private javax.swing.JTextField tfieldAltaNombre;
+    private javax.swing.JTextField tfieldAltaSueldoMax;
     private javax.swing.JTextField tfieldListadoAtributosFijoDepartamento;
     private javax.swing.JTextField tfieldListadoAtributosFijoHorasMes;
     private javax.swing.JTextField tfieldListadoAtributosTemporalEurosHora;
     private javax.swing.JTextField tfieldListadoAtributosTemporalHorasTrabajadas;
+    private javax.swing.JTextField tfieldListadoBotonesFiltro;
     private javax.swing.JTextField tfieldListadoFechaAlta;
     private javax.swing.JTextField tfieldListadoNombre;
+    private javax.swing.JTextField tfieldListadoSueldoMax;
     private javax.swing.JTextField tfieldListadoTipoEmple;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiar() {
+        cboxAltaTipoEmple.setSelectedIndex(0);
+        tfieldAltaFechaAlta.setText("");
+        tfieldAltaNombre.setText("");
+        
+        if (Empleado.getSueldoMaximo() != 0)
+            tfieldAltaSueldoMax.setText(String.valueOf(Empleado.getSueldoMaximo()));
+        else 
+            tfieldAltaSueldoMax.setText("");
+        tfieldAltaAtributosTemporalEurosHora.setText("");
+        tfieldAltaAtributosTemporalHorasTrabajadas.setText("");
+    }
+
+    private void actualizarListado() {
+        // Actualiza los TextFields del listado con el nodo actual.
+        if (lista.getActual().getObjeto() instanceof Temporal t) {
+                panelListadoAtributosFijo.show(false);
+                panelListadoAtributosTemporal.show(true);
+                panelListado.updateUI();
+
+                tfieldListadoTipoEmple.setText("Temporal");
+                tfieldListadoNombre.setText(t.getNombre());
+                tfieldListadoFechaAlta.setText(t.getFechaAlta());
+                tfieldListadoSueldoMax.setText(String.valueOf(Temporal.getSueldoMaximo()));
+                tfieldListadoAtributosTemporalHorasTrabajadas.setText(String.valueOf(t.getDato()));
+                tfieldListadoAtributosTemporalEurosHora.setText(String.valueOf(t.getEurosHora()));
+        }
+        else if (lista.getActual().getObjeto() instanceof Fijo f) {
+            panelListadoAtributosTemporal.show(false);
+            panelListadoAtributosFijo.show(true);
+            panelListado.updateUI();
+
+            tfieldListadoTipoEmple.setText("Fijo");
+            tfieldListadoNombre.setText(f.getNombre());
+            tfieldListadoFechaAlta.setText(f.getFechaAlta());
+            tfieldListadoSueldoMax.setText(String.valueOf(Fijo.getSueldoMaximo()));
+            tfieldListadoAtributosFijoHorasMes.setText(String.valueOf(f.getDato()));
+            tfieldListadoAtributosFijoDepartamento.setText(f.getDepartamento());
+        }
+    }
 }

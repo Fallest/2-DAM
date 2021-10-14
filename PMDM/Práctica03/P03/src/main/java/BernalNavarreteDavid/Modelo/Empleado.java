@@ -53,7 +53,7 @@ public abstract class Empleado {
     private String nombre;
     private float sueldo;
     private GregorianCalendar fechaAlta;
-    private static float sueldoMaximo;
+    private static float sueldoMaximo = 0f;
     
     /*------------------------------------------------------------------------*/
     // Constructores
@@ -68,6 +68,12 @@ public abstract class Empleado {
         this.sueldo = sueldo;
         this.fechaAlta = fechaAlta;
         Empleado.sueldoMaximo = sueldoMaximo;
+    }
+    
+    Empleado(String nombre, float sueldo, GregorianCalendar fechaAlta) {
+        this.nombre = nombre;
+        this.sueldo = sueldo;
+        this.fechaAlta = fechaAlta;
     }
     /*------------------------------------------------------------------------*/
     // Setters
@@ -99,11 +105,11 @@ public abstract class Empleado {
         return this.sueldo;
     }
     
-    public GregorianCalendar getFechaAlta() {
-        return this.fechaAlta;
+    public String getFechaAlta() {
+        return DateParser.parseDate(fechaAlta);
     }
     
-    public float getSueldoMaximo() {
+    public static float getSueldoMaximo() {
         return Empleado.sueldoMaximo;
     }
     

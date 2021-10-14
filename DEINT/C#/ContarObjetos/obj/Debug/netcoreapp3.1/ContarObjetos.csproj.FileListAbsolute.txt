@@ -1,0 +1,13 @@
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.csprojAssemblyReference.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.AssemblyInfoInputs.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.AssemblyInfo.cs
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.csproj.CoreCompileInputs.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\bin\Debug\netcoreapp3.1\ContarObjetos.exe
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\bin\Debug\netcoreapp3.1\ContarObjetos.deps.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\bin\Debug\netcoreapp3.1\ContarObjetos.runtimeconfig.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\bin\Debug\netcoreapp3.1\ContarObjetos.runtimeconfig.dev.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\bin\Debug\netcoreapp3.1\ContarObjetos.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\bin\Debug\netcoreapp3.1\ContarObjetos.pdb
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.pdb
+C:\Users\David\Documents\2-DAM\DEINT\C#\ContarObjetos\obj\Debug\netcoreapp3.1\ContarObjetos.genruntimeconfig.cache

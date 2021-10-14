@@ -38,6 +38,7 @@ public class Lista {
             nodo.setSiguiente(inicial);
             nodo.getSiguiente().setAnterior(nodo);
             inicial = nodo;
+            iter = inicial;
         }
     }
     
@@ -102,6 +103,14 @@ public class Lista {
          añadirNodo(nuevoNodo);
     }
     
+    public boolean tieneSiguiente() {
+        return iter.getSiguiente() == null;
+    }
+    
+    public boolean tieneAnterior() {
+        return iter.getAnterior() == null;
+    }
+    
     public void siguiente() {
         /**
          * Va a avanzar el iter al siguiente.
@@ -125,9 +134,9 @@ public class Lista {
         return iter;
     }
     
-    public Object extraerDatos() {
+    public Empleado extraerDatos() {
         // Devuelve el objeto que está en el nodo actual.
-        return iter.getObjeto();
+        return (Empleado) iter.getObjeto();
     }
     
     public boolean vacía() {

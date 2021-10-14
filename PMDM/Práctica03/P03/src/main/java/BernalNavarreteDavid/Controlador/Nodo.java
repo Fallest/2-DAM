@@ -3,27 +3,27 @@ package BernalNavarreteDavid.Controlador;
 /**
  * Clase Nodo:
  * Va a tener tres atributos: 
- * -El objeto que contiene.
- * -El nodo siguiente.
+ * -El objeto que contiene.-El nodo siguiente.
  * -El nodo anterior.
- * 
- * Va a tener que poder hacer lo siguiente:
- * -Actualizar el siguiente.
- * -Actualizar el anterior.
- * -Actualizar el objeto.
- * -Devolver el siguiente.
- * -Devolver el anterior.
- * -Devolver el objeto.
+ 
+ Va a tener que poder hacer lo siguiente:
+ -Actualizar el siguiente.
+ -Actualizar el anterior.
+ -Actualizar el objeto.
+ -Devolver el siguiente.
+ -Devolver el anterior.
+ -Devolver el objeto.
+ * @param <Empleado>
  */
 
-public class Nodo<T> {
+public class Nodo<Empleado> {
     // Atributos
-    private T objeto;
+    private Empleado objeto;
     private Nodo siguiente;
     private Nodo anterior;
     
     // Constructor
-    public Nodo(T nuevoObjeto) {
+    public Nodo(Empleado nuevoObjeto) {
         this.objeto = nuevoObjeto;
     }
     
@@ -36,7 +36,7 @@ public class Nodo<T> {
         this.anterior = nuevoAnterior;
     }
     
-    public void setObjeto(T nuevoObjeto) {
+    public void setObjeto(Empleado nuevoObjeto) {
         this.objeto = nuevoObjeto;
     }
     
@@ -48,7 +48,7 @@ public class Nodo<T> {
         return this.anterior;
     }
     
-    public T getObjeto() {
+    public Empleado getObjeto() {
         return this.objeto;
     }
 }

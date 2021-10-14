@@ -74,12 +74,11 @@ public class DateParser extends GregorianCalendar {
         * Convierte un objeto GregorianCalendar a una cadena con formato
         * dd/mm/yyyy.
         */
-        return cal.toString();
+        return toString(cal);
     }
     
     // Método sobreescrito auxiliar toString.
-    @Override
-    public String toString()
+    public static String toString(GregorianCalendar cal)
     {
         /**
          * Tenemos que sobreescribir el método toString
@@ -95,7 +94,7 @@ public class DateParser extends GregorianCalendar {
          * atributos, a una cadena.
          */
         try {
-            Date thisDate = this.getTime();
+            Date thisDate = cal.getTime();
             return sdf.format(thisDate);
         }
         catch(Exception e) {

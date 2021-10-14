@@ -50,8 +50,35 @@ public final class Temporal extends Empleado {
     public Temporal(String nombre, float horasTrabajadas, float eurosHora, float sueldoMaximo, String fechaAlta) {
         // Como la fecha la recibimos en forma de cadena, la parseamos.
         super(nombre, 0f, DateParser.parseDate(fechaAlta), sueldoMaximo);
-        this.setHorasTrabajadas(horasTrabajadas);
-        this.setEurosHora(eurosHora);
+        if (horasTrabajadas*eurosHora < sueldoMaximo) {
+            this.horasTrabajadas = horasTrabajadas;
+            this.eurosHora = eurosHora;
+        }
+        else {
+            System.out.println("Error. Horas trabajadas o euros por hora no válidos. "
+                    + "\nSe supera el salario máximo.");
+        }
+        // Tenemos que asignar el sueldo después de llamar a super().
+        this.setSueldo(calcularSueldo());
+    }
+    
+    public Temporal(String nombre, float horasTrabajadas, float eurosHora, String fechaAlta) {
+        // Como la fecha la recibimos en forma de cadena, la parseamos.
+        super(nombre, 0f, DateParser.parseDate(fechaAlta));
+        if (Empleado.getSueldoMaximo() == 0f) {
+            this.horasTrabajadas = horasTrabajadas;
+            this.eurosHora = eurosHora;
+        }
+        else {
+            if (horasTrabajadas*eurosHora < Empleado.getSueldoMaximo()) {
+                this.horasTrabajadas = horasTrabajadas;
+                this.eurosHora = eurosHora;
+            }
+            else {
+                System.out.println("Error. Horas trabajadas o euros por hora no válidos. "
+                        + "\nSe supera el salario máximo.");
+            }
+        }
         // Tenemos que asignar el sueldo después de llamar a super().
         this.setSueldo(calcularSueldo());
     }
@@ -62,13 +89,19 @@ public final class Temporal extends Empleado {
         /* Hay que comprobar que al actualizar las horas trabajadas no superamos
         el sueldo máximo establecido.
         */
-        if (horasTrabajadas * this.eurosHora > super.getSueldoMaximo()
-                || horasTrabajadas * this.eurosHora <= 0f)
-            System.out.println("Horas trabajadas no válidas. Se supera el sueldo máximo.");
-        else {
+        if (Empleado.getSueldoMaximo() == 0f) {
             this.horasTrabajadas = horasTrabajadas;
-            // Hay que actualizar el sueldo cada vez que se actualicen las horas.
             this.setSueldo(calcularSueldo());
+        }
+        else { 
+            if (horasTrabajadas * this.eurosHora > Empleado.getSueldoMaximo()
+                || horasTrabajadas * this.eurosHora <= 0f)
+                System.out.println("Horas trabajadas no válidas. Se supera el sueldo máximo.");
+            else {
+                this.horasTrabajadas = horasTrabajadas;
+                // Hay que actualizar el sueldo cada vez que se actualicen las horas.
+                this.setSueldo(calcularSueldo());
+            }
         }
     }
     
@@ -76,14 +109,21 @@ public final class Temporal extends Empleado {
         /* Hay que comprobar que al actualizar los euros por hora no superamos
         el sueldo máximo establecido.
         */
-        if (this.horasTrabajadas * eurosHora > super.getSueldoMaximo()
-                || this.horasTrabajadas * eurosHora <= 0f)
-            System.out.println("Euros por hora no válidos. Se supera el sueldo máximo.");
-        else {
+        if (Empleado.getSueldoMaximo() == 0f) {
             this.eurosHora = eurosHora;
-            // Hay que actualizar el sueldo cada vez que se actualice los euros por hora.
             this.setSueldo(calcularSueldo());
-        }   
+        }
+            
+        else {
+            if (this.horasTrabajadas * eurosHora > Empleado.getSueldoMaximo()
+                || this.horasTrabajadas * eurosHora <= 0f)
+                System.out.println("Euros por hora no válidos. Se supera el sueldo máximo.");
+            else {
+                this.eurosHora = eurosHora;
+                // Hay que actualizar el sueldo cada vez que se actualice los euros por hora.
+                this.setSueldo(calcularSueldo());
+            }
+        }  
     }
     
     /*------------------------------------------------------------------------*/
@@ -110,7 +150,7 @@ public final class Temporal extends Empleado {
         return    this.getNombre() + " | "
                 + DateParser.parseDate(this.getFechaAlta()) + " | "
                 + this.getSueldo() + " | "
-                + this.getSueldoMaximo()+ " | "
+                + Empleado.getSueldoMaximo()+ " | "
                 + this.horasTrabajadas + " | "
                 + this.eurosHora;
     }

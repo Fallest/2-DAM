@@ -58,20 +58,33 @@ public class Fijo extends Empleado {
         Fijo.horasMes = horasMes;
     }
     
+    public Fijo(String nombre, float horasMes, String departamento, String fechaAlta) {
+        // Como la fecha la recibimos en forma de cadena, la parseamos.
+        super(nombre, 0f, DateParser.parseDate(fechaAlta));
+        setDepart(departamento);
+        Fijo.horasMes = horasMes;
+    }
+    
     /*------------------------------------------------------------------------*/
     // Setters
     public void setHorasMes(float horasMes) {
         /** Hay que comprobar que al actualizar las horas al mes no superamos
         * el sueldo máximo establecido.
         */
-        if (calcularSueldo(horasMes) > super.getSueldoMaximo()
-                || calcularSueldo(horasMes) <= 0f)
-            System.out.println("Euros por hora no válidos. Se supera el sueldo máximo.");
-        else {
+        if (Empleado.getSueldoMaximo() == 0f) {
             Fijo.horasMes = horasMes;
-            // Hay que actualizar el sueldo cada vez que se actualice las horas al mes.
             this.setSueldo(calcularSueldo());
-        }   
+        }
+        else {
+            if (calcularSueldo(horasMes) > Empleado.getSueldoMaximo()
+                || calcularSueldo(horasMes) <= 0f)
+                System.out.println("Euros por hora no válidos. Se supera el sueldo máximo.");
+            else {
+                Fijo.horasMes = horasMes;
+                // Hay que actualizar el sueldo cada vez que se actualice las horas al mes.
+                this.setSueldo(calcularSueldo());
+            }   
+        }
     }
     
     public void setDepart(String depart) {
@@ -130,7 +143,7 @@ public class Fijo extends Empleado {
         return    this.getNombre() + " | "
                 + DateParser.parseDate(this.getFechaAlta()) + " | "
                 + this.getSueldo() + " | "
-                + this.getSueldoMaximo()+ " | "
+                + Empleado.getSueldoMaximo()+ " | "
                 + Fijo.horasMes + " | "
                 + this.departamento;
     }
