@@ -90,7 +90,7 @@ public class Fijo extends Empleado {
     public void setDepart(String depart) {
         // Tenemos que comprobar que el departamento existe.
         try {
-            if(!depart.equals("RRHH") || !depart.equals("Admisiones") || !depart.equals("Restauración"))
+            if(!depart.equals("RRHH") && !depart.equals("Admisiones") && !depart.equals("Restauración"))
                 throw new Exceptions("dep");
             else this.departamento = depart;
             }

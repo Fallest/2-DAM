@@ -473,9 +473,6 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -536,9 +533,6 @@
                 <Component class="javax.swing.JTextField" name="tfieldListadoAtributosFijoDepartamento">
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfieldListadoAtributosFijoHorasMes">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfieldListadoAtributosFijoHorasMesActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -605,6 +599,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Anterior"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonListadoBotonesAnteriorActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cboxListadoBotonesFiltro">
               <Properties>
@@ -639,6 +636,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Aplicar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonListadoFiltroAplicarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -649,19 +649,19 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelListadoTitulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jLabel3" alignment="1" max="32767" attributes="0"/>
+                  <Component id="labelListadoTitulo" alignment="1" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel3">
+            <Component class="javax.swing.JLabel" name="labelListadoTitulo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>
@@ -901,9 +901,6 @@
             <Component class="javax.swing.JTextField" name="tfieldAltaFechaAlta">
             </Component>
             <Component class="javax.swing.JTextField" name="tfieldAltaSueldoMax">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfieldAltaSueldoMaxActionPerformed"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -1007,9 +1004,6 @@
                 <Component class="javax.swing.JTextField" name="tfieldAltaAtributosFijoDepartamento">
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfieldAltaAtributosFijoHorasMes">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfieldAltaAtributosFijoHorasMesActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1069,9 +1063,6 @@
                 <Component class="javax.swing.JTextField" name="tfieldAltaAtributosTemporalEurosHora">
                 </Component>
                 <Component class="javax.swing.JTextField" name="tfieldAltaAtributosTemporalHorasTrabajadas">
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -1130,7 +1121,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelAltaTitulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -1138,14 +1129,14 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelAltaTitulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="labelAltaTitulo">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="24" style="0"/>

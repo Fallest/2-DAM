@@ -16,6 +16,8 @@ public class GUI extends javax.swing.JFrame {
 
     // La lista que contendrá los datos.
     public static Lista lista = new Lista();
+    private static Lista listaAux;
+    private static boolean flagFiltro = false;
     /**
      * Creates new form GUI2
      */
@@ -70,7 +72,7 @@ public class GUI extends javax.swing.JFrame {
         tfieldListadoBotonesFiltro = new javax.swing.JTextField();
         botonListadoFiltroAplicar = new javax.swing.JButton();
         panelListadoTitulo = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        labelListadoTitulo = new javax.swing.JLabel();
         panelBienvenida = new javax.swing.JPanel();
         labelBienvenidaTitulo = new javax.swing.JLabel();
         labelBienvenidaAutor = new javax.swing.JLabel();
@@ -101,7 +103,7 @@ public class GUI extends javax.swing.JFrame {
         botonAltaBotonesGuardar = new javax.swing.JButton();
         botonAltaBotonesLimpiar = new javax.swing.JButton();
         panelAltaTitulo = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        labelAltaTitulo = new javax.swing.JLabel();
         mbarGUI = new javax.swing.JMenuBar();
         menuAcciones = new javax.swing.JMenu();
         mitemAlta = new javax.swing.JMenuItem();
@@ -221,11 +223,6 @@ public class GUI extends javax.swing.JFrame {
         tfieldListadoAtributosTemporalEurosHora.setEditable(false);
 
         tfieldListadoAtributosTemporalHorasTrabajadas.setEditable(false);
-        tfieldListadoAtributosTemporalHorasTrabajadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelListadoAtributosTemporalLayout = new javax.swing.GroupLayout(panelListadoAtributosTemporal);
         panelListadoAtributosTemporal.setLayout(panelListadoAtributosTemporalLayout);
@@ -260,12 +257,6 @@ public class GUI extends javax.swing.JFrame {
 
         labelListadoAtributosFijoDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelListadoAtributosFijoDepartamento.setText("Departamento:");
-
-        tfieldListadoAtributosFijoHorasMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfieldListadoAtributosFijoHorasMesActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelListadoAtributosFijoLayout = new javax.swing.GroupLayout(panelListadoAtributosFijo);
         panelListadoAtributosFijo.setLayout(panelListadoAtributosFijoLayout);
@@ -344,6 +335,11 @@ public class GUI extends javax.swing.JFrame {
         });
 
         botonListadoBotonesAnterior.setText("Anterior");
+        botonListadoBotonesAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListadoBotonesAnteriorActionPerformed(evt);
+            }
+        });
 
         cboxListadoBotonesFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Día del mes", "Mes del año", "Año", "Tipo de dato", "Departamento", "Euros por hora" }));
         cboxListadoBotonesFiltro.setToolTipText("");
@@ -352,6 +348,11 @@ public class GUI extends javax.swing.JFrame {
         labelListadoBotonesFiltro.setText("FIltrar por");
 
         botonListadoFiltroAplicar.setText("Aplicar");
+        botonListadoFiltroAplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonListadoFiltroAplicarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelListadoBotonesLayout = new javax.swing.GroupLayout(panelListadoBotones);
         panelListadoBotones.setLayout(panelListadoBotonesLayout);
@@ -391,8 +392,8 @@ public class GUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel3.setText("Listado de Empleados");
+        labelListadoTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        labelListadoTitulo.setText("Listado de Empleados");
 
         javax.swing.GroupLayout panelListadoTituloLayout = new javax.swing.GroupLayout(panelListadoTitulo);
         panelListadoTitulo.setLayout(panelListadoTituloLayout);
@@ -400,12 +401,12 @@ public class GUI extends javax.swing.JFrame {
             panelListadoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelListadoTituloLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addComponent(labelListadoTitulo)
                 .addGap(19, 19, 19))
         );
         panelListadoTituloLayout.setVerticalGroup(
             panelListadoTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelListadoTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelListadoLayout = new javax.swing.GroupLayout(panelListado);
@@ -524,12 +525,6 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
-        tfieldAltaSueldoMax.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfieldAltaSueldoMaxActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout panelAltaTextfieldsLayout = new javax.swing.GroupLayout(panelAltaTextfields);
         panelAltaTextfields.setLayout(panelAltaTextfieldsLayout);
         panelAltaTextfieldsLayout.setHorizontalGroup(
@@ -562,12 +557,6 @@ public class GUI extends javax.swing.JFrame {
 
         labelAltaAtributosFijoDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelAltaAtributosFijoDepartamento.setText("Departamento:");
-
-        tfieldAltaAtributosFijoHorasMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfieldAltaAtributosFijoHorasMesActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelAltaAtributosFijoLayout = new javax.swing.GroupLayout(panelAltaAtributosFijo);
         panelAltaAtributosFijo.setLayout(panelAltaAtributosFijoLayout);
@@ -602,12 +591,6 @@ public class GUI extends javax.swing.JFrame {
 
         labelAltaAtributosTemporalEurosHora.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelAltaAtributosTemporalEurosHora.setText("Euros por hora (€/h):");
-
-        tfieldAltaAtributosTemporalHorasTrabajadas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panelAltaAtributosTemporalLayout = new javax.swing.GroupLayout(panelAltaAtributosTemporal);
         panelAltaAtributosTemporal.setLayout(panelAltaAtributosTemporalLayout);
@@ -702,8 +685,8 @@ public class GUI extends javax.swing.JFrame {
                 .addGap(2, 2, 2))
         );
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Alta de Empleados");
+        labelAltaTitulo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        labelAltaTitulo.setText("Alta de Empleados");
 
         javax.swing.GroupLayout panelAltaTituloLayout = new javax.swing.GroupLayout(panelAltaTitulo);
         panelAltaTitulo.setLayout(panelAltaTituloLayout);
@@ -711,13 +694,13 @@ public class GUI extends javax.swing.JFrame {
             panelAltaTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAltaTituloLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(labelAltaTitulo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelAltaTituloLayout.setVerticalGroup(
             panelAltaTituloLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelAltaTituloLayout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(labelAltaTitulo)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -847,10 +830,13 @@ public class GUI extends javax.swing.JFrame {
         panelBienvenida.show(false);
         panelAlta.show(false);
         panelListado.show(true);
+        panelListado.updateUI();
         
         // Reseteamos el filtro
         cboxListadoBotonesFiltro.setSelectedIndex(0);
         tfieldListadoBotonesFiltro.setText("");
+        
+        lista.resetIter();
         
         if (lista.getActual() != null) {
             // Activamos todos los botones, por si se han desactivado antes.
@@ -865,8 +851,9 @@ public class GUI extends javax.swing.JFrame {
             if (lista.getActual() == lista.fin())
                 botonListadoBotonesSiguiente.setEnabled(false);
 
-            // Dividimos los datos que mostramos dependiendo del tipo de Empleado.
-            actualizar();
+            // Mostramos los datos del actual
+            actualizarListado(lista);
+            panelListado.updateUI();
         }
         else {
             // En el caso en el que no haya ningún dato en la lista
@@ -912,34 +899,19 @@ public class GUI extends javax.swing.JFrame {
         limpiar();
     }//GEN-LAST:event_botonAltaBotonesGuardarActionPerformed
 
-    private void tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfieldAltaAtributosTemporalHorasTrabajadasActionPerformed
-
-    private void tfieldAltaAtributosFijoHorasMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaAtributosFijoHorasMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfieldAltaAtributosFijoHorasMesActionPerformed
-
-    private void tfieldListadoAtributosFijoHorasMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldListadoAtributosFijoHorasMesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfieldListadoAtributosFijoHorasMesActionPerformed
-
-    private void tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfieldListadoAtributosTemporalHorasTrabajadasActionPerformed
-
     private void botonListadoBotonesSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoBotonesSiguienteActionPerformed
-        // Pasamos al siguiente elemento
-        if (!lista.tieneSiguiente()) 
-            botonListadoBotonesSiguiente.setEnabled(false);
-        else {
-            lista.siguiente();
-            if (!lista.tieneSiguiente())
-                botonListadoBotonesSiguiente.setEnabled(false);
-            if (!botonListadoBotonesAnterior.isEnabled())
-                botonListadoBotonesAnterior.setEnabled(true);
-            actualizarListado();
-        }
+        /**
+         * Para pasar al siguiente elemento.
+         * Primero comprobamos si existe un elemento tras el actual.
+         * Si no existe ninguno, desactivamos el botón y terminamos.
+         * Si existe un siguiente, avanzamos y realizamos otras dos comprobaciones:
+         * Si el botón "Anterior" está desactivado, lo reactivamos.
+         * Si no existe un siguiente tras el avance, desactivamos el botón de "Siguiente".
+         */
+        if (flagFiltro) 
+            avanzar(listaAux);
+        else 
+            avanzar(lista);
     }//GEN-LAST:event_botonListadoBotonesSiguienteActionPerformed
 
     private void mitemAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mitemAltaActionPerformed
@@ -983,9 +955,103 @@ public class GUI extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cboxAltaTipoEmpleActionPerformed
 
-    private void tfieldAltaSueldoMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfieldAltaSueldoMaxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfieldAltaSueldoMaxActionPerformed
+    private void botonListadoFiltroAplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoFiltroAplicarActionPerformed
+        /**
+         * Aplicaremos el filtro, creando una lista auxiliar para utilizar una lista
+         * filtrada, y recorrerla de esa manera.
+         * Usaremos una bandera (flagFiltro) para saber si seguiremos iterando sobre
+         * la lista auxiliar o no.
+         * Primero revisaremos el elemento seleccionado en la ComboBox del filtro.
+         * Luego usaremos el dato que se haya introducido en el TextField para
+         * aplicarlo.
+         * Debemos realizar comprobaciones para saber si el filtro se puede
+         * aplicar correctamente.
+         */
+        flagFiltro = true;
+        
+        switch(cboxListadoBotonesFiltro.getSelectedIndex()) {
+            case 0 -> {
+                // Filtrar por: "Todos"
+                // Reseteamos la GUI y el filtro.
+                flagFiltro = false;
+                tfieldListadoBotonesFiltro.setText("");
+                actualizarListado(lista);
+            }
+            case 1 -> {
+                // Filtrar por: "Día del mes"
+                // Creamos una nueva lista filtrando por el día del mes
+                int dia = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
+                if (dia < 1 || dia > 31 || "".equals(tfieldListadoBotonesFiltro.getText())) {
+                    flagFiltro = false;
+                    tfieldListadoBotonesFiltro.setText("");
+                    actualizarListado(lista);
+                }
+                else
+                    listaAux = lista.filtrarDia(dia);
+            }
+            case 2 -> {
+                // Filtrar por: "Mes del año"
+                // Creamos una nueva lista filtrando por el mes del año.
+                int mes = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
+                if (mes < 1 || mes > 12 || "".equals(tfieldListadoBotonesFiltro.getText())) {
+                    flagFiltro = false;
+                    tfieldListadoBotonesFiltro.setText("");
+                    actualizarListado(lista);
+                }
+                else
+                    listaAux = lista.filtrarMes(mes);
+            }
+            case 3 -> {
+                // Filtrar por: "Año"
+                // Creamos una nueva lista filtrando por el año
+                int año = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
+                if (año < 1 || año > 12 || "".equals(tfieldListadoBotonesFiltro.getText())) {
+                    flagFiltro = false;
+                    tfieldListadoBotonesFiltro.setText("");
+                    actualizarListado(lista);
+                }
+                else 
+                    listaAux = lista.filtrarAño(año);
+            }
+            case 4 -> {
+                // Filtrar por: "Tipo de dato"
+                String tipo = tfieldListadoBotonesFiltro.getText();
+                if ("".equals(tipo)) {
+                    flagFiltro = false;
+                    tfieldListadoBotonesFiltro.setText("");
+                    actualizarListado(lista);
+                }
+                else
+                    listaAux = lista.filtrarTipo(tipo);
+            }
+            case 5 -> {
+                // Filtrar por: "Departamento"
+                // TODO
+                flagFiltro = false;
+                
+            }
+            case 6 -> {
+                // Filtrar por: "Euros por hora"
+                // TODO
+                flagFiltro = false;
+            }
+        }
+    }//GEN-LAST:event_botonListadoFiltroAplicarActionPerformed
+
+    private void botonListadoBotonesAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonListadoBotonesAnteriorActionPerformed
+        /**
+         * Pasamos al elemento anterior en la lista.
+         * Primero comprobamos si existe un anterior al actual:
+         * En caso de que no existe, desactivamos el botón y terminamos.
+         * En caso de que sí exista, retrocedemos y realizamos otras dos comprobaciones:
+         * Si el botón "Siguiente" está desactivado, lo activamos de nuevo.
+         * Si no hay nada anterior al actual, desactivamos el botón "Anterior".
+         */
+        if (flagFiltro) 
+            retroceder(listaAux);
+        else 
+            retroceder(lista);
+    }//GEN-LAST:event_botonListadoBotonesAnteriorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1017,10 +1083,10 @@ public class GUI extends javax.swing.JFrame {
         
         /* Añadir elementos a la lista */
         lista.añadirNodo(new Nodo(new Temporal("Antonio", 160f, 10f, 1800f, "23/07/2014")));
-//        lista.añadirNodo(new Nodo(new Temporal()));
-//        lista.añadirNodo(new Nodo(new Fijo()));
-//        lista.añadirNodo(new Nodo(new Temporal()));
-//        lista.añadirNodo(new Nodo(new Fijo()));
+        lista.añadirNodo(new Nodo(new Temporal("Jose Luis", 145.5f, 7.16f, "19/06/2021")));
+        lista.añadirNodo(new Nodo(new Fijo("Carmen", 160f, "RRHH", "14/05/2020")));
+        lista.añadirNodo(new Nodo(new Temporal("María Esperanza", 169.25f, 7.87f, "12/04/2019")));
+        lista.añadirNodo(new Nodo(new Fijo("Pablo", 160f, "Admisiones", "24/07/2020")));
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1039,8 +1105,6 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JButton botonListadoFiltroAplicar;
     private javax.swing.JComboBox<String> cboxAltaTipoEmple;
     private javax.swing.JComboBox<String> cboxListadoBotonesFiltro;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel labelAltaAtributosFijoDepartamento;
     private javax.swing.JLabel labelAltaAtributosFijoHorasMes;
     private javax.swing.JLabel labelAltaAtributosTemporalEurosHora;
@@ -1049,6 +1113,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelAltaNombre;
     private javax.swing.JLabel labelAltaSueldoMaximo;
     private javax.swing.JLabel labelAltaTipoEmple;
+    private javax.swing.JLabel labelAltaTitulo;
     private javax.swing.JLabel labelBienvenidaAutor;
     private javax.swing.JLabel labelBienvenidaAutor1;
     private javax.swing.JLabel labelBienvenidaTitulo;
@@ -1062,6 +1127,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel labelListadoNombre;
     private javax.swing.JLabel labelListadoSueldoMaximo;
     private javax.swing.JLabel labelListadoTipoEmple;
+    private javax.swing.JLabel labelListadoTitulo;
     private javax.swing.JMenuBar mbarGUI;
     private javax.swing.JMenu menuAcciones;
     private javax.swing.JMenu menuMas;
@@ -1106,6 +1172,12 @@ public class GUI extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void limpiar() {
+        /**
+         * Para limpar los TextFields del panel de Altas.
+         * Vacía todo el texto que haya en los TextFields, reinicia el ComboBox
+         * para el tipo de empleado, y automáticamente asigna el sueldo máximo si
+         * ya hay uno asignado.
+         */
         cboxAltaTipoEmple.setSelectedIndex(0);
         tfieldAltaFechaAlta.setText("");
         tfieldAltaNombre.setText("");
@@ -1118,8 +1190,15 @@ public class GUI extends javax.swing.JFrame {
         tfieldAltaAtributosTemporalHorasTrabajadas.setText("");
     }
 
-    private void actualizarListado() {
-        // Actualiza los TextFields del listado con el nodo actual.
+    private void actualizarListado(Lista lista) {
+        /**
+         * Actualiza los TextFields del panel del Listado con los datos
+         * del nodo actual.
+         * Primero tiene que diferenciar entre tipos Temporal y Fijo, para
+         * saber qué panel de atributos mostrar.
+         * Una vez modificados los paneles que se muestran, actualiza los datos
+         * de los TextFields.
+         */
         if (lista.getActual().getObjeto() instanceof Temporal t) {
                 panelListadoAtributosFijo.show(false);
                 panelListadoAtributosTemporal.show(true);
@@ -1143,6 +1222,32 @@ public class GUI extends javax.swing.JFrame {
             tfieldListadoSueldoMax.setText(String.valueOf(Fijo.getSueldoMaximo()));
             tfieldListadoAtributosFijoHorasMes.setText(String.valueOf(f.getDato()));
             tfieldListadoAtributosFijoDepartamento.setText(f.getDepartamento());
+        }
+    }
+
+    private void retroceder(Lista lista) {
+        if (!lista.tieneAnterior())
+            botonListadoBotonesAnterior.setEnabled(false);
+        else {
+            lista.atrás();
+            if (!botonListadoBotonesSiguiente.isEnabled())
+                botonListadoBotonesSiguiente.setEnabled(true);
+            if (!lista.tieneAnterior())
+                botonListadoBotonesAnterior.setEnabled(false);
+            actualizarListado(lista);
+        }
+    }
+
+    private void avanzar(Lista lista) {
+        if (!lista.tieneSiguiente()) 
+            botonListadoBotonesSiguiente.setEnabled(false);
+        else {
+            lista.siguiente();
+            if (!lista.tieneSiguiente())
+                botonListadoBotonesSiguiente.setEnabled(false);
+            if (!botonListadoBotonesAnterior.isEnabled())
+                botonListadoBotonesAnterior.setEnabled(true);
+            actualizarListado(lista);
         }
     }
 }

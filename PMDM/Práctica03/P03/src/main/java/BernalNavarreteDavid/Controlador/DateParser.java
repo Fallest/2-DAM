@@ -4,25 +4,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-/**
- * Esta clase se va a usar para las conversiones de las fechas de String a 
- * GregorianCalendar y viceversa.
- * Extiende a GregorianCalendar para sobreescribir el toString() de Calendar sin
- * tener que crear una instancia de GregorianCalendar y sobreescribir el toString()
- * usando una clase anónima (en resumen, así solo tengo que añadir una función simple
- * al final para convertir de GregorianCalendar a String, sin tener que hacer un relío
- * más difícil de entender).
- * 
+/** 
  * La clase tiene tres métodos:
  *  1- Uno para pasar de String a GregorianCalendar.
  *  2- Otro para pasar de GregorianCalendar a String.
- *  3- El método sobreescrito toString (es un auxiliar para el segundo método).
+ *  3- El método toString (es un auxiliar para el segundo método).
  * 
  * Los dos métodos principales van a hacer uso del polimorfismo (van a tener el 
  * mismo nombre y lo único que va a cambiar es el tipo de parámetro que reciben 
  * y el tipo de dato que devuelven).
  */
-public class DateParser extends GregorianCalendar {
+public class DateParser {
     /** 
      * Es un objeto de tipo SimpleDateFormat, es para ayudarnos a convertir de
      * GregorianCalendar a String.
@@ -77,17 +69,10 @@ public class DateParser extends GregorianCalendar {
         return toString(cal);
     }
     
-    // Método sobreescrito auxiliar toString.
+    // Método auxiliar toString.
     public static String toString(GregorianCalendar cal)
     {
         /**
-         * Tenemos que sobreescribir el método toString
-         * de GregorianCalendar (que a su vez es el método de la superclase Calendar, 
-         * de la cual hereda GregorianCalendar) y así poder convertir de GregorianCalendar
-         * a String sin tener que hacer mucho más lío que esto.
-         * No es necesario comprender el código dentro del método toString, pero
-         * lo voy a explicar porque puedo.
-         * 
          * Básicamente va a crear un objeto de tipo Date (la versión más facil de 
          * usar de GregorianCalendar), y va a pasar de usar un GregorianCalendar
          * a un Date, y lo va a convertir, usando el formato declarado en los 

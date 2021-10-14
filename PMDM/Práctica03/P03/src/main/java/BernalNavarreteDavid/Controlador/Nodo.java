@@ -51,4 +51,12 @@ public class Nodo<Empleado> {
     public Empleado getObjeto() {
         return this.objeto;
     }
+    
+    public boolean tieneSiguiente() {
+        return this.siguiente != null;
+    }
+    
+    public boolean tieneAnterior() {
+        return this.anterior != null;
+    }
 }

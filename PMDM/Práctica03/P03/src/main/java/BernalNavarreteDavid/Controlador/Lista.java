@@ -32,13 +32,13 @@ public class Lista {
          */
         if (inicial == null) {
             inicial = nodo;
-            iter = inicial;
+            resetIter();
         }
         else {
             nodo.setSiguiente(inicial);
-            nodo.getSiguiente().setAnterior(nodo);
+            inicial.setAnterior(nodo);
             inicial = nodo;
-            iter = inicial;
+            resetIter();
         }
     }
     
@@ -90,6 +90,7 @@ public class Lista {
             }
             iter = iter.getSiguiente();
         }
+        resetIter();
     }
     
     public void crearNodo(Object nuevoObjeto) {
@@ -101,14 +102,15 @@ public class Lista {
          */
          Nodo nuevoNodo = new Nodo(nuevoObjeto);
          añadirNodo(nuevoNodo);
+         
     }
     
     public boolean tieneSiguiente() {
-        return iter.getSiguiente() == null;
+        return iter.tieneSiguiente();
     }
     
     public boolean tieneAnterior() {
-        return iter.getAnterior() == null;
+        return iter.tieneAnterior();
     }
     
     public void siguiente() {
@@ -175,7 +177,7 @@ public class Lista {
             
             iter = iter.getSiguiente();
         }
-        
+        resetIter();
         return listaFiltrada;
     }
     
@@ -200,7 +202,7 @@ public class Lista {
             
             iter = iter.getSiguiente();
         }
-        
+        resetIter();
         return listaFiltrada;
     }
     
@@ -225,7 +227,7 @@ public class Lista {
             
             iter = iter.getSiguiente();
         }
-        
+        resetIter();
         return listaFiltrada;
     }
     
@@ -234,7 +236,7 @@ public class Lista {
         Lista listaFiltrada = new Lista();
         resetIter();
         // Bandera: true si es temporal, false si es fijo
-        boolean flag = (tipo.equals("Temporal"));
+        boolean flag = (tipo.equals("Horas trabajadas"));
         
         while(iter != null) {
             // Filtramos usando nuestra bandera e instanceof
@@ -245,9 +247,7 @@ public class Lista {
             
             iter = iter.getSiguiente();
         }
-        
+        resetIter();
         return listaFiltrada;
     }
 }
-
-
