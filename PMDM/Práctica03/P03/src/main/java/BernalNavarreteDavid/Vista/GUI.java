@@ -844,16 +844,22 @@ public class GUI extends javax.swing.JFrame {
             botonListadoBotonesAnterior.setEnabled(true);
             botonListadoBotonesSiguiente.setEnabled(true);
             botonListadoFiltroAplicar.setEnabled(true);
-            // Desactivamos el botón anterior si estamos en el primero
-            if (lista.getActual() == lista.primero())
+            // Desactivamos el botón anterior y siguiente si solo hay un elemento
+            if (lista.getActual() == lista.fin() && lista.getActual() == lista.primero()) {
+                botonListadoBotonesAnterior.setEnabled(false);
+                botonListadoBotonesSiguiente.setEnabled(false);
+            }
+            // Desactivamos el botón "Anterior" si estamos en el primero
+            else if (lista.getActual() == lista.primero())
                 botonListadoBotonesAnterior.setEnabled(false);
             // Desactivamos el botón siguiente si estamos en el último
-            if (lista.getActual() == lista.fin())
+            else if (lista.getActual() == lista.fin())
                 botonListadoBotonesSiguiente.setEnabled(false);
+            
 
             // Mostramos los datos del actual
             actualizarListado(lista);
-            panelListado.updateUI();
+            panelListado.revalidate();
         }
         else {
             // En el caso en el que no haya ningún dato en la lista
@@ -863,15 +869,13 @@ public class GUI extends javax.swing.JFrame {
             botonListadoBotonesAnterior.setEnabled(false);
             botonListadoBotonesSiguiente.setEnabled(false);
             botonListadoFiltroAplicar.setEnabled(false);
-            panelListado.updateUI();
 
             tfieldListadoTipoEmple.setText("");
             tfieldListadoFechaAlta.setText("");
             tfieldListadoNombre.setText("");
             tfieldListadoSueldoMax.setText("");
+            panelListado.revalidate();
         }
-        panelListado.updateUI();
-        this.validate();
     }//GEN-LAST:event_mitemListadoActionPerformed
 
     private void botonAltaBotonesGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaBotonesGuardarActionPerformed
@@ -1200,16 +1204,16 @@ public class GUI extends javax.swing.JFrame {
          * de los TextFields.
          */
         if (lista.getActual().getObjeto() instanceof Temporal t) {
-                panelListadoAtributosFijo.show(false);
-                panelListadoAtributosTemporal.show(true);
-                panelListado.updateUI();
+            panelListadoAtributosFijo.show(false);
+            panelListadoAtributosTemporal.show(true);
+            panelListado.updateUI();
 
-                tfieldListadoTipoEmple.setText("Temporal");
-                tfieldListadoNombre.setText(t.getNombre());
-                tfieldListadoFechaAlta.setText(t.getFechaAlta());
-                tfieldListadoSueldoMax.setText(String.valueOf(Temporal.getSueldoMaximo()));
-                tfieldListadoAtributosTemporalHorasTrabajadas.setText(String.valueOf(t.getDato()));
-                tfieldListadoAtributosTemporalEurosHora.setText(String.valueOf(t.getEurosHora()));
+            tfieldListadoTipoEmple.setText("Temporal");
+            tfieldListadoNombre.setText(t.getNombre());
+            tfieldListadoFechaAlta.setText(t.getFechaAlta());
+            tfieldListadoSueldoMax.setText(String.valueOf(Temporal.getSueldoMaximo()));
+            tfieldListadoAtributosTemporalHorasTrabajadas.setText(String.valueOf(t.getDato()));
+            tfieldListadoAtributosTemporalEurosHora.setText(String.valueOf(t.getEurosHora()));
         }
         else if (lista.getActual().getObjeto() instanceof Fijo f) {
             panelListadoAtributosTemporal.show(false);
@@ -1223,6 +1227,7 @@ public class GUI extends javax.swing.JFrame {
             tfieldListadoAtributosFijoHorasMes.setText(String.valueOf(f.getDato()));
             tfieldListadoAtributosFijoDepartamento.setText(f.getDepartamento());
         }
+        panelListado.revalidate();
     }
 
     private void retroceder(Lista lista) {

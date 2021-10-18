@@ -132,8 +132,9 @@ public class Lista {
     }
     
     public Nodo fin() {
-        while (iter.getSiguiente() != null) iter = iter.getSiguiente();
-        return iter;
+        Nodo ultimo = iter;
+        while (ultimo.getSiguiente() != null) ultimo = ultimo.getSiguiente();
+        return ultimo;
     }
     
     public Empleado extraerDatos() {
