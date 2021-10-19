@@ -1,0 +1,36 @@
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+
+public class PanelJLista extends javax.swing.JPanel {
+
+    
+    public PanelJLista() {
+        initComponents();
+    }
+
+    private void initComponents() {
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        ...
+        jList1.setModel(modeloLista());
+        jScrollPane1.setViewportView(jList1);
+        ...
+    }
+
+    private DefaultListModel modeloLista()
+    {
+        
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+        ...
+        if (objeto instanceof Clase)
+                {
+                    ...
+                    String infoObjeto = "Información del objeto: " + objeto.toString();
+                    modelo.addElement(infoEmple);  
+
+                }
+                ...
+        else
+            modelo.addElement("No hay elementos");
+        return modelo;
+    }
