@@ -113,6 +113,7 @@ public class GUI extends javax.swing.JFrame {
         mitemVersion = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 102, 102));
         setResizable(false);
 
         panelListado.setPreferredSize(new java.awt.Dimension(475, 382));
@@ -258,6 +259,10 @@ public class GUI extends javax.swing.JFrame {
         labelListadoAtributosFijoDepartamento.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
         labelListadoAtributosFijoDepartamento.setText("Departamento:");
 
+        tfieldListadoAtributosFijoDepartamento.setEditable(false);
+
+        tfieldListadoAtributosFijoHorasMes.setEditable(false);
+
         javax.swing.GroupLayout panelListadoAtributosFijoLayout = new javax.swing.GroupLayout(panelListadoAtributosFijo);
         panelListadoAtributosFijo.setLayout(panelListadoAtributosFijoLayout);
         panelListadoAtributosFijoLayout.setHorizontalGroup(
@@ -290,11 +295,11 @@ public class GUI extends javax.swing.JFrame {
         panelListadoAtributos.setLayout(panelListadoAtributosLayout);
         panelListadoAtributosLayout.setHorizontalGroup(
             panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelListadoAtributosLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelListadoAtributosVacio, javax.swing.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                    .addComponent(panelListadoAtributosVacio, javax.swing.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
                     .addContainerGap()))
             .addGroup(panelListadoAtributosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(panelListadoAtributosLayout.createSequentialGroup()
@@ -343,6 +348,11 @@ public class GUI extends javax.swing.JFrame {
 
         cboxListadoBotonesFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos", "Día del mes", "Mes del año", "Año", "Tipo de dato", "Departamento", "Euros por hora" }));
         cboxListadoBotonesFiltro.setToolTipText("");
+        cboxListadoBotonesFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxListadoBotonesFiltroActionPerformed(evt);
+            }
+        });
 
         labelListadoBotonesFiltro.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelListadoBotonesFiltro.setText("FIltrar por");
@@ -453,7 +463,7 @@ public class GUI extends javax.swing.JFrame {
         panelBienvenidaLayout.setHorizontalGroup(
             panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelBienvenidaLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
+                .addContainerGap(70, Short.MAX_VALUE)
                 .addGroup(panelBienvenidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelBienvenidaLayout.createSequentialGroup()
                         .addComponent(labelBienvenidaTitulo)
@@ -470,7 +480,7 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(panelBienvenidaLayout.createSequentialGroup()
                 .addGap(84, 84, 84)
                 .addComponent(labelBienvenidaTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(labelBienvenidaAutor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelBienvenidaAutor1)
@@ -502,7 +512,7 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(labelAltaFechaAlta)
                     .addComponent(labelAltaNombre)
                     .addComponent(labelAltaTipoEmple))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         panelAltaLabelsLayout.setVerticalGroup(
             panelAltaLabelsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -549,7 +559,7 @@ public class GUI extends javax.swing.JFrame {
                 .addComponent(tfieldAltaFechaAlta, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tfieldAltaSueldoMax, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(45, Short.MAX_VALUE))
         );
 
         labelAltaAtributosFijoHorasMes.setFont(new java.awt.Font("Segoe UI", 0, 16)); // NOI18N
@@ -784,12 +794,12 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -803,12 +813,12 @@ public class GUI extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelListado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelBienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap()))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -931,14 +941,18 @@ public class GUI extends javax.swing.JFrame {
         panelListado.show(false);
         panelAlta.show(true);
         
+        // Si había algún filtro activado, al volver al menú de Altas lo quitamos.
+        flagFiltro = false;
+        
         panelAltaAtributosFijo.show(false);
         cboxAltaTipoEmple.setSelectedIndex(0);
         
         if (Empleado.getSueldoMaximo() != 0)
             tfieldAltaSueldoMax.setText(String.valueOf(Empleado.getSueldoMaximo()));
+        if (Fijo.getHorasMes() != 0)
+            tfieldAltaAtributosFijoHorasMes.setText(String.valueOf(Fijo.getHorasMes()));
         
-        panelAlta.updateUI();
-        this.validate();
+        panelAlta.revalidate();
     }//GEN-LAST:event_mitemAltaActionPerformed
 
     private void botonAltaBotonesLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAltaBotonesLimpiarActionPerformed
@@ -977,67 +991,134 @@ public class GUI extends javax.swing.JFrame {
             case 0 -> {
                 // Filtrar por: "Todos"
                 // Reseteamos la GUI y el filtro.
-                flagFiltro = false;
-                tfieldListadoBotonesFiltro.setText("");
-                actualizarListado(lista);
+                resetearFiltro();
             }
             case 1 -> {
                 // Filtrar por: "Día del mes"
                 // Creamos una nueva lista filtrando por el día del mes
-                int dia = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
-                if (dia < 1 || dia > 31 || "".equals(tfieldListadoBotonesFiltro.getText())) {
-                    flagFiltro = false;
-                    tfieldListadoBotonesFiltro.setText("");
-                    actualizarListado(lista);
+                try {
+                    int dia = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
+                    if (dia < 1 || dia > 31) {
+                        resetearFiltro();
+                    }
+                    else {
+                        listaAux = lista.filtrarDia(dia);
+                        if (listaAux.primero() == null) {
+                            resetearFiltro();
+                        }
+                        else 
+                            actualizarListado(listaAux);
+                    }
                 }
-                else
-                    listaAux = lista.filtrarDia(dia);
+                catch (NumberFormatException ex) {
+                    System.out.println("Error. Se han introducido caracteres no válidos.");
+                    resetearFiltro();
+                }
+                
             }
             case 2 -> {
                 // Filtrar por: "Mes del año"
                 // Creamos una nueva lista filtrando por el mes del año.
-                int mes = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
-                if (mes < 1 || mes > 12 || "".equals(tfieldListadoBotonesFiltro.getText())) {
-                    flagFiltro = false;
-                    tfieldListadoBotonesFiltro.setText("");
-                    actualizarListado(lista);
+                try {
+                    int mes = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
+                    if (mes < 1 || mes > 12) {
+                        resetearFiltro();
+                    }
+                    else {
+                        listaAux = lista.filtrarMes(mes);
+                        if (listaAux.primero() == null) {
+                            resetearFiltro();
+                        }
+                        else 
+                            actualizarListado(listaAux);
+                    }
                 }
-                else
-                    listaAux = lista.filtrarMes(mes);
+                catch (NumberFormatException ex) {
+                    System.out.println("Error. Se han introducido caracteres no válidos.");
+                    resetearFiltro();
+                }
             }
             case 3 -> {
                 // Filtrar por: "Año"
                 // Creamos una nueva lista filtrando por el año
-                int año = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
-                if (año < 1 || año > 12 || "".equals(tfieldListadoBotonesFiltro.getText())) {
-                    flagFiltro = false;
-                    tfieldListadoBotonesFiltro.setText("");
-                    actualizarListado(lista);
+                try {
+                    int año = Integer.parseInt(tfieldListadoBotonesFiltro.getText());
+
+                    if (año < 1 || año > 2030) {
+                        resetearFiltro();
+                    }
+                    else {
+                        listaAux = lista.filtrarAño(año);
+
+                        if (listaAux.primero() == null) {
+                            resetearFiltro();
+                        }
+                        else 
+                            actualizarListado(listaAux);
+                    }
                 }
-                else 
-                    listaAux = lista.filtrarAño(año);
+                catch (NumberFormatException ex) {
+                    System.out.println("Error. Se han introducido caracteres no válidos.");
+                    resetearFiltro();
+                }
             }
             case 4 -> {
                 // Filtrar por: "Tipo de dato"
                 String tipo = tfieldListadoBotonesFiltro.getText();
-                if ("".equals(tipo)) {
-                    flagFiltro = false;
-                    tfieldListadoBotonesFiltro.setText("");
-                    actualizarListado(lista);
-                }
-                else
+                
+                if (tipo.toLowerCase().equals("horas trabajadas") 
+                        || tipo.toLowerCase().equals("horas al mes")) {
                     listaAux = lista.filtrarTipo(tipo);
+                    if (listaAux.primero() == null) {
+                        resetearFiltro();
+                    }
+                    else 
+                        actualizarListado(listaAux);
+                }
+                else resetearFiltro();
             }
             case 5 -> {
                 // Filtrar por: "Departamento"
-                // TODO
-                flagFiltro = false;
+                String depart=  tfieldListadoBotonesFiltro.getText();
+                
+                if (depart.toLowerCase().equals("admisiones") 
+                        || depart.toLowerCase().equals("rrhh")
+                        || depart.toLowerCase().equals("restauración")) {
+                    listaAux = lista.filtrarDepartamento(depart);
+                    if (listaAux.primero() == null) {
+                        resetearFiltro();
+                    }
+                    else 
+                        actualizarListado(listaAux);
+                }
+                else resetearFiltro();
                 
             }
             case 6 -> {
                 // Filtrar por: "Euros por hora"
                 // TODO
-                flagFiltro = false;
+                try {
+                    String rango[] = tfieldListadoBotonesFiltro.getText().split(",");
+                    float ran1 = Float.parseFloat(rango[0].trim());
+                    float ran2 = Float.parseFloat(rango[1].trim());
+                    
+                    if (ran1 < 0 || ran2 < 0) {
+                        resetearFiltro();
+                    }
+                    else {
+                        listaAux = lista.filtrarEurosHora(ran1, ran2);
+
+                        if (listaAux.primero() == null) {
+                            resetearFiltro();
+                        }
+                        else 
+                            actualizarListado(listaAux);
+                    }
+                }
+                catch (NumberFormatException ex) {
+                    System.out.println("Error. Se han introducido caracteres no válidos.");
+                    resetearFiltro();
+                }
             }
         }
     }//GEN-LAST:event_botonListadoFiltroAplicarActionPerformed
@@ -1056,6 +1137,43 @@ public class GUI extends javax.swing.JFrame {
         else 
             retroceder(lista);
     }//GEN-LAST:event_botonListadoBotonesAnteriorActionPerformed
+
+    private void cboxListadoBotonesFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxListadoBotonesFiltroActionPerformed
+        /**
+         * Para el control del input en el filtro dependiendo de la selección
+         */
+        switch (cboxListadoBotonesFiltro.getSelectedIndex()) {
+            case 4:
+                // Si hemos seleccionado "Tipo de dato"
+                tfieldListadoBotonesFiltro.setToolTipText(
+                        "Sólo hay dos posibilidades: "
+                                + "Horas trabajadas / "
+                                + "Horas al mes"
+                );  
+                break;
+            case 5:
+                // Si hemos seleccionado "Departamento"
+                tfieldListadoBotonesFiltro.setToolTipText(
+                        "Departamentos disponibles: "
+                                + "Admisiones / "
+                                + "RRHH / "
+                                + "Restauración"
+                );  
+                break;
+            case 6:
+                // Si hemos seleccionado "Euros hora"
+                tfieldListadoBotonesFiltro.setToolTipText(
+                        "Selecciona un rango de €/h que mostrar "
+                                + "con el siguiente formato: "
+                                + "\"(num1, num2]\". "
+                                + "Separa los decimales con \".\""
+                );
+                break;
+            default:
+                break;
+        }
+        
+    }//GEN-LAST:event_cboxListadoBotonesFiltroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1227,7 +1345,19 @@ public class GUI extends javax.swing.JFrame {
             tfieldListadoAtributosFijoHorasMes.setText(String.valueOf(f.getDato()));
             tfieldListadoAtributosFijoDepartamento.setText(f.getDepartamento());
         }
+        actualizarBotones(lista);
+        
         panelListado.revalidate();
+    }
+    
+    private void actualizarBotones(Lista lista) {
+        if (!lista.tieneAnterior())
+            botonListadoBotonesAnterior.setEnabled(false);
+        else botonListadoBotonesAnterior.setEnabled(true);
+        
+        if (!lista.tieneSiguiente())
+            botonListadoBotonesSiguiente.setEnabled(false);
+        else botonListadoBotonesSiguiente.setEnabled(true);
     }
 
     private void retroceder(Lista lista) {
@@ -1254,5 +1384,11 @@ public class GUI extends javax.swing.JFrame {
                 botonListadoBotonesAnterior.setEnabled(true);
             actualizarListado(lista);
         }
+    }
+
+    private void resetearFiltro() {
+        flagFiltro = false;
+        tfieldListadoBotonesFiltro.setText("");
+        actualizarListado(lista);
     }
 }

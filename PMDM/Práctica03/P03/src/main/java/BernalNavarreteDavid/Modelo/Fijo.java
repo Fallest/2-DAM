@@ -38,7 +38,7 @@ public class Fijo extends Empleado {
     
     // Atributos
         // Los fijos van a trabajar todos la misma cantidad de horas.
-    private static float horasMes; // Este es el atributo "Dato".
+    private static float horasMes = 0; // Este es el atributo "Dato".
     private String departamento;
     
     /*------------------------------------------------------------------------*/
@@ -63,6 +63,12 @@ public class Fijo extends Empleado {
         super(nombre, 0f, DateParser.parseDate(fechaAlta));
         setDepart(departamento);
         Fijo.horasMes = horasMes;
+    }
+    
+    public Fijo(String nombre, String Departameto, String fechaAlta) {
+        // Como la fecha la recibimos en forma de cadena, la parseamos.
+        super(nombre, 0f, DateParser.parseDate(fechaAlta));
+        setDepart(departamento);
     }
     
     /*------------------------------------------------------------------------*/
@@ -102,6 +108,10 @@ public class Fijo extends Empleado {
     // Getters
     @Override
     public float getDato() {
+        return Fijo.horasMes;
+    }
+   
+    public static float getHorasMes() {
         return Fijo.horasMes;
     }
     

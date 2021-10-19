@@ -159,16 +159,16 @@ public class Lista {
     // Filtros por elementos de una fecha
     public Lista filtrarDia(int dia) {
         Lista listaFiltrada = new Lista();
-        resetIter();
+        Nodo auxIter = inicial;
         Temporal auxT = null;
         Fijo auxF = null;
         
-        while(iter != null) {
+        do {
             // Para poder acceder a la fecha, tenemos que hacer esto.
-            if(iter.getObjeto() instanceof Temporal temporal)
+            if(auxIter.getObjeto() instanceof Temporal temporal)
                 auxT = temporal;
             else 
-                auxF = (Fijo) iter.getObjeto();
+                auxF = (Fijo) auxIter.getObjeto();
             
             // Filtramos por el día y lo añadimos a la lista.
             if (auxT != null && dia == auxT.getDiaFecha())
@@ -176,24 +176,26 @@ public class Lista {
             else if (auxF != null && dia == auxF.getDiaFecha())
                 listaFiltrada.añadirNodo(new Nodo(auxF));
             
-            iter = iter.getSiguiente();
-        }
-        resetIter();
+            auxIter = auxIter.getSiguiente();
+            auxT = null;
+            auxF = null;
+        } while (auxIter != null);
+        
         return listaFiltrada;
     }
     
     public Lista filtrarMes(int mes) {
         Lista listaFiltrada = new Lista();
-        resetIter();
+        Nodo auxIter = inicial;
         Temporal auxT = null;
         Fijo auxF = null;
         
-        while(iter != null) {
+        do {
             // Para poder acceder a la fecha, tenemos que hacer esto.
-            if(iter.getObjeto() instanceof Temporal temporal)
+            if(auxIter.getObjeto() instanceof Temporal temporal)
                 auxT = temporal;
             else 
-                auxF = (Fijo) iter.getObjeto();
+                auxF = (Fijo) auxIter.getObjeto();
             
             // Filtramos por el mes y lo añadimos a la lista.
             if (auxT != null && mes == auxT.getMesFecha())
@@ -201,24 +203,26 @@ public class Lista {
             else if (auxF != null && mes == auxF.getMesFecha())
                 listaFiltrada.añadirNodo(new Nodo(auxF));
             
-            iter = iter.getSiguiente();
-        }
-        resetIter();
+            auxIter = auxIter.getSiguiente();
+            auxT = null;
+            auxF = null;
+        } while (auxIter != null);
+        
         return listaFiltrada;
     }
     
     public Lista filtrarAño(int año) {
         Lista listaFiltrada = new Lista();
-        resetIter();
+        Nodo auxIter = inicial;
         Temporal auxT = null;
         Fijo auxF = null;
         
-        while(iter != null) {
+        do {
             // Para poder acceder a la fecha, tenemos que hacer esto.
-            if(iter.getObjeto() instanceof Temporal temporal)
+            if(auxIter.getObjeto() instanceof Temporal temporal)
                 auxT = temporal;
             else 
-                auxF = (Fijo) iter.getObjeto();
+                auxF = (Fijo) auxIter.getObjeto();
             
             // Filtramos por el año y lo añadimos a la lista.
             if (auxT != null && año == auxT.getAñoFecha())
@@ -226,29 +230,70 @@ public class Lista {
             else if (auxF != null && año == auxF.getAñoFecha())
                 listaFiltrada.añadirNodo(new Nodo(auxF));
             
-            iter = iter.getSiguiente();
-        }
-        resetIter();
+            auxIter = auxIter.getSiguiente();
+            auxT = null;
+            auxF = null;
+        } while (auxIter != null);
+        
         return listaFiltrada;
     }
     
     // Filtrar por tipo de objeto
     public Lista filtrarTipo(String tipo) {
         Lista listaFiltrada = new Lista();
-        resetIter();
+        Nodo auxIter = inicial;
         // Bandera: true si es temporal, false si es fijo
         boolean flag = (tipo.equals("Horas trabajadas"));
         
-        while(iter != null) {
+        do {
             // Filtramos usando nuestra bandera e instanceof
-            if(flag && iter.getObjeto() instanceof Temporal temporal)
+            if(flag && auxIter.getObjeto() instanceof Temporal temporal)
                 listaFiltrada.añadirNodo(new Nodo(temporal));
-            else if (!flag && iter.getObjeto() instanceof Fijo fijo)
+            else if (!flag && auxIter.getObjeto() instanceof Fijo fijo)
                 listaFiltrada.añadirNodo(new Nodo(fijo));
             
-            iter = iter.getSiguiente();
-        }
-        resetIter();
+            auxIter = auxIter.getSiguiente();
+        } while (auxIter != null);
+        
+        return listaFiltrada;
+    }
+
+    public Lista filtrarDepartamento(String depart) {
+        Lista listaFiltrada = new Lista();
+        Nodo auxIter = inicial;
+        
+        do {
+            // Para poder acceder a los datos, tenemos que hacer esto.
+            if(auxIter.getObjeto() instanceof Fijo f)
+                if (f != null 
+                    && depart.toLowerCase().equals(
+                            f.getDepartamento().toLowerCase()))
+                listaFiltrada.añadirNodo(new Nodo(f));
+            
+            auxIter = auxIter.getSiguiente();
+        } while (auxIter != null);
+        
+        return listaFiltrada;
+    }
+
+    public Lista filtrarEurosHora(float ran1, float ran2) {
+        /**
+         * Crea una lista filtrada por los €/h que cobran los Temporales.
+         * Se usa un rango para crear la lista auxiliar.
+         * ran1 es exluído y ran2 es incluído -> (ran1, ran2]
+         */
+        Lista listaFiltrada = new Lista();
+        Nodo auxIter = inicial;
+        
+        do {
+            // Para poder acceder a la fecha, tenemos que hacer esto.
+            if(auxIter.getObjeto() instanceof Temporal t)
+                if (t != null && t.getEurosHora() > ran1 && t.getEurosHora() <= ran2)
+                    listaFiltrada.añadirNodo(new Nodo(t));
+            
+            auxIter = auxIter.getSiguiente();
+        } while (auxIter != null);
+        
         return listaFiltrada;
     }
 }
