@@ -1,0 +1,16 @@
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\Actividad2.exe
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\Actividad2.deps.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\Actividad2.runtimeconfig.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\Actividad2.runtimeconfig.dev.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\Actividad2.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\ref\Actividad2.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\bin\Debug\net5.0\Actividad2.pdb
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.csproj.AssemblyReference.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.AssemblyInfoInputs.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.AssemblyInfo.cs
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.csproj.CoreCompileInputs.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\ref\Actividad2.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.pdb
+C:\Users\David\Documents\2-DAM\DEINT\C#\ActividadFicheros\Actividad2\obj\Debug\net5.0\Actividad2.genruntimeconfig.cache
