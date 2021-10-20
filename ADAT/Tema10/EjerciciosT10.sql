@@ -125,7 +125,7 @@ begin
 	end if;
 
 exception
-	with no_data_found then
+	when no_data_found then
 		dbms_output.put_line('No encontrado el producto ' || numproducto);
 
 end modificar_precio_producto;
