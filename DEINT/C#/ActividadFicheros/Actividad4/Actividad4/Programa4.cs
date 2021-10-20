@@ -16,6 +16,7 @@ namespace Actividad4 {
             // Pedimos el nombre del fichero
             string archivo = PedirNombre();
             // Creamos el archivo .txt con la información de un archivo .mp3, si existe.
+            // ExtraerAutorID3V1(archivo);
             ExtraerAutorID3V2_3(archivo);
         }
 
