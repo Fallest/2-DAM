@@ -1,8 +1,8 @@
-package Ejercicio1;
+package Boletin1;
 
 import java.io.*;
-import static java.lang.Runtime.getRuntime;
 
+import static java.lang.Runtime.getRuntime;
 public class Ejercicio1 {
     public static void main(String[] args) {
         // Crea una consola
@@ -15,7 +15,10 @@ public class Ejercicio1 {
         
         try {
             // Almacenamos en el proceso la ejecucion del comando en consola.
-            p = r.exec(command);
+            if (args.length == 1)
+                p = r.exec(command + " " + args[0]);
+            else
+                p = r.exec(command);
             
             // Tenemos que crear un InputStream, luego usar ese flujo para 
             // leerlo con un InputStreamReader, y luego leer del lector con un 
@@ -31,9 +34,8 @@ public class Ejercicio1 {
             
             br.close();
         }
-        catch(Exception ex) {
+        catch(IOException ex) {
             System.out.println("Oops-.");
-            ex.printStackTrace();
         }
     }
 }
