@@ -10,10 +10,10 @@ especialmente sort() y sorted().
 import csv
 
 
-def Main():
-    Mostrar(Leer(Ruta()), Orden())
+def main():
+    mostrar(leer(ruta()), orden())
 
-def Mostrar(datos, orden):
+def mostrar(datos, orden):
     if orden == 1:
         print(datos.sort("Nombre"))
     elif orden == 2:
@@ -27,7 +27,7 @@ def Mostrar(datos, orden):
     elif orden == 6:
         print(datos.sort())
 
-def Leer(ruta):
+def leer(ruta):
     """
     Lee los datos de un archivo .csv.
     Devuelve una lista de tuplas con los datos.
@@ -41,10 +41,10 @@ def Leer(ruta):
 
     return lista
 
-def Ruta():
+def ruta():
     return input("Introduzca la ruta del archivo: ")
 
-def Orden():
+def orden():
     # Mostramos un pequeño menú
     print("\t1 - Nombre")
     print("\t2 - Sexo")
