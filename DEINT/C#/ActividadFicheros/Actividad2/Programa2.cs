@@ -18,6 +18,11 @@ class Program {
     }
 
     private static void CrearCopia(string archivoOriginal) {
+    /*
+    Cambiar la creación del archivocopia.
+    
+    */
+    
         /**
          * 1º: Va a crear el archivo para la copia.
          * 2º: Va a crear dos streams: uno para leer del original, otro para escribir en la copia
@@ -25,8 +30,9 @@ class Program {
          */
 
         // Creamos la cadena para el archivo copia.
-        String archivoCopia = archivoOriginal.Split(".")[0]
-                              + ".out";
+        String[] parts = archivoOriginal.Split(".");
+        parts[-1] = ".out";
+        String archivoCopia = parts.ToString();
 
         // Creamos una variable para almacenar el byte que leemos
         int b;

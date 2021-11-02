@@ -27,19 +27,27 @@ class Program {
          * Si son GIF: es de tipo gif
          * En otro caso: son otro tipo
          */
-        // Creamos el flujo de lectura
-        using FileStream lector = new FileStream(archivo, FileMode.Open);
-        // Leemos los 3 primeros bytes y los convertimos a cadena.
-        byte[] bytes = new byte[] {(byte) lector.ReadByte(), (byte) lector.ReadByte(), (byte) lector.ReadByte()};
-        string contenido = System.Text.Encoding.UTF8.GetString(bytes);
-        //new String(lector.ReadByte().ToString() + lector.ReadByte().ToString() + lector.ReadByte().ToString())
-        
-        if (contenido.Substring(0, 2) == "BM") 
-            Console.WriteLine("El archivo es de tipo Bitmap.");
-        else if (contenido == "GIF")
-            Console.WriteLine("El archivo es de tipo GIF.");
-        else
-            Console.WriteLine("El archivo es de un tipo desconocido.");
+        try {
+            // Creamos el flujo de lectura
+            using FileStream lector = new FileStream(archivo, FileMode.Open);
+            // Leemos los 3 primeros bytes y los convertimos a cadena.
+            byte[] bytes = new byte[] {(byte) lector.ReadByte(), (byte) lector.ReadByte(), (byte) lector.ReadByte()};
+            string contenido = System.Text.Encoding.UTF8.GetString(bytes);
+            //new String(lector.ReadByte().ToString() + lector.ReadByte().ToString() + lector.ReadByte().ToString())
+
+            if (contenido.Substring(0, 2) == "BM")
+                Console.WriteLine("El archivo es de tipo Bitmap.");
+            else if (contenido == "GIF")
+                Console.WriteLine("El archivo es de tipo GIF.");
+            else
+                Console.WriteLine("El archivo es de un tipo desconocido.");
+        }
+        catch (FileNotFoundException ex) {
+            Console.WriteLine("El archivo no existe.");
+        }
+        catch (Exception ex) {
+            Console.WriteLine("Final del archivo alcanzado. El tamaño del archivo es menor a 3 bytes.");
+        }
     }
 
     private static string PedirNombre() {

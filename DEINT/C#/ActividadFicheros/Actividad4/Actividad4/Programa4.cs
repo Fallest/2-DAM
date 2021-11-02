@@ -16,8 +16,8 @@ namespace Actividad4 {
             // Pedimos el nombre del fichero
             string archivo = PedirNombre();
             // Creamos el archivo .txt con la información de un archivo .mp3, si existe.
-            // ExtraerAutorID3V1(archivo);
-            ExtraerAutorID3V2_3(archivo);
+            ExtraerAutorID3V1(archivo);
+            // ExtraerAutorID3V2_3(archivo);
         }
 
         private static void ExtraerAutorID3V1(string archivo) {
@@ -82,7 +82,9 @@ namespace Actividad4 {
                      * Al separar la ruta por ".", tenemos dos partes: "C:\...\archivo" y "mp3".
                      * Nos quedamos con el primer elemento (el 0) y le añadimos ".txt" al final.
                      */
-                    string archivoTxt = archivo.Split(".")[0] + ".txt";
+                    String[] parts = archivo.Split(".");
+                    parts[-1] = ".out";
+                    String archivoTxt = parts.ToString();
                     using FileStream escritor = new FileStream(archivoTxt, FileMode.Create);
                     
                     escritor.Write(tituloB, (int) SeekOrigin.Current, 30);
@@ -220,7 +222,9 @@ namespace Actividad4 {
                     Extract(contenidoTag, indArtista + 7, indArtista + 6 + tamContArtista, out artistaB);
                     
                     // Ahora que tenemos los datos en los arrays de bytes, los vamos a escribir en un archivo.
-                    string archivoTxt = archivo.Split(".")[0] + ".txt";
+                    String[] parts = archivo.Split(".");
+                    parts[-1] = ".out";
+                    String archivoTxt = parts.ToString();
                     using FileStream escritor = new FileStream(archivoTxt, FileMode.Create);
                     
                     escritor.Write(tituloB);
@@ -253,7 +257,7 @@ namespace Actividad4 {
                 Console.Write("Introduzca la ruta al archivo: ");
                 archivo = Console.ReadLine();
 
-                if (archivo != null && archivo.Split(".")[1] != "mp3")
+                if (archivo != null && archivo.Split(".")[-1] != "mp3")
                     throw new Exception();
             }
             catch (IOException ex) {
