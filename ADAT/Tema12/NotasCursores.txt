@@ -1,0 +1,22 @@
+declare
+  cursor c1 is select dnombre from depart;
+  v1 depart.dnombre%type;
+  
+begin
+  open c1;
+  fetch c1 into v1;
+
+  -- Conveniente comprobar siempre si se encuentran datos
+  if c1%notfound then
+    raise_application_error(-20001, "Datos no encontrados");
+
+  else 
+    while c1%found loop
+      dbms_output.put_line(v1);
+      fetch c1 into v1;
+    end loop;
+  end if;
+
+  close c1;
+
+end;
