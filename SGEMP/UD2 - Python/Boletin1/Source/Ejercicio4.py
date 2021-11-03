@@ -15,17 +15,20 @@ def main():
 
 def mostrar(datos, orden):
     if orden == 1:
-        print(datos.sort("Nombre"))
+        datos.sort(key=(lambda item: item[0]))
     elif orden == 2:
-        print(datos.sort("Sexo"))
+        datos.sort(key=(lambda item: item[1]))
     elif orden == 3:
-        print(datos.sort("Edad"))
+        datos.sort(key=(lambda item: item[2]))
     elif orden == 4:
-        print(datos.sort("Salario"))
+        datos.sort(key=(lambda item: item[3]))
     elif orden == 5:
-        print(datos.sort("Profesion"))
+        datos.sort(key=(lambda item: item[4]))
     elif orden == 6:
-        print(datos.sort())
+        datos.sort
+
+    for item in datos:
+        print(item[0], " - ", item[1], " - ", item[2], " - ", item[3], " - ", item[4])
 
 def leer(ruta):
     """
@@ -57,3 +60,5 @@ def orden():
         continue
 
     return selec
+
+main()
