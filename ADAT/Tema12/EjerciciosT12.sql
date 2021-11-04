@@ -1,5 +1,5 @@
 /*
-Hacer CP 3, 4, 5; AP 3, 4, 5.
+Hacer Act Compl 4, 5, 6.
 */
 /* ---------------------- Casos Prácticos --------------------- */
 /* Caso Práctico 1: */
@@ -423,6 +423,34 @@ end;
 
 /*--------------------------------------------------------------*/
 /* Actividades complementarias 4: */
+
+declare
+  cursor c1 is
+    select apellido, oficio, salario, rowid from emple
+    order by oficio, salario desc;
+  vcRegEmp c1%ROWTYPE;
+  oficAnt emple.oficio%TYPE;
+  cont number(4) default 0;
+begin
+  open c1;
+  fetch c1 into vcRegEmp;
+  while c1%found loop
+    if c1%ROWCOUNT = 1 then
+      oficAnt := vcRegEmp.oficio;
+      dbms_output.put_line('OFICIO: ' || oficAnt);
+      while cont < 2 and c1%found and oficAnt = vcRegEmp.oficio loop
+        dbms_output.put_line('Oficio' || );
+        fetch c1 into vcRegEmp;
+      end loop
+    end if;  
+
+    if oficAnt <> vcRegEmp.oficio then
+
+    end if;
+  end loop;
+
+  close c1;
+end;
 
 /*--------------------------------------------------------------*/
 /* Actividades complementarias 5: */
