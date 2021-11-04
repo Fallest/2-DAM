@@ -19,6 +19,7 @@ public class Ejercicio5 {
             pb.directory(new File("C:\\Users\\David\\Documents\\2-DAM\\PSP\\Procesos\\Boletin1\\Jars"));
             
             p = pb.start();
+            
             InputStream is = p.getInputStream();
             br = new BufferedReader(new InputStreamReader(is));
             
