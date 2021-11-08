@@ -1,0 +1,60 @@
+Práctica de DEINT en C#.
+Se trata de una aplicación con GUI para gestionar el stock de películas y videojuegos de un videoclub.
+El programa da acceso a una base de datos de los objetos de la tienda, indicando si están en stock o no.
+Los usuarios deben poder buscar (con filtros) y solicitar el alquiler de ciertos elementos.
+Los administradores pueden dar de alta y baja los elementos, además de modificarlos y aceptar las solicitudes de los usuarios para el alquiler de los elementos.
+
+Para controlar esto, se debe de desarrollar un control de cuentas de usuario y de administradores para el acceso a la plataforma. Además se debe permitir la creación de cuentas de usuario, mientras que solo debe existir una de administrador.
+
+Dependiendo de qué cuenta inicie sesión, se mostrará una versión u otra del programa, puesto que existirá una para los usuarios y otra para los administradores. 
+
+Los datos se almacenarán en archivos en una carpeta llamada "data", y dentro de esta carpeta se crearán dos archivos, uno llamado "userdata" y otro "stockdata".
+
+Los usuarios tendrán una GUI que les permitirá acceso a:
+	-Lista de todos los elementos, con un buscador y con filtros.
+	-La posibilidad de hacer clic en uno de los elementos de la lista para reservarlos, si están en stock.
+	-Una lista de los elementos reservados del usuario actual.
+	-La posibilidad de cancelar la reserva de un elemento haciendo clic en él en la lista de reservas.
+	-A los usuarios que tengan retraso en su entrega de elementos les saldrá una notificación al iniciar 		sesión.
+	-Una ventana de sus opciones de usuario, para cambiar el nombre de usuario o la contraseña, o eliminar la cuenta.
+
+Los administradores tendrán una GUI que les permitirá el acceso a:
+	-Una lista de los elementos, con buscador y filtros, indicando si están reservados o alquilados, por quién, y si tiene retraso al entregar.
+	-La posibilidad de dar clic en dichos elementos para mostrar información de ellos, y modificarlos o eliminarlos si se requiere.
+	-Una lista con las solicitudes de reserva.
+	-Una lista con los elementos alquilados, mostrando quién lo trae con retraso.
+	-Una lista de los usuarios, con la posibilidad de modificar los datos de cada cuenta, aunque sin tener acceso a las contraseñas.
+	-La posibilidad de hacer clic en un usuario para llevar a una ventana para mostrar los datos de cada usuario, incluyendo una lista con todos los elementos que están alquilados o reservados por éste.
+	-Una ventana para dar de alta nuevos elementos.
+
+Hay que tener en cuenta varias cosas al eliminar usuarios:
+	-Se tienen que eliminar todos los elementos ALQUILADOS por éste.
+	-Se tienen que eliminar las solicitudes del usuario.
+	-Se deben borrar los datos guardados.
+
+Hay que tener varias cosas en cuenta al eliminar elementos.
+	-Se eliminarán todas las solicitudes que tengan que ver con este.
+	-Se eliminarán de la bandeja de elementos de los usuarios que lo tenga alquilado.
+	-Se eliminará de los datos guardados.
+
+Descripción de los elementos:
+Listas:
+Fondo:
+	Fondo es la lista de los elementos que hay en la tienda. Fondo tendrá acceso a Usuarios y a los datos de los elementos. La forma en la que guardará los datos será usando un ArrayList.
+	En Fondo se encontrarán todos los métodos para añadir, eliminar, y modificar elementos.
+
+Usuarios:
+	Usuarios es la lista de socios de la tienda, incluyendo al administrador. Tendrá acceso a los datos de los usuarios y a Fondo. Usará un ArrayList.
+	En Usuario estarán los métodos para crear nuevos usuarios, modificarlos, o eliminarlos.
+Elementos:
+Elemento:
+	Elemento va a ser la clase padre de Película Videojuego. Va a ser abstracta, y va a implementar lo común a ambos elementos. Los atributos van a ser:
+	-Título.
+	-Ejemplares disponibles.
+	
+
+Películas:
+	Las películas son uno de los dos elementos que nuestra tienda va a ofrecer. Va a tener los siguientes atributos:
+	-Título
+	-Ejemplares disponibles.
+

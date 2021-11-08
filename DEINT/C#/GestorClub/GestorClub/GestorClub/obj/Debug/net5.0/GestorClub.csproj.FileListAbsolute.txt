@@ -1,0 +1,16 @@
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\GestorClub.exe
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\GestorClub.deps.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\GestorClub.runtimeconfig.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\GestorClub.runtimeconfig.dev.json
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\GestorClub.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\ref\GestorClub.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\bin\Debug\net5.0\GestorClub.pdb
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.csproj.AssemblyReference.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.AssemblyInfoInputs.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.AssemblyInfo.cs
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.csproj.CoreCompileInputs.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\ref\GestorClub.dll
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.pdb
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorClub\GestorClub\obj\Debug\net5.0\GestorClub.genruntimeconfig.cache
