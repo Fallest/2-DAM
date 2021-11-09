@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Microsoft.VisualBasic;
 
 namespace GestorClub.Objetos {
@@ -16,6 +17,14 @@ abstract class Ejemplar {
         SetPrestado(prestado);
         SetSocioId(socioId);
     }
+
+    protected Ejemplar(string titulo, string genero, bool prestado, int socioId) {
+        SetTitulo(titulo);
+        SetGenero(genero);
+        SetPrestado(prestado);
+        SetSocioId(socioId);
+    }
+
     /*-------------------------------------------------------------------------------*/
     // Setters
     private void SetTitulo(string titulo) {
@@ -43,9 +52,19 @@ abstract class Ejemplar {
         }
     }
     
+    private void SetPrestado(bool prestado) {
+        Prestado = prestado;
+    }
+    
+    private void SetSocioId(int socioId) {
+        SocioId = socioId;
+        if (!Prestado) SocioId = 0;
+    }
+    
     private void SetSocioId(string socioId) {
         if (!(Int32.TryParse(socioId, out SocioId))) 
             throw new FormatException();
+        if (!Prestado) SocioId = 0;
     }
     
     /*-------------------------------------------------------------------------------*/

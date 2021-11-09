@@ -11,11 +11,16 @@ class Videojuego : Ejemplar {
         : base(titulo, genero, prestado, socioId) {
         SetPlataforma(plataforma);
     }
+    
+    public Videojuego(string titulo, string genero, bool prestado, int socioId, string plataforma) 
+        : base(titulo, genero, prestado, socioId) {
+        SetPlataforma(plataforma);
+    }
 
     /*-------------------------------------------------------------------------------*/
     // Setters
     public void SetPlataforma(string plataforma) {
-        if (plataforma.Length > 40)
+        if (plataforma.Length > 30)
             throw new FormatException();
         _plataforma = plataforma;
     }

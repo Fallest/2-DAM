@@ -136,7 +136,7 @@ class Fecha {
     public string ToString(Fecha fecha) {
         return fecha._dia + "/" + fecha._mes + "/" + fecha._año;
     }
-
+    
     // Método parseFecha
     public static Fecha ParseFecha(string s) {
         // Va a recibir una cadena con el formato "DD/MM/YYYY".
