@@ -1,9 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.Design;
+using System.Linq.Expressions;
+using System.Xml.XPath;
 using GestorClub.Objetos;
+using Microsoft.VisualBasic.CompilerServices;
 
 namespace GestorClub {
 class GestorClub {
+    // Inicialización del Fondo y de 3 socios.
     private static Fondo _fondo = new Fondo();
     private static Socio s1 = new Socio("1", "Andrés Pineda");
     private static Socio s2 = new Socio("2", "María Antonieta");
@@ -35,7 +40,9 @@ class GestorClub {
         _fondo.add(new Videojuego("Dragon Age: Inquisition", "Rol/Acción", "s",
             s1.GetId().ToString(), "Windows/PlayStation/XBox"));
     }
+    
     private static void IniciarPrograma() {
+        // Bucle de ejecución
         int opc;
         do {
             opc = Menu();
@@ -97,10 +104,15 @@ class GestorClub {
     /*-------------------------------------------------------------------------------*/
     // Opciones del menú
     private static void AñadirEjemplar() {
+        /*
+         * Añade un ejemplar a Fondo.
+         * Primero pide todos los datos necesarios, luego crea un nuevo
+         * objeto del tipo escogido y lo añade a Fondo.
+         */
         Console.WriteLine("-------------------------\n" + 
                           "   DATOS DEL EJEMPLAR    \n" + 
                           "-------------------------\n");
-        bool exec;
+        bool exec; 
         
         string tipo;
         string titulo;
@@ -144,7 +156,7 @@ class GestorClub {
             }
         } while (exec);
         
-        // Pedir la situación del ejemplar
+        // Pedir la disponibilidad del ejemplar
         do {
             exec = false;
             Console.WriteLine("Introduzca la situación de préstamo del ejemplar (s/n): ");
@@ -236,7 +248,7 @@ class GestorClub {
             }
         } while (exec);
         
-        // Una vez tenemos los datos, lo añadimos a la estructura.
+        // Una vez tenemos los datos, lo eliminamos de la estructura.
         _fondo.remove(titulo, tipo);
     }
 
@@ -280,30 +292,317 @@ class GestorClub {
     }
 
     private static void ListadoMostrarTodo() {
-        throw new NotImplementedException();
+        // Muestra todos los elementos guardados en el array de Fondo.
+        Console.WriteLine("----------------------------------\n" +
+                          "----------LISTADO COMPLETO--------");
+        _fondo.mostrar();
+
+        Console.WriteLine("----------------------------------\n");
     }
 
     private static void ListadoMostrarPrestados() {
-        throw new NotImplementedException();
+        // Muestra todos los elementos prestados del array de Fondo.
+        Console.WriteLine("----------------------------------\n" +
+                          "---------LISTADO PRESTADOS--------");
+        // Se le da una lista de tuplas como parámetros, que se usarán para el filtro
+        List<Tuple<int, string>> lista = new List<Tuple<int, string>>();
+        lista.Add(new Tuple<int, string>(1, "s"));
+        _fondo.mostrar(lista);
+
+        Console.WriteLine("----------------------------------\n");
     }
 
     private static void ListadoAvanzado() {
-        throw new NotImplementedException();
+        // Muestra los elementos según una serie de filtros
+        Console.WriteLine("--------------------------------------\n" +
+                          "-----------LISTADO AVANZADO-----------");
+        /* Hay que preguntar al usuario por qué quiere filtrar:
+         *  -Por tipo.
+         *  -Por título.
+         *  -Por género.
+         *  -Por disponibilidad.
+         *  -Por ID de socio.
+         *  -Por fecha de estreno (automáticamente filtra por tipo).
+         *  -Por plataforma (automáticamente filtra por tipo).
+         */
+        Console.WriteLine("|                                    |\n" +
+                          "|       OPCIONES DE BÚSQUEDA         |\n" +
+                          "|    1 - Por tipo                    |\n" +
+                          "|    2 - Por título                  |\n" +
+                          "|    3 - Por género                  |\n" +
+                          "|    4 - Por disponibilidad          |\n" +
+                          "|    5 - Por ID de socio             |\n" +
+                          "|    6 - Por fecha de estreno (pelis)|\n" +
+                          "|    7 - Por plataforma (juegos)     |\n" +
+                          "|                                    |\n" +
+                          "|    0 - Cancelar   / 'A' - Aceptar  |\n" +
+                          "--------------------------------------\n" +
+                          "\n");
+        
+        List<Tuple<int, string>> lista = new List<Tuple<int, string>>();
+
+        string opc, respuesta;
+        List<int> filtro = new List<int>();
+        int i = 0;
+        bool exec;
+        /*
+         * Este bucle va a pedir opciones hasta que:
+         *  -Se escoja 'A'.
+         *  -Se escoja '0'.
+         *  -Se escojan todas las opciones disponibles.
+         * Hay que tener en cuenta que la 6 y la 7 no se pueden seleccionar a la vez,
+         * y que si en tipo se especifica "película" o "videojuego", solo se permitirá
+         * elegir la 6 o la 7 dependiendo del tipo escogido.
+         */
+        do {
+            exec = false;
+            Console.Write("Elección    > ");
+            opc = Console.ReadLine();
+
+            if (opc != null && opc.ToLower().Trim().Equals("a"))
+                // Si se ha escrito 'A', salimos
+                break;
+            if (opc == null || !Int32.TryParse(opc, out i)) {
+                // Si se ha escrito un carácter no válido, se vuelve a pedir.
+                Console.WriteLine("\n----Error----Opción no válida.\n Introduzca una opción válida.\n");
+                exec = true;
+            }
+            else {
+                // Si se ha introducido un carácter válido (se puede parsear a entero)
+                /*
+                 * Si la opción escogida es 0, se sale del bucle.
+                 * Hay que comprobar si está en el array.
+                 *  -Si está en el array, se ignora y se pide otra.
+                 *  -Si no está en el array, hay que realizar otras comprobaciones:
+                 *      -Si es la opción 6 o la 7, hay que comprobar que la otra no está en el array.
+                 *      -Si es la opción 1, hay que comprobar si la respuesta leída coincide con la
+                 *          existencia o no de un valor 6 o 7 en el array.
+                 */
+                if (i == 0) 
+                    break;
+                if (filtro.IndexOf(i) == -1) {
+                    if ((i == 6 && filtro.IndexOf(7) != -1) || (i == 7 && filtro.IndexOf(6) != -1)) {
+                        Console.WriteLine("\n----Error----No se permite la combinación de opciones 6 y 7.\n" +
+                                          "Introduzca una opción válida.\n");
+                        exec = true;
+                    }
+                    else {
+                        respuesta = PreguntaAvanzada(i);
+                        if ((i == 1 && (respuesta.Equals("pelicula") || respuesta.Equals("película"))
+                                && filtro.IndexOf(7) != -1)
+                            || (i == 1 && respuesta.Equals("videojuego") && filtro.IndexOf(6) != -1)) {
+                            Console.WriteLine("\n----Error----Combinación errónea de tipos con otras opciones.\n" +
+                                              "Introduzca una opción válida.\n");
+                            exec = true;
+                        }
+                        else {
+                            filtro.Add(i);
+                            lista.Add(new Tuple<int, string>(i, respuesta));
+                        }
+                    }
+                }
+                else {
+                    // Si el número ya está en el array volvemos a pedir otra opción.
+                    Console.WriteLine("\n----Error----Opción ya escogida.\n Introduzca una opción válida.\n");
+                    exec = true;
+                }
+            }
+        } while (exec);
+    
+        // Si hemos escogido la opción 0 no se mostrará nada. Así que preguntamos si NO se ha
+        // escogido la opción 0.
+        if (i != 0)
+            _fondo.mostrar(lista);
+
+        Console.WriteLine("----------------------------------\n");
+    }
+
+    public static string PreguntaAvanzada(int i) {
+        /*
+         * Para pedir datos para el filtro. Usa un switch con i para saber qué dato está pidiendo.
+         * 1: Pide el tipo.
+         * 2: Pide el título.
+         * 3: Pide el género.
+         * 4: Pide la disponibilidad.
+         * 5: Pide la ID del socio.
+         * 6: Pide la fecha de estreno (solo pelis).
+         * 7: Pide la plataforma (solo juegos).
+         * 
+         * Cada opción tiene una limitación:
+         *  -El tipo solo puede ser "pelicula", "película" o "videojuego".
+         *  -El título, el género y la plataforma tienen un límite de longitud de 30.
+         *  -La disponibilidad tiene que ser "s" o "n".
+         *  -La ID del socio debe existir en uno de los 3 socios que hay.
+         *  -La fecha de estreno debe ser válida.
+         */
+        bool exec;
+        string res;
+        
+        switch (i) {
+            // Pedir el tipo
+            case 1:
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca el tipo de ejemplar (Película/Videojuego): ");
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || !res.Equals("pelicula") || !res.Equals("película") || !res.Equals("videojuego")) {
+                        exec = true;
+                        Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
+                    }
+                } while (exec);
+                
+                return res;
+            // Pedir el título
+            case 2:
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca el título del ejemplar (máx. 30 caracteres): ");
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || res.Length > 30) {
+                        exec = true;
+                        Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+                    }
+                } while (exec);
+                break;
+            // Pedir el género
+            case 3:
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca el género del ejemplar (máx. 30 caracteres): ");
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || res.Length > 30) {
+                        exec = true;
+                        Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+                    }
+                } while (exec);
+                
+                return res;
+            // Pedir la disponibilidad
+            case 4:
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca la situación de préstamo del ejemplar (s/n): ");
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || !res.Equals("s") || !res.Equals("n")) {
+                        exec = true;
+                        Console.WriteLine("----Error----Carácter no válido.\nIntroduzca un carácter válido.\n\n");
+                    }
+                } while (exec);
+
+                return res;
+            // Pedir la ID del socio
+            case 5:
+                int id = 0;
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca el ID del socio que tiene el ejemplar: ");
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || !Int32.TryParse(res, out id) || 
+                        (id != s1.GetId() && id != s2.GetId() && id != s3.GetId())) {
+                        exec = true;
+                        Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
+                    }
+                } while (exec);
+
+                return id.ToString();
+            // Pedir la fecha de estreno
+            case 6:
+                Fecha fechaEstreno = null;
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca la fecha de estreno de la película (DD/MM/YYYY): ");
+                    res = Console.ReadLine()?.Trim();
+                    if (res == null || !Fecha.TryParse(res, out fechaEstreno)) {
+                        exec = true;
+                        Console.WriteLine("----Error----Fecha no válida.\nIntroduzca una fecha válida.\n\n");
+                    }
+                } while (exec);
+
+                return fechaEstreno.ToString();
+            // Pedir la plataforma
+            case 7:
+                do {
+                    exec = false;
+                    Console.WriteLine("Introduzca la(s) plataforma(s) del videojuego (máx. 30 caracteres): ");
+                    res = Console.ReadLine()?.Trim();
+                    if (res == null || res.Length > 30) {
+                        exec = true;
+                        Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+                    }
+                } while (exec);
+
+                return res;
+        }
+
+        return null;
     }
     /*-------------------------------------*/
 
     private static void PrestarEjemplar() {
+        /*
+         * Hay que pedir el tipo de ejemplar y el título.
+         */
+        string tipo, titulo;
+        bool exec;
         
+        // Pedimos el tipo
+        do {
+            exec = false;
+            Console.WriteLine("Introduzca el tipo de ejemplar a prestar (Película/Videojuego): ");
+            tipo = Console.ReadLine()?.Trim().ToLower();
+            if (tipo == null || !tipo.Equals("pelicula") || !tipo.Equals("película") || !tipo.Equals("videojuego")) {
+                exec = true;
+                Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
+            }
+        } while (exec);
+        
+        // Pedimos el título
+        do {
+            exec = false;
+            Console.WriteLine("Introduzca el título del ejemplar a prestar (máx. 30 caracteres): ");
+            titulo = Console.ReadLine()?.Trim().ToLower();
+            if (titulo == null || titulo.Length > 30) {
+                exec = true;
+                Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+            }
+        } while (exec);
+
+        _fondo.prestar(tipo, titulo);
     }
     
     /*-------------------------------------*/
     private static void DevolverEjemplar() {
-        throw new NotImplementedException();
+        /*
+         * Hay que pedir el tipo de ejemplar y el título.
+         */
+        string tipo, titulo;
+        bool exec;
+        
+        // Pedimos el tipo
+        do {
+            exec = false;
+            Console.WriteLine("Introduzca el tipo de ejemplar a devolver (Película/Videojuego): ");
+            tipo = Console.ReadLine()?.Trim().ToLower();
+            if (tipo == null || !tipo.Equals("pelicula") || !tipo.Equals("película") || !tipo.Equals("videojuego")) {
+                exec = true;
+                Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
+            }
+        } while (exec);
+        
+        // Pedimos el título
+        do {
+            exec = false;
+            Console.WriteLine("Introduzca el título del ejemplar a devolver (máx. 30 caracteres): ");
+            titulo = Console.ReadLine()?.Trim().ToLower();
+            if (titulo == null || titulo.Length > 30) {
+                exec = true;
+                Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+            }
+        } while (exec);
+
+        _fondo.devolver(tipo, titulo);
     }
     
     /*-------------------------------------------------------------------------------*/
-    
-
-    
 }
 }
