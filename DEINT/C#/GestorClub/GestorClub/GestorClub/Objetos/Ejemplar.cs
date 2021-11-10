@@ -7,81 +7,81 @@ abstract class Ejemplar {
     // Atributos
     protected string Titulo;
     protected string Genero;
-    protected bool Prestado;
+    protected bool Disponible;
     protected int SocioId;
     /*-------------------------------------------------------------------------------*/
     // Constructor
-    protected Ejemplar(string titulo, string genero, string prestado, string socioId) {
+    protected Ejemplar(string titulo, string genero, string disponible, string socioId) {
         SetTitulo(titulo);
         SetGenero(genero);
-        SetPrestado(prestado);
+        SetDisponible(disponible);
         SetSocioId(socioId);
     }
 
-    protected Ejemplar(string titulo, string genero, bool prestado, int socioId) {
+    protected Ejemplar(string titulo, string genero, bool disponible, int socioId) {
         SetTitulo(titulo);
         SetGenero(genero);
-        SetPrestado(prestado);
+        SetDisponible(disponible);
         SetSocioId(socioId);
     }
 
     /*-------------------------------------------------------------------------------*/
     // Setters
-    private void SetTitulo(string titulo) {
+    public void SetTitulo(string titulo) {
         if (titulo.Length > 30)
             throw new FormatException();
         Titulo = titulo;
     }
     
-    private void SetGenero(string genero) {
+    public void SetGenero(string genero) {
         if (genero.Length > 30)
             throw new FormatException();
         Genero = genero;
     }
 
-    private void SetPrestado(string prestado) {
-        switch (prestado.ToLower().Trim()) {
+    public void SetDisponible(string disponible) {
+        switch (disponible.ToLower().Trim()) {
             case "s":
-                Prestado = true;
+                Disponible = true;
                 break;
             case "n":
-                Prestado = true;
+                Disponible = true;
                 break;
             default:
                 throw new FormatException();
         }
     }
     
-    private void SetPrestado(bool prestado) {
-        Prestado = prestado;
+    public void SetDisponible(bool disponible) {
+        Disponible = disponible;
     }
     
-    private void SetSocioId(int socioId) {
+    public void SetSocioId(int socioId) {
         SocioId = socioId;
-        if (!Prestado) SocioId = 0;
+        if (!Disponible) SocioId = 0;
     }
     
-    private void SetSocioId(string socioId) {
+    public void SetSocioId(string socioId) {
         if (!(Int32.TryParse(socioId, out SocioId))) 
             throw new FormatException();
-        if (!Prestado) SocioId = 0;
+        if (!Disponible) SocioId = 0;
     }
     
     /*-------------------------------------------------------------------------------*/
     // Getters
-    private string GetTitulo() {
+    public string GetTitulo() {
         return Titulo;
     }
 
-    private string GetGenero() {
+    public string GetGenero() {
         return Genero;
     }
 
-    private bool GetPrestado() {
-        return Prestado;
+    public bool GetDisponible() {
+        return Disponible;
     }
 
-    private int GetSocioId() {
+    public int GetSocioId() {
         return SocioId;
     }
     

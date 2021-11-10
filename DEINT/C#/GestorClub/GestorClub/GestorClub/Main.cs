@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq.Expressions;
-using System.Xml.XPath;
 using GestorClub.Objetos;
-using Microsoft.VisualBasic.CompilerServices;
 
 namespace GestorClub {
 class GestorClub {
     // Inicialización del Fondo y de 3 socios.
     private static Fondo _fondo = new Fondo();
-    private static Socio s1 = new Socio("1", "Andrés Pineda");
-    private static Socio s2 = new Socio("2", "María Antonieta");
-    private static Socio s3 = new Socio("3", "David Kaye");
+    private static Socio _s1 = new Socio("1", "Andrés Pineda");
+    private static Socio _s2 = new Socio("2", "María Antonieta");
+    private static Socio _s3 = new Socio("3", "David Kaye");
     static void Main(string[] args) {
         // TODO: Inicializamos la GUI.
         
@@ -27,20 +23,21 @@ class GestorClub {
          * Insertar 6 ejemplares.
          */
         
-        _fondo.add(new Pelicula("Interstellar", "Ciencia ficción/Aventura", "n",
+        _fondo.Add(new Pelicula("Interstellar", "Ciencia ficción/Aventura", "n",
             "0", "07/11/2014"));
-        _fondo.add(new Pelicula("Eternals", "Aventura/Acción", "s", 
-            s2.GetId().ToString(), "05/11/2021"));
-        _fondo.add(new Pelicula("El Lobo de Wall Street", "Drama/Comedia", "s",
-            s3.GetId().ToString(), "17/01/2014"));
-        _fondo.add(new Videojuego("Dying Light", "Acción/Horror/Supervivencia", "s",
-            s3.GetId().ToString(), "Windows/PlayStation/XBox"));
-        _fondo.add(new Videojuego("Ford vs. Chevy", "Carreras", "n", 
+        _fondo.Add(new Pelicula("Eternals", "Aventura/Acción", "s", 
+            _s2.GetId().ToString(), "05/11/2021"));
+        _fondo.Add(new Pelicula("El Lobo de Wall Street", "Drama/Comedia", "s",
+            _s3.GetId().ToString(), "17/01/2014"));
+        _fondo.Add(new Videojuego("Dying Light", "Acción/Horror/Supervivencia", "s",
+            _s3.GetId().ToString(), "Windows/PlayStation/XBox"));
+        _fondo.Add(new Videojuego("Ford vs. Chevy", "Carreras", "n", 
             "0", "PlayStation 2/XBox"));
-        _fondo.add(new Videojuego("Dragon Age: Inquisition", "Rol/Acción", "s",
-            s1.GetId().ToString(), "Windows/PlayStation/XBox"));
+        _fondo.Add(new Videojuego("Dragon Age: Inquisition", "Rol/Acción", "s",
+            _s1.GetId().ToString(), "Windows/PlayStation/XBox"));
     }
     
+    /*-------------------------------------*/
     private static void IniciarPrograma() {
         // Bucle de ejecución
         int opc;
@@ -78,6 +75,8 @@ class GestorClub {
 
         return opc;
     }
+    
+    /*-------------------------------------*/
     private static void EjectuarOpcion(int opc) {
         switch (opc) {
             case 0:
@@ -176,7 +175,7 @@ class GestorClub {
                 Console.WriteLine("Introduzca el ID del socio que tiene el ejemplar: ");
                 aux = Console.ReadLine()?.Trim().ToLower();
                 if (aux == null || !Int32.TryParse(aux, out id) || 
-                    (id != s1.GetId() && id != s2.GetId() && id != s3.GetId())) {
+                    (id != _s1.GetId() && id != _s2.GetId() && id != _s3.GetId())) {
                     exec = true;
                     Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
                 }
@@ -211,9 +210,9 @@ class GestorClub {
         // Una vez tenemos los datos, lo añadimos a la estructura.
         
         if (tipo.Equals("pelicula") || tipo.Equals("película"))
-            _fondo.add(new Pelicula(titulo, genero, prestamo, id, fechaEstreno));
+            _fondo.Add(new Pelicula(titulo, genero, prestamo, id, fechaEstreno));
         else
-            _fondo.add(new Videojuego(titulo, genero, prestamo, id, plataforma));
+            _fondo.Add(new Videojuego(titulo, genero, prestamo, id, plataforma));
     }
     
     /*-------------------------------------*/
@@ -221,7 +220,7 @@ class GestorClub {
         Console.WriteLine("-------------------------\n" + 
                           "    ELIMINAR EJEMPLAR    \n" + 
                           "-------------------------\n");
-        bool exec = false;
+        bool exec;
         
         string tipo;
         string titulo;
@@ -249,7 +248,7 @@ class GestorClub {
         } while (exec);
         
         // Una vez tenemos los datos, lo eliminamos de la estructura.
-        _fondo.remove(titulo, tipo);
+        _fondo.Remove(titulo, tipo);
     }
 
     /*-------------------------------------*/
@@ -275,6 +274,7 @@ class GestorClub {
         return opc;
     }
     
+    /*-------------------------------------*/
     private static void Listado(int opc) {
         switch (opc) {
             case 0:
@@ -291,27 +291,30 @@ class GestorClub {
         }
     }
 
+    /*-------------------------------------*/
     private static void ListadoMostrarTodo() {
         // Muestra todos los elementos guardados en el array de Fondo.
         Console.WriteLine("----------------------------------\n" +
                           "----------LISTADO COMPLETO--------");
-        _fondo.mostrar();
+        _fondo.Mostrar();
 
         Console.WriteLine("----------------------------------\n");
     }
 
+    /*-------------------------------------*/
     private static void ListadoMostrarPrestados() {
         // Muestra todos los elementos prestados del array de Fondo.
         Console.WriteLine("----------------------------------\n" +
                           "---------LISTADO PRESTADOS--------");
         // Se le da una lista de tuplas como parámetros, que se usarán para el filtro
         List<Tuple<int, string>> lista = new List<Tuple<int, string>>();
-        lista.Add(new Tuple<int, string>(1, "s"));
-        _fondo.mostrar(lista);
+        lista.Add(new Tuple<int, string>(4, "s"));
+        _fondo.Mostrar(lista);
 
         Console.WriteLine("----------------------------------\n");
     }
 
+    /*-------------------------------------*/
     private static void ListadoAvanzado() {
         // Muestra los elementos según una serie de filtros
         Console.WriteLine("--------------------------------------\n" +
@@ -412,11 +415,12 @@ class GestorClub {
         // Si hemos escogido la opción 0 no se mostrará nada. Así que preguntamos si NO se ha
         // escogido la opción 0.
         if (i != 0)
-            _fondo.mostrar(lista);
+            _fondo.Mostrar(lista);
 
         Console.WriteLine("----------------------------------\n");
     }
 
+    /*-------------------------------------*/
     public static string PreguntaAvanzada(int i) {
         /*
          * Para pedir datos para el filtro. Usa un switch con i para saber qué dato está pidiendo.
@@ -498,7 +502,7 @@ class GestorClub {
                     Console.WriteLine("Introduzca el ID del socio que tiene el ejemplar: ");
                     res = Console.ReadLine()?.Trim().ToLower();
                     if (res == null || !Int32.TryParse(res, out id) || 
-                        (id != s1.GetId() && id != s2.GetId() && id != s3.GetId())) {
+                        (id != _s1.GetId() && id != _s2.GetId() && id != _s3.GetId())) {
                         exec = true;
                         Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
                     }
@@ -567,7 +571,7 @@ class GestorClub {
             }
         } while (exec);
 
-        _fondo.prestar(tipo, titulo);
+        _fondo.Prestar(tipo, titulo);
     }
     
     /*-------------------------------------*/
@@ -600,7 +604,7 @@ class GestorClub {
             }
         } while (exec);
 
-        _fondo.devolver(tipo, titulo);
+        _fondo.Devolver(tipo, titulo);
     }
     
     /*-------------------------------------------------------------------------------*/

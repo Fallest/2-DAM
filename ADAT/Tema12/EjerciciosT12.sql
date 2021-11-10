@@ -519,22 +519,22 @@ begin
    * sumar el importe o aumentarlo en un porcentaje.
    */
   open c1;
-  fetch c1 into vSalario, vEmp_no;
+  fetch c1 into vSalario, vEmpno;
 
   while c1%found loop
     salarioMasImporte := vSalario + importe;
     salarioMasPorcentaje := vSalario * (1 + porcentaje);
     if ( salarioMasImporte > salarioMasPorcentaje ) then
       update emple
-      set salario := salarioMasImporte
-      where emp_no = vEmp_no;
+      set salario = salarioMasImporte
+      where emp_no = vEmpno;
     else
       update emple
-      set salario := salarioMasPorcentaje
-      where emp_no = vEmp_no;
+      set salario = salarioMasPorcentaje
+      where emp_no = vEmpno;
     end if;
 
-    fetch c1 into vSalario, vRowid;
+    fetch c1 into vSalario, vEmpno;
   end loop;
   
   close c1;

@@ -7,13 +7,13 @@ class Pelicula : Ejemplar {
 
     /*-------------------------------------------------------------------------------*/
     // Constructor
-    public Pelicula(string titulo, string genero, string prestado, string socioId, string fechaEstreno) 
-        : base(titulo, genero, prestado, socioId) {
+    public Pelicula(string titulo, string genero, string disponible, string socioId, string fechaEstreno) 
+        : base(titulo, genero, disponible, socioId) {
         SetFechaEstreno(fechaEstreno);
     }
     
-    public Pelicula(string titulo, string genero, bool prestado, int socioId, Fecha fechaEstreno) 
-        : base(titulo, genero, prestado, socioId) {
+    public Pelicula(string titulo, string genero, bool disponible, int socioId, Fecha fechaEstreno) 
+        : base(titulo, genero, disponible, socioId) {
         SetFechaEstreno(fechaEstreno);
     }
 
@@ -23,7 +23,7 @@ class Pelicula : Ejemplar {
         _fechaEstreno = Fecha.ParseFecha(fecha);
     }
     
-    private void SetFechaEstreno(Fecha fechaEstreno) {
+    public void SetFechaEstreno(Fecha fechaEstreno) {
         _fechaEstreno = fechaEstreno;
     }
     
@@ -36,7 +36,7 @@ class Pelicula : Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Métodos ToString.
     public override string ToString() {
-        return "Pelicula;" + Titulo + ";" + Genero + ";" + Prestado + ";" 
+        return "Pelicula;" + Titulo + ";" + Genero + ";" + Disponible + ";" 
                + SocioId + ";" + _fechaEstreno;
     }
 }

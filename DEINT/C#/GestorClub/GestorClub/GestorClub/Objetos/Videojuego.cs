@@ -7,13 +7,13 @@ class Videojuego : Ejemplar {
 
     /*-------------------------------------------------------------------------------*/
     // Constructor
-    public Videojuego(string titulo, string genero, string prestado, string socioId, string plataforma) 
-        : base(titulo, genero, prestado, socioId) {
+    public Videojuego(string titulo, string genero, string disponible, string socioId, string plataforma) 
+        : base(titulo, genero, disponible, socioId) {
         SetPlataforma(plataforma);
     }
     
-    public Videojuego(string titulo, string genero, bool prestado, int socioId, string plataforma) 
-        : base(titulo, genero, prestado, socioId) {
+    public Videojuego(string titulo, string genero, bool disponible, int socioId, string plataforma) 
+        : base(titulo, genero, disponible, socioId) {
         SetPlataforma(plataforma);
     }
 
@@ -34,7 +34,7 @@ class Videojuego : Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Métodos ToString.
     public override string ToString() {
-        return "Videojuego;" + Titulo + ";" + Genero + ";" + Prestado + ";" 
+        return "Videojuego;" + Titulo + ";" + Genero + ";" + Disponible + ";" 
                + SocioId + ";" + _plataforma;
     }
 }
