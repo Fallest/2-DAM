@@ -141,15 +141,14 @@ class Fecha {
     public static Fecha ParseFecha(string s) {
         // Va a recibir una cadena con el formato "DD/MM/YYYY".
         string[] aux = s.Split("/");
-        int d, m = 0, a = 0;
-        if (!(Int32.TryParse(aux[0], out d)
+        int d, m, a;
+        if (Int32.TryParse(aux[0], out d)
               && Int32.TryParse(aux[1], out m)
-              && Int32.TryParse(aux[2], out a))) {
+              && Int32.TryParse(aux[2], out a)) 
             return new Fecha(d, m, a);
-        }
-        else {
-            throw new FormatException();
-        }
+        
+
+        throw new FormatException();
     }
 
     public static bool TryParse(string s, out Fecha fecha) {

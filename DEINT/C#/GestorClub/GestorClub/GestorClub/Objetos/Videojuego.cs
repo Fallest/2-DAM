@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
 
 namespace GestorClub.Objetos {
 class Videojuego : Ejemplar {
@@ -34,8 +36,27 @@ class Videojuego : Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Métodos ToString.
     public override string ToString() {
-        return "Videojuego;" + Titulo + ";" + Genero + ";" + Disponible + ";" 
-               + SocioId + ";" + _plataforma;
+        return "Videojuego;" + Id.ToString().PadRight(3) + ";" + Titulo.PadRight(30) + ";" 
+               + Genero.PadRight(30) + ";" + Disponible.ToString().PadRight(5) + ";" 
+               + SocioId + ";" + _plataforma.PadRight(30);
+    }
+    
+    /*-------------------------------------------------------------------------------*/
+    // Método ToBytes.
+    public byte[] ToByteArray() {
+        byte[] idB = BitConverter.GetBytes(Id);
+        byte[] tituloB = Encoding.UTF8.GetBytes(Titulo);
+        byte[] generoB = Encoding.UTF8.GetBytes(Titulo);
+        byte[] disponibilidadB = BitConverter.GetBytes(Disponible);
+        byte[] socioIdB = BitConverter.GetBytes(SocioId);
+        byte[] fechaB = Encoding.UTF8.GetBytes(_plataforma);
+
+        return (byte[]) idB.
+            Concat(tituloB).
+            Concat(generoB).
+            Concat(disponibilidadB).
+            Concat(socioIdB).
+            Concat(fechaB);
     }
 }
 }

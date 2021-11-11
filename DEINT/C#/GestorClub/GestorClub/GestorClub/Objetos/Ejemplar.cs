@@ -1,17 +1,28 @@
 ﻿using System;
+using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
-using Microsoft.VisualBasic;
+using System.Text;
 
 namespace GestorClub.Objetos {
 abstract class Ejemplar {
     // Atributos
+    protected static int CountId = 0;
+    protected int Id;
     protected string Titulo;
     protected string Genero;
     protected bool Disponible;
     protected int SocioId;
     /*-------------------------------------------------------------------------------*/
     // Constructor
+    protected Ejemplar(int id, string titulo, string genero, string disponible, string socioId) {
+        SetId(id);
+        SetTitulo(titulo);
+        SetGenero(genero);
+        SetDisponible(disponible);
+        SetSocioId(socioId);
+    }
     protected Ejemplar(string titulo, string genero, string disponible, string socioId) {
+        SetId();
         SetTitulo(titulo);
         SetGenero(genero);
         SetDisponible(disponible);
@@ -27,6 +38,16 @@ abstract class Ejemplar {
 
     /*-------------------------------------------------------------------------------*/
     // Setters
+    public void SetId() {
+        Id = ++CountId;
+    }
+
+    public void SetId(int id) {
+        Id = id;
+        if (id > CountId)
+            CountId = id;
+    }
+    
     public void SetTitulo(string titulo) {
         if (titulo.Length > 30)
             throw new FormatException();
@@ -45,7 +66,7 @@ abstract class Ejemplar {
                 Disponible = true;
                 break;
             case "n":
-                Disponible = true;
+                Disponible = false;
                 break;
             default:
                 throw new FormatException();
@@ -69,6 +90,10 @@ abstract class Ejemplar {
     
     /*-------------------------------------------------------------------------------*/
     // Getters
+    public int GetId() {
+        return Id;
+    }
+
     public string GetTitulo() {
         return Titulo;
     }
@@ -103,6 +128,26 @@ abstract class Ejemplar {
 
         return null;
     }
-    
+
+    public Ejemplar Parse(byte[] byteArray) {
+        // Parsea un array de bytes a un Ejemplar.
+        /*
+         * Hay que recorrer el byteArray e ir extrayendo los datos del byteArray.
+         * Hay que extraer cada zona de datos y asignarla a su variable indicada.
+         */
+        string tipo = Encoding.UTF8.GetString(byteArray, 0, 2);
+        if (tipo.Equals("p")) {
+            for(int i = 2; i < byteArray.Length; i++) {
+                                
+            }
+            
+        }
+        
+        else if (tipo.Equals("v")) {
+            
+        }
+
+    }
+
 }
 }

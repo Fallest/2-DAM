@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using GestorClub.Objetos;
 
 namespace GestorClub {
 class GestorClub {
     // Inicialización del Fondo y de 3 socios.
-    private static Fondo _fondo = new Fondo();
-    private static Socio _s1 = new Socio("1", "Andrés Pineda");
-    private static Socio _s2 = new Socio("2", "María Antonieta");
-    private static Socio _s3 = new Socio("3", "David Kaye");
+    private static Socio[] _socios = {
+        new Socio("1", "Andrés Pineda"),
+        new Socio("2", "María Antonieta"),
+        new Socio("3", "David Kaye")
+    };
+    
+    private static Fondo _fondo = new Fondo(_socios);
     static void Main(string[] args) {
         // TODO: Inicializamos la GUI.
         
@@ -26,15 +31,15 @@ class GestorClub {
         _fondo.Add(new Pelicula("Interstellar", "Ciencia ficción/Aventura", "n",
             "0", "07/11/2014"));
         _fondo.Add(new Pelicula("Eternals", "Aventura/Acción", "s", 
-            _s2.GetId().ToString(), "05/11/2021"));
+            _fondo.GetSocios()[0].GetId().ToString(), "05/11/2021"));
         _fondo.Add(new Pelicula("El Lobo de Wall Street", "Drama/Comedia", "s",
-            _s3.GetId().ToString(), "17/01/2014"));
+            _fondo.GetSocios()[2].GetId().ToString(), "17/01/2014"));
         _fondo.Add(new Videojuego("Dying Light", "Acción/Horror/Supervivencia", "s",
-            _s3.GetId().ToString(), "Windows/PlayStation/XBox"));
+            _fondo.GetSocios()[2].GetId().ToString(), "Windows/PlayStation/XBox"));
         _fondo.Add(new Videojuego("Ford vs. Chevy", "Carreras", "n", 
             "0", "PlayStation 2/XBox"));
         _fondo.Add(new Videojuego("Dragon Age: Inquisition", "Rol/Acción", "s",
-            _s1.GetId().ToString(), "Windows/PlayStation/XBox"));
+            _fondo.GetSocios()[1].GetId().ToString(), "Windows/PlayStation/XBox"));
     }
     
     /*-------------------------------------*/
@@ -127,7 +132,8 @@ class GestorClub {
             exec = false;
             Console.WriteLine("Introduzca el tipo de ejemplar (Película/Videojuego): ");
             tipo = Console.ReadLine()?.Trim().ToLower();
-            if (tipo == null || !tipo.Equals("pelicula") || !tipo.Equals("película") || !tipo.Equals("videojuego")) {
+            if (tipo == null 
+                || (!tipo.Equals("pelicula") && !tipo.Equals("película") && !tipo.Equals("videojuego"))) {
                 exec = true;
                 Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
             }
@@ -137,7 +143,7 @@ class GestorClub {
         do {
             exec = false;
             Console.WriteLine("Introduzca el título del ejemplar (máx. 30 caracteres): ");
-            titulo = Console.ReadLine()?.Trim().ToLower();
+            titulo = Console.ReadLine()?.Trim();
             if (titulo == null || titulo.Length > 30) {
                 exec = true;
                 Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
@@ -148,7 +154,7 @@ class GestorClub {
         do {
             exec = false;
             Console.WriteLine("Introduzca el género del ejemplar (máx. 30 caracteres): ");
-            genero = Console.ReadLine()?.Trim().ToLower();
+            genero = Console.ReadLine()?.Trim();
             if (genero == null || genero.Length > 30) {
                 exec = true;
                 Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
@@ -158,9 +164,9 @@ class GestorClub {
         // Pedir la disponibilidad del ejemplar
         do {
             exec = false;
-            Console.WriteLine("Introduzca la situación de préstamo del ejemplar (s/n): ");
+            Console.WriteLine("Introduzca la disponibilidad del ejemplar (s/n): ");
             aux = Console.ReadLine()?.Trim().ToLower();
-            if (aux == null || !aux.Equals("s") || !aux.Equals("n")) {
+            if (aux == null || (!aux.Equals("s") && !aux.Equals("n"))) {
                 exec = true;
                 Console.WriteLine("----Error----Carácter no válido.\nIntroduzca un carácter válido.\n\n");
             }
@@ -173,9 +179,11 @@ class GestorClub {
             do {
                 exec = false;
                 Console.WriteLine("Introduzca el ID del socio que tiene el ejemplar: ");
-                aux = Console.ReadLine()?.Trim().ToLower();
+                aux = Console.ReadLine()?.Trim();
                 if (aux == null || !Int32.TryParse(aux, out id) || 
-                    (id != _s1.GetId() && id != _s2.GetId() && id != _s3.GetId())) {
+                    (id != _fondo.GetSocios()[0].GetId() 
+                     && id != _fondo.GetSocios()[1].GetId() 
+                     && id != _fondo.GetSocios()[2].GetId())) {
                     exec = true;
                     Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
                 }
@@ -221,34 +229,24 @@ class GestorClub {
                           "    ELIMINAR EJEMPLAR    \n" + 
                           "-------------------------\n");
         bool exec;
+
+        string aux;
+        int id = 0;
         
-        string tipo;
-        string titulo;
-        
-        // Pedir el tipo
+        // Pedir el ID
         do {
             exec = false;
-            Console.WriteLine("Introduzca el tipo de ejemplar a eliminar (Película/Videojuego): ");
-            tipo = Console.ReadLine()?.Trim().ToLower();
-            if (tipo == null || !tipo.Equals("pelicula") || !tipo.Equals("película") || !tipo.Equals("videojuego")) {
+            Console.WriteLine("Introduzca el ID del ejemplar a eliminar: ");
+            aux = Console.ReadLine()?.Trim().ToLower();
+            if (aux == null || aux == ""
+                || !Int32.TryParse(aux, out id)) {
                 exec = true;
-                Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
-            }
-        } while (exec);
-        
-        // Pedir el título
-        do {
-            exec = false;
-            Console.WriteLine("Introduzca el título del ejemplar a eliminar: ");
-            titulo = Console.ReadLine()?.Trim().ToLower();
-            if (titulo == null || titulo.Length > 30) {
-                exec = true;
-                Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+                Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
             }
         } while (exec);
         
         // Una vez tenemos los datos, lo eliminamos de la estructura.
-        _fondo.Remove(titulo, tipo);
+        _fondo.Remove(id);
     }
 
     /*-------------------------------------*/
@@ -259,7 +257,7 @@ class GestorClub {
                           "|    2 - Ejemplares prestados    |\n" +
                           "|    3 - Búsqueda avanzada       |\n" +
                           "|                                |\n" +
-                          "|    0 - Cancelar                   |\n" +
+                          "|    0 - Cancelar                |\n" +
                           "----------------------------------\n" +
                           "\n");
         
@@ -308,7 +306,7 @@ class GestorClub {
                           "---------LISTADO PRESTADOS--------");
         // Se le da una lista de tuplas como parámetros, que se usarán para el filtro
         List<Tuple<int, string>> lista = new List<Tuple<int, string>>();
-        lista.Add(new Tuple<int, string>(4, "s"));
+        lista.Add(new Tuple<int, string>(4, "n"));
         _fondo.Mostrar(lista);
 
         Console.WriteLine("----------------------------------\n");
@@ -347,7 +345,6 @@ class GestorClub {
         string opc, respuesta;
         List<int> filtro = new List<int>();
         int i = 0;
-        bool exec;
         /*
          * Este bucle va a pedir opciones hasta que:
          *  -Se escoja 'A'.
@@ -358,17 +355,15 @@ class GestorClub {
          * elegir la 6 o la 7 dependiendo del tipo escogido.
          */
         do {
-            exec = false;
             Console.Write("Elección    > ");
             opc = Console.ReadLine();
 
-            if (opc != null && opc.ToLower().Trim().Equals("a"))
-                // Si se ha escrito 'A', salimos
+            if (opc != null && (opc.ToLower().Trim().Equals("a") || filtro.Count == 6))
+                // Si se ha escrito 'A' o el tamaño del array es 6 (está lleno), salimos
                 break;
-            if (opc == null || !Int32.TryParse(opc, out i)) {
+            if (opc == null || opc == "" || !Int32.TryParse(opc, out i)) {
                 // Si se ha escrito un carácter no válido, se vuelve a pedir.
                 Console.WriteLine("\n----Error----Opción no válida.\n Introduzca una opción válida.\n");
-                exec = true;
             }
             else {
                 // Si se ha introducido un carácter válido (se puede parsear a entero)
@@ -387,7 +382,6 @@ class GestorClub {
                     if ((i == 6 && filtro.IndexOf(7) != -1) || (i == 7 && filtro.IndexOf(6) != -1)) {
                         Console.WriteLine("\n----Error----No se permite la combinación de opciones 6 y 7.\n" +
                                           "Introduzca una opción válida.\n");
-                        exec = true;
                     }
                     else {
                         respuesta = PreguntaAvanzada(i);
@@ -396,7 +390,6 @@ class GestorClub {
                             || (i == 1 && respuesta.Equals("videojuego") && filtro.IndexOf(6) != -1)) {
                             Console.WriteLine("\n----Error----Combinación errónea de tipos con otras opciones.\n" +
                                               "Introduzca una opción válida.\n");
-                            exec = true;
                         }
                         else {
                             filtro.Add(i);
@@ -407,10 +400,9 @@ class GestorClub {
                 else {
                     // Si el número ya está en el array volvemos a pedir otra opción.
                     Console.WriteLine("\n----Error----Opción ya escogida.\n Introduzca una opción válida.\n");
-                    exec = true;
                 }
             }
-        } while (exec);
+        } while (true);
     
         // Si hemos escogido la opción 0 no se mostrará nada. Así que preguntamos si NO se ha
         // escogido la opción 0.
@@ -449,7 +441,7 @@ class GestorClub {
                     exec = false;
                     Console.WriteLine("Introduzca el tipo de ejemplar (Película/Videojuego): ");
                     res = Console.ReadLine()?.Trim().ToLower();
-                    if (res == null || !res.Equals("pelicula") || !res.Equals("película") || !res.Equals("videojuego")) {
+                    if (res == null || res == "" || (!res.Equals("pelicula") && !res.Equals("película") && !res.Equals("videojuego"))) {
                         exec = true;
                         Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
                     }
@@ -462,19 +454,20 @@ class GestorClub {
                     exec = false;
                     Console.WriteLine("Introduzca el título del ejemplar (máx. 30 caracteres): ");
                     res = Console.ReadLine()?.Trim().ToLower();
-                    if (res == null || res.Length > 30) {
+                    if (res == null || res == "" || res.Length > 30) {
                         exec = true;
                         Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
                     }
                 } while (exec);
-                break;
+                
+                return res;
             // Pedir el género
             case 3:
                 do {
                     exec = false;
                     Console.WriteLine("Introduzca el género del ejemplar (máx. 30 caracteres): ");
                     res = Console.ReadLine()?.Trim().ToLower();
-                    if (res == null || res.Length > 30) {
+                    if (res == null || res == "" || res.Length > 30) {
                         exec = true;
                         Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
                     }
@@ -487,7 +480,7 @@ class GestorClub {
                     exec = false;
                     Console.WriteLine("Introduzca la situación de préstamo del ejemplar (s/n): ");
                     res = Console.ReadLine()?.Trim().ToLower();
-                    if (res == null || !res.Equals("s") || !res.Equals("n")) {
+                    if (res == null || res == "" || (!res.Equals("s") && !res.Equals("n"))) {
                         exec = true;
                         Console.WriteLine("----Error----Carácter no válido.\nIntroduzca un carácter válido.\n\n");
                     }
@@ -501,8 +494,10 @@ class GestorClub {
                     exec = false;
                     Console.WriteLine("Introduzca el ID del socio que tiene el ejemplar: ");
                     res = Console.ReadLine()?.Trim().ToLower();
-                    if (res == null || !Int32.TryParse(res, out id) || 
-                        (id != _s1.GetId() && id != _s2.GetId() && id != _s3.GetId())) {
+                    if (res == null || res == "" || !Int32.TryParse(res, out id) || 
+                        (id != _fondo.GetSocios()[0].GetId() 
+                         && id != _fondo.GetSocios()[1].GetId() 
+                         && id != _fondo.GetSocios()[2].GetId())) {
                         exec = true;
                         Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
                     }
@@ -515,8 +510,8 @@ class GestorClub {
                 do {
                     exec = false;
                     Console.WriteLine("Introduzca la fecha de estreno de la película (DD/MM/YYYY): ");
-                    res = Console.ReadLine()?.Trim();
-                    if (res == null || !Fecha.TryParse(res, out fechaEstreno)) {
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || res == "" || !Fecha.TryParse(res, out fechaEstreno)) {
                         exec = true;
                         Console.WriteLine("----Error----Fecha no válida.\nIntroduzca una fecha válida.\n\n");
                     }
@@ -528,8 +523,8 @@ class GestorClub {
                 do {
                     exec = false;
                     Console.WriteLine("Introduzca la(s) plataforma(s) del videojuego (máx. 30 caracteres): ");
-                    res = Console.ReadLine()?.Trim();
-                    if (res == null || res.Length > 30) {
+                    res = Console.ReadLine()?.Trim().ToLower();
+                    if (res == null || res == "" || res.Length > 30) {
                         exec = true;
                         Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
                     }
@@ -544,67 +539,50 @@ class GestorClub {
 
     private static void PrestarEjemplar() {
         /*
-         * Hay que pedir el tipo de ejemplar y el título.
+         * Hay que pedir el ID de ejemplar.
          */
-        string tipo, titulo;
+        string aux;
+        int id = 0;
         bool exec;
         
         // Pedimos el tipo
         do {
             exec = false;
-            Console.WriteLine("Introduzca el tipo de ejemplar a prestar (Película/Videojuego): ");
-            tipo = Console.ReadLine()?.Trim().ToLower();
-            if (tipo == null || !tipo.Equals("pelicula") || !tipo.Equals("película") || !tipo.Equals("videojuego")) {
+            Console.WriteLine("Introduzca el ID del ejemplar a prestar:");
+            aux = Console.ReadLine()?.Trim().ToLower();
+            if (aux == null || aux == ""
+                || !Int32.TryParse(aux, out id)) {
                 exec = true;
-                Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
+                Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
             }
         } while (exec);
         
-        // Pedimos el título
-        do {
-            exec = false;
-            Console.WriteLine("Introduzca el título del ejemplar a prestar (máx. 30 caracteres): ");
-            titulo = Console.ReadLine()?.Trim().ToLower();
-            if (titulo == null || titulo.Length > 30) {
-                exec = true;
-                Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
-            }
-        } while (exec);
 
-        _fondo.Prestar(tipo, titulo);
+        _fondo.Prestar(id);
     }
     
     /*-------------------------------------*/
     private static void DevolverEjemplar() {
         /*
-         * Hay que pedir el tipo de ejemplar y el título.
+         * Hay que pedir el ID del ejemplar.
          */
-        string tipo, titulo;
+        string aux;
+        int id = 0;
         bool exec;
         
         // Pedimos el tipo
         do {
             exec = false;
-            Console.WriteLine("Introduzca el tipo de ejemplar a devolver (Película/Videojuego): ");
-            tipo = Console.ReadLine()?.Trim().ToLower();
-            if (tipo == null || !tipo.Equals("pelicula") || !tipo.Equals("película") || !tipo.Equals("videojuego")) {
+            Console.WriteLine("Introduzca el ID del ejemplar a devolver:");
+            aux = Console.ReadLine()?.Trim().ToLower();
+            if (aux == null || aux == ""
+                            || !Int32.TryParse(aux, out id)) {
                 exec = true;
-                Console.WriteLine("----Error----Tipo no válido.\nIntroduzca un tipo válido.\n\n");
-            }
-        } while (exec);
-        
-        // Pedimos el título
-        do {
-            exec = false;
-            Console.WriteLine("Introduzca el título del ejemplar a devolver (máx. 30 caracteres): ");
-            titulo = Console.ReadLine()?.Trim().ToLower();
-            if (titulo == null || titulo.Length > 30) {
-                exec = true;
-                Console.WriteLine("----Error----Longitud de cadena no válida.\nIntroduzca una cadena válida.\n\n");
+                Console.WriteLine("----Error----ID no válido.\nIntroduzca un ID válido.\n\n");
             }
         } while (exec);
 
-        _fondo.Devolver(tipo, titulo);
+        _fondo.Devolver(id);
     }
     
     /*-------------------------------------------------------------------------------*/
