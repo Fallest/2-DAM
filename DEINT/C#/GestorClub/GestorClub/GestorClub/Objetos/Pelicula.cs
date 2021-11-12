@@ -5,6 +5,7 @@ using System.Text;
 namespace GestorClub.Objetos {
 class Pelicula : Ejemplar {
     // Atributos
+    private static int _longitudRegistro = 151; // Longitud en bytes del registro
     private Fecha _fechaEstreno;
 
     /*-------------------------------------------------------------------------------*/
@@ -34,7 +35,11 @@ class Pelicula : Ejemplar {
     public Fecha GetFecha() {
         return _fechaEstreno;
     }
-    
+
+    public int GetLongitudRegistro() {
+        return _longitudRegistro;
+    }
+
     /*-------------------------------------------------------------------------------*/
     // Métodos ToString.
     public override string ToString() {
@@ -44,21 +49,9 @@ class Pelicula : Ejemplar {
     }
     
     /*-------------------------------------------------------------------------------*/
-    // Método ToBytes.
+    // Método ToByteArray.
     public byte[] ToByteArray() {
-        byte[] idB = BitConverter.GetBytes(Id);
-        byte[] tituloB = Encoding.UTF8.GetBytes(Titulo);
-        byte[] generoB = Encoding.UTF8.GetBytes(Titulo);
-        byte[] disponibilidadB = BitConverter.GetBytes(Disponible);
-        byte[] socioIdB = BitConverter.GetBytes(SocioId);
-        byte[] fechaB = Encoding.UTF8.GetBytes(_fechaEstreno.ToString() ?? string.Empty);
-
-        return (byte[]) idB.
-            Concat(tituloB).
-            Concat(generoB).
-            Concat(disponibilidadB).
-            Concat(socioIdB).
-            Concat(fechaB);
+        return Encoding.UTF8.GetBytes(ToString());
     }
 }
 }

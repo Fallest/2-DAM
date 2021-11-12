@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 
 namespace GestorClub.Objetos {
-abstract class Ejemplar {
+public abstract class Ejemplar {
     // Atributos
     protected static int CountId = 0;
     protected int Id;
@@ -15,18 +15,28 @@ abstract class Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Constructor
     protected Ejemplar(int id, string titulo, string genero, string disponible, string socioId) {
-        SetId(id);
-        SetTitulo(titulo);
-        SetGenero(genero);
-        SetDisponible(disponible);
-        SetSocioId(socioId);
+        try {
+            SetId(id);
+            SetTitulo(titulo);
+            SetGenero(genero);
+            SetDisponible(disponible);
+            SetSocioId(socioId);
+        }
+        catch (FormatException e) {
+            Console.WriteLine("\t\tSystem: ID para el elemento no válido. Introduzca un ID válido.");
+        }
     }
     protected Ejemplar(string titulo, string genero, string disponible, string socioId) {
-        SetId();
-        SetTitulo(titulo);
-        SetGenero(genero);
-        SetDisponible(disponible);
-        SetSocioId(socioId);
+        try {
+            SetId();
+            SetTitulo(titulo);
+            SetGenero(genero);
+            SetDisponible(disponible);
+            SetSocioId(socioId);
+        }
+        catch (FormatException e) {
+            Console.WriteLine("\t\tSystem: No se admiten más elementos. El sistema necesita ser reiniciado.");
+        }
     }
 
     protected Ejemplar(string titulo, string genero, bool disponible, int socioId) {
@@ -39,13 +49,24 @@ abstract class Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Setters
     public void SetId() {
-        Id = ++CountId;
+        if (CountId < 100)
+            Id = ++CountId;
+        else {
+            Console.WriteLine("\t\tSystem: El ID no puede ser superior a 100.");
+            throw new FormatException();
+        }
     }
 
     public void SetId(int id) {
-        Id = id;
-        if (id > CountId)
-            CountId = id;
+        if (id < 100) {
+            Id = id;
+            if (id > CountId)
+                CountId = id;
+        }
+        else {
+            Console.WriteLine("\t\tSystem: El ID no puede ser superior a 100.");
+            throw new FormatException();
+        }
     }
     
     public void SetTitulo(string titulo) {
@@ -119,34 +140,25 @@ abstract class Ejemplar {
     public Ejemplar Parse(string s) {
         string[] array = s.Split();
 
-        if (array[0].ToLower().Trim().Equals("pelicula"))
+        if (array[0].ToLower().Trim().Equals("pelicula")) 
             return new Pelicula(array[1], array[2], array[3],
                 array[4], array[5]);
-        if (array[0].ToLower().Trim().Equals("videojuego"))
+        
+        if (array[0].ToLower().Trim().Equals("videojuego")) 
             return new Videojuego(array[1], array[2], array[3],
                 array[4], array[5]);
 
-        return null;
+        // En el caso de que la cadena no tenga el formato adecuado
+        throw new FormatException();
     }
 
     public Ejemplar Parse(byte[] byteArray) {
         // Parsea un array de bytes a un Ejemplar.
         /*
-         * Hay que recorrer el byteArray e ir extrayendo los datos del byteArray.
-         * Hay que extraer cada zona de datos y asignarla a su variable indicada.
+         * Debido a que los datos se almacenaron tras convertir el Ejemplar a una
+         * cadena, podemos simplemente volver a convertirla en una cadena.
          */
-        string tipo = Encoding.UTF8.GetString(byteArray, 0, 2);
-        if (tipo.Equals("p")) {
-            for(int i = 2; i < byteArray.Length; i++) {
-                                
-            }
-            
-        }
-        
-        else if (tipo.Equals("v")) {
-            
-        }
-
+        return Parse(Encoding.UTF8.GetString(byteArray, 0, byteArray.Length));
     }
 
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 namespace GestorClub.Objetos {
-class Fondo {
+public class Fondo {
     // Array principal, que al inicio tiene nada más que 10 posiciones.
     private Ejemplar[] _fondo;
     private Socio[] _socios;
@@ -18,6 +18,10 @@ class Fondo {
     // Getter
     public Socio[] GetSocios() {
         return _socios;
+    }
+
+    public Ejemplar[] GetEjemplares() {
+        return _fondo;
     }
 
     /*-------------------------------------------------------------------------------*/

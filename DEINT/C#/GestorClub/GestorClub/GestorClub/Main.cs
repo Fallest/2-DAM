@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
 using GestorClub.Objetos;
 
 namespace GestorClub {
@@ -20,6 +18,8 @@ class GestorClub {
         InicializarDatos();
 
         IniciarPrograma();
+        
+        DataManager.EscribirDatos(_fondo);
     }
 
     /*-------------------------------------------------------------------------------*/

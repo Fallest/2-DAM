@@ -136,6 +136,12 @@ class Fecha {
     public string ToString(Fecha fecha) {
         return fecha._dia + "/" + fecha._mes + "/" + fecha._año;
     }
+
+    public override string ToString() {
+        return this._dia.ToString().PadLeft(2) + "/" 
+             + this._mes.ToString().PadLeft(2) + "/" 
+             + this._año.ToString().PadLeft(2);
+    }
     
     // Método parseFecha
     public static Fecha ParseFecha(string s) {
