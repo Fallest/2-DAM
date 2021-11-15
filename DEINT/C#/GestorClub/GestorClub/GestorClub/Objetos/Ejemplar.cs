@@ -137,8 +137,8 @@ public abstract class Ejemplar {
     
     // Método parse
 
-    public Ejemplar Parse(string s) {
-        string[] array = s.Split();
+    public static Ejemplar Parse(string s) {
+        string[] array = s.Split(";");
 
         if (array[0].ToLower().Trim().Equals("pelicula")) 
             return new Pelicula(array[1], array[2], array[3],
@@ -152,11 +152,12 @@ public abstract class Ejemplar {
         throw new FormatException();
     }
 
-    public Ejemplar Parse(byte[] byteArray) {
+    public static Ejemplar Parse(byte[] byteArray) {
         // Parsea un array de bytes a un Ejemplar.
         /*
          * Debido a que los datos se almacenaron tras convertir el Ejemplar a una
-         * cadena, podemos simplemente volver a convertirla en una cadena.
+         * cadena y luego a un byte array, podemos simplemente volver a convertirlo en una cadena
+         * y parsearlo a un Ejemplar.
          */
         return Parse(Encoding.UTF8.GetString(byteArray, 0, byteArray.Length));
     }

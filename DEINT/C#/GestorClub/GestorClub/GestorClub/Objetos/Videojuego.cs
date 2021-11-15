@@ -43,12 +43,13 @@ class Videojuego : Ejemplar {
     public override string ToString() {
         return "Videojuego;" + Id.ToString().PadRight(3) + ";" + Titulo.PadRight(30) + ";" 
                + Genero.PadRight(30) + ";" + Disponible.ToString().PadRight(5) + ";" 
-               + SocioId + ";" + _plataforma.PadRight(30);
+               + SocioId.ToString() + ";" + _plataforma.PadRight(30);
     }
     
     /*-------------------------------------------------------------------------------*/
     // Método ToBytes.
     public byte[] ToByteArray() {
+        // byte array de 230 bytes.
         return Encoding.UTF8.GetBytes(ToString());
     }
 }

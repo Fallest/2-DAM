@@ -16,8 +16,8 @@ namespace Actividad4 {
             // Pedimos el nombre del fichero
             string archivo = PedirNombre();
             // Creamos el archivo .txt con la información de un archivo .mp3, si existe.
-            ExtraerAutorID3V1(archivo);
-            // ExtraerAutorID3V2_3(archivo);
+            //ExtraerAutorID3V1(archivo);
+            ExtraerAutorID3V2_3(archivo);
         }
 
         private static void ExtraerAutorID3V1(string archivo) {
@@ -66,8 +66,8 @@ namespace Actividad4 {
                      * Como ya hemos avanzado 3 bytes (estamos en la posición 125 empezando desde el final), ya estamos
                      * posicionados para leer el título y después el artista
                      */
-                    lector.Read(tituloB, (int) SeekOrigin.Current, 30);
-                    lector.Read(artistaB, (int) SeekOrigin.Current, 30);
+                    lector.Read(tituloB);
+                    lector.Read(artistaB);
                     
                     /**
                      * Ahora vamos a escribir estos dos datos en un archivo.txt.
@@ -82,15 +82,14 @@ namespace Actividad4 {
                      * Al separar la ruta por ".", tenemos dos partes: "C:\...\archivo" y "mp3".
                      * Nos quedamos con el primer elemento (el 0) y le añadimos ".txt" al final.
                      */
-                    String[] parts = archivo.Split(".");
-                    parts[-1] = ".out";
-                    String archivoTxt = parts.ToString();
+                    int posicionUltimoPunto = archivo.LastIndexOf(".");
+                    String archivoTxt = archivo.Substring(0, posicionUltimoPunto) + ".out";
                     using FileStream escritor = new FileStream(archivoTxt, FileMode.Create);
                     
-                    escritor.Write(tituloB, (int) SeekOrigin.Current, 30);
+                    escritor.Write(tituloB);
                     // Para escribir un salto de línea tenemos que convertir el carácter \n en un Byte.
-                    escritor.WriteByte(Convert.ToByte("\n"));
-                    escritor.Write(artistaB, (int) SeekOrigin.Current, 30);
+                    escritor.WriteByte(Convert.ToByte('\n'));
+                    escritor.Write(artistaB);
                 }
                 else {
                     Console.WriteLine("Error: El archivo .mp3 especificado no contiene una cabecera ID3.");
@@ -222,9 +221,8 @@ namespace Actividad4 {
                     Extract(contenidoTag, indArtista + 7, indArtista + 6 + tamContArtista, out artistaB);
                     
                     // Ahora que tenemos los datos en los arrays de bytes, los vamos a escribir en un archivo.
-                    String[] parts = archivo.Split(".");
-                    parts[-1] = ".out";
-                    String archivoTxt = parts.ToString();
+                    int posicionUltimoPunto = archivo.LastIndexOf(".");
+                    String archivoTxt = archivo.Substring(0, posicionUltimoPunto) + ".out";
                     using FileStream escritor = new FileStream(archivoTxt, FileMode.Create);
                     
                     escritor.Write(tituloB);
@@ -257,8 +255,8 @@ namespace Actividad4 {
                 Console.Write("Introduzca la ruta al archivo: ");
                 archivo = Console.ReadLine();
 
-                if (archivo != null && archivo.Split(".")[-1] != "mp3")
-                    throw new Exception();
+                //if (archivo != null && archivo.Split(".")[-1] != "mp3")
+                    //throw new Exception();
             }
             catch (IOException ex) {
                 Console.WriteLine("Se han introducido caracteres no válidos. \nSaliendo del programa...");

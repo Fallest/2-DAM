@@ -138,23 +138,27 @@ class Fecha {
     }
 
     public override string ToString() {
-        return this._dia.ToString().PadLeft(2) + "/" 
-             + this._mes.ToString().PadLeft(2) + "/" 
-             + this._año.ToString().PadLeft(2);
+        return this._dia.ToString().PadLeft(2, '0') + "/" 
+             + this._mes.ToString().PadLeft(2, '0') + "/" 
+             + this._año.ToString().PadLeft(4, '0');
     }
     
     // Método parseFecha
     public static Fecha ParseFecha(string s) {
         // Va a recibir una cadena con el formato "DD/MM/YYYY".
-        string[] aux = s.Split("/");
-        int d, m, a;
-        if (Int32.TryParse(aux[0], out d)
-              && Int32.TryParse(aux[1], out m)
-              && Int32.TryParse(aux[2], out a)) 
-            return new Fecha(d, m, a);
-        
-
-        throw new FormatException();
+        try {
+            string[] aux = s.Split("/");
+            int d, m, a;
+            if (Int32.TryParse(aux[0].Trim(), out d)
+                && Int32.TryParse(aux[1].Trim(), out m)
+                && Int32.TryParse(aux[2].Trim(), out a))
+                return new Fecha(d, m, a);
+        }
+        catch (Exception e) {
+            throw new FormatException();
+            
+        }
+        return null;
     }
 
     public static bool TryParse(string s, out Fecha fecha) {

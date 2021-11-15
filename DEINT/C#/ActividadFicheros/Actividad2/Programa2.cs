@@ -30,9 +30,9 @@ class Program {
          */
 
         // Creamos la cadena para el archivo copia.
-        String[] parts = archivoOriginal.Split(".");
-        parts[-1] = ".out";
-        String archivoCopia = parts.ToString();
+        int posicionUltimoPunto = archivoOriginal.LastIndexOf(".");
+
+        String archivoCopia = archivoOriginal.Substring(0, posicionUltimoPunto) + ".out";
 
         // Creamos una variable para almacenar el byte que leemos
         int b;
