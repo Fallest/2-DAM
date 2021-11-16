@@ -14,7 +14,6 @@ class GestorClub {
     private static Fondo _fondo = new Fondo(_socios);
 
     static void Main(string[] args) {
-        // TODO: Inicializamos la GUI.
         DataManager.LeerDatos(_fondo);
 
         //InicializarDatos();
@@ -30,17 +29,17 @@ class GestorClub {
          * Insertar 6 ejemplares.
          */
 
-        _fondo.Add(new Pelicula("Interstellar", "Ciencia ficción/Aventura", "n",
+        _fondo.Add(new Pelicula("Interstellar", "Ciencia ficción/Aventura", "false",
             "0", "07/11/2014"));
-        _fondo.Add(new Pelicula("Eternals", "Aventura/Acción", "s",
+        _fondo.Add(new Pelicula("Eternals", "Aventura/Acción", "true",
             _fondo.GetSocios()[0].GetId().ToString(), "05/11/2021"));
-        _fondo.Add(new Pelicula("El Lobo de Wall Street", "Drama/Comedia", "s",
+        _fondo.Add(new Pelicula("El Lobo de Wall Street", "Drama/Comedia", "true",
             _fondo.GetSocios()[2].GetId().ToString(), "17/01/2014"));
-        _fondo.Add(new Videojuego("Dying Light", "Acción/Horror/Supervivencia", "s",
+        _fondo.Add(new Videojuego("Dying Light", "Acción/Horror/Supervivencia", "true",
             _fondo.GetSocios()[2].GetId().ToString(), "Windows/PlayStation/XBox"));
-        _fondo.Add(new Videojuego("Ford vs. Chevy", "Carreras", "n",
+        _fondo.Add(new Videojuego("Ford vs. Chevy", "Carreras", "false",
             "0", "PlayStation 2/XBox"));
-        _fondo.Add(new Videojuego("Dragon Age: Inquisition", "Rol/Acción", "s",
+        _fondo.Add(new Videojuego("Dragon Age: Inquisition", "Rol/Acción", "true",
             _fondo.GetSocios()[1].GetId().ToString(), "Windows/PlayStation/XBox"));
     }
 

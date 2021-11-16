@@ -1,17 +1,20 @@
 ﻿using System;
-using System.Linq;
 using System.Text;
 
 namespace GestorClub.Objetos {
 class Videojuego : Ejemplar {
     // Atributos
-    private static int _longitudRegistro = 191; // Longitud en bytes del registro
     private string _plataforma;
 
     /*-------------------------------------------------------------------------------*/
     // Constructor
     public Videojuego(string titulo, string genero, string disponible, string socioId, string plataforma) 
         : base(titulo, genero, disponible, socioId) {
+        SetPlataforma(plataforma);
+    }
+    
+    public Videojuego(string id, string titulo, string genero, string disponible, string socioId, string plataforma) 
+        : base(id, titulo, genero, disponible, socioId) {
         SetPlataforma(plataforma);
     }
     
@@ -32,10 +35,6 @@ class Videojuego : Ejemplar {
     // Getters
     public string GetPlataforma() {
         return _plataforma;
-    }
-    
-    public int GetLongitudRegistro() {
-        return _longitudRegistro;
     }
 
     /*-------------------------------------------------------------------------------*/

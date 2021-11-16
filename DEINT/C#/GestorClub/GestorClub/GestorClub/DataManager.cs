@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using GestorClub.Objetos;
 
@@ -19,89 +18,30 @@ public class DataManager {
      * como Ejemplares, usando Ejemplar.Parse(byte[]).
      */
     
-    public static void LeerDatos(Fondo datos) {
+    public static void LeerDatos(Fondo fondo) {
         /*
          * Los datos van a estar almacenados por líneas, separados por un salto de línea.
-         * Vamos a almacenar todos los datos del archivo en un array de bytes, lo vamos a convertir 
+         * Vamos a almacenar todos los datos del archivo en un array de bytes, lo vamos a convertir
+         * a una cadena, y la vamos a convertir en una lista, dividiendo por saltos de línea.
+         * Cada elemento de la lista será un ejemplar. Podemos llamar al método Parse de Ejemplar
+         * para convertir la string en un Ejemplar.
          */
         try {
+            // Archivo del que se va a leer
             using FileStream lector = new FileStream(
                 "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\GestorClub\\GestorClub\\GestorClub\\Datos\\archivo.dat",
                 FileMode.Open);
 
-            bool exec = true;
-            byte[] ejemplarB;
+            byte[] dataB = new byte[lector.Length];
+            lector.Read(dataB);
+            string data = Encoding.UTF8.GetString(dataB);
 
-            byte[] data = new byte[lector.Length];
-            
-            lector.Read(data);
-            string todo = Encoding.UTF8.GetString(data);
-            Console.WriteLine(todo);
-
-            foreach (var linea in todo.Split('\n')) {
-                if (Encoding.UTF8.GetString(tipoB).Trim().ToLower().Equals("pelicula")) {
-                    /*
-                     * Leemos los siguientes 
-                     */
-                    Console.WriteLine();
-                    ejemplarB = new byte[95];
-                    tipoB.CopyTo(ejemplarB, 0);
-                     
-                    try {
-                        lector.Read(peliculaB);
-                        peliculaB.CopyTo(ejemplarB, 10);
-                    }
-                    catch (Exception e) {
-                        exec = false;
-                    }
-                    datos.Add(Ejemplar.Parse(ejemplarB));
-                }
+            foreach (var linea in data.Split(Environment.NewLine, StringSplitOptions.RemoveEmptyEntries)) {
+                Console.WriteLine(linea);
+                fondo.Add(Ejemplar.Parse(linea));
             }
-            
-            //while (exec) {
-                /*
-                // Leemos 10 bytes y clasificamos la info según lo que leamos
-                lector.Read(tipoB);
-                
-                if (Encoding.UTF8.GetString(tipoB).Trim().ToLower().Equals("pelicula")) {
-                     // Tenemos que leer los siguientes 180 bytes, convertirlo a un ejemplar
-                     // y escribirlo en nuestros datos.
-                     Console.WriteLine();
-                     ejemplarB = new byte[95];
-                     tipoB.CopyTo(ejemplarB, 0);
-                     
-                     try {
-                         lector.Read(peliculaB);
-                         peliculaB.CopyTo(ejemplarB, 10);
-                     }
-                     catch (Exception e) {
-                         exec = false;
-                     }
-                     datos.Add(Ejemplar.Parse(ejemplarB));
-                }
-                else if (Encoding.UTF8.GetString(tipoB).Trim().ToLower().Equals("videojuego")) {
-                    // Tenemos que leer los siguientes 220 bytes, convertirlo a un ejemplar
-                    // y escribirlo en nuestros datos.
-                    ejemplarB = new byte[115];
-                    tipoB.CopyTo(ejemplarB, 0);
-                     
-                    try {
-                        lector.Read(videojuegoB);
-                        videojuegoB.CopyTo(ejemplarB, 10);
-                    }
-                    catch (Exception e) {
-                        exec = false;
-                    }
-                    datos.Add(Ejemplar.Parse(ejemplarB));
-                }
-                else {
-                    exec = false;
-                }
-                */
-                
-            //}
         }
-        catch (FileNotFoundException ex) {
+        catch (FileNotFoundException) {
             // En el caso de que no exista el archivo
             Console.WriteLine("\t\tSystem: Error al cargar los archivos. La lista estará vacía.");
         }
@@ -109,6 +49,7 @@ public class DataManager {
 
     public static void EscribirDatos(Fondo datos) {
         try {
+            // Archivo al que se va a escribir.
             using FileStream escritor = new FileStream(
                 "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\GestorClub\\GestorClub\\GestorClub\\Datos\\archivo.dat",
                 FileMode.Create);
@@ -118,24 +59,21 @@ public class DataManager {
                     if (e != null) {
                         if (e is Pelicula p) {
                             escritor.Write(p.ToByteArray());
-                            escritor.Write(BitConverter.GetBytes('\n'));                            
+                            escritor.Write(Encoding.UTF8.GetBytes(Environment.NewLine));                            
                         }
 
-                        if (e is Videojuego v) {
+                        else if (e is Videojuego v) {
                             escritor.Write(v.ToByteArray());
-                            escritor.Write(BitConverter.GetBytes('\n'));
+                            escritor.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
                         }
                     }
                 }
         }
-        catch (FileNotFoundException ex) {
+        catch (FileNotFoundException) {
             // En el caso de que no exista el archivo
             Console.WriteLine("\t\tSystem: Error al escribir los archivos. La lista estará vacía.");
         }
     }
     
-    public void LeerDatos(out Fondo datos) {
-        datos = null;
-    }
 }
 }

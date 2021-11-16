@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Net.NetworkInformation;
-using System.Runtime.InteropServices;
-using System.Text;
 
 namespace GestorClub.Objetos {
 public abstract class Ejemplar {
     // Atributos
-    protected static int CountId = 0;
+    protected static int CountId;
     protected int Id;
     protected string Titulo;
     protected string Genero;
@@ -14,7 +11,7 @@ public abstract class Ejemplar {
     protected int SocioId;
     /*-------------------------------------------------------------------------------*/
     // Constructor
-    protected Ejemplar(int id, string titulo, string genero, string disponible, string socioId) {
+    protected Ejemplar(string id, string titulo, string genero, string disponible, string socioId) {
         try {
             SetId(id);
             SetTitulo(titulo);
@@ -22,7 +19,7 @@ public abstract class Ejemplar {
             SetDisponible(disponible);
             SetSocioId(socioId);
         }
-        catch (FormatException e) {
+        catch (FormatException) {
             Console.WriteLine("\t\tSystem: ID para el elemento no válido. Introduzca un ID válido.");
         }
     }
@@ -34,7 +31,7 @@ public abstract class Ejemplar {
             SetDisponible(disponible);
             SetSocioId(socioId);
         }
-        catch (FormatException e) {
+        catch (FormatException) {
             Console.WriteLine("\t\tSystem: No se admiten más elementos. El sistema necesita ser reiniciado.");
         }
     }
@@ -57,11 +54,15 @@ public abstract class Ejemplar {
         }
     }
 
-    public void SetId(int id) {
-        if (id < 100) {
-            Id = id;
-            if (id > CountId)
-                CountId = id;
+    public void SetId(string id) {
+        int _id;
+        if (!Int32.TryParse(id.Trim(), out _id))
+            throw new FormatException();
+        
+        if (_id < 100) {
+            Id = _id;
+            if (_id > CountId)
+                CountId = _id;
         }
         else {
             Console.WriteLine("\t\tSystem: El ID no puede ser superior a 100.");
@@ -83,10 +84,10 @@ public abstract class Ejemplar {
 
     public void SetDisponible(string disponible) {
         switch (disponible.ToLower().Trim()) {
-            case "s":
+            case "true":
                 Disponible = true;
                 break;
-            case "n":
+            case "false":
                 Disponible = false;
                 break;
             default:
@@ -104,7 +105,7 @@ public abstract class Ejemplar {
     }
     
     public void SetSocioId(string socioId) {
-        if (!(Int32.TryParse(socioId, out SocioId))) 
+        if (!(Int32.TryParse(socioId.Trim(), out SocioId))) 
             throw new FormatException();
         if (!Disponible) SocioId = 0;
     }
@@ -142,11 +143,11 @@ public abstract class Ejemplar {
 
         if (array[0].ToLower().Trim().Equals("pelicula")) 
             return new Pelicula(array[1], array[2], array[3],
-                array[4], array[5]);
+                array[4], array[5], array[6]);
         
         if (array[0].ToLower().Trim().Equals("videojuego")) 
             return new Videojuego(array[1], array[2], array[3],
-                array[4], array[5]);
+                array[4], array[5], array[6]);
 
         // En el caso de que la cadena no tenga el formato adecuado
         throw new FormatException();

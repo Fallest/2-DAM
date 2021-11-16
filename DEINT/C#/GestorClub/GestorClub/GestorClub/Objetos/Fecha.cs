@@ -154,7 +154,7 @@ class Fecha {
                 && Int32.TryParse(aux[2].Trim(), out a))
                 return new Fecha(d, m, a);
         }
-        catch (Exception e) {
+        catch (Exception) {
             throw new FormatException();
             
         }
@@ -166,7 +166,7 @@ class Fecha {
             fecha = ParseFecha(s);
             return true;
         }
-        catch (FormatException fex) {
+        catch (FormatException) {
             fecha = null;
             return false;
         }
@@ -177,7 +177,7 @@ class Fecha {
             ParseFecha(s);
             return true;
         }
-        catch (FormatException fex) {
+        catch (FormatException) {
             return false;
         }
     }
