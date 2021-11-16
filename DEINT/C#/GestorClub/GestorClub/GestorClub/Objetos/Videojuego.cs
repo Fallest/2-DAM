@@ -49,7 +49,7 @@ class Videojuego : Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Método ToBytes.
     public byte[] ToByteArray() {
-        // byte array de 230 bytes.
+        // Byte array de longitud no definida (en UTF8 los caracteres son de entre 1 y 4 bytes)
         return Encoding.UTF8.GetBytes(ToString());
     }
 }

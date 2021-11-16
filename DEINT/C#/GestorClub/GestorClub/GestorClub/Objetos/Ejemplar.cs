@@ -151,16 +151,5 @@ public abstract class Ejemplar {
         // En el caso de que la cadena no tenga el formato adecuado
         throw new FormatException();
     }
-
-    public static Ejemplar Parse(byte[] byteArray) {
-        // Parsea un array de bytes a un Ejemplar.
-        /*
-         * Debido a que los datos se almacenaron tras convertir el Ejemplar a una
-         * cadena y luego a un byte array, podemos simplemente volver a convertirlo en una cadena
-         * y parsearlo a un Ejemplar.
-         */
-        return Parse(Encoding.UTF8.GetString(byteArray, 0, byteArray.Length));
-    }
-
 }
 }

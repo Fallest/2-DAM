@@ -51,7 +51,7 @@ class Pelicula : Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Método ToByteArray.
     public byte[] ToByteArray() {
-        // byte array de 190 bytes.
+        // Byte array de longitud indefinida (en UTF8 los caracteres pesan entre 1 y 4 bytes).
         return Encoding.UTF8.GetBytes(ToString());
     }
 }

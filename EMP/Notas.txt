@@ -1,5 +1,5 @@
 Temas del primer trimestre
-1, 2, 3, 4: Primer exámen
+1, 2, 3, 4: Primer exámen - 5,25
 5, 6, 7, 11: Segundo exámen
 
 Temas del segundo trimestre
@@ -7,7 +7,7 @@ Temas del segundo trimestre
 12, 13: Segundo exámen
 
 Plan de empresas: ~40% (obligatorio para aprobar)
-Exámenes: preguntar cortas y concretas (10 preguntas generalmente)
+Exámenes: preguntas cortas y concretas (10 preguntas generalmente)
 En temas con prácticas, preguntas y una práctica en el exámen
 
 Cuestiones:

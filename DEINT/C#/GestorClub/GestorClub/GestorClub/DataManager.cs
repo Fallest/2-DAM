@@ -21,12 +21,8 @@ public class DataManager {
     
     public static void LeerDatos(Fondo datos) {
         /*
-         * Los datos de los ejemplares van a estar juntos unos detrás de otros.
-         * Sabemos que los 10 primeros bytes de cada registro nos van a decir qué
-         * tipo de ejemplar son.
-         * Sabiendo qué ejempalr es, sabemos qué longitud tiene el registro:
-         *  -190 en el caso de que los 10 primeros bytes sean "Pelicula  ".
-         *  -230 en el caso de que sean "videojuego".
+         * Los datos van a estar almacenados por líneas, separados por un salto de línea.
+         * Vamos a almacenar todos los datos del archivo en un array de bytes, lo vamos a convertir 
          */
         try {
             using FileStream lector = new FileStream(
@@ -44,8 +40,9 @@ public class DataManager {
 
             foreach (var linea in todo.Split('\n')) {
                 if (Encoding.UTF8.GetString(tipoB).Trim().ToLower().Equals("pelicula")) {
-                    // Tenemos que leer los siguientes 180 bytes, convertirlo a un ejemplar
-                    // y escribirlo en nuestros datos.
+                    /*
+                     * Leemos los siguientes 
+                     */
                     Console.WriteLine();
                     ejemplarB = new byte[95];
                     tipoB.CopyTo(ejemplarB, 0);
