@@ -1,6 +1,3 @@
-/*
-Hacer Act Compl 4, 5, 6.
-*/
 /* ---------------------- Casos Prácticos --------------------- */
 /* Caso Práctico 1: */
 
@@ -124,14 +121,83 @@ end;
 /*--------------------------------------------------------------*/
 /* Caso Práctico 5: */
 
+create or replace procedure subirSalario(
+  numEmpleado integer,
+  incremento real
+)
+is 
+  salarioActual real;
+  salarioNulo exception;
+begin
+  select salario into salarioActual
+  from emple 
+  where emp_no = numEmpleado;
 
+  if salarioActual is NULL then
+    raise salarioNulo;    
+  end if;
+
+  update emple
+  set salario = salario + incremento
+  where emp_no = numEmpleado;
+
+  exception
+    when no_data_found then
+      dbms_output.put_line(numEmpleado || '*Err. No encontrado');
+    when salarioNulo then
+      dbms_output.put_line(numEmpleado|| '*Err. Salario nulo');
+
+end subirSalario;
 
 /*--------------------------------------------------------------*/
 /* Caso Práctico 6: */
 
+declare
+  codErr number(6);
+  vnif varchar2(10);
+  vnom varchar2(15);
+  errBlancos exception;
+  noHayEspacio exception;
+  pragma exception_init(noHayEspacio, -1547);
+begin
+  select col1, col2 into vnif, vnom from temp2;
+  if substr(vnom, 1, 1) <= ' ' then
+    raise errBlancos;
+  end if;
+  update clientes set nombre = vnom where nif = vnif;
+  
+  exception
+    when errBlancos then
+      insert into temp2(col1) values ('ERR blancos');
+    when noHayEspacio then
+      insert into temp2(col1) values ('ERR tablespace');
+    when no_data_found then
+      insert into temp2(col1) values ('ERR no habia datos');
+    when others then
+      codErr := SQLCODE;
+      insert into temp2(col1) values ('ERR codErr');
+end;
+
 /*--------------------------------------------------------------*/
 /* Caso Práctico 7: */
 
+create or replace procedure subirSueldo(
+  numEmpleado number, incremento number
+)
+is
+  salarioActual number;
+begin
+  select salario into salarioActual
+  from emple
+  where emp_no = numEmpleado;
+
+  if salarioActual is NULL then
+    raise_application_error(-20010, ' Salario nulo');
+  else
+    update emple set salario = salarioActual + incremento
+    where emp_no = numEmpleado;
+  end if;
+end subirSueldo;
 
 /*--------------------------------------------------------------*/
 /* ------------------ Actividades Propuestas ------------------ */
@@ -337,6 +403,28 @@ end;
 
 /*--------------------------------------------------------------*/
 /* Actividades propuestas 6: */
+
+create or replace procedure
+crearEmple(
+  PempNo emple.emp_no%TYPE,
+  Papellido emple.apellido%TYPE,
+  Poficio emple.oficio%TYPE,
+  Pdir emple.dir%TYPE,
+  PfechaAlt date,
+  Psalario emple.salario%TYPE,
+  Pcomision emple.comision%TYPE,
+  PdeptNo emple.dept_no%TYPE
+)
+is
+  --Hay que controlar el deptNo, el dir, el empNo, el salario y others.
+  noExisteDept exception;
+  noExisteDir exception;
+  numEmpDuplicado exception;
+begin
+
+  
+  
+end;
 
 /*--------------------------------------------------------------*/
 /* Actividades propuestas 7: */
