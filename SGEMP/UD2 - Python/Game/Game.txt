@@ -1,0 +1,106 @@
+Idea para el juego a hacer en PyGame: IDEA ESCOGIDA - 1
+1- Simulador de entornos.
+La idea es que tengas un entorno 3D por el que maniobrar.
+El entorno tendrá un camino, y tu objetivo es: ninguno.
+El juego estará hecho para que pasees por cualquier parte del entorno.
+El camino original está simplemente como guía.
+Conforme pases por distintos lugares, nuevos caminos se forman, y si no usas
+algunos caminos en un tiempo, la flora lo volverá a cubrir.
+Estaría guay que hubiera algunos animales paseando contigo por el lugar, que en
+un principio te eviten, pero conforme te vayan viendo, se acostumbren a tu paso
+y en algún momento, incluso te acompañen cuando te vean.
+También estaría guay que los animales usaran tus caminos para que ellos mismos se muevan.
+
+2- Simulador de planeo.
+La idea es que tengas un entorno 3D por el que maniobrar.
+En cuanto a movimiento, solo puedes acelerar. Para decelerar tendrás que planear en contra
+de la dirección del aire o chocarte.
+La idea está basada en la forma en la que vuelo cuando sueño con ello:
+1- O salto desde un sitio alto, o doy un salto muy alto.
+2- Planear. En ocasiones, he podido planear hacia arriba (es decir, ganar altura planeando).
+3- Siempre intento mantenerme todo el tiempo posible en el aire, pero al final siempre acabo
+cayendo.
+
+Los objetivos del juego podrían ser:
+1-Mantenerte todo el tiempo posible en el aire.
+2-Desbloquear distintas formas de moverte
+3-Completar algunos objetivos.
+4-Descubrir todo el mapa.
+
+Las mecánicas de movimiento son:
+1-Hay distintas corrientes de aire en el entorno, que cambian en el tiempo de intensidad, dirección y sentido.
+2-Se podrá saltar para ganar un poco de altura y planear.
+3-Se podrá subir a zonas altas del entorno para planear desde lo alto.
+4-Habrá estructuras "inalcanzables", a las cuales solo se podrá subir volando y consiguiendo una corriente de aire
+que te eleve.
+5-Se podrá andar y correr por el entorno.
+6-Los controles de movimiento serán W(hacia delante), S(hacia atrás), SHIFT para correr, SPACE para saltar, y
+el ratón controlará la dirección de la cámara.
+
+El entorno será:
+1-En un principio será siempre el mismo. Se valorará que sea generado cada vez que se juegue.
+2-Será un entorno 3D, limitado, con suelo con altura variable, obstáculos (árboles, piedras, lagos), y
+edificaciones.
+3-No habrá ningún tipo de enemigo o aliado.
+4-El entorno será sólido y no modificable.
+
+El jugador será:
+1-La cámara del jugador será en 3ª persona.
+2-El modelo del jugador será un ave.
+3-Tendrá que tener una hitbox para controlar cuándo se choca o roza con alguna superficie.
+----------------------------------------------------------------------------------------------
+Desarrollo de la idea 1:
+Se necesitan 2 pantallas:
+1-Menú inicial.
+2-Pantalla del juego.
+
+Menú inicial:
+    En el menú inicial se encuentran las siguientes opciones:
+        Jugar
+        Opciones
+        Salir
+
+    Jugar comienza game.py.
+    Opciones cambia la ventana a las opciones de sonido y controles.
+    Salir cierra el programa.
+
+    En el caso de que el jugador haya tomado alguna foto, aparecerá además una opción
+    "Fotos", entre Jugar y Opciones, donde se mostrarán las imágenes tomadas por el jugador.
+
+Pantalla del juego:
+    Se ejecuta game.py, se carga el mapa, las entidades, y el jugador.
+
+    El mapa es un entorno 3D cargado de un archivo. Es siempre el mismo.
+    El mapa se generará de forma aleatoria una sola vez, tendrá un recinto limitado,
+    será sólido y no modificable.
+    En el entorno se encontrarán árboles, follaje, lagos, y caminos.
+
+    Las entidades serán distintos animales, que se moverán de forma aleatoria.
+    Las entidades tendrán un atributo para controlar cuántas veces han visto al jugador.
+    Este atributo decidirá si la entidad huye, no se inmuta, o sigue al jugador.
+    Las entidades, en caso de encontrarse cerca de un camino generado por el jugador,
+    lo seguirán durante un tiempo indeterminado.
+
+    El jugador tendrá una cámara en primera persona, y podrá moverse y mirar en cualquier
+    dirección, saltar, y correr.
+
+    El entorno tendrá un ciclo de día y noche, pasando de uno a otro cada 5 minutos.
+    Dependiendo del estado del entorno (día o noche), las entidades cambiarán su comportamiento.
+    Los animales buscarán refugio (cerca de árboles o de follaje alto), y se dormirán.
+    Algunos animales continuarán moviéndose. En el caso de que el jugador se acerque a las entidades,
+    si el atributo de afabilidad con el jugador es "inmutable" o "huir", huirán del jugador y además
+    se reducirá la afabilidad con el jugador en 1.
+    Si por el contrario, el atributo indica que les cae bien el jugador, se despiertarán y decidirán
+    si lo siguen, o continuan durmiendo donde estaban.
+
+    El jugador además tiene un inventario, con una cámara para hacer fotos en el caso de que quiera
+    tomar alguna.
+
+    Si el jugador ha tomado alguna foto, en el menú principal se podrán visualizar.
+
+    En el juego, si el jugador presiona "ESC", se pausará el juego y se abrirá una sección con las
+    siguientes opciones:
+        Continuar
+        Menú principal
+        Opciones
+        Salir
