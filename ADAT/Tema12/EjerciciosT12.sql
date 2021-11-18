@@ -420,10 +420,75 @@ is
   noExisteDept exception;
   noExisteDir exception;
   numEmpDuplicado exception;
+  codErr number(6);
+  msgErr varchar2(32000);
+
+  cursor departamentos is
+  select dept_no from depart;
+  cursor codigosEmp is
+  select emp_no from emple;
+  
+  vAuxDepNo depart.dept_no%TYPE;
+  vAuxEmpNo emple.emp_no%TYPE;
+  existeDept integer default 0;
+  existeDir integer default 0;
+  existeEmple integer default 0;
+
 begin
 
-  
-  
+  -- Bloque para saber si existe el departamento.
+  for vAuxDepNo in departamentos loop
+    if vAuxDepNo = PdeptNo then
+      existeDept := 1;
+    end if;
+  end loop;
+
+  if existeDept <> 1 then
+    raise noExisteDept;
+  end if;
+  --
+  --Bloque para saber si existe el director o si el código ya existe.
+  for vAuxEmpNo in codigosEmp loop
+    if vAuxEmpNo = Pdir then
+      existeDir := 1;
+    end if;
+    if vAuxEmpNo = PempNo then
+      existeEmple := 1;
+    end if;
+  end loop;
+
+  if existeDir <> 1 then
+    raise noExisteDir;
+  end if;
+
+  if existeEmple = 1 then
+    raise numEmpDuplicado;
+  end if;  
+  --
+  -- Bloque para comprobar que el salario no es nulo
+  if Psalario is NULL then
+    raise_application_error(-20010, 'ERROR - Salario nulo');
+  end if;
+  --
+
+  --Inserción del empleado
+  insert into emple values(
+    PempNo, Papellido, Poficio, 
+    Pdir, PfechaAlt, Psalario, 
+    Pcomision, PdeptNo
+    );
+    
+  exception
+    when noExisteDept then
+      dbms_output.put_line('ERROR - No existe el departamento indicado');
+    when noExisteDir then
+      dbms_output.put_line('ERROR - No existe el director indicado');
+    when numEmpDuplicado then
+      dbms_output.put_line('ERROR - Ese número de empleado ya existe');
+    when others then
+      codErr := SQLCODE;
+      msgErr := SQLERRM;
+      dbms_output.put_line('ERROR ' || codErr || ': ' || msgErr);
 end;
 
 /*--------------------------------------------------------------*/
