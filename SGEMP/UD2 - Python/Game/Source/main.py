@@ -27,12 +27,60 @@ button_font = pygame.font.SysFont("Papyrus", 15)
 # Imagen de fondo del menu
 bg_image = pygame.image.load('C:\\Users\\David\\Documents\\2-DAM\\SGEMP\\UD2 - Python\\Game\\Data\\Images\\main_bg.jpg')
 
+
+def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=True):
+    """
+    Cubre una superficie con un gradiente
+    color -> color inicial
+    gradient -> color final
+    rect -> area a llenar; de forma predeterminada se toma el rect de la superficie dada
+    vertical -> True=vertical; False=horizontal
+    forward -> True=forward; False=reverse
+
+    Pygame recipe: http://www.pygame.org/wiki/GradientCode
+    """
+    if rect is None: rect = surface.get_rect()
+    x1, x2 = rect.left, rect.right
+    y1, y2 = rect.top, rect.bottom
+    if vertical:
+        h = y2 - y1
+    else:
+        h = x2 - x1
+    if forward:
+        a, b = color, gradient
+    else:
+        b, a = color, gradient
+    rate = (
+        float(b[0] - a[0]) / h,
+        float(b[1] - a[1]) / h,
+        float(b[2] - a[2]) / h
+    )
+    fn_line = pygame.draw.line
+    if vertical:
+        for line in range(y1, y2):
+            color = (
+                min(max(a[0] + (rate[0] * (line - y1)), 0), 255),
+                min(max(a[1] + (rate[1] * (line - y1)), 0), 255),
+                min(max(a[2] + (rate[2] * (line - y1)), 0), 255)
+            )
+            fn_line(surface, color, (x1, line), (x2, line))
+    else:
+        for col in range(x1, x2):
+            color = (
+                min(max(a[0] + (rate[0] * (col - x1)), 0), 255),
+                min(max(a[1] + (rate[1] * (col - x1)), 0), 255),
+                min(max(a[2] + (rate[2] * (col - x1)), 0), 255)
+            )
+            fn_line(surface, color, (col, y1), (col, y2))
+
 def draw_rect(surface, color, rect, font, text, size = "small"):
     if size == "small":
         pygame.draw.rect(surface, color, rect, 13, 13)
     elif size == "big":
         pygame.draw.rect(surface, color, rect, 15, 15)
+
     text_surf = font.render(text, 1, (255, 255, 255))
+    fill_gradient(pygame.Surface((rect.w, rect.h)), color, config.black, rect, vertical=False, forward=False)
     rect = text_surf.get_rect(center=rect.center)
     screen.blit(text_surf, rect)
 
@@ -55,28 +103,28 @@ def main_menu():
     #screen.blit(bg_image, (0, 0))
     while True:
         # Llena la pantalla del color negro
-        screen.fill((0, 0, 0))
+        screen.fill(config.black)
         # Escribe el texto del menú en la pantalla
-        draw_text("Menú principal", menu_font, (255, 255, 255), screen, 480, 240)
+        draw_text("Menú principal", menu_font, config.white, screen, 480, 240)
 
         # Vamos a obtener la posición del mouse en cada tick del reloj
         mx, my = pygame.mouse.get_pos()
 
         # Creamos los botones de nuestro menú y escribimos texto en ellos
         play_button_rect = pygame.Rect(405, 275, 75, 26)
-        draw_rect(screen, (50, 90, 168), play_button_rect, button_font, "Jugar")
+        draw_rect(screen, config.blue, play_button_rect, button_font, "Jugar")
 
         options_button_rect = pygame.Rect(405, 325, 75, 26)
-        draw_rect(screen, (50, 90, 168), options_button_rect, button_font, "Opciones")
+        draw_rect(screen, config.blue, options_button_rect, button_font, "Opciones")
 
         exit_button_rect = pygame.Rect(405, 375, 75, 26)
-        draw_rect(screen, (50, 90, 168), exit_button_rect, button_font, "Salir")
+        draw_rect(screen, config.blue, exit_button_rect, button_font, "Salir")
 
         if play_button_rect.collidepoint((mx, my)):
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = play_button_rect
             aux_rect.update(403, 272, 79, 30)
-            draw_rect(screen, (65, 116, 217), aux_rect, button_font, "Jugar", "big")
+            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Jugar", "big")
             if click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Jugar"
                 show_game()
@@ -85,7 +133,7 @@ def main_menu():
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = options_button_rect
             aux_rect.update(403, 322, 79, 30)
-            draw_rect(screen, (65, 116, 217), aux_rect, button_font, "Opciones", "big")
+            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Opciones", "big")
             if click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Opciones"
                 show_options()
@@ -94,7 +142,7 @@ def main_menu():
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = exit_button_rect
             aux_rect.update(403, 372, 79, 30)
-            draw_rect(screen, (65, 116, 217), aux_rect, button_font, "Salir", "big")
+            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Salir", "big")
             if click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Salir"
                 pygame.quit()
@@ -142,18 +190,18 @@ def show_options():
 
         # Creamos los botones de nuestro menú y escribimos texto en ellos
         audio_button_rect = pygame.Rect(405, 275, 75, 26)
-        draw_rect(screen, (50, 90, 168) if config.audio else (230, 30, 30), audio_button_rect,
+        draw_rect(screen, config.blue if config.audio else config.red, audio_button_rect,
                   button_font, "Audio: " + audio_str)
 
         back_button_rect = pygame.Rect(405, 325, 75, 26)
-        draw_rect(screen, (50, 90, 168), back_button_rect, button_font, "Atrás")
+        draw_rect(screen, config.blue, back_button_rect, button_font, "Atrás")
 
         if audio_button_rect.collidepoint((mx, my)):
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = audio_button_rect
             aux_rect.update(403, 272, 79, 30)
             audio_str = "On" if config.audio else "Off"
-            draw_rect(screen, (65, 116, 217) if config.audio else (201, 71, 71), aux_rect,
+            draw_rect(screen, config.clear_blue if config.audio else config.clear_red, aux_rect,
                       button_font, "Audio: " + audio_str, "big")
             if click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Audio"
@@ -167,7 +215,7 @@ def show_options():
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = back_button_rect
             aux_rect.update(403, 322, 79, 30)
-            draw_rect(screen, (65, 116, 217), aux_rect, button_font, "Atrás", "big")
+            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Atrás", "big")
             if click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Atrás"
                 break

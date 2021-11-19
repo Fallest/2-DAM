@@ -9,6 +9,9 @@ from main import *
 game_clock = pygame.time.Clock()
 
 def start():
+    # Actualizamos la global para jugar
+    config.start_game()
+
     screen.fill((0, 0, 0))
     """
     Para inicializar el juego
@@ -88,7 +91,7 @@ def pause():
         if menu_button_rect.collidepoint((mx, my)):
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = menu_button_rect
-            aux_rect.update(403, 272, 79, 30)
+            aux_rect.update(403, 372, 79, 30)
             draw_rect(screen, (65, 116, 217), aux_rect, button_font, "Menú principal", "big")
             if click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Menú principal"
