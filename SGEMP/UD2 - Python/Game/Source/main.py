@@ -8,25 +8,24 @@ import game, config
 mainClock = pygame.time.Clock()
 from pygame.locals import *
 
-# Variables
-w, h = 500, 500
-
 # Inicializamos pygame
 pygame.init()
 
+# ------------- FUNCIONES
+load_audio = pygame.mixer.music.load()
+play_audio = pygame.mixer.music.play()
+pause_audio = pygame.mixer.music.pause()
+unpause_audio = pygame.mixer.music.unpause()
+rewind_audio = pygame.mixer.music.rewind()
+
 # Nombre de la ventana
-pygame.display.set_caption("NoName Game")
+pygame.display.set_caption(config.game_name)
 
-# Ventana
-screen = pygame.display.set_mode((w, h), 0, 32)
-
-# Fuente a usar en el texto
-menu_font = pygame.font.SysFont("Centaur", 20)
-button_font = pygame.font.SysFont("Papyrus", 15)
+# Superficie para la ventana
+screen = pygame.display.set_mode((config.width, config.height), 0, 32, 0, 1)
 
 # Imagen de fondo del menu
-bg_image = pygame.image.load('C:\\Users\\David\\Documents\\2-DAM\\SGEMP\\UD2 - Python\\Game\\Data\\Images\\main_bg.jpg')
-
+bg_image = pygame.image.load(config.bg_image_file)
 
 def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=True):
     """
@@ -74,58 +73,75 @@ def fill_gradient(surface, color, gradient, rect=None, vertical=True, forward=Tr
             fn_line(surface, color, (col, y1), (col, y2))
 
 def draw_rect(surface, color, rect, font, text, size = "small"):
+    """
+    Dibuja un rectángulo en una superficie, poniendo un texto encima del rectángulo.
+    :param surface: Superficie para poner el rectángulo
+    :param color: Color del rectángulo
+    :param rect: Rectángulo a dibujar
+    :param font: Fuente del texto a escribir sobre el rectángulo
+    :param text: Texto a escribir en el rectángulo
+    :param size: Tamaño del rectángulo (para los botones)
+    :return: None
+    """
     if size == "small":
         pygame.draw.rect(surface, color, rect, 13, 13)
     elif size == "big":
         pygame.draw.rect(surface, color, rect, 15, 15)
 
-    text_surf = font.render(text, 1, (255, 255, 255))
-    fill_gradient(pygame.Surface((rect.w, rect.h)), color, config.black, rect, vertical=False, forward=False)
+    text_surf = font.render(text, 1, config.white)
     rect = text_surf.get_rect(center=rect.center)
     screen.blit(text_surf, rect)
 
 def draw_text(text, font, color, surface, x, y):
     """
-    Escribe un texto en la pantalla dado un texto, la fuente, el color,
-    la superficie en la que escribir, y su localización.
+    Escribe un texto en la superficie dada.
+    Concretamente escribe un texto dentro de un rectángulo dentro de una superficie.
+    :param text: Texto a escribir
+    :param font: Fuente del texto
+    :param color: Color del texto
+    :param surface: Superficie sobre la que escribir
+    :param x: Coordenada X para poner el texto.
+    :param y: Coordenada Y para poner el texto.
     """
+    # Renderizamos el texto en una fuente (textObj)
     textObj = font.render(text, 1, color)
+    # Obtenemos el rectángulo de la fuente
     textRect = textObj.get_rect()
-    textRect.topright = (x, y)
+    # Colocamos la esquina superior izquierda del rectángulo del texto en la superficie
+    textRect.topleft = (x, y)
+    # Y dibujamos el texto en en el rectángulo
     surface.blit(textObj, textRect)
 
 def main_menu():
-    pygame.mixer.music.load("C:\\Users\\David\\Documents\\2-DAM\\SGEMP\\UD2 - Python\\Game\\Data\\Music\\QuinnAndValor.mp3")
-    if config.audio: pygame.mixer.music.play(-1)
+    load_audio(config.music_file)
+    if config.audio: play_audio(-1)
 
-
-    click = False
-    #screen.blit(bg_image, (0, 0))
+    config.click = False
     while True:
         # Llena la pantalla del color negro
         screen.fill(config.black)
         # Escribe el texto del menú en la pantalla
-        draw_text("Menú principal", menu_font, config.white, screen, 480, 240)
+        draw_text("Menú principal", config.menu_font, config.white, screen, 480, 240)
 
         # Vamos a obtener la posición del mouse en cada tick del reloj
         mx, my = pygame.mouse.get_pos()
 
         # Creamos los botones de nuestro menú y escribimos texto en ellos
         play_button_rect = pygame.Rect(405, 275, 75, 26)
-        draw_rect(screen, config.blue, play_button_rect, button_font, "Jugar")
+        draw_rect(screen, config.blue, play_button_rect, config.button_font, "Jugar")
 
         options_button_rect = pygame.Rect(405, 325, 75, 26)
-        draw_rect(screen, config.blue, options_button_rect, button_font, "Opciones")
+        draw_rect(screen, config.blue, options_button_rect, config.button_font, "Opciones")
 
         exit_button_rect = pygame.Rect(405, 375, 75, 26)
-        draw_rect(screen, config.blue, exit_button_rect, button_font, "Salir")
+        draw_rect(screen, config.blue, exit_button_rect, config.button_font, "Salir")
 
         if play_button_rect.collidepoint((mx, my)):
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = play_button_rect
             aux_rect.update(403, 272, 79, 30)
-            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Jugar", "big")
-            if click:
+            draw_rect(screen, config.clear_blue, aux_rect, config.button_font, "Jugar", "big")
+            if config.click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Jugar"
                 show_game()
 
@@ -133,8 +149,8 @@ def main_menu():
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = options_button_rect
             aux_rect.update(403, 322, 79, 30)
-            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Opciones", "big")
-            if click:
+            draw_rect(screen, config.clear_blue, aux_rect, config.button_font, "Opciones", "big")
+            if config.click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Opciones"
                 show_options()
 
@@ -142,15 +158,15 @@ def main_menu():
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = exit_button_rect
             aux_rect.update(403, 372, 79, 30)
-            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Salir", "big")
-            if click:
+            draw_rect(screen, config.clear_blue, aux_rect, config.button_font, "Salir", "big")
+            if config.click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Salir"
                 pygame.quit()
                 sys.exit()
 
 
         # Variable para saber si se ha hecho clic en un tick del reloj
-        click = False
+        config.click = False
         # Trato de eventos
         for event in pygame.event.get():
             # Si se presiona la X de la ventana
@@ -165,7 +181,7 @@ def main_menu():
             # Si se ha hecho clic
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    click = True
+                    config.click = True
 
         # Actualizamos la pantalla
         pygame.display.update()
@@ -173,14 +189,13 @@ def main_menu():
         mainClock.tick(60)
 
 def show_options():
-    click = False
-    #screen.blit(bg_image, (0, 0))
+    config.click = False
     while True:
-        if not config.audio: pygame.mixer.music.pause()
+        if not config.audio: pause_audio()
 
-        screen.fill((0, 0, 0))
+        screen.fill(config.black)
         # Escribe el texto de las opciones en la pantalla
-        draw_text("Opciones", menu_font, (255, 255, 255), screen, 480, 240)
+        draw_text("Opciones", config.menu_font, config.white, screen, 480, 240)
 
         # Vamos a obtener la posición del mouse en cada tick del reloj
         mx, my = pygame.mouse.get_pos()
@@ -191,10 +206,10 @@ def show_options():
         # Creamos los botones de nuestro menú y escribimos texto en ellos
         audio_button_rect = pygame.Rect(405, 275, 75, 26)
         draw_rect(screen, config.blue if config.audio else config.red, audio_button_rect,
-                  button_font, "Audio: " + audio_str)
+                  config.button_font, "Audio: " + audio_str)
 
         back_button_rect = pygame.Rect(405, 325, 75, 26)
-        draw_rect(screen, config.blue, back_button_rect, button_font, "Atrás")
+        draw_rect(screen, config.blue, back_button_rect, config.button_font, "Atrás")
 
         if audio_button_rect.collidepoint((mx, my)):
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
@@ -202,26 +217,26 @@ def show_options():
             aux_rect.update(403, 272, 79, 30)
             audio_str = "On" if config.audio else "Off"
             draw_rect(screen, config.clear_blue if config.audio else config.clear_red, aux_rect,
-                      button_font, "Audio: " + audio_str, "big")
-            if click:
+                      config.button_font, "Audio: " + audio_str, "big")
+            if config.click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Audio"
                 # Se cambia el estado del audio, y si se ha vuelto a poner, se reinicia la música
                 config.switch_audio()
                 if config.audio:
-                    pygame.mixer.music.rewind()
-                    pygame.mixer.music.unpause()
+                    rewind_audio()
+                    unpause_audio()
 
         if back_button_rect.collidepoint((mx, my)):
             # Si el ratón está encima del botón, lo coloreamos más claro y lo hacemos grande
             aux_rect = back_button_rect
             aux_rect.update(403, 322, 79, 30)
-            draw_rect(screen, config.clear_blue, aux_rect, button_font, "Atrás", "big")
-            if click:
+            draw_rect(screen, config.clear_blue, aux_rect, config.button_font, "Atrás", "big")
+            if config.click:
                 # Si se ha hecho clic cuando el ratón estaba encima del botón "Atrás"
                 break
 
         # Variable para saber si se ha hecho clic en un tick del reloj
-        click = False
+        config.click = False
         # Trato de eventos
         for event in pygame.event.get():
             # Si se presiona la X de la ventana
@@ -235,7 +250,7 @@ def show_options():
             # Si se ha hecho clic
             if event.type == MOUSEBUTTONDOWN:
                 if event.button == 1:
-                    click = True
+                    config.click = True
 
         # Actualizamos la pantalla
         pygame.display.update()
