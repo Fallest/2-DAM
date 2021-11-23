@@ -260,5 +260,5 @@ def show_options():
 def show_game():
     game.start()
 
-if __name__ == "__main__":
-    main_menu()
+#if __name__ == "__main__":
+#    main_menu()

@@ -119,3 +119,4 @@ def pause():
         pygame.display.update()
         # Avanzamos un tick del reloj
         mainClock.tick(60)
+
