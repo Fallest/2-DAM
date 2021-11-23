@@ -123,7 +123,7 @@ def main_menu():
         # Escribe el texto del menú en la pantalla
         draw_text("Menú principal", config.menu_font, config.white, screen, 480, 240)
 
-        # Vamos a obtener la posición del mouse en cada tick del reloj
+        # Vamos a obtener la posición del mouse en cada tick del reloj XD
         mx, my = pygame.mouse.get_pos()
 
         # Creamos los botones de nuestro menú y escribimos texto en ellos
@@ -260,5 +260,5 @@ def show_options():
 def show_game():
     game.start()
 
-#if __name__ == "__main__":
-#    main_menu()
+if __name__ == "__main__":
+    main_menu()

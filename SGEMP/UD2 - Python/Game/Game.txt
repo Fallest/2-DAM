@@ -1,4 +1,4 @@
-Idea para el juego a hacer en PyGame: IDEA ESCOGIDA - 1
+Idea para el juego a hacer en PyGame: IDEA ESCOGIDA - 3
 1- Simulador de entornos.
 La idea es que tengas un entorno 3D por el que maniobrar.
 El entorno tendrá un camino, y tu objetivo es: ninguno.
@@ -104,3 +104,11 @@ Pantalla del juego:
         Menú principal
         Opciones
         Salir
+
+3- iMAGINARY LiFE
+Un juego de conversaciones con las personas de una ciudad.
+Puedes ver sus distintas perspectivas sobre la vida, sus opiniones, sus características.
+Si eres atento puedes incluso ver detalles.
+Darle importancia a las animaciones y los efectos de la pantalla.
+
+
