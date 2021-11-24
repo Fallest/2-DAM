@@ -430,16 +430,16 @@ is
   
   vAuxDepNo depart.dept_no%TYPE;
   vAuxEmpNo emple.emp_no%TYPE;
-  existeDept integer default 0;
-  existeDir integer default 0;
-  existeEmple integer default 0;
+  existeDept number(1) default 0;
+  existeDir number(1) default 0;
+  existeEmple number(1) default 0;
 
 begin
 
   -- Bloque para saber si existe el departamento.
   for vAuxDepNo in departamentos loop
-    if vAuxDepNo = PdeptNo then
-      existeDept := 1;
+    if (vAuxDepNo = PdeptNo) then
+      existeDept:=1;
     end if;
   end loop;
 
@@ -449,11 +449,11 @@ begin
   --
   --Bloque para saber si existe el director o si el código ya existe.
   for vAuxEmpNo in codigosEmp loop
-    if vAuxEmpNo = Pdir then
-      existeDir := 1;
+    if (vAuxEmpNo = Pdir) then
+      existeDir:=1;
     end if;
     if vAuxEmpNo = PempNo then
-      existeEmple := 1;
+      existeEmple:=1;
     end if;
   end loop;
 
@@ -494,6 +494,39 @@ end;
 /*--------------------------------------------------------------*/
 /* Actividades propuestas 7: */
 
+create table temp1 (
+  col1 varchar2(40) not null,
+  constraint pk_temp1 primary key (col1)
+)
+
+create or replace procedure prueba_savepoint(
+  numfilas positive
+)
+as
+begin
+  savepoint ninguna;
+  insert into temp1 (col1) values ('PRIMERA FILA');
+  savepoint una;
+  insert into temp1 (col1) values ('SEGUNDA FILA');
+  savepoint dos;
+  if numfilas = 1 then
+    rollback to una;
+  elsif numfilas = 2 then
+    rollback to dos;
+  else 
+    rollback to ninguna;
+  end if;
+  commit;
+
+  exception
+    when others then
+      rollback;
+end;
+
+exec prueba_savepoint(0);
+exec prueba_savepoint(1);
+exec prueba_savepoint(3);
+exec prueba_savepoint(2);
 
 /*--------------------------------------------------------------*/
 /* --------------- Actividades Complementarias ---------------- */
@@ -696,11 +729,139 @@ end;
 /*--------------------------------------------------------------*/
 /* Actividades complementarias 7: */
 
+/*
+Subirle el salario a los empleados que tengan un salario menor que la
+media de salarios de su oficio.
+La cantidad es la mitad de la diferencia entre el salario del empleado
+y la media.
+El procedimiento no puede quedarse a la mitad.
+*/
+
+declare
+  cursor empleados is
+  select rowid, oficio, salario from emple
+  order by oficio, salario;
+
+  media emple.salario%type;
+  oficAnt emple.oficio%type;
+  regEmp empleados%rowtype;
+begin
+
+  
+  -- Iterar por todos los empleados ordenados por oficio
+  for regEmp in empleados loop
+    if empleados%rowcount = 0 or oficAnt <> regEmp.oficio then
+      oficAnt := regEmp.oficio;
+      -- Obtener la media del oficio actual
+      select avg(salario) into media
+      from emple
+      where oficio = oficAnt;
+    end if;
+
+    -- Comprobar que el salario es menor que la media
+    if regEmp.salario < media then
+      -- Si es menor, lo incrementamos
+      update emple
+      set salario = salario + (media / 2)
+      where rowid = regEmp.rowid;
+    end if;
+  end loop;
+
+  commit;
+
+  exception
+    when others then
+      rollback;
+end;
+
 /*--------------------------------------------------------------*/
 /* Actividades complementarias 8: */
 
+create or replace procedure liquidacion
+is
+  cursor empleados is
+    select emp_no, apellido, oficio, fecha_alt, salario, comision, dept_no
+    from emple
+    order by apellido, dept_no, oficio, salario;
+  
+  regEmp empleados%rowtype;
+  total integer default 0;
+  trienios integer default 0;
+  comResp integer default 0;
+  cantEmple integer default 0;
+begin
+  -- Iteramos por todos los empleados
+  for regEmp in empleados loop
+    dbms_output.put_line('**************************************');
+    dbms_output.put_line('Liquidación del empleado      :' || regEmp.apellido);
+    dbms_output.put_line('Departamento                  :' || regEmp.dept_no);
+    dbms_output.put_line('Oficio                        :' || regEmp.oficio);
+    dbms_output.put_line('Salario                       :' || regEmp.salario);
+    trienios := (trunc(trunc(months_between(sysdate, regEmp.fecha_alt)) / 12) * 50);
+    dbms_output.put_line('Trienios                      :' || trienios);
+    -- Complemento de responsabilidad
+    select count(*) into cantEmple from emple
+    where dir = regEmp.emp_no;
+    comResp := 100 * (cantEmple);
+    dbms_output.put_line('Comp. Responsabilidad         :' || comResp);
+
+    dbms_output.put_line('Comisión                      :' || nvl(regEmp.comision, 0));
+    dbms_output.put_line('*******************************-------');
+    total := regEmp.salario + trienios + comResp + nvl(regEmp.comision, 0);
+    dbms_output.put_line('Total                         :' || total);
+    dbms_output.put_line('**************************************');
+  end loop;
+end;
+
 /*--------------------------------------------------------------*/
 /* Actividades complementarias 9: */
+
+create table t_liquidacion (
+  apellido emple.apellido%type not null,
+  departamento emple.dept_no%type,
+  oficio emple.oficio%type,
+  salario emple.salario%type,
+  trienios number(5),
+  comp_responsabilidad number(5),
+  comision emple.comision%type,
+  total number(8),
+  constraint pk_t_liquidacion primary key (apellido)
+)
+
+create or replace procedure liquidacion_insert
+is
+  cursor empleados is
+    select emp_no, apellido, oficio, fecha_alt, salario, comision, dept_no
+    from emple
+    order by apellido, dept_no, oficio, salario;
+  
+  regEmp empleados%rowtype;
+  total integer default 0;
+  trienios integer default 0;
+  comResp integer default 0;
+  cantEmple integer default 0;
+begin
+  -- Iteramos por todos los empleados
+  for regEmp in empleados loop
+    trienios := (trunc(trunc(months_between(sysdate, regEmp.fecha_alt)) / 12) * 50);
+    select count(*) into cantEmple from emple 
+    where dir = regEmp.emp_no;
+    comResp := 100 * (cantEmple);
+    total := regEmp.salario + trienios + comResp + nvl(regEmp.comision, 0);
+
+    insert into t_liquidacion values (
+      regEmp.apellido,
+      regEmp.dept_no,
+      regEmp.oficio,
+      regEmp.salario,
+      trienios,
+      comResp,
+      nvl(regEmp.comision, 0),
+      total
+    )
+  end loop;
+end;
+
 
 /*--------------------------------------------------------------*/
 /* Actividades complementarias 10: */
