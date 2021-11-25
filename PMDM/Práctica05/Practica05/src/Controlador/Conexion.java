@@ -7,9 +7,9 @@ public class Conexion {
     /**
      * Clase para la conexión con la base de datos
      */
-    private static Conexion ref = new Conexion();
+    private static final Conexion ref = new Conexion();
 
-    private Conexion() {
+    public Conexion() {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException e) {
