@@ -1,3 +1,5 @@
+package JoinEjemplos;
+
 public class EjemploJoin {
 
     public static void main(String args[]) {

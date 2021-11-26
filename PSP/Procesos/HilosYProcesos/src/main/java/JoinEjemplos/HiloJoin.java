@@ -1,3 +1,5 @@
+package JoinEjemplos;
+
 public class HiloJoin extends Thread {
     
     private int _instances;
