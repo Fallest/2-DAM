@@ -1,4 +1,4 @@
-package Main;
+package Pelota;
 
 import java.awt.geom.*;
 import javax.swing.*;
@@ -6,8 +6,6 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import static java.lang.Thread.sleep;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Main {
 
@@ -88,7 +86,7 @@ class MarcoRebote extends JFrame {
     private LaminaPelota lamina;
 
     public MarcoRebote() {
-        setBounds(600, 300, 400, 350);
+        setBounds(600, 300, 700, 350);
         setTitle("Rebotes");
 
         lamina = new LaminaPelota();
@@ -132,12 +130,26 @@ class MarcoRebote extends JFrame {
             }
         });
         
-//        ponerBoton(laminaBotones, "Borrar 1", new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent evento) {
-//                borrar_hilo();
-//            }
-//        });
+        ponerBoton(laminaBotones, "Eliminar H1", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evento) {
+                eliminarPelota(1);
+            }
+        });
+        
+        ponerBoton(laminaBotones, "Eliminar H2", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evento) {
+                eliminarPelota(2);
+            }
+        });
+        
+        ponerBoton(laminaBotones, "Eliminar H3", new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evento) {
+                eliminarPelota(3);
+            }
+        });
 
         add(laminaBotones, BorderLayout.SOUTH);
     }
@@ -149,13 +161,23 @@ class MarcoRebote extends JFrame {
         boton.addActionListener(oyente);
     }
     
-    public void añadirPelota(int num) {
+    public  void añadirPelota(int num) {
         Thread hilo = new Thread(new Hilo(lamina));
         hilo.setName("Hilo " + num);
         hilo.start();
         System.out.println("Creado el hilo: " + hilo.getName());
 
     }
+    
+    public void eliminarPelota(int num) {
+        Set<Thread> hilos = (Thread.getAllStackTraces()).keySet();
+        
+        for (Thread t: hilos)
+            if (t.getName().equals("Hilo " + num)) {
+                t.interrupt();
+                System.out.println("Se ha eliminado el hilo " + t.getName());
+            }
+    }        
     
     public void comenzar_juego() {
         cont++;
