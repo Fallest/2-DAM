@@ -24,7 +24,7 @@ public class Navegador extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        Image = new javax.swing.JLabel();
+        Imagen = new javax.swing.JLabel();
         Número = new javax.swing.JLabel();
         Nombre = new javax.swing.JLabel();
         Apellidos = new javax.swing.JLabel();
@@ -48,9 +48,9 @@ public class Navegador extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(490, 490));
         setPreferredSize(new java.awt.Dimension(490, 490));
 
-        Image.setBorder(new javax.swing.border.MatteBorder(null));
-        Image.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Image.setPreferredSize(new java.awt.Dimension(172, 172));
+        Imagen.setBorder(new javax.swing.border.MatteBorder(null));
+        Imagen.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        Imagen.setPreferredSize(new java.awt.Dimension(172, 172));
 
         Número.setText("Número: ");
 
@@ -101,7 +101,7 @@ public class Navegador extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(109, 109, 109)
-                        .addComponent(Image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(Anterior)
                         .addGroup(layout.createSequentialGroup()
@@ -144,7 +144,7 @@ public class Navegador extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(Image, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Imagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -191,7 +191,7 @@ public class Navegador extends javax.swing.JPanel {
     private javax.swing.JLabel FechaAlta;
     private javax.swing.JComboBox<String> FiltroDesplegable;
     private javax.swing.JLabel FiltroLabel;
-    private javax.swing.JLabel Image;
+    private javax.swing.JLabel Imagen;
     private javax.swing.JLabel Nombre;
     private javax.swing.JLabel Número;
     private javax.swing.JLabel Número1;

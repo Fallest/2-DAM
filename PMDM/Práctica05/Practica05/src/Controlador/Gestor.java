@@ -36,6 +36,43 @@ public class Gestor {
         }
     }
     
+    public static ArrayList<String> extractString(String sql) {
+        /**
+         * Extrae los datos de un ResultSet originado de una sentencia SQL y lo
+         * devuelve en forma de un array de cadenas
+         */
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rset = null;
+        ArrayList<String> list = new ArrayList<>();
+        
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.createStatement();
+            rset = stmt.executeQuery(sql);
+
+            while (rset.next()) {
+                list.add(
+                        rset.getInt(1) + " ; " +
+                        rset.getString(2) + " ; " +
+                        rset.getString(3) + " ; " +
+                        rset.getString(4) + " ; " +
+                        rset.getFloat(5) + " ; " +
+                        rset.getFloat(6) + " ; " +
+                        rset.getDate(7)
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Ha ocurrido un error en Gestor.extractString()");
+        } finally {
+            Conexion.close(rset);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        
+        return list;
+    }
+    
     public static ArrayList<Empleado> extract(String sql){
         /**
          * Extrae los datos de un ResultSet originado de una sentencia SQL
@@ -96,22 +133,15 @@ public class Gestor {
             - Sensible a los cambios de la BDs -> Con ResultSet.TYPE_SCROLL_SENSITIVE
             El segundo par�metro de createStatement establece el tipo de concurrencia
              */
-            stmt = conn.createStatement();
+            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, 
+                                        ResultSet.CONCUR_READ_ONLY);
             rset = stmt.executeQuery(sql);
 
             while (rset.next()) {
-                list.add(new Empleado(
-                        rset.getInt(1),
-                        rset.getString(2),
-                        rset.getString(3),
-                        rset.getString(4),
-                        rset.getFloat(5),
-                        rset.getFloat(6),
-                        rset.getDate(7)
-                ));
+                continue;
             }
         } catch (SQLException e) {
-            System.out.println("Ha ocurrido un error en Gestor.extract()");
+            System.out.println("Ha ocurrido un error en Gestor.consult()");
         } finally {
             Conexion.close(rset);
             Conexion.close(stmt);

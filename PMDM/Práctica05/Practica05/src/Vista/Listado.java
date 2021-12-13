@@ -1,5 +1,8 @@
 package Vista;
 
+import Controlador.Gestor;
+import javax.swing.DefaultListModel;
+
 /**
  * Panel para el navegador.
  * Visualizará uno a uno los empleados, mostrando los datos de cada uno, incluyendo
@@ -11,13 +14,18 @@ package Vista;
  */
 
 public class Listado extends javax.swing.JPanel {
+    
+    DefaultListModel<String> modelo = new DefaultListModel<>();
 
     /**
      * Creates new form Navegador
      */
     public Listado() {
         initComponents();
+        rellenarListado();        
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -28,55 +36,106 @@ public class Listado extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ListadoList = new javax.swing.JList<>();
-        jLabel1 = new javax.swing.JLabel();
+        título = new javax.swing.JLabel();
+        listadoScroller = new javax.swing.JScrollPane();
+        listado = new javax.swing.JList<>();
+        filtroLabel = new javax.swing.JLabel();
+        fecha1 = new javax.swing.JTextField();
+        fecha2 = new javax.swing.JTextField();
+        separadorLabel = new javax.swing.JLabel();
 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(490, 490));
         setPreferredSize(new java.awt.Dimension(490, 490));
 
-        ListadoList.setBorder(null);
-        ListadoList.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ListadoList.setModel(new javax.swing.AbstractListModel<String>() {
+        título.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        título.setText("Listado de empleados");
+
+        listado.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        listado.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        ListadoList.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        ListadoList.setMaximumSize(new java.awt.Dimension(400, 400));
-        ListadoList.setPreferredSize(new java.awt.Dimension(400, 400));
-        ListadoList.setVisibleRowCount(14);
-        jScrollPane1.setViewportView(ListadoList);
+        listado.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        listadoScroller.setViewportView(listado);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Listado de empleados");
+        filtroLabel.setText("Filtrar entre las fechas...");
+
+        fecha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fecha1ActionPerformed(evt);
+            }
+        });
+
+        fecha2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fecha2ActionPerformed(evt);
+            }
+        });
+
+        separadorLabel.setText("-");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(filtroLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(9, 9, 9)
+                        .addComponent(separadorLabel)
+                        .addGap(9, 9, 9)
+                        .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(listadoScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(título))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(título)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(listadoScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filtroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(separadorLabel))
+                .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void fecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fecha1ActionPerformed
+
+    private void fecha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecha2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fecha2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> ListadoList;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField fecha1;
+    private javax.swing.JTextField fecha2;
+    private javax.swing.JLabel filtroLabel;
+    private javax.swing.JList<String> listado;
+    private javax.swing.JScrollPane listadoScroller;
+    private javax.swing.JLabel separadorLabel;
+    private javax.swing.JLabel título;
     // End of variables declaration//GEN-END:variables
+
+    private void rellenarListado() {
+        // Código para rellenar el listado con la información de la base de datos.
+        Gestor.extractString("select * from empresa.empleado").forEach(s -> {
+            modelo.addElement(s);
+        });
+        listado.setModel(modelo);
+    }
 }
