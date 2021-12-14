@@ -112,3 +112,16 @@ Si eres atento puedes incluso ver detalles.
 Darle importancia a las animaciones y los efectos de la pantalla.
 
 
+4- DODCH!
+Juego basado en el movimiento del jugador para evitar entrar en contacto con proyectiles que aparecen a su alrededor.
+El juego tendrá distintas dificultades, que contralarán la cantidad y la velocidad de los proyectiles.
+Se consigue puntuación por el tiempo que se ha sobrevivido.
+Las 3 puntuaciones máximas para cada dificultad se guardan en un array y se muestran al finalizar la partida.
+
+Interfaz:
+Tendrá tres pantallas:
+    1: Pantalla inicial: Título, música, dificultad, y jugar.
+    2: Pantalla del juego: Puntuación, dificultad, HP, SP.
+    3: Pausa del juego: Música, puntuación, dificultad, HP, SP, reiniciar, menú principal, salir.
+    4: Pantalla de fin del juego: Puntuación, dificultad, reiniciar, menú principal, salir, tabla de puntuaciones,
+    introducir tu alias.
