@@ -1,3 +1,4 @@
+package Controlador;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -44,10 +45,10 @@ public class Fecha {
 
     public void setAño(int año) {
 
-        if (!checkFecha(_dia, this._mes, año))
+        if (!checkFecha(this._dia, this._mes, año))
             throw new NumberFormatException();
 
-        año = año;
+        this._año = año;
     }
 
     /*---------------------------------------------------------------*/ // 3/3
@@ -68,12 +69,12 @@ public class Fecha {
     // Funciones auxiliares:
 
     // M�todo checkFecha:
-    private boolean checkFecha(int dia, int mes, int año) {
+    private static boolean checkFecha(int dia, int mes, int año) {
         // Va a devolver false si la fecha no es v�lida.
         boolean esValido = true;
 
         // Comprobaci�n b�sica de los d�as, meses y a�os.
-        if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (año < 1 || año > 2030))
+        if ((dia < 1 || dia > 31) || (mes < 1 || mes > 12) || (año < 1000 || año > 2030))
             esValido = false;
 
         // Tratamiento de a�os bisiestos (solo febrero).
@@ -154,10 +155,10 @@ public class Fecha {
     
     public static boolean tryParse(String s) {
         try {
-            parseFecha(s);
-            return true;
+            String[] data = s.split("/");
+            return checkFecha(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2]));
         }
-        catch (NumberFormatException fex) {
+        catch (Exception ex) {
             return false;
         }
     }
@@ -208,6 +209,13 @@ public class Fecha {
         LocalDate fechaEntrada = date2.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         
         return (int) ChronoUnit.YEARS.between(fechaEntrada, fechaActual);
+    }
+
+    public String format(String format) {
+        if (format.equalsIgnoreCase("mm/dd/yyyy"))
+            return (this._mes + "/" + this._dia + "/" + this._año);
+        else
+            return toString();
     }
     
 }

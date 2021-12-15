@@ -6,12 +6,12 @@ import java.util.ArrayList;
 
 public class MainFrame extends javax.swing.JFrame {
 
-    // Panel Listado
-    private Listado listado = new Listado();
-    // Panel para la navegación
-    private Navegador navegador = new Navegador();
     // ArrayList para los empleados
     private static ArrayList<Empleado> empleados = new ArrayList<>();
+    // Panel Listado
+    private Listado listado;
+    // Panel para la navegación
+    private Navegador navegador;
 
     /**
      * Creates new form MainFrame
@@ -20,6 +20,10 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         // Cargamos los elementos en el array al inicio
         empleados = Gestor.extract("select * from empresa.empleado");
+        // Panel Listado
+        listado = new Listado();
+        // Panel para la navegación
+        navegador = new Navegador();
         // Comenzamos mostrando el listado
         this.setContentPane(listado);
         this.pack();

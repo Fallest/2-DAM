@@ -54,17 +54,17 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="Número2" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="NombreTField" min="-2" pref="70" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="Apellidos" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="Número3" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="SueldoTField" min="-2" pref="70" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="SueldoMax1" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <Component id="Número1" min="-2" pref="70" max="-2" attributes="0"/>
+                                  <Component id="NúmeroTField" min="-2" pref="70" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="FechaAlta" min="-2" pref="90" max="-2" attributes="0"/>
                               </Group>
@@ -86,9 +86,9 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Número5" min="-2" pref="100" max="-2" attributes="0"/>
-                          <Component id="Número4" min="-2" pref="70" max="-2" attributes="0"/>
-                          <Component id="Número6" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="ApellidosTField" min="-2" pref="100" max="-2" attributes="0"/>
+                          <Component id="FechaAltaTField" min="-2" pref="70" max="-2" attributes="0"/>
+                          <Component id="SueldoMaximoTField" alignment="0" min="-2" pref="70" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="52" max="32767" attributes="0"/>
                   </Group>
@@ -108,9 +108,9 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="Número" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="FechaAlta" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="Número1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="NúmeroTField" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="Número4" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="FechaAltaTField" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -118,8 +118,8 @@
                               <Component id="Nombre" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="Apellidos" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="Número2" min="-2" pref="24" max="-2" attributes="0"/>
-                          <Component id="Número5" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="NombreTField" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="ApellidosTField" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -127,10 +127,10 @@
                               <Component id="Sueldo" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                               <Component id="SueldoMax1" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="Número3" min="-2" pref="24" max="-2" attributes="0"/>
+                          <Component id="SueldoTField" min="-2" pref="24" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <Component id="Número6" min="-2" pref="24" max="-2" attributes="0"/>
+                  <Component id="SueldoMaximoTField" min="-2" pref="24" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="57" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -219,6 +219,9 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SiguienteActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="FiltroDesplegable">
       <Properties>
@@ -236,6 +239,9 @@
           </Border>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FiltroDesplegableActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -245,7 +251,7 @@
         <Property name="text" type="java.lang.String" value="Filtrar por apellidos:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="N&#xfa;mero1">
+    <Component class="javax.swing.JLabel" name="N&#xfa;meroTField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -254,7 +260,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="N&#xfa;mero2">
+    <Component class="javax.swing.JLabel" name="NombreTField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -263,7 +269,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="N&#xfa;mero3">
+    <Component class="javax.swing.JLabel" name="SueldoTField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -272,7 +278,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="N&#xfa;mero4">
+    <Component class="javax.swing.JLabel" name="FechaAltaTField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -281,7 +287,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="N&#xfa;mero5">
+    <Component class="javax.swing.JLabel" name="ApellidosTField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
@@ -290,7 +296,7 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="N&#xfa;mero6">
+    <Component class="javax.swing.JLabel" name="SueldoMaximoTField">
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">

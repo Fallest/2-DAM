@@ -1,5 +1,7 @@
 package Modelo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public final class Empleado {
@@ -32,8 +34,8 @@ public final class Empleado {
         setNombre(nom);
         setApellido(ape);
         setFoto(foto);
+        setSueldoMax(sueldoMax);
         setSueldo(sueldo);
-        setSueldoMax(sueldo);
         setFechaAlta(fechaAlta);
     }
 
@@ -43,7 +45,7 @@ public final class Empleado {
         /**
          * Hay que comprobar que el número introducido no sea negativo.
          */
-        if (num <= 0) {
+        if (num >= 0) {
             this.número = num;
         }
     }
@@ -81,18 +83,16 @@ public final class Empleado {
          * Hay que comprobar que el sueldo no es negativo, ni mayor que el
          * sueldo máximo, ni mayor que un número de 6 cifras.
          */
-        if (s > 0 && s < sueldoMax && s < 1000000) {
+        if ((s > 0f && s < 1000000f) && s <= sueldoMax) 
             this.sueldo = s;
-        }
     }
 
     public void setSueldoMax(float s) {
         /**
-         * Hay que comprobar que el sueldo máximo no es menor que 1000.
+         * Hay que comprobar que el sueldo máximo no es negativo.
          */
-        if (s >= 1000) {
+        if (s > 0) 
             this.sueldoMax = s;
-        }
     }
 
     public void setFechaAlta(Date fecha) {
@@ -127,6 +127,11 @@ public final class Empleado {
 
     public Date getFechaAlta() {
         return fechaAlta;
+    }
+    
+    public String getFechaAltaStr() {
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        return df.format(fechaAlta);
     }
 
     /*------------------------------------------------------------------------*/

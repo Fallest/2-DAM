@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.Fecha;
 import Controlador.Gestor;
 import javax.swing.DefaultListModel;
 
@@ -15,7 +16,7 @@ import javax.swing.DefaultListModel;
 
 public class Listado extends javax.swing.JPanel {
     
-    DefaultListModel<String> modelo = new DefaultListModel<>();
+    DefaultListModel<String> modelo;
 
     /**
      * Creates new form Navegador
@@ -43,6 +44,7 @@ public class Listado extends javax.swing.JPanel {
         fecha1 = new javax.swing.JTextField();
         fecha2 = new javax.swing.JTextField();
         separadorLabel = new javax.swing.JLabel();
+        filtroBoton = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         setMaximumSize(new java.awt.Dimension(490, 490));
@@ -62,19 +64,14 @@ public class Listado extends javax.swing.JPanel {
 
         filtroLabel.setText("Filtrar entre las fechas...");
 
-        fecha1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecha1ActionPerformed(evt);
-            }
-        });
-
-        fecha2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                fecha2ActionPerformed(evt);
-            }
-        });
-
         separadorLabel.setText("-");
+
+        filtroBoton.setText("Aplicar");
+        filtroBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroBotonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -90,10 +87,12 @@ public class Listado extends javax.swing.JPanel {
                         .addGap(9, 9, 9)
                         .addComponent(separadorLabel)
                         .addGap(9, 9, 9)
-                        .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filtroBoton))
                     .addComponent(listadoScroller, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(título))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,23 +106,27 @@ public class Listado extends javax.swing.JPanel {
                     .addComponent(filtroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fecha1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fecha2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(separadorLabel))
+                    .addComponent(separadorLabel)
+                    .addComponent(filtroBoton))
                 .addContainerGap(32, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fecha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecha1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fecha1ActionPerformed
-
-    private void fecha2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecha2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_fecha2ActionPerformed
+    private void filtroBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroBotonActionPerformed
+        if (Fecha.tryParse(fecha1.getText()) && Fecha.tryParse(fecha2.getText()))
+            filtrarEntre(Fecha.parseFecha(fecha1.getText()), Fecha.parseFecha(fecha2.getText()));
+        else {
+            fecha1.setText("");
+            fecha2.setText("");
+            rellenarListado();
+        }
+    }//GEN-LAST:event_filtroBotonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField fecha1;
     private javax.swing.JTextField fecha2;
+    private javax.swing.JButton filtroBoton;
     private javax.swing.JLabel filtroLabel;
     private javax.swing.JList<String> listado;
     private javax.swing.JScrollPane listadoScroller;
@@ -133,7 +136,18 @@ public class Listado extends javax.swing.JPanel {
 
     private void rellenarListado() {
         // Código para rellenar el listado con la información de la base de datos.
+        modelo = new DefaultListModel<>();
         Gestor.extractString("select * from empresa.empleado").forEach(s -> {
+            modelo.addElement(s);
+        });
+        listado.setModel(modelo);
+    }
+
+    private void filtrarEntre(Fecha f1, Fecha f2) {
+        // Muestra los empleados cuya fecha de alta está entre las dos fechas dadas
+        modelo = new DefaultListModel<>();
+        Gestor.extractString("select * from empresa.empleado where fechaalta between '" + f1.format("MM/dd/yyyy") + 
+                "' and '" + f2.format("MM/dd/yyyy") + "'").forEach(s -> {
             modelo.addElement(s);
         });
         listado.setModel(modelo);

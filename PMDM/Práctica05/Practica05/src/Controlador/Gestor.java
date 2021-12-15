@@ -93,7 +93,7 @@ public class Gestor {
              */
             stmt = conn.createStatement();
             rset = stmt.executeQuery(sql);
-
+            //1001	Manuel	PEREZ	1001.jpg	1500.00	2900.00	2018-10-17
             while (rset.next()) {
                 list.add(new Empleado(
                         rset.getInt(1),
