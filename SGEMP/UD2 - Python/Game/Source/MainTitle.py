@@ -37,7 +37,7 @@ def run():
                 """
                 Si se presiona la flecha abajo, se baja (sube) de selección
                 """
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_DOWN:
                     if selection < 4:
                         selection += 1;
                 """

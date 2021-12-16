@@ -71,9 +71,13 @@ public class Fondo {
             if (e != null && e.GetId() == id) {
                 // Desplazamos hacia abajo todos los datos.
                 eliminado = true;
-                for (int i = cont; _fondo[i] != null; i++)
+                for (int i = cont; _fondo[i] != null && i < _fondo.Length - 1; i++) {
                     // Hacemos solo un cambio: el siguiente al actual
                     _fondo[i] = _fondo[i + 1];
+                    cont = i;
+                }
+
+                _fondo[cont] = null;
             }
 
             cont++;
@@ -282,6 +286,7 @@ public class Fondo {
              * haciendo la intersección es null o no.
              */
             // Seguro que hay una forma más bonita de hacer esto, pero...
+            // Mirar LinQ
             int i = -1;
             if (auxiliar1 != null)
                 i = 1;
@@ -341,7 +346,6 @@ public class Fondo {
             foreach (Ejemplar e in resultado)
                 Console.WriteLine(e);
         else {
-            
             Console.WriteLine("\t\tSystem: No hay datos para el filtro aplicado.");
         }
     }

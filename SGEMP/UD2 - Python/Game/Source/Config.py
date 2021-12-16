@@ -1,4 +1,6 @@
 import pygame
+from screeninfo import get_monitors
+
 """
 Archivo para las variables y funciones globales.
 """
@@ -28,7 +30,7 @@ gameIcon = "./Data/Images/icon.png"
 
 """     Ventana     """
 # Tamaño de la ventana
-width, height = 1024, 720
+width, height = get_monitors()[0].width, get_monitors()[0].height
 # Ventana
 screen = pygame.display
 #Colores
