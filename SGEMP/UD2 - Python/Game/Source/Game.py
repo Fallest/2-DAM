@@ -35,17 +35,22 @@ def run():
         -Volver a empezar: Se llama a Game.newGame().
         -Salir: Se llama a Game.exit().
     """
+    print("Iniciando Game.run()...")
     # Iniciamos el juego
     pygame.init()
     # Creamos la ventana
-    Config.screen = pygame.display.set_mode((Config.width, Config.height), pygame.FULLSCREEN)
+    Config.screen = pygame.display.set_mode((Config.width, Config.height), pygame.FULLSCREEN, 32)
     # Título e icono
     pygame.display.set_caption("D0DCH!")
     #pygame.display.set_icon(pygame.image.load(Config.gameIcon))
 
+    # Variable para controlar cuándo se ha seleccionado volver a jugar desde la pantalla de muerte
+    playAgain = False
+
     while Config.running:
-        playState = MainTitle.run()
-        if playState == 1:
+        if not playAgain:
+            playState = MainTitle.run()
+        if playState >= 1:
             # Se ha seleccionado jugar.
             playState = start(Config.gameDifficulty)
 
@@ -55,7 +60,12 @@ def run():
 
             # Si al jugar se ha seleccionado "Menú principal".
             if playState == 1:
+                playAgain = False
                 continue
+
+            # Si al jugar y morir se ha seleccionado "Volver a jugar"
+            if playState == 2:
+                playAgain = True
 
         # Si se ha seleccionado salir.
         elif playState == 0:
@@ -63,7 +73,9 @@ def run():
 
         # En cualquier otro caso se vuelve a ejecutar el bucle
         else:
+            playAgain = False
             continue
+
 
 def start(dif):
     """
@@ -73,10 +85,16 @@ def start(dif):
     Si se pulsa ESC, y se selecciona "Salir", esta función devuelve 0.
     Si se muere y se selecciona "Salir", esta función devuelve 0.
     """
-    Config.gameRunning = True
+    print("Iniciando Game.start()...")
+
     # Asignación de la velocidad de los proyectiles
     projectileSpeed = assignProjectileSpeed()
+    # Coloreamos la pantalla de negro
+    Config.screen.fill(Config.black)
+    # Creamos nuestro objeto Player
+    player = Config.Player()
 
+    Config.gameRunning = True
     while Config.gameRunning:
 
         # Control de eventos
@@ -88,6 +106,9 @@ def start(dif):
 
             # Si se ha presionado una tecla.
             if event.type == pygame.KEYDOWN:
+                """
+                CONTROL DE CAMBIO DEL ESTADO DEL JUEGO
+                """
                 """
                 Si se ha presionado ESC se va a la pantalla de pausa.
                 """
@@ -103,11 +124,39 @@ def start(dif):
                         return 1
                     # En cualquier otro caso, el juego sigue ejecutando
                     else:
+                        Config.screen.fill(Config.black)
                         continue
+
+                """
+                Si se presiona Q el jugador muere.
+                """
+                if event.key == pygame.K_q:
+                    player.die()
 
                 """
                 CONTROL DE MOVIMIENTO DEL JUGADOR
                 """
+                # Mover el jugador hacia arriba
+                if event.key == pygame.K_UP:
+                    pass
+                # Mover el jugador hacia abajo
+                if event.key == pygame.K_DOWN:
+                    pass
+                # Mover el jugador hacia la izquierda
+                if event.key == pygame.K_LEFT:
+                    pass
+                # Mover el jugador hacia la derecha
+                if event.key == pygame.K_RIGHT:
+                    pass
+
+        """
+        Control de la vida y energía del jugador
+        """
+        # Si el jugador ha muerto, escogerá si vuelve al Menú principal (1), vuelve a jugar (2), o sale (0).
+        if not player.isAlive():
+            return DeathScreen.run()
+
+        pygame.display.update()
 
 
 def assignProjectileSpeed():

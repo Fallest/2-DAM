@@ -12,9 +12,10 @@ def run():
     Si se selecciona "Salir", devuelve 0.
     Si se selecciona "Jugar", devuelve 1.
     """
+    print("Iniciando MainTitle.run()...")
     # Rellena la pantalla con RGB y añade el bg
     Config.screen.fill(Config.white)
-    #Config.screen.blit(Config.bgMainTitle, (0, 0))
+    # Config.screen.blit(pygame.image.load(Config.bgMainTitle), (0, 0))
     # Selección en la pantalla:
     # 1 - Jugar, 2 - Dificultades, 3 - audio, 4 - Salir
     selection = 1
@@ -66,3 +67,6 @@ def run():
                         Config.audio = not Config.audio
                     if selection == 4:
                         return 0
+
+        # No olvidemos actualizar el display en cada iteración
+        pygame.display.update()

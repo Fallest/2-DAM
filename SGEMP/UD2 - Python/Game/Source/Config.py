@@ -1,3 +1,5 @@
+from typing import Tuple
+
 import pygame
 from screeninfo import get_monitors
 
@@ -22,20 +24,23 @@ bulletHellCounter = 0
 
 """     Rutas de archivos     """
 # Localización del array con las puntuaciones.
-scoresFile = "./Data/scores.txt"
+scoresFile = "../Data/scores.txt"
 # Localización de la imagen de fondo del MainTitle.
-bgMainTitle = "./Data/Images/main_bg.jpg"
+bgMainTitle = pygame.image.load("../Data/Images/main_bg.jpg")
 # Localización de la imagen del icono de la ventana
-gameIcon = "./Data/Images/icon.png"
+#gameIcon = pygame.image.load("../Data/Images/icon.png")
+# Localización de la imagen de fondo de PauseScreen
+bgPauseScreen = pygame.image.load("../Data/Images/pause_bg.png")
 
 """     Ventana     """
 # Tamaño de la ventana
 width, height = get_monitors()[0].width, get_monitors()[0].height
 # Ventana
 screen = pygame.display
-#Colores
+# Colores
 white = (255, 255, 255)
 black = (0, 0, 0)
+fadedWhite = (255, 255, 255, 100)
 
 
 def loadScores():
@@ -104,3 +109,62 @@ def increaseDif():
         if bulletHellCounter == 5:
             # Se actualiza la dificultad a bullet hell
             gameDifficulty = 4
+
+class Player:
+    """
+    Clase para el objeto Jugador.
+    Tendrá vida, energía, una posición y una velocidad.
+    Al inicio, el jugador aparecerá en el centro de la pantalla, y tendrá velocidad 0.
+    """
+    health: int
+    stamina: int
+    pos: tuple[int, int]
+    speed: tuple[int, int]
+    alive: bool
+
+    # La hitbox del jugador es un área de 1/20 de la longitud de la pantalla
+    playerHitBox = pygame.Surface(((1/20)*width, (1/20)*width))
+
+    def __init__(self):
+        self.health = 100
+        self.stamina = 100
+        self.pos = (width // 2, height // 2)
+        self.speed = (0, 0)
+        self.alive = True
+
+    def isAlive(self):
+        return self.alive
+
+    def die(self):
+        self.alive = False
+
+    def updateHP(self, q):
+        if self.alive:
+            self.health += q
+            if self.health <= 0:
+                self.stop()
+                self.alive = False
+            if self.health > 100:
+                self.health = 100
+
+    def moveVertical(self, v):
+        if self.alive:
+            self.speed[1] += v
+
+    def moveHorizontal(self, v):
+        if self.alive:
+            self.speed[0] += v
+
+    def stop(self):
+        self.speed = (0, 0)
+
+    def updatePos(self):
+        if self.alive:
+            newXpos = self.pos[0] + self.speed[0]
+            newYpos = self.pos[1] + self.speed[1]
+            if newXpos >= width:
+                newXpos = width
+            if newYpos >= height:
+                newYpos = height
+
+            self.pos = (newXpos, newYpos)
