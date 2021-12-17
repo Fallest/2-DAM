@@ -118,8 +118,8 @@ class Player:
     """
     health: int
     stamina: int
-    pos: tuple[int, int]
-    speed: tuple[int, int]
+    pos: list[int, int]
+    speed: list[int, int]
     alive: bool
 
     # La hitbox del jugador es un área de 1/20 de la longitud de la pantalla
@@ -128,8 +128,8 @@ class Player:
     def __init__(self):
         self.health = 100
         self.stamina = 100
-        self.pos = (width // 2, height // 2)
-        self.speed = (0, 0)
+        self.pos = [width // 2, height // 2]
+        self.speed = [0, 0]
         self.alive = True
 
     def isAlive(self):
@@ -147,24 +147,73 @@ class Player:
             if self.health > 100:
                 self.health = 100
 
-    def moveVertical(self, v):
+    def updateSP(self, q):
         if self.alive:
-            self.speed[1] += v
+            self.stamina += q
+            if self.stamina < 0:
+                self.stamina = 0
+            if self.stamina > 100:
+                self.stamina = 100
+            print("SP: ", self.stamina)
 
-    def moveHorizontal(self, v):
-        if self.alive:
-            self.speed[0] += v
+    def moveUp(self, v):
+        if self.alive and self.stamina > 0:
+            self.speed[1] += v
+    def moveDown(self, v):
+        if self.alive and self.stamina > 0:
+            self.speed[1] -= v
+    def moveLeft(self, v):
+        if self.alive and self.stamina > 0:
+            self.speed[0] -= v * (width // height) # Aplicamos el ratio de la pantalla
+    def moveRight(self, v):
+        if self.alive and self.stamina > 0:
+            self.speed[0] += v * (width // height) # Aplicamos el ratio de la pantalla
 
     def stop(self):
-        self.speed = (0, 0)
+        self.speed = [0, 0]
+
+    def isStopped(self):
+        return self.speed == [0, 0]
 
     def updatePos(self):
         if self.alive:
             newXpos = self.pos[0] + self.speed[0]
             newYpos = self.pos[1] + self.speed[1]
-            if newXpos >= width:
-                newXpos = width
-            if newYpos >= height:
-                newYpos = height
+            # Aplicamos una barrera horizontal y vertical para el movimiento del jugador
+            if newXpos > width - ((1/20) * width):
+                newXpos = width - ((1/20) * width)
+            elif newXpos < ((1/20) * width):
+                newXpos = ((1/20) * width)
+            if newYpos > height - ((1/20) * height):
+                newYpos = height - ((1/20) * height)
+            elif newYpos < ((1/20) * height):
+                newYpos = ((1 / 20) * height)
 
-            self.pos = (newXpos, newYpos)
+            if not self.isStopped():
+                self.updateSP(-1)
+            self.pos = [newXpos, newYpos]
+            print(self.pos)
+    def getPos(self):
+        return self.pos
+
+class Projectile:
+    """
+    Clase para el objeto Proyectil.
+    Tendrá una posición y una velocidad.
+    Al inicio, el proyectil aparecerá en un borde aleatorio de la pantalla, y tendrá velocidad 0.
+    """
+    health: int
+    stamina: int
+    pos: list[int, int]
+    speed: list[int, int]
+    alive: bool
+
+    # La hitbox del jugador es un área de 1/20 de la longitud de la pantalla
+    playerHitBox = pygame.Surface(((1 / 20) * width, (1 / 20) * width))
+
+    def __init__(self):
+        self.health = 100
+        self.stamina = 100
+        self.pos = [width // 2, height // 2]
+        self.speed = [0, 0]
+        self.alive = True

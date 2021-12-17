@@ -3,8 +3,11 @@ Archivo con el bucle principal de ejecución.
 Desde aquí se llama a las funciones del título principal, la pausa, y la pantalla de muerte.
 
 """
+import time
+
 import pygame, Config
 import MainTitle, PauseScreen, DeathScreen
+from random import randrange
 
 
 def run():
@@ -87,12 +90,16 @@ def start(dif):
     """
     print("Iniciando Game.start()...")
 
-    # Asignación de la velocidad de los proyectiles
+    # Asignación de la velocidad de los proyectiles y del jugador
+    playerSpeed = assignPlayerSpeed()
     projectileSpeed = assignProjectileSpeed()
     # Coloreamos la pantalla de negro
     Config.screen.fill(Config.black)
     # Creamos nuestro objeto Player
     player = Config.Player()
+    # Variables para la colisón y la vida perdida por colisión
+    collision = False
+    hitHP = assignHitHP()
 
     Config.gameRunning = True
     while Config.gameRunning:
@@ -138,25 +145,86 @@ def start(dif):
                 """
                 # Mover el jugador hacia arriba
                 if event.key == pygame.K_UP:
-                    pass
+                    player.moveUp(playerSpeed)
                 # Mover el jugador hacia abajo
                 if event.key == pygame.K_DOWN:
-                    pass
+                    player.moveDown(playerSpeed)
                 # Mover el jugador hacia la izquierda
                 if event.key == pygame.K_LEFT:
-                    pass
+                    player.moveLeft(playerSpeed)
                 # Mover el jugador hacia la derecha
                 if event.key == pygame.K_RIGHT:
-                    pass
+                    player.moveRight(playerSpeed)
+
+            # Al levantar las teclas dejamos de mover al jugador en esa dirección
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_UP:
+                    player.moveUp(-playerSpeed)
+                if event.key == pygame.K_DOWN:
+                    player.moveDown(-playerSpeed)
+                if event.key == pygame.K_LEFT:
+                    player.moveLeft(-playerSpeed)
+                if event.key == pygame.K_RIGHT:
+                    player.moveRight(-playerSpeed)
+
+        # Actualizamos la posición del jugador
+        player.updatePos()
+        # Si el jugador está parado, regenera energía
+        if player.isStopped():
+            player.updateSP(1)
+        """
+        Fin del control de movimiento del jugador
+        """
+
+        # Final del control de eventos
 
         """
-        Control de la vida y energía del jugador
+        GENERACIÓN DE PROYECTILES
         """
+        p = projectileGenerator()
+        if p is not None:
+            p.setSpeed(projectileSpeed)
+            p.updatePos()
+            collision = p.checkCollision(player.getPos())
+
+        """
+        CONTROL DE COLISIÓN ENTRE PROYECTILES Y JUGADOR
+        """
+
+        """
+        CONTROL DE VIDA Y ENERGÍA DEL JUGADOR
+        """
+
+
+        # Si el jugador ha sido golpeado.
+        if collision:
+            player.updateHP(-hitHP)
         # Si el jugador ha muerto, escogerá si vuelve al Menú principal (1), vuelve a jugar (2), o sale (0).
         if not player.isAlive():
             return DeathScreen.run()
 
+        time.sleep(0.5)
         pygame.display.update()
+
+
+def projectileGenerator():
+    # Modificadores según la dificultad
+    while Config.running:
+        if Config.gameDifficulty == 0:
+            if randrange(100) % 19 == 0:
+                yield Config.Projectile()
+        if Config.gameDifficulty == 1:
+            if randrange(100) % 13 == 0:
+                yield Config.Projectile()
+        if Config.gameDifficulty == 2:
+            if randrange(100) % 7 == 0:
+                yield Config.Projectile()
+        if Config.gameDifficulty == 3:
+            if randrange(100) % 3 == 0:
+                yield Config.Projectile()
+        if Config.gameDifficulty == 4:
+            if randrange(10) % 2 == 0:
+                yield Config.Projectile()
 
 
 def assignProjectileSpeed():
@@ -173,3 +241,31 @@ def assignProjectileSpeed():
         return speed * 27
     if Config.gameDifficulty == 4:
         return speed * 81
+
+def assignPlayerSpeed():
+    # Velocidad base
+    speed = 50
+    # Modificadores según la dificultad
+    if Config.gameDifficulty == 0:
+        return speed
+    if Config.gameDifficulty == 1:
+        return speed // 2
+    if Config.gameDifficulty == 2:
+        return speed // 3
+    if Config.gameDifficulty == 3:
+        return speed // 5
+    if Config.gameDifficulty == 4:
+        return speed // 10
+
+def assignHitHP():
+    # Modificadores según la dificultad
+    if Config.gameDifficulty == 0:
+        return 1
+    if Config.gameDifficulty == 1:
+        return 100 // 10
+    if Config.gameDifficulty == 2:
+        return 100 // 5
+    if Config.gameDifficulty == 3:
+        return 100 // 3
+    if Config.gameDifficulty == 4:
+        return 99

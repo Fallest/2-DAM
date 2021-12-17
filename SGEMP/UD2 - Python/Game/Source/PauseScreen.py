@@ -6,7 +6,7 @@ def run():
     El bucle del juego se pausa para entrar en esta función.
     Desde ella se puede volver al Menú principal, continuar el juego, activar/desactivar el audio, y salir del juego.
 
-    Si se selecciona "Continuar", devuelve 2.
+    Si se selecciona "Continuar" o se presiona "ESC", devuelve 2.
     Si se selecciona "Menú principal", devuelve 1.
     Si se selecciona "Salir", devuelve 0.
     """
@@ -27,6 +27,11 @@ def run():
 
             # Si se presiona una tecla, comprobar cuál es
             if event.type == pygame.KEYDOWN:
+                """
+                Si se presiona "ESC", se continua el juego.
+                """
+                if event.key == pygame.K_ESCAPE:
+                    return 2
                 """
                 Si se presiona la flecha arriba, se sube (baja) de selección
                 """
