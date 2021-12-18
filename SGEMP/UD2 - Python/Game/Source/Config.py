@@ -1,3 +1,4 @@
+import random
 from typing import Tuple
 
 import pygame
@@ -200,20 +201,104 @@ class Projectile:
     """
     Clase para el objeto Proyectil.
     Tendrá una posición y una velocidad.
-    Al inicio, el proyectil aparecerá en un borde aleatorio de la pantalla, y tendrá velocidad 0.
+
+    Localización de las "puertas" o zonas de spawn:
+            1
+        8       2
+    7              3
+        6       4
+            5
+
+    Las direcciónes serán:
+        1- 45º desde la normal de la puerta con el borde de la zona jugable.
+        2- normal de la puerta con el borde de la zona jugable.
+        3- -45º desde la normal de la puerta con el borde de la zona jugable.
+
+    Los proyectiles aparecen desde una de las 8 zonas de spawn que tienen. Además, cada zona tiene 3 direcciones.
+    Al crear el proyectil, se le asignará de forma aleatoria una zona y una dirección.
     """
-    health: int
-    stamina: int
     pos: list[int, int]
     speed: list[int, int]
-    alive: bool
+    gate: int
+    dir: int
 
-    # La hitbox del jugador es un área de 1/20 de la longitud de la pantalla
-    playerHitBox = pygame.Surface(((1 / 20) * width, (1 / 20) * width))
+    # La hitbox del proyectil es un área de 1/30 de la longitud de la pantalla
+    projectileHitBox = pygame.Surface(((1 / 30) * width, (1 / 30) * width))
 
-    def __init__(self):
-        self.health = 100
-        self.stamina = 100
-        self.pos = [width // 2, height // 2]
-        self.speed = [0, 0]
-        self.alive = True
+    def __init__(self, projSpeed):
+        self.gate = random.randint(1, 8)
+        self.dir = random.randint(1, 3)
+        self.speed = self.assignSpeed(projSpeed)
+
+    # sqrt(x**2 + y**2) = projSpeed
+    def assignSpeed(self, projSpeed):
+        # Se asume que la velocidad dada es siempre positiva
+        # Puerta 1
+        if self.gate == 1:
+            if self.dir == 1:
+                return [(projSpeed // 2), -(projSpeed // 2)]
+            if self.dir == 2:
+                return [0, -projSpeed]
+            if self.dir == 3:
+                return [-(projSpeed // 2), -(projSpeed // 2)]
+        # Puerta 2
+        elif self.gate == 2:
+            if self.dir == 1:
+                return [0, -projSpeed]
+            if self.dir == 2:
+                return [-(projSpeed // 2), -(projSpeed // 2)]
+            if self.dir == 3:
+                return [-projSpeed, 0]
+        # Puerta 3
+        elif self.gate == 1:
+            if self.dir == 1:
+                return [-(projSpeed // 2), -(projSpeed // 2)]
+            if self.dir == 2:
+                return [-projSpeed, 0]
+            if self.dir == 3:
+                return [-(projSpeed // 2), (projSpeed // 2)]
+        # Puerta 4
+        elif self.gate == 1:
+            if self.dir == 1:
+                return [-projSpeed, 0]
+            if self.dir == 2:
+                return [-(projSpeed // 2), (projSpeed // 2)]
+            if self.dir == 3:
+                return [0, projSpeed]
+        # Puerta 5
+        elif self.gate == 1:
+            if self.dir == 1:
+                return [-(projSpeed // 2), (projSpeed // 2)]
+            if self.dir == 2:
+                return [0, projSpeed]
+            if self.dir == 3:
+                return [(projSpeed // 2), (projSpeed // 2)]
+        # Puerta 6
+        elif self.gate == 1:
+            if self.dir == 1:
+                return [0, projSpeed]
+            if self.dir == 2:
+                return [(projSpeed // 2), (projSpeed // 2)]
+            if self.dir == 3:
+                return [projSpeed, 0]
+        # Puerta 7
+        elif self.gate == 1:
+            if self.dir == 1:
+                return [(projSpeed // 2), (projSpeed // 2)]
+            if self.dir == 2:
+                return [projSpeed, 0]
+            if self.dir == 3:
+                return [(projSpeed // 2), -(projSpeed // 2)]
+        # Puerta 8
+        elif self.gate == 1:
+            if self.dir == 1:
+                return [projSpeed, 0]
+            if self.dir == 2:
+                return [(projSpeed // 2), -(projSpeed // 2)]
+            if self.dir == 3:
+                return [0, -projSpeed]
+
+
+def generateProjectile(projSpeed):
+    while running:
+        yield Projectile(projSpeed)

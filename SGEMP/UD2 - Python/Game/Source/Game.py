@@ -3,6 +3,7 @@ Archivo con el bucle principal de ejecución.
 Desde aquí se llama a las funciones del título principal, la pausa, y la pantalla de muerte.
 
 """
+import random
 import time
 
 import pygame, Config
@@ -181,11 +182,14 @@ def start(dif):
         """
         GENERACIÓN DE PROYECTILES
         """
-        p = projectileGenerator()
-        if p is not None:
-            p.setSpeed(projectileSpeed)
+        p = None
+        if p is None:
+            p = projectileGenerator()
+        elif p is not None:
             p.updatePos()
             collision = p.checkCollision(player.getPos())
+
+            if collision: p = None
 
         """
         CONTROL DE COLISIÓN ENTRE PROYECTILES Y JUGADOR
@@ -211,21 +215,34 @@ def projectileGenerator():
     # Modificadores según la dificultad
     while Config.running:
         if Config.gameDifficulty == 0:
-            if randrange(100) % 19 == 0:
-                yield Config.Projectile()
-        if Config.gameDifficulty == 1:
-            if randrange(100) % 13 == 0:
-                yield Config.Projectile()
-        if Config.gameDifficulty == 2:
-            if randrange(100) % 7 == 0:
-                yield Config.Projectile()
-        if Config.gameDifficulty == 3:
-            if randrange(100) % 3 == 0:
-                yield Config.Projectile()
-        if Config.gameDifficulty == 4:
-            if randrange(10) % 2 == 0:
-                yield Config.Projectile()
-
+            # Probabilidad de 1/100 de generar un proyectil
+            if random.randint(1, 100) == 1:
+                yield Config.generateProjectile()
+            else: yield None
+        elif Config.gameDifficulty == 1:
+            # Probabilidad de 1/10 de generar un proyectil
+            if random.randint(1, 10) == 1:
+                yield Config.generateProjectile()
+            else:
+                yield None
+        elif Config.gameDifficulty == 2:
+            # Probabilidad de 1/5 de generar un proyectil
+            if random.randint(1, 5) == 5:
+                yield Config.generateProjectile()
+            else:
+                yield None
+        elif Config.gameDifficulty == 3:
+            # Probabilidad de 1/3 de generar un proyectil
+            if random.randint(1, 3) == 1:
+                yield Config.generateProjectile()
+            else:
+                yield None
+        elif Config.gameDifficulty == 4:
+            # Probabilidad de 1/2 de generar un proyectil
+            if random.randint(1, 2) == 1:
+                yield Config.generateProjectile()
+            else:
+                yield None
 
 def assignProjectileSpeed():
     # Velocidad base
