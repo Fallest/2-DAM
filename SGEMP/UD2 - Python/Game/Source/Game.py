@@ -101,6 +101,8 @@ def start(dif):
     # Variables para la colisón y la vida perdida por colisión
     collision = False
     hitHP = assignHitHP()
+    # Variable para controlar la existencia de un proyectil
+    p = None
 
     Config.gameRunning = True
     while Config.gameRunning:
@@ -182,24 +184,22 @@ def start(dif):
         """
         GENERACIÓN DE PROYECTILES
         """
-        p = None
         if p is None:
-            p = projectileGenerator()
-        elif p is not None:
-            p.updatePos()
-            collision = p.checkCollision(player.getPos())
+            p = Config.generateProjectile(projectileSpeed)
+        if p is not None:
+            p = p.updatePos()
 
-            if collision: p = None
+            if p is not None:
+                # Comprobamos si el jugador colisiona con el proyectil
+                collision = p.checkCollision(player.getRect())
+
+                if collision:
+                    # Si ha habido una colisión eliminamos el proyectil
+                    p = None
 
         """
-        CONTROL DE COLISIÓN ENTRE PROYECTILES Y JUGADOR
+        CONSECUENCIAS DE COLISIÓN
         """
-
-        """
-        CONTROL DE VIDA Y ENERGÍA DEL JUGADOR
-        """
-
-
         # Si el jugador ha sido golpeado.
         if collision:
             player.updateHP(-hitHP)
@@ -209,40 +209,6 @@ def start(dif):
 
         time.sleep(0.5)
         pygame.display.update()
-
-
-def projectileGenerator():
-    # Modificadores según la dificultad
-    while Config.running:
-        if Config.gameDifficulty == 0:
-            # Probabilidad de 1/100 de generar un proyectil
-            if random.randint(1, 100) == 1:
-                yield Config.generateProjectile()
-            else: yield None
-        elif Config.gameDifficulty == 1:
-            # Probabilidad de 1/10 de generar un proyectil
-            if random.randint(1, 10) == 1:
-                yield Config.generateProjectile()
-            else:
-                yield None
-        elif Config.gameDifficulty == 2:
-            # Probabilidad de 1/5 de generar un proyectil
-            if random.randint(1, 5) == 5:
-                yield Config.generateProjectile()
-            else:
-                yield None
-        elif Config.gameDifficulty == 3:
-            # Probabilidad de 1/3 de generar un proyectil
-            if random.randint(1, 3) == 1:
-                yield Config.generateProjectile()
-            else:
-                yield None
-        elif Config.gameDifficulty == 4:
-            # Probabilidad de 1/2 de generar un proyectil
-            if random.randint(1, 2) == 1:
-                yield Config.generateProjectile()
-            else:
-                yield None
 
 def assignProjectileSpeed():
     # Velocidad base
@@ -277,7 +243,7 @@ def assignPlayerSpeed():
 def assignHitHP():
     # Modificadores según la dificultad
     if Config.gameDifficulty == 0:
-        return 1
+        return 100 // 1
     if Config.gameDifficulty == 1:
         return 100 // 10
     if Config.gameDifficulty == 2:
@@ -285,4 +251,4 @@ def assignHitHP():
     if Config.gameDifficulty == 3:
         return 100 // 3
     if Config.gameDifficulty == 4:
-        return 99
+        return 100 // 99
