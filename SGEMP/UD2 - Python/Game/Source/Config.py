@@ -1,7 +1,5 @@
 import random
-from typing import Tuple
-
-import pygame, os
+import pygame
 from pygame import Rect
 from screeninfo import get_monitors
 
@@ -13,13 +11,14 @@ Archivo para las variables y funciones globales.
 # Variable para controlar el funcionamiento del programa.
 running = True
 # Variable para controlar el funcionamiento del audio.
-audio = False
+audio = True
 # Variable para controlar si el juego está en funcionamiento.
 gameRunning = False
 
 """     Dificultad del juego     """
 # Nivel de dificultad del juego
 gameDifficulty = 2 # 0 - Baby Mode, 1 - Fácil, 2 - Normal, 3 - Difícil, 4 - Bullet Hell
+gameDifficultyName = "< Normal >"
 # Contadores para las dificultades especiales
 babyModeCounter = 0
 bulletHellCounter = 0
@@ -28,9 +27,11 @@ bulletHellCounter = 0
 # Localización del array con las puntuaciones.
 scoresFile = "../Data/scores.txt"
 # Localización de la imagen de fondo del MainTitle.
-bgMainTitle = pygame.image.load("../Data/Images/main_bg.jpg")
+bgMainTitle = pygame.image.load("../Data/Images/game_bg.png")
+# Localización de la imagen de fondo del Game.
+bgGame = pygame.image.load("../Data/Images/game_bg.png")
 # Localización de la imagen del icono de la ventana
-#gameIcon = pygame.image.load("../Data/Images/icon.png")
+gameIcon = pygame.image.load("../Data/Images/icon.png")
 # Localización de la imagen de fondo de PauseScreen
 bgPauseScreen = pygame.image.load("../Data/Images/pause_bg.png")
 
@@ -39,11 +40,43 @@ bgPauseScreen = pygame.image.load("../Data/Images/pause_bg.png")
 width, height = get_monitors()[0].width, get_monitors()[0].height
 # Ventana
 screen = pygame.display
-# Colores
+# Colores y superficies para los valores alpha
 white = (255, 255, 255)
 black = (0, 0, 0)
+red = (255, 0, 0)
+blue = (84, 137, 206)
+yellow = (244, 252, 15)
 fadedWhite = (255, 255, 255, 100)
+fadedRed = (142, 0, 0, 100)
 
+alpha_surf = pygame.Surface((width, height), pygame.SRCALPHA)
+alpha_surf.fill(fadedWhite)
+
+# Colores para los botones
+buttonBg = (206, 163, 84)
+buttonBorder = (206, 200, 84)
+selectedButtonBg = (84, 137, 206)
+selectedButtonBorder = (84, 184, 206)
+audioOff = (252, 55, 68)
+audioOn = (41, 173, 50)
+
+# Rectángulos para los botones
+playRect = pygame.Rect((width * 4 // 6, height * 2 // 6), (width * 2 // 6 + 15, height * 1 // 9))
+diffRect = pygame.Rect((width * 4 // 6, height * 3 // 6), (width * 2 // 6 + 15, height * 1 // 9))
+audioRect = pygame.Rect((width * 4 // 6, height * 4 // 6), (width * 2 // 6 + 15, height * 1 // 9))
+exitRect = pygame.Rect((width * 4 // 6, height * 5 // 6), (width * 2 // 6 + 15, height * 1 // 9))
+
+# Fuentes para el texto
+pygame.font.init()
+titleFont = pygame.font.Font("../Data/font.ttf", height // 3)
+titleFontSurface = titleFont.render("D0DCH!", False, blue)
+pauseFontSurface = titleFont.render("PAUSA", False, blue)
+deathFontSurface = titleFont.render("HAS MUERTO", False, red)
+buttonFont = pygame.font.Font("../Data/font.ttf", height // 12)
+
+# Ajustamos la imagen de fondo al tamaño del monitor
+bgMainTitle = pygame.transform.scale(bgMainTitle, (width, height))
+bgGame = pygame.transform.scale(bgGame, (width, height))
 
 def loadScores():
     """
@@ -60,6 +93,9 @@ def loadScores():
     return scores
 
 
+"""
+CONTROL DE LA DIFICULTAD
+"""
 def decreaseDif():
     """
     Decrementa la dificultad.
@@ -67,6 +103,7 @@ def decreaseDif():
     se pone la dificultad Baby Mode :) .
     """
     global gameDifficulty
+    global gameDifficultyName
     global babyModeCounter
 
     # Si la dificultad no es fácil (1)
@@ -75,6 +112,8 @@ def decreaseDif():
         gameDifficulty -= 1
         # Reseteamos el contador de babyMode
         babyModeCounter = 0
+        # Ajustamos el nombre de la dificultad
+        assignDiffName()
 
     # Si la dificultad ya está en fácil
     elif gameDifficulty == 1:
@@ -84,8 +123,8 @@ def decreaseDif():
         if babyModeCounter == 5:
             # Se actualiza la dificultad a babyMode
             gameDifficulty = 0
-
-
+            # Ajustamos el nombre de la dificultad
+            assignDiffName()
 
 def increaseDif():
     """
@@ -94,6 +133,7 @@ def increaseDif():
     se pone la dificultad Bullet Hell :D.
     """
     global gameDifficulty
+    global gameDifficultyName
     global bulletHellCounter
 
     # Si la dificultad no es difícil (3)
@@ -102,6 +142,8 @@ def increaseDif():
         gameDifficulty += 1
         # Reseteamos el contador de bulletHell
         bulletHellCounter = 0
+        # Ajustamos el nombre de la dificultad
+        assignDiffName()
 
     # Si la dificultad ya está en difícil
     elif gameDifficulty == 3:
@@ -111,7 +153,156 @@ def increaseDif():
         if bulletHellCounter == 5:
             # Se actualiza la dificultad a bullet hell
             gameDifficulty = 4
+            # Ajustamos el nombre de la dificultad
+            assignDiffName()
 
+def assignDiffName():
+    global gameDifficultyName
+
+    if gameDifficulty == 0:
+        gameDifficultyName = "  Baby Mode >"
+    if gameDifficulty == 1:
+        gameDifficultyName = "  Fácil >"
+    if gameDifficulty == 2:
+        gameDifficultyName = "< Normal >"
+    if gameDifficulty == 3:
+        gameDifficultyName = " < Difícil  "
+    if gameDifficulty == 4:
+        gameDifficultyName = "< Bullet Hell"
+
+"""
+CONTROL DE LOS BOTONES
+"""
+def drawButtons(first="Jugar", diff=True, second="", third="Audio: On", fourth="Salir", death=False):
+    # Jugar
+    pygame.draw.rect(screen, buttonBg, playRect, 0, border_top_left_radius=playRect.height//6,
+                     border_bottom_left_radius=playRect.height//6)
+    pygame.draw.rect(screen, buttonBorder, playRect, 15, border_top_left_radius=playRect.height//6,
+                     border_bottom_left_radius=playRect.height//6)
+    playButtonFontSurface = buttonFont.render(first, False, white)
+    screen.blit(playButtonFontSurface, (playRect.x + playRect.height*2//6, playRect.y + playRect.height//6))
+
+    # Dificultad
+    pygame.draw.rect(screen, buttonBg, diffRect, 0, border_top_left_radius=diffRect.height//6,
+                     border_bottom_left_radius=diffRect.height//6)
+    pygame.draw.rect(screen, buttonBorder, diffRect, 15, border_top_left_radius=diffRect.height//6,
+                     border_bottom_left_radius=diffRect.height//6)
+    diffButtonFontSurface = buttonFont.render(gameDifficultyName if diff else second, False, white)
+    screen.blit(diffButtonFontSurface, (diffRect.x + diffRect.height*2//6, diffRect.y + diffRect.height//6))
+
+    if not death:
+        # Audio
+        pygame.draw.rect(screen, buttonBg, audioRect, 0, border_top_left_radius=audioRect.height//6,
+                         border_bottom_left_radius=audioRect.height//6)
+        pygame.draw.rect(screen, audioOn if audio else audioOff, audioRect, 15,
+                         border_top_left_radius=audioRect.height//6, border_bottom_left_radius=audioRect.height//6)
+        audioButtonFontSurface = buttonFont.render(third, False, white)
+        screen.blit(audioButtonFontSurface, (audioRect.x + audioRect.height*2//6, audioRect.y + audioRect.height//6))
+
+        # Salir
+        pygame.draw.rect(screen, buttonBg, exitRect, 0, border_top_left_radius=exitRect.height//6,
+                         border_bottom_left_radius=exitRect.height//6)
+        pygame.draw.rect(screen, buttonBorder, exitRect, 15, border_top_left_radius=exitRect.height//6,
+                         border_bottom_left_radius=exitRect.height//6)
+        exitButtonFontSurface = buttonFont.render(fourth, False, white)
+        screen.blit(exitButtonFontSurface, (exitRect.x + exitRect.height*2//6, exitRect.y + exitRect.height//6))
+    else:
+        # Salir
+        pygame.draw.rect(screen, buttonBg, audioRect, 0, border_top_left_radius=audioRect.height // 6,
+                         border_bottom_left_radius=audioRect.height // 6)
+        pygame.draw.rect(screen, buttonBorder, audioRect, 15, border_top_left_radius=audioRect.height // 6,
+                         border_bottom_left_radius=audioRect.height // 6)
+        exitButtonFontSurface = buttonFont.render(fourth, False, white)
+        screen.blit(exitButtonFontSurface, (audioRect.x + audioRect.height * 2 // 6, audioRect.y + audioRect.height // 6))
+
+
+def drawSelectedButton(selection = 1, first="Jugar", diff=True, second="", third=False):
+    # Se dibuja el rectángulo como un botón seleccionado
+    if selection == 1:
+        pygame.draw.rect(screen, selectedButtonBg, playRect, 0, border_top_left_radius=playRect.height//6,
+                         border_bottom_left_radius=playRect.height//6)
+        pygame.draw.rect(screen, selectedButtonBorder, playRect, 15, border_top_left_radius=playRect.height//6,
+                         border_bottom_left_radius=playRect.height//6)
+        playButtonFontSurface = buttonFont.render(first, False, yellow)
+        screen.blit(playButtonFontSurface, (playRect.x + playRect.height*2//6, playRect.y + playRect.height//6))
+
+    if selection == 2:
+        pygame.draw.rect(screen, selectedButtonBg, diffRect, 0, border_top_left_radius=diffRect.height//6,
+                         border_bottom_left_radius=diffRect.height//6)
+        pygame.draw.rect(screen, selectedButtonBorder, diffRect, 15, border_top_left_radius=diffRect.height//6,
+                         border_bottom_left_radius=diffRect.height//6)
+        diffButtonFontSurface = buttonFont.render(gameDifficultyName if diff else second, False, yellow)
+        screen.blit(diffButtonFontSurface, (diffRect.x + diffRect.height*2//6, diffRect.y + diffRect.height//6))
+
+    if selection == 3:
+        if not third:
+            pygame.draw.rect(screen, selectedButtonBg, audioRect, 0, border_top_left_radius=audioRect.height//6,
+                             border_bottom_left_radius=audioRect.height//6)
+            pygame.draw.rect(screen, audioOn if audio else audioOff, audioRect, 15,
+                             border_top_left_radius=audioRect.height//6, border_bottom_left_radius=audioRect.height//6)
+            audioButtonFontSurface = buttonFont.render("Audio: On" if audio else "Audio: Off", False, yellow)
+            screen.blit(audioButtonFontSurface, (audioRect.x + audioRect.height*2//6, audioRect.y + audioRect.height//6))
+        else:
+            pygame.draw.rect(screen, selectedButtonBg, audioRect, 0, border_top_left_radius=audioRect.height // 6,
+                             border_bottom_left_radius=audioRect.height // 6)
+            pygame.draw.rect(screen, selectedButtonBorder, audioRect, 15, border_top_left_radius=audioRect.height // 6,
+                             border_bottom_left_radius=audioRect.height // 6)
+            exitButtonFontSurface = buttonFont.render("Salir", False, yellow)
+            screen.blit(exitButtonFontSurface,
+                        (audioRect.x + audioRect.height * 2 // 6, audioRect.y + audioRect.height // 6))
+
+    if selection == 4:
+        pygame.draw.rect(screen, selectedButtonBg, exitRect, 0, border_top_left_radius=exitRect.height//6,
+                         border_bottom_left_radius=exitRect.height//6)
+        pygame.draw.rect(screen, selectedButtonBorder, exitRect, 15, border_top_left_radius=exitRect.height//6,
+                         border_bottom_left_radius=exitRect.height//6)
+        exitButtonFontSurface = buttonFont.render("Salir", False, yellow)
+        screen.blit(exitButtonFontSurface, (exitRect.x + exitRect.height*2//6, exitRect.y + exitRect.height//6))
+
+def drawUnselectedButton(unselected, first="Jugar", diff=True, second="", third=False):
+    # Se restaura el rectángulo a un botón no seleccionado
+    # De nuevo, se distingue el botón del audio
+    if unselected == 1:
+        pygame.draw.rect(screen, buttonBg, playRect, 0, border_top_left_radius=playRect.height//6,
+                         border_bottom_left_radius=playRect.height//6)
+        pygame.draw.rect(screen, buttonBorder, playRect, 15, border_top_left_radius=playRect.height//6,
+                         border_bottom_left_radius=playRect.height//6)
+        playButtonFontSurface = buttonFont.render(first, False, white)
+        screen.blit(playButtonFontSurface, (playRect.x + playRect.height*2//6, playRect.y + playRect.height//6))
+    if unselected == 2:
+        pygame.draw.rect(screen, buttonBg, diffRect, 0, border_top_left_radius=diffRect.height//6,
+                         border_bottom_left_radius=diffRect.height//6)
+        pygame.draw.rect(screen, buttonBorder, diffRect, 15, border_top_left_radius=diffRect.height//6,
+                         border_bottom_left_radius=diffRect.height//6)
+        diffButtonFontSurface = buttonFont.render(gameDifficultyName if diff else second, False, white)
+        screen.blit(diffButtonFontSurface, (diffRect.x + diffRect.height*2//6, diffRect.y + diffRect.height//6))
+    if unselected == 3:
+        if not third:
+            pygame.draw.rect(screen, buttonBg, audioRect, 0, border_top_left_radius=audioRect.height//6,
+                             border_bottom_left_radius=audioRect.height//6)
+            pygame.draw.rect(screen, audioOn if audio else audioOff, audioRect, 15,
+                             border_top_left_radius=audioRect.height//6, border_bottom_left_radius=audioRect.height//6)
+            audioButtonFontSurface = buttonFont.render("Audio: On" if audio else "Audio: Off", False, white)
+            screen.blit(audioButtonFontSurface, (audioRect.x + audioRect.height*2//6, audioRect.y + audioRect.height//6))
+        else:
+            pygame.draw.rect(screen, buttonBg, audioRect, 0, border_top_left_radius=audioRect.height // 6,
+                             border_bottom_left_radius=audioRect.height // 6)
+            pygame.draw.rect(screen, buttonBorder, audioRect, 15, border_top_left_radius=audioRect.height // 6,
+                             border_bottom_left_radius=audioRect.height // 6)
+            exitButtonFontSurface = buttonFont.render("Salir", False, white)
+            screen.blit(exitButtonFontSurface,
+                        (audioRect.x + audioRect.height * 2 // 6, audioRect.y + audioRect.height // 6))
+    if unselected == 4:
+        pygame.draw.rect(screen, buttonBg, exitRect, 0, border_top_left_radius=exitRect.height//6,
+                         border_bottom_left_radius=exitRect.height//6)
+        pygame.draw.rect(screen, buttonBorder, exitRect, 15, border_top_left_radius=exitRect.height//6,
+                         border_bottom_left_radius=exitRect.height//6)
+        exitButtonFontSurface = buttonFont.render("Salir", False, white)
+        screen.blit(exitButtonFontSurface, (exitRect.x + exitRect.height*2//6, exitRect.y + exitRect.height//6))
+
+"""
+CLASE JUGADOR
+"""
 class Player:
     """
     Clase para el objeto Jugador.
@@ -215,6 +406,9 @@ class Player:
     def getRect(self):
         return self.playerHitBox
 
+"""
+CLASE PROYECTIL Y GENERADOR DE PROYECTILES
+"""
 class Projectile:
     """
     Clase para el objeto Proyectil.

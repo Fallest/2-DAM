@@ -1,6 +1,5 @@
 import pygame, Config
 
-
 def run():
     """
     Pantalla principal.
@@ -13,12 +12,23 @@ def run():
     Si se selecciona "Jugar", devuelve 1.
     """
     print("Iniciando MainTitle.run()...")
-    # Rellena la pantalla con RGB y añade el bg
-    Config.screen.fill(Config.white)
-    # Config.screen.blit(pygame.image.load(Config.bgMainTitle), (0, 0))
+    # Añade el bg con una capa de transparencia encima para oscurecerlo
+    Config.screen.fill(Config.black)
+
+    Config.screen.blit(Config.bgMainTitle, (0, 0))
+
+    # Escribimos el título
+    Config.screen.blit(Config.titleFontSurface, (Config.width // 20, Config.height // 20))
+
     # Selección en la pantalla:
     # 1 - Jugar, 2 - Dificultades, 3 - audio, 4 - Salir
     selection = 1
+
+    # Dibujamos los botones:
+    Config.drawButtons()
+
+    # Al inicio está seleccionado "Jugar"
+    Config.drawSelectedButton(selection)
 
     while Config.running:
         # Control de eventos
@@ -34,25 +44,32 @@ def run():
                 """
                 if event.key == pygame.K_UP:
                     if selection > 1:
-                        selection -= 1;
+                        Config.drawUnselectedButton(selection)
+                        selection -= 1
+                        Config.drawSelectedButton(selection)
+
                 """
                 Si se presiona la flecha abajo, se baja (sube) de selección
                 """
                 if event.key == pygame.K_DOWN:
                     if selection < 4:
-                        selection += 1;
+                        Config.drawUnselectedButton(selection)
+                        selection += 1
+                        Config.drawSelectedButton(selection)
                 """
                 Si se presiona <- y se está seleccionando la dificultad, se baja de dificultad
                 """
                 if event.key == pygame.K_LEFT:
                     if selection == 2:
                         Config.decreaseDif()
+                        Config.drawSelectedButton(selection)
                 """
                 Si se presiona -> y se está seleccionando la dificultad, se sube de dificultad
                 """
                 if event.key == pygame.K_RIGHT:
-                    if selection == 2 and Config.gameDifficulty > 1:
+                    if selection == 2:
                         Config.increaseDif()
+                        Config.drawSelectedButton(selection)
                 """-------------------------------------------------------------------------"""
                 """
                 Si se presiona "z":
@@ -65,6 +82,7 @@ def run():
                         return 1
                     if selection == 3:
                         Config.audio = not Config.audio
+                        Config.drawSelectedButton(selection)
                     if selection == 4:
                         return 0
 

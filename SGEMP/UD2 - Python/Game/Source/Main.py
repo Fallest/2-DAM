@@ -2,7 +2,7 @@
 Ejecución principal del programa.
 """
 
-import Game, Config
+import Game
 
 def start():
     print("Ejecutando...")

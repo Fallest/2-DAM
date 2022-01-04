@@ -12,13 +12,22 @@ def run():
     """
     print("Ejecutando DeathScreen.run()...")
 
-    # Se colorea la pantalla con una capa semitransparente.
+    # Se colorea la pantalla con una capa semitransparente roja oscura.
     fade = pygame.Surface((Config.width, Config.height), pygame.SRCALPHA)
-    fade.fill(Config.fadedWhite)
+    fade.fill(Config.fadedRed)
     Config.screen.blit(fade, (0, 0))
 
     # Variable para la selección
     selection = 1
+
+    # Escribimos el título de la pantalla de muerte
+    Config.screen.blit(Config.deathFontSurface, (Config.width // 20, Config.height // 20))
+
+    # Dibujamos los botones:
+    Config.drawButtons(first="Jugar de nuevo", diff=False, second="Menú principal", death=True)
+
+    # Al inicio está seleccionado "Jugar de nuevo"
+    Config.drawSelectedButton(selection, first="Jugar de nuevo", diff=False, second="Menú principal", third=True)
 
     while Config.running:
         for event in pygame.event.get():
@@ -32,13 +41,21 @@ def run():
                 """
                 if event.key == pygame.K_UP:
                     if selection > 1:
-                        selection -= 1;
+                        Config.drawUnselectedButton(selection, first="Jugar de nuevo", diff=False,
+                                                  second="Menú principal", third=True)
+                        selection -= 1
+                        Config.drawSelectedButton(selection, first="Jugar de nuevo", diff=False,
+                                                  second="Menú principal", third=True)
                 """
                 Si se presiona la flecha abajo, se baja (sube) de selección
                 """
                 if event.key == pygame.K_DOWN:
                     if selection < 3:
-                        selection += 1;
+                        Config.drawUnselectedButton(selection, first="Jugar de nuevo", diff=False,
+                                                  second="Menú principal", third=True)
+                        selection += 1
+                        Config.drawSelectedButton(selection, first="Jugar de nuevo", diff=False,
+                                                  second="Menú principal", third=True)
                 """-------------------------------------------------------------------------"""
                 """
                 Si se presiona "z":
@@ -54,5 +71,5 @@ def run():
                     if selection == 3:
                         return 0
 
-            # No olvidemos actualizar el display en cada iteración
-            pygame.display.update()
+        # No olvidemos actualizar el display en cada iteración
+        pygame.display.update()

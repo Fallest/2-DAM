@@ -46,7 +46,11 @@ def run():
     Config.screen = pygame.display.set_mode((Config.width, Config.height), pygame.FULLSCREEN, 32)
     # Título e icono
     pygame.display.set_caption("D0DCH!")
-    #pygame.display.set_icon(pygame.image.load(Config.gameIcon))
+    pygame.display.set_icon(Config.gameIcon)
+
+    # Actualizamos algunas variables de Config para el fondo del título principal
+    Config.bgMainTitle.convert_alpha()
+    Config.bgMainTitle.blit(Config.alpha_surf, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
 
     # Variable para controlar cuándo se ha seleccionado volver a jugar desde la pantalla de muerte
     playAgain = False
@@ -94,8 +98,8 @@ def start(dif):
     # Asignación de la velocidad de los proyectiles y del jugador
     playerSpeed = assignPlayerSpeed()
     projectileSpeed = assignProjectileSpeed()
-    # Coloreamos la pantalla de negro
-    Config.screen.fill(Config.black)
+    # Añadimos el fondo
+    Config.screen.blit(Config.bgGame, (0, 0))
     # Creamos nuestro objeto Player
     player = Config.Player()
     # Variables para la colisón y la vida perdida por colisión
@@ -134,7 +138,7 @@ def start(dif):
                         return 1
                     # En cualquier otro caso, el juego sigue ejecutando
                     else:
-                        Config.screen.fill(Config.black)
+                        Config.screen.blit(Config.bgGame, (0, 0))
                         continue
 
                 """

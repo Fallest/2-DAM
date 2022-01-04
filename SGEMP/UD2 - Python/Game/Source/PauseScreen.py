@@ -17,8 +17,17 @@ def run():
     fade.fill(Config.fadedWhite)
     Config.screen.blit(fade, (0, 0))
 
+    # Escribimos el título de la pausa
+    Config.screen.blit(Config.pauseFontSurface, (Config.width // 20, Config.height // 20))
+
     # Variable para la selección
     selection = 1
+
+    # Dibujamos los botones:
+    Config.drawButtons(first="Continuar", diff=False, second="Menú principal")
+
+    # Al inicio está seleccionado "Continuar"
+    Config.drawSelectedButton(selection, first="Continuar", diff=False, second="Menú principal")
 
     while Config.running:
         for event in pygame.event.get():
@@ -37,13 +46,17 @@ def run():
                 """
                 if event.key == pygame.K_UP:
                     if selection > 1:
-                        selection -= 1;
+                        Config.drawUnselectedButton(selection, first="Continuar", diff=False, second="Menú principal")
+                        selection -= 1
+                        Config.drawSelectedButton(selection, first="Continuar", diff=False, second="Menú principal")
                 """
                 Si se presiona la flecha abajo, se baja (sube) de selección
                 """
                 if event.key == pygame.K_DOWN:
                     if selection < 4:
-                        selection += 1;
+                        Config.drawUnselectedButton(selection, first="Continuar", diff=False, second="Menú principal")
+                        selection += 1
+                        Config.drawSelectedButton(selection, first="Continuar", diff=False, second="Menú principal")
                 """-------------------------------------------------------------------------"""
                 """
                 Si se presiona "z":
@@ -59,9 +72,10 @@ def run():
                         return 1
                     if selection == 3:
                         Config.audio = not Config.audio
+                        Config.drawSelectedButton(selection, first="Continuar", diff=False, second="Menú principal")
                     if selection == 4:
                         return 0
 
-            # No olvidemos actualizar el display en cada iteración
-            pygame.display.update()
+        # No olvidemos actualizar el display en cada iteración
+        pygame.display.update()
 
