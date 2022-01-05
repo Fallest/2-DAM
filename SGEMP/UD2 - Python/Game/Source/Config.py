@@ -14,6 +14,8 @@ running = True
 audio = True
 # Variable para controlar si el juego está en funcionamiento.
 gameRunning = False
+# Reloj
+clock = pygame.time.Clock()
 
 """     Dificultad del juego     """
 # Nivel de dificultad del juego
@@ -34,12 +36,22 @@ bgGame = pygame.image.load("../Data/Images/game_bg.png")
 gameIcon = pygame.image.load("../Data/Images/icon.png")
 # Localización de la imagen de fondo de PauseScreen
 bgPauseScreen = pygame.image.load("../Data/Images/pause_bg.png")
+# Localizaciones de los sprites del jugador
+playerStill = pygame.image.load("../Data/Images/playerStill.png")
+playerMoveLeft = pygame.image.load("../Data/Images/playerMove.png")
+playerMoveRight = pygame.image.load("../Data/Images/playerMove.png")
+pygame.transform.flip(playerMoveRight, True, False)
+playerHit = pygame.image.load("../Data/Images/playerHit.png")
+playerDeath = pygame.image.load("../Data/Images/playerDeath.png")
+# Localizaciones de los sprites de los proyectiles
+projectileImg = pygame.image.load("../Data/Images/projectile.png")
+projectileDestImg = pygame.image.load("../Data/Images/projectileDestruction.png")
 
-"""     Ventana     """
+"""     Apartado gráfico     """
 # Tamaño de la ventana
 width, height = get_monitors()[0].width, get_monitors()[0].height
 # Ventana
-screen = pygame.display
+screen: pygame.Surface = pygame.display
 # Colores y superficies para los valores alpha
 white = (255, 255, 255)
 black = (0, 0, 0)
@@ -51,6 +63,18 @@ fadedRed = (142, 0, 0, 100)
 
 alpha_surf = pygame.Surface((width, height), pygame.SRCALPHA)
 alpha_surf.fill(fadedWhite)
+
+# Ajustamos la imagen de fondo al tamaño del monitor
+bgMainTitle = pygame.transform.scale(bgMainTitle, (width, height))
+bgGame = pygame.transform.scale(bgGame, (width, height))
+# Ajustamos los sprites al tamaño del monitor
+playerStill = pygame.transform.scale(playerStill, (width // 20, width // 20))
+playerMoveLeft = pygame.transform.scale(playerMoveLeft, (width // 20, width // 20))
+playerMoveRight = pygame.transform.scale(playerMoveRight, (width // 20, width // 20))
+playerHit = pygame.transform.scale(playerHit, (width // 20, width // 20))
+playerDeath = pygame.transform.scale(playerDeath, (width // 20, width // 20))
+projectileImg = pygame.transform.scale(projectileImg, (width // 20, width // 40))
+projectileDestImg = pygame.transform.scale(projectileDestImg, (width // 20, width // 40))
 
 # Colores para los botones
 buttonBg = (206, 163, 84)
@@ -66,6 +90,20 @@ diffRect = pygame.Rect((width * 4 // 6, height * 3 // 6), (width * 2 // 6 + 15, 
 audioRect = pygame.Rect((width * 4 // 6, height * 4 // 6), (width * 2 // 6 + 15, height * 1 // 9))
 exitRect = pygame.Rect((width * 4 // 6, height * 5 // 6), (width * 2 // 6 + 15, height * 1 // 9))
 
+# Rectángulos para crear el polígono para el área no jugable.
+# pygame.Rect((x, y), (width, height))
+rect1 = pygame.Rect((0, 0), (width // 6, height)) # Sexto vertical izquierdo de la pantalla
+rect2 = pygame.Rect((width * 5 // 6, 0), (width // 6, height)) # Sexto vertical derecho de la pantalla
+rect3 = pygame.Rect((0, 0), (width, height // 6)) # Sexto horizontal superior de la pantalla
+rect4 = pygame.Rect((0, height * 5 // 6), (width, height // 6)) # Sexto horizontal inferior de la pantalla
+rect5 = pygame.Rect((width // 6, height // 6), (width // 12, height // 6)) # Esquina superior izquierda, rectángulo vertical
+rect6 = pygame.Rect((width * 3 // 12, height // 6), (width // 12, height // 12)) # Esquina superior izquierda, rectángulo horizontal
+rect7 = pygame.Rect((width * 9 // 12, height // 6), (width // 12, height // 6)) # Esquina superior derecha, rectángulo vertical
+rect8 = pygame.Rect((width * 4 // 6, height // 6), (width // 12, height // 12)) # Esquina superior derecha, cuadrado
+rect9 = pygame.Rect((width // 6, height * 9 // 12), (width // 12, height // 12)) # Esquina inferior izquierda
+rect10 = pygame.Rect((width * 9 // 12, height * 9 // 12), (width // 12, height // 12)) # Esquina inferior derecha
+border = [rect1, rect2, rect3, rect4, rect5, rect6, rect7, rect8, rect9, rect10] # Uníon de los rectángulos
+
 # Fuentes para el texto
 pygame.font.init()
 titleFont = pygame.font.Font("../Data/font.ttf", height // 3)
@@ -73,10 +111,6 @@ titleFontSurface = titleFont.render("D0DCH!", False, blue)
 pauseFontSurface = titleFont.render("PAUSA", False, blue)
 deathFontSurface = titleFont.render("HAS MUERTO", False, red)
 buttonFont = pygame.font.Font("../Data/font.ttf", height // 12)
-
-# Ajustamos la imagen de fondo al tamaño del monitor
-bgMainTitle = pygame.transform.scale(bgMainTitle, (width, height))
-bgGame = pygame.transform.scale(bgGame, (width, height))
 
 def loadScores():
     """
@@ -91,7 +125,6 @@ def loadScores():
             scores.append(tupla)
 
     return scores
-
 
 """
 CONTROL DE LA DIFICULTAD
@@ -215,7 +248,6 @@ def drawButtons(first="Jugar", diff=True, second="", third="Audio: On", fourth="
         exitButtonFontSurface = buttonFont.render(fourth, False, white)
         screen.blit(exitButtonFontSurface, (audioRect.x + audioRect.height * 2 // 6, audioRect.y + audioRect.height // 6))
 
-
 def drawSelectedButton(selection = 1, first="Jugar", diff=True, second="", third=False):
     # Se dibuja el rectángulo como un botón seleccionado
     if selection == 1:
@@ -314,10 +346,10 @@ class Player:
     pos: tuple[int, int]
     speed: tuple[int, int]
     alive: bool
+    global playerStill, playerMove, playerDeath
 
     # La hitbox del jugador es un rectángulo de 1/20 de la longitud de la pantalla
-    # En un principio la hitbox está colocada en el centro de la pantalla, por lo que las cordenadas
-    # serían (x, y) = ()
+    # En un principio la hitbox está colocada en el centro de la pantalla
     playerHitBox = pygame.Rect((width // 2-(((1/20)*width) // 2)),
                                (height // 2-(((1/20)*width) // 2)),
                                (1/20)*width,
@@ -326,7 +358,6 @@ class Player:
     def __init__(self):
         self.health = 100
         self.stamina = 100
-        self.pos = (width // 2, height // 2)
         self.speed = (0, 0)
         self.alive = True
 
@@ -338,6 +369,7 @@ class Player:
 
     def updateHP(self, q):
         if self.alive:
+            self.animateHit()
             self.health += q
             if self.health <= 0:
                 self.stop()
@@ -356,10 +388,10 @@ class Player:
 
     def moveUp(self, v):
         if self.alive and self.stamina > 0:
-            self.speed = (self.speed[0], self.speed[1] + v)
+            self.speed = (self.speed[0], self.speed[1] - v)
     def moveDown(self, v):
         if self.alive and self.stamina > 0:
-            self.speed = (self.speed[0], self.speed[1] - v)
+            self.speed = (self.speed[0], self.speed[1] + v)
     def moveLeft(self, v):
         if self.alive and self.stamina > 0:
             self.speed = (self.speed[0] - (v * (width // height)), self.speed[1]) # Aplicamos el ratio de la pantalla
@@ -373,35 +405,59 @@ class Player:
     def isStopped(self):
         return self.speed == (0, 0)
 
-    def updatePos(self):
+    def updatePos(self, speed: tuple[int, int]):
+        """
+        Actualiza la posición del jugador.
+        """
         if self.alive:
-            newXpos = self.pos[0] + self.speed[0]
-            newYpos = self.pos[1] + self.speed[1]
-            # Aplicamos una barrera horizontal y vertical para el movimiento del jugador
-            if newXpos > width - ((1/20) * width):
-                newXpos = width - ((1/20) * width)
-            elif newXpos < ((1/20) * width):
-                newXpos = ((1/20) * width)
-            if newYpos > height - ((1/20) * height):
-                newYpos = height - ((1/20) * height)
-            elif newYpos < ((1/20) * height):
-                newYpos = ((1 / 20) * height)
+            self.speed = speed
+            # Si la stamina es mayor que 0, el jugador se mueve.
+            if self.stamina > 0:
+                # Primero comprobamos que nos podemos mover
+                if checkBounds(self.playerHitBox):
+                    # Si no estamos colisionando con el área no jugable, comprobamos si vamos a mover el personaje.
+                    if not self.isStopped():
+                        # Si la velocidad no es (0,0), nos movemos y gastamos 1 de SP.
+                        self.updateSP(-1)
+                        self.playerHitBox = self.playerHitBox.move(self.speed[0], self.speed[1])
+                    else:
+                        # Si estamos quietos, regeneramos 1 de MP.
+                        self.updateSP(1)
+                else:
+                    # Si el personaje colisiona con el límite, tenemos que moverlo hacía atrás para que no siga colisionando.
+                    self.playerHitBox = self.playerHitBox.move(-self.speed[0]*2, -self.speed[1]*2)
 
-            # Si se ha movido el jugador, se quita 1 de SP.
-            if self.pos[0] != newXpos or self.pos[1] != newYpos:
-                self.updateSP(-1)
-            # Si la SP es 0, se para al jugador.
-            if self.stamina == 0:
-                self.stop()
 
-            self.pos = (newXpos, newYpos)
-            clearConsole()
+            # Animamos el movimiento del jugador
+            self.animate()
             print("HP: ", self.health)
             print("SP: ", self.stamina)
-            print(self.pos)
+            print("Jugador: ", self.playerHitBox.centerx, ", ", self.playerHitBox.centery)
+            print("Velocidad: ", self.speed)
 
-    def getPos(self):
-        return self.pos
+
+    def animate(self):
+        if self.isStopped():
+            # Si el jugador está quieto
+            screen.blit(playerStill, self.playerHitBox)
+        elif self.speed[0] < 0:
+            # Si el jugador se está moviendo hacia la izquierda
+            screen.blit(playerMoveLeft, self.playerHitBox)
+        elif self.speed[0] > 0:
+            # Si el jugador se está moviendo hacia la derecha
+            screen.blit(playerMoveRight, self.playerHitBox)
+        else:
+            # Si el jugador se está moviendo en cualquier otra dirección
+            screen.blit(playerMoveLeft, self.playerHitBox)
+
+    def animateHit(self):
+        if self.isAlive():
+            # Si el jugador ha recibido daño pero sigue vivo
+            screen.blit(playerHit, self.playerHitBox)
+            pygame.time.wait(200)
+        else:
+            # Si el jugador ha recibido daño fatal
+            screen.blit(playerDeath, self.playerHitBox)
 
     def getRect(self):
         return self.playerHitBox
@@ -439,7 +495,7 @@ class Projectile:
     dir: int
 
     # La altura y anchura del rectángulo que formará la hitbox del proyectil.
-    pWidth = (1 / 40) * width
+    pWidth = (1 / 20) * width
     pHeight = (1 / 40) * width
 
     def __init__(self, projSpeed):
@@ -448,85 +504,86 @@ class Projectile:
         self.speed = self.assignSpeed(projSpeed)
         self.projectileHitBox = self.assignInitialPos()
 
-    # sqrt(x**2 + y**2) = projSpeed
+    # sqrt(x**2 + y**2) = projSpeed -> x**2 + y**2 = projSpeed**2
     def assignSpeed(self, projSpeed):
         # La velocidad dada es siempre positiva, puesto que viene de la función Game.assignProjectileSpeed().
+        # Hay que tener en cuenta que el movimiento de los proyectiles hacia abajo es POSITIVO en términos de coordenadas.
         # Puerta 1
         if self.gate == 1:
             if self.dir == 1:
-                return ((projSpeed // 2), -(projSpeed // 2))
+                return ((projSpeed // 2), (projSpeed // 2))
             if self.dir == 2:
-                return (0, -projSpeed)
+                return (0, projSpeed)
             if self.dir == 3:
-                return (-(projSpeed // 2), -(projSpeed // 2))
+                return (-(projSpeed // 2), (projSpeed // 2))
         # Puerta 2
         elif self.gate == 2:
             if self.dir == 1:
-                return (0, -projSpeed)
+                return (0, projSpeed)
             if self.dir == 2:
-                return (-(projSpeed // 2), -(projSpeed // 2))
+                return (-(projSpeed // 2), (projSpeed // 2))
             if self.dir == 3:
-                return (-(projSpeed), 0)
+                return (-projSpeed, 0)
         # Puerta 3
         elif self.gate == 3:
             if self.dir == 1:
-                return (-(projSpeed // 2), -(projSpeed // 2))
-            if self.dir == 2:
-                return (-(projSpeed), 0)
-            if self.dir == 3:
                 return (-(projSpeed // 2), (projSpeed // 2))
+            if self.dir == 2:
+                return (-projSpeed, 0)
+            if self.dir == 3:
+                return (-(projSpeed // 2), -(projSpeed // 2))
         # Puerta 4
         elif self.gate == 4:
             if self.dir == 1:
-                return (-(projSpeed), 0)
+                return (-projSpeed, 0)
             if self.dir == 2:
-                return (-(projSpeed // 2), (projSpeed // 2))
+                return (-(projSpeed // 2), -(projSpeed // 2))
             if self.dir == 3:
-                return (0, (projSpeed))
+                return (0, -projSpeed)
         # Puerta 5
         elif self.gate == 5:
             if self.dir == 1:
-                return (-(projSpeed // 2), (projSpeed // 2))
+                return (-(projSpeed // 2), -(projSpeed // 2))
             if self.dir == 2:
-                return (0, (projSpeed))
+                return (0, -projSpeed)
             if self.dir == 3:
-                return ((projSpeed // 2), (projSpeed // 2))
+                return ((projSpeed // 2), -(projSpeed // 2))
         # Puerta 6
         elif self.gate == 6:
             if self.dir == 1:
-                return (0, projSpeed)
+                return (0, -projSpeed)
             if self.dir == 2:
-                return ((projSpeed // 2), (projSpeed // 2))
+                return ((projSpeed // 2), -(projSpeed // 2))
             if self.dir == 3:
                 return (projSpeed, 0)
         # Puerta 7
         elif self.gate == 7:
             if self.dir == 1:
-                return ((projSpeed // 2), (projSpeed // 2))
+                return ((projSpeed // 2), -(projSpeed // 2))
             if self.dir == 2:
                 return (projSpeed, 0)
             if self.dir == 3:
-                return ((projSpeed // 2), -(projSpeed // 2))
+                return ((projSpeed // 2), (projSpeed // 2))
         # Puerta 8
         elif self.gate == 8:
             if self.dir == 1:
                 return (projSpeed, 0)
             if self.dir == 2:
-                return ((projSpeed // 2), -(projSpeed // 2))
+                return ((projSpeed // 2), (projSpeed // 2))
             if self.dir == 3:
-                return (0, -(projSpeed))
+                return (0, (projSpeed))
 
     def updatePos(self):
         """
         Actualiza la posición del proyectil.
         """
         self.projectileHitBox = self.projectileHitBox.move(self.speed[0], self.speed[1])
+        self.animate()
         print("Proyectil: ", self.projectileHitBox.centerx, ", ", self.projectileHitBox.centery)
 
         # Aplicamos un límite a los projectiles
-        if self.projectileHitBox.centerx > width or self.projectileHitBox.centerx < 0:
-            return None
-        elif self.projectileHitBox.centery > height or self.projectileHitBox.centery < 0:
+        if not checkBounds(self.projectileHitBox):
+            self.destroy()
             return None
         else:
             return self
@@ -586,6 +643,19 @@ class Projectile:
             return Rect(((width * 2 // 6) - (self.pWidth // 2), (height * 2 // 6) - (self.pHeight // 2)),
                         (self.pWidth, self.pHeight))
 
+    def animate(self):
+        screen.blit(projectileImg, self.projectileHitBox)
+
+    def destroy(self):
+        """
+        Reproduce la animación de destrucción del proyectil y destruye su rectángulo.
+        :return:
+        """
+        screen.blit(projectileDestImg, self.projectileHitBox)
+        self.projectileHitBox = None
+        pygame.time.wait(200)
+
+
 def generateProjectile(projSpeed):
     # Modificadores según la dificultad
     if gameDifficulty == 0:
@@ -618,6 +688,86 @@ def generateProjectile(projSpeed):
             return Projectile(projSpeed)
         else:
             return None
+
+def checkBounds(rect: pygame.Rect, gate: int = 0):
+    """
+    Comprueba que el rectángulo dado se encuentra en los límites del área jugable.
+    Para comprobar que un rectángulo se encuentra dentro, se tomarán varios rectángulos y se unirán para formar,
+    de forma aproximada, el límite exterior de la Arena del juego.
+    Comprobando si el rectángulo dado colisiona con la unión de rectángulos que forman el límite, se considera que
+    el rectángulo está "fuera" del área jugable.
+    Si es un proyectil, se destruirá.
+    Si es el jugador, se detendrá su movimiento.
+
+    Los rectángulos de los límites son 10, se pueden ver en el archivo borders.png en Data/Images.
+
+    La función collidelist(list[Rect]) comprueba si el rectángulo colisiona con alguno de los que hay en la lista, y
+    devuelve su índice si encuentra uno con el que colisione.
+    Si no encuentra ninguno, devuelve -1.
+
+    :param rect: Rectángulo que se comprobará.
+    :param gate: Predeterminado 0. Si se trata de un proyectil, usa unos limites para que el proyectil no desaparezca al
+    spawnear.
+    :return: True si está dentro de los límites. False si el rectángulo colisiona con el límite del área jugable.
+    """
+    if gate == 0:
+        return rect.collidelist(border) == -1
+    if gate == 1:
+        # Ignora el rectángulo horizontal superior.
+        aux = border.copy()
+        aux.pop(2)
+        return rect.collidelist(aux) == -1
+    if gate == 2:
+         # Ignora los rectángulos de la esquina superior derecha (los pequeños)
+        aux = border.copy()
+        aux.pop(6)
+        aux.pop(7)
+        return rect.collidelist(aux) == -1
+    if gate == 3:
+         # Ignora el rectángulo vertical derecho.
+        aux = border.copy()
+        aux.pop(1)
+        return rect.collidelist(aux) == -1
+    if gate == 4:
+         # Ignora el rectángulo inferior derecho.
+        aux = border.copy()
+        aux.pop(9)
+        return rect.collidelist(aux) == -1
+    if gate == 5:
+         # Ignora el rectángulo horizontal inferior.
+        aux = border.copy()
+        aux.pop(3)
+        return rect.collidelist(aux) == -1
+    if gate == 6:
+         # Ignora el rectángulo inferior izquierdo.
+        aux = border.copy()
+        aux.pop(8)
+        return rect.collidelist(aux) == -1
+    if gate == 7:
+         # Ignora el rectángulo vertical izquierdo.
+        aux = border.copy()
+        aux.pop(0)
+        return rect.collidelist(aux) == -1
+    if gate == 8:
+         # Ignora los rectángulos pequeños superiores derechos.
+        aux = border.copy()
+        aux.pop(4)
+        aux.pop(5)
+        return rect.collidelist(aux) == -1
+
+    """
+    rect1 = pygame.Rect((0, 0), (width // 6, height)) # Sexto vertical izquierdo de la pantalla
+    rect2 = pygame.Rect((width * 5 // 6, 0), (width // 6, height)) # Sexto vertical derecho de la pantalla
+    rect3 = pygame.Rect((0, 0), (width, height // 6)) # Sexto horizontal superior de la pantalla
+    rect4 = pygame.Rect((0, height * 5 // 6), (width, height // 6)) # Sexto horizontal inferior de la pantalla
+    rect5 = pygame.Rect((width // 6, height // 6), (width // 12, height // 6)) # Esquina superior izquierda, rectángulo vertical
+    rect6 = pygame.Rect((width * 3 // 12, height // 6), (width // 12, height // 12)) # Esquina superior izquierda, rectángulo horizontal
+    rect7 = pygame.Rect((width * 9 // 12, height // 6), (width // 12, height // 6)) # Esquina superior derecha, rectángulo vertical
+    rect8 = pygame.Rect((width * 4 // 6, height // 6), (width // 12, height // 12)) # Esquina superior derecha, cuadrado
+    rect9 = pygame.Rect((width // 6, height * 9 // 12), (width // 12, height // 12)) # Esquina inferior izquierda
+    rect10 = pygame.Rect((width * 9 // 12, height * 9 // 12), (width // 12, height // 12)) # Esquina inferior derecha
+    border = [rect1, rect2, rect3, rect4, rect5, rect6, rect7, rect8, rect9, rect10] # Uníon de los rectángulos
+    """
 
 def clearConsole():
     print("\n" * 20)

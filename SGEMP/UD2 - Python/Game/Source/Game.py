@@ -3,13 +3,8 @@ Archivo con el bucle principal de ejecución.
 Desde aquí se llama a las funciones del título principal, la pausa, y la pantalla de muerte.
 
 """
-import random
-import time
-
 import pygame, Config
 import MainTitle, PauseScreen, DeathScreen
-from random import randrange
-
 
 def run():
     """
@@ -98,6 +93,8 @@ def start(dif):
     # Asignación de la velocidad de los proyectiles y del jugador
     playerSpeed = assignPlayerSpeed()
     projectileSpeed = assignProjectileSpeed()
+    # Variable para controlar el movimiento del jugador
+    playerSpeedX, playerSpeedY = 0, 0
     # Añadimos el fondo
     Config.screen.blit(Config.bgGame, (0, 0))
     # Creamos nuestro objeto Player
@@ -110,7 +107,7 @@ def start(dif):
 
     Config.gameRunning = True
     while Config.gameRunning:
-
+        Config.screen.blit(Config.bgGame, (0, 0))
         # Control de eventos
         for event in pygame.event.get():
             # Si se ha salido con el botón X de la ventana.
@@ -152,33 +149,30 @@ def start(dif):
                 """
                 # Mover el jugador hacia arriba
                 if event.key == pygame.K_UP:
-                    player.moveUp(playerSpeed)
+                    playerSpeedY -= playerSpeed
                 # Mover el jugador hacia abajo
                 if event.key == pygame.K_DOWN:
-                    player.moveDown(playerSpeed)
+                    playerSpeedY += playerSpeed
                 # Mover el jugador hacia la izquierda
                 if event.key == pygame.K_LEFT:
-                    player.moveLeft(playerSpeed)
+                    playerSpeedX -= playerSpeed
                 # Mover el jugador hacia la derecha
                 if event.key == pygame.K_RIGHT:
-                    player.moveRight(playerSpeed)
+                    playerSpeedX += playerSpeed
 
             # Al levantar las teclas dejamos de mover al jugador en esa dirección
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_UP:
-                    player.moveUp(-playerSpeed)
+                    playerSpeedY += playerSpeed
                 if event.key == pygame.K_DOWN:
-                    player.moveDown(-playerSpeed)
+                    playerSpeedY -= playerSpeed
                 if event.key == pygame.K_LEFT:
-                    player.moveLeft(-playerSpeed)
+                    playerSpeedX += playerSpeed
                 if event.key == pygame.K_RIGHT:
-                    player.moveRight(-playerSpeed)
+                    playerSpeedX -= playerSpeed
 
         # Actualizamos la posición del jugador
-        player.updatePos()
-        # Si el jugador está parado, regenera energía
-        if player.isStopped():
-            player.updateSP(1)
+        player.updatePos((playerSpeedX, playerSpeedY))
         """
         Fin del control de movimiento del jugador
         """
@@ -189,34 +183,34 @@ def start(dif):
         GENERACIÓN DE PROYECTILES
         """
         if p is None:
+            # Si no hay ningún proyectil, vamos a intentar generar uno.
             p = Config.generateProjectile(projectileSpeed)
-        if p is not None:
+
+        else:
+            # Si ya existe un proyectil, actualizamos su posición.
             p = p.updatePos()
 
             if p is not None:
-                # Comprobamos si el jugador colisiona con el proyectil
+                # Si tras actualizar su posición el proyectil sigue estando vivo, se comprueba si ha colisionado con
+                # el jugador.
                 collision = p.checkCollision(player.getRect())
 
                 if collision:
-                    # Si ha habido una colisión eliminamos el proyectil
+                    # Si ha habido una colisión eliminamos el proyectil y le quitamos HP al jugador
+                    player.updateHP(-hitHP)
+                    p.destroy()
                     p = None
 
-        """
-        CONSECUENCIAS DE COLISIÓN
-        """
-        # Si el jugador ha sido golpeado.
-        if collision:
-            player.updateHP(-hitHP)
         # Si el jugador ha muerto, escogerá si vuelve al Menú principal (1), vuelve a jugar (2), o sale (0).
         if not player.isAlive():
             return DeathScreen.run()
 
-        time.sleep(0.5)
+        Config.clock.tick(24)
         pygame.display.update()
 
 def assignProjectileSpeed():
     # Velocidad base
-    speed = 20
+    speed = 5
     # Modificadores según la dificultad
     if Config.gameDifficulty == 0:
         return speed * 1

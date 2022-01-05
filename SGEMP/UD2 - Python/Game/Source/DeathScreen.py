@@ -71,5 +71,6 @@ def run():
                     if selection == 3:
                         return 0
 
+        Config.clock.tick(24)
         # No olvidemos actualizar el display en cada iteración
         pygame.display.update()

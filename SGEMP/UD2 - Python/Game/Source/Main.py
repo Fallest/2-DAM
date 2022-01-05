@@ -2,6 +2,15 @@
 Ejecución principal del programa.
 """
 
+"""
+    TO-DO
+    Afinar movimiento del jugador,
+    Audio (música de fondo y efectos),
+    Rotación del sprite del proyectil, 
+    Afinar las dificultades,
+    Mejorar rendimiento del juego.
+"""
+
 import Game
 
 def start():
