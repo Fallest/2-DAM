@@ -1,6 +1,10 @@
+import math
 import random
+from typing import Union
+
 import pygame
 from pygame import Rect
+from pygame.surface import Surface, SurfaceType
 from screeninfo import get_monitors
 
 """
@@ -39,8 +43,7 @@ bgPauseScreen = pygame.image.load("../Data/Images/pause_bg.png")
 # Localizaciones de los sprites del jugador
 playerStill = pygame.image.load("../Data/Images/playerStill.png")
 playerMoveLeft = pygame.image.load("../Data/Images/playerMove.png")
-playerMoveRight = pygame.image.load("../Data/Images/playerMove.png")
-pygame.transform.flip(playerMoveRight, True, False)
+playerMoveRight = pygame.transform.flip(playerMoveLeft, True, False)
 playerHit = pygame.image.load("../Data/Images/playerHit.png")
 playerDeath = pygame.image.load("../Data/Images/playerDeath.png")
 # Localizaciones de los sprites de los proyectiles
@@ -76,6 +79,25 @@ playerDeath = pygame.transform.scale(playerDeath, (width // 20, width // 20))
 projectileImg = pygame.transform.scale(projectileImg, (width // 20, width // 40))
 projectileDestImg = pygame.transform.scale(projectileDestImg, (width // 20, width // 40))
 
+# Se necesitan 8 variaciones del sprite del proyectil (1 para cada dirección)
+projSprite0 = projectileImg
+projSprite45 = pygame.transform.rotate(projSprite0, 45)
+projSprite90 = pygame.transform.rotate(projSprite0, 90)
+projSprite135 = pygame.transform.rotate(projSprite0, 135)
+projSprite180 = pygame.transform.rotate(projSprite0, 180)
+projSprite225 = pygame.transform.rotate(projSprite0, 225)
+projSprite270 = pygame.transform.rotate(projSprite0, 270)
+projSprite315 = pygame.transform.rotate(projSprite0, 315)
+
+projDestSprite0 = projectileDestImg
+projDestSprite45 = pygame.transform.rotate(projDestSprite0, 45)
+projDestSprite90 = pygame.transform.rotate(projDestSprite0, 90)
+projDestSprite135 = pygame.transform.rotate(projDestSprite0, 135)
+projDestSprite180 = pygame.transform.rotate(projDestSprite0, 180)
+projDestSprite225 = pygame.transform.rotate(projDestSprite0, 225)
+projDestSprite270 = pygame.transform.rotate(projDestSprite0, 270)
+projDestSprite315 = pygame.transform.rotate(projDestSprite0, 315)
+
 # Colores para los botones
 buttonBg = (206, 163, 84)
 buttonBorder = (206, 200, 84)
@@ -89,6 +111,14 @@ playRect = pygame.Rect((width * 4 // 6, height * 2 // 6), (width * 2 // 6 + 15, 
 diffRect = pygame.Rect((width * 4 // 6, height * 3 // 6), (width * 2 // 6 + 15, height * 1 // 9))
 audioRect = pygame.Rect((width * 4 // 6, height * 4 // 6), (width * 2 // 6 + 15, height * 1 // 9))
 exitRect = pygame.Rect((width * 4 // 6, height * 5 // 6), (width * 2 // 6 + 15, height * 1 // 9))
+
+# Rectángulos para la vida y la energía
+"""
+Tendrán altura = 1/10 de la altura del monitor
+Tendrán anchura = 1/6 de la anchura del monitor
+"""
+# hpBar = pygame.Rect((width // 20, height // 40), (width // 6, height // 10))
+# spBar = pygame.Rect((width // 20, height * 3 // 20), (width // 6, height // 10))
 
 # Rectángulos para crear el polígono para el área no jugable.
 # pygame.Rect((x, y), (width, height))
@@ -341,25 +371,26 @@ class Player:
     Tendrá vida, energía, una posición y una velocidad.
     Al inicio, el jugador aparecerá en el centro de la pantalla, y tendrá velocidad 0.
     """
+    playerHitBox: Rect
     health: int
     stamina: int
-    pos: tuple[int, int]
     speed: tuple[int, int]
     alive: bool
     global playerStill, playerMove, playerDeath
-
-    # La hitbox del jugador es un rectángulo de 1/20 de la longitud de la pantalla
-    # En un principio la hitbox está colocada en el centro de la pantalla
-    playerHitBox = pygame.Rect((width // 2-(((1/20)*width) // 2)),
-                               (height // 2-(((1/20)*width) // 2)),
-                               (1/20)*width,
-                               (1/20)*width)
 
     def __init__(self):
         self.health = 100
         self.stamina = 100
         self.speed = (0, 0)
         self.alive = True
+        # La hitbox del jugador es un rectángulo de 1/20 de la longitud de la pantalla
+        # En un principio la hitbox está colocada en el centro de la pantalla
+
+        self.playerHitBox = pygame.Rect((width // 2-(((1/20)*width) // 2)),
+                               (height // 2-(((1/20)*width) // 2)),
+                               (1/20)*width,
+                               (1/20)*width)
+
 
     def isAlive(self):
         return self.alive
@@ -367,7 +398,7 @@ class Player:
     def die(self):
         self.alive = False
 
-    def updateHP(self, q):
+    def  updateHP(self, q):
         if self.alive:
             self.animateHit()
             self.health += q
@@ -412,20 +443,20 @@ class Player:
         if self.alive:
             self.speed = speed
             # Si la stamina es mayor que 0, el jugador se mueve.
-            if self.stamina > 0:
+            if self.stamina >= 0:
                 # Primero comprobamos que nos podemos mover
-                if checkBounds(self.playerHitBox):
-                    # Si no estamos colisionando con el área no jugable, comprobamos si vamos a mover el personaje.
+                if checkBounds(pygame.Rect((self.playerHitBox.x + speed[0], self.playerHitBox.y + speed[1]), (self.playerHitBox.width, self.playerHitBox.height))):
+                    # Si no vamos a colisionar con el área no jugable, comprobamos si vamos a mover el personaje.
                     if not self.isStopped():
                         # Si la velocidad no es (0,0), nos movemos y gastamos 1 de SP.
                         self.updateSP(-1)
-                        self.playerHitBox = self.playerHitBox.move(self.speed[0], self.speed[1])
+                        self.playerHitBox.move_ip(self.speed[0], self.speed[1])
                     else:
                         # Si estamos quietos, regeneramos 1 de MP.
                         self.updateSP(1)
                 else:
                     # Si el personaje colisiona con el límite, tenemos que moverlo hacía atrás para que no siga colisionando.
-                    self.playerHitBox = self.playerHitBox.move(-self.speed[0]*2, -self.speed[1]*2)
+                    self.playerHitBox.move_ip(-self.speed[0]*2, -self.speed[1]*2)
 
 
             # Animamos el movimiento del jugador
@@ -454,10 +485,41 @@ class Player:
         if self.isAlive():
             # Si el jugador ha recibido daño pero sigue vivo
             screen.blit(playerHit, self.playerHitBox)
-            pygame.time.wait(200)
+            self.drawHPBar()
+            self.drawSPBar()
+            pygame.display.update()
+            pygame.time.wait(500)
+
         else:
             # Si el jugador ha recibido daño fatal
             screen.blit(playerDeath, self.playerHitBox)
+            pygame.display.update()
+            pygame.time.wait(1000)
+
+    def drawHPBar(self):
+        """
+        Dibuja un rectángulo para la vida, cuyo tamaño estará basado en la vida actual del personaje.
+        :return: None
+        """
+        hpBar = pygame.Rect((width // 10, height // 40), ((width // 6) * self.health // 100, height // 10))
+        fullhpBar = pygame.Rect((width // 10 - hpBar.height // 6, height // 40), ((width // 6) + hpBar.height // 6, height // 10))
+        pygame.draw.rect(screen, red, fullhpBar, width= hpBar.height // 6, border_radius=hpBar.height // 6)
+        pygame.draw.rect(screen, red, hpBar, border_radius=hpBar.height // 6)
+        hpText = buttonFont.render("HP", False, white)
+        screen.blit(hpText, (hpBar.x + hpBar.height * 2 // 6, hpBar.y + hpBar.height // 6))
+
+
+    def drawSPBar(self):
+        """
+        Dibuja un rectángulo para la energía, cuyo tamaño estará basado en la energía actual del personaje.
+        :return: None
+        """
+        spBar = pygame.Rect((width // 10, height * 3 // 20), ((width // 6) * self.stamina // 100, height // 10))
+        fullspBar = pygame.Rect((width // 10 - spBar.height // 6, height * 3 // 20), ((width // 6) + spBar.height // 6, height // 10))
+        pygame.draw.rect(screen, blue, fullspBar, width= spBar.height // 6, border_radius=spBar.height // 6)
+        pygame.draw.rect(screen, blue, spBar, border_radius=spBar.height // 6)
+        spText = buttonFont.render("SP", False, white)
+        screen.blit(spText, (spBar.x + spBar.height * 2 // 6, spBar.y + spBar.height // 6))
 
     def getRect(self):
         return self.playerHitBox
@@ -489,6 +551,7 @@ class Projectile:
     Al crear el proyectil, se le asignará de forma aleatoria una zona y una dirección.
 
     """
+    projectileImg: Union[Surface, SurfaceType]
     projectileHitBox: Rect
     speed: tuple[int, int]
     gate: int
@@ -503,6 +566,8 @@ class Projectile:
         self.dir = random.randint(1, 3)
         self.speed = self.assignSpeed(projSpeed)
         self.projectileHitBox = self.assignInitialPos()
+        self.projectileImg = projectileImg
+        self.projectileDestImg = projectileDestImg
 
     # sqrt(x**2 + y**2) = projSpeed -> x**2 + y**2 = projSpeed**2
     def assignSpeed(self, projSpeed):
@@ -577,12 +642,12 @@ class Projectile:
         """
         Actualiza la posición del proyectil.
         """
-        self.projectileHitBox = self.projectileHitBox.move(self.speed[0], self.speed[1])
+        self.projectileHitBox.move_ip(self.speed[0], self.speed[1])
         self.animate()
         print("Proyectil: ", self.projectileHitBox.centerx, ", ", self.projectileHitBox.centery)
 
         # Aplicamos un límite a los projectiles
-        if not checkBounds(self.projectileHitBox):
+        if not checkBounds(self.projectileHitBox, self.gate):
             self.destroy()
             return None
         else:
@@ -644,17 +709,64 @@ class Projectile:
                         (self.pWidth, self.pHeight))
 
     def animate(self):
-        screen.blit(projectileImg, self.projectileHitBox)
+        dir = (self.gate, self.dir)
+        if dir == (6, 3) or dir == (7, 2) or dir == (8, 1):
+            # Si el proyectil va hacia la derecha
+            screen.blit(projSprite0, self.projectileHitBox)
+        if dir == (5, 3) or dir == (6, 2) or dir == (7, 1):
+            # Si el proyectil va hacia arriba derecha
+            screen.blit(projSprite45, self.projectileHitBox)
+        if dir == (4, 3) or dir == (5, 2) or dir == (6, 1):
+            # Si el proyectil va hacia arriba
+            screen.blit(projSprite90, self.projectileHitBox)
+        if dir == (3, 3) or dir == (4, 2) or dir == (5, 1):
+            # Si el proyectil va hacia arriba izquierda
+            screen.blit(projSprite135, self.projectileHitBox)
+        if dir == (2, 3) or dir == (3, 2) or dir == (4, 1):
+            # Si el proyectil va hacia la izquierda
+            screen.blit(projSprite180, self.projectileHitBox)
+        if dir == (1, 3) or dir == (2, 2) or dir == (3, 1):
+            # Si el proyectil va hacia izquierda abajo
+            screen.blit(projSprite225, self.projectileHitBox)
+        if dir == (8, 3) or dir == (1, 2) or dir == (2, 1):
+            # Si el proyectil va hacia abajo
+            screen.blit(projSprite270, self.projectileHitBox)
+        if dir == (7, 3) or dir == (8, 2) or dir == (1, 1):
+            # Si el proyectil va hacia derecha abajo
+            screen.blit(projSprite315, self.projectileHitBox)
 
     def destroy(self):
         """
         Reproduce la animación de destrucción del proyectil y destruye su rectángulo.
         :return:
         """
-        screen.blit(projectileDestImg, self.projectileHitBox)
-        self.projectileHitBox = None
-        pygame.time.wait(200)
+        dir = (self.gate, self.dir)
+        if dir == (6, 3) or dir == (7, 2) or dir == (8, 1):
+            # Si el proyectil va hacia la derecha
+            screen.blit(projDestSprite0, self.projectileHitBox)
+        if dir == (5, 3) or dir == (6, 2) or dir == (7, 1):
+            # Si el proyectil va hacia arriba derecha
+            screen.blit(projDestSprite45, self.projectileHitBox)
+        if dir == (4, 3) or dir == (5, 2) or dir == (6, 1):
+            # Si el proyectil va hacia arriba
+            screen.blit(projDestSprite90, self.projectileHitBox)
+        if dir == (3, 3) or dir == (4, 2) or dir == (5, 1):
+            # Si el proyectil va hacia arriba izquierda
+            screen.blit(projDestSprite135, self.projectileHitBox)
+        if dir == (2, 3) or dir == (3, 2) or dir == (4, 1):
+            # Si el proyectil va hacia la izquierda
+            screen.blit(projDestSprite180, self.projectileHitBox)
+        if dir == (1, 3) or dir == (2, 2) or dir == (3, 1):
+            # Si el proyectil va hacia izquierda abajo
+            screen.blit(projDestSprite225, self.projectileHitBox)
+        if dir == (8, 3) or dir == (1, 2) or dir == (2, 1):
+            # Si el proyectil va hacia abajo
+            screen.blit(projDestSprite270, self.projectileHitBox)
+        if dir == (7, 3) or dir == (8, 2) or dir == (1, 1):
+            # Si el proyectil va hacia derecha abajo
+            screen.blit(projDestSprite315, self.projectileHitBox)
 
+        self.projectileHitBox = None
 
 def generateProjectile(projSpeed):
     # Modificadores según la dificultad

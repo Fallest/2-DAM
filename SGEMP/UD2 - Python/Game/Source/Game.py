@@ -3,6 +3,7 @@ Archivo con el bucle principal de ejecución.
 Desde aquí se llama a las funciones del título principal, la pausa, y la pantalla de muerte.
 
 """
+import time
 import pygame, Config
 import MainTitle, PauseScreen, DeathScreen
 
@@ -100,11 +101,12 @@ def start(dif):
     # Creamos nuestro objeto Player
     player = Config.Player()
     # Variables para la colisón y la vida perdida por colisión
-    collision = False
     hitHP = assignHitHP()
     # Variable para controlar la existencia de un proyectil
     p = None
-
+    # Variables para la puntuación
+    initialTime = time.time()
+    points = 0
     Config.gameRunning = True
     while Config.gameRunning:
         Config.screen.blit(Config.bgGame, (0, 0))
@@ -197,15 +199,25 @@ def start(dif):
 
                 if collision:
                     # Si ha habido una colisión eliminamos el proyectil y le quitamos HP al jugador
-                    player.updateHP(-hitHP)
+                    Config.screen.blit(Config.bgGame, (0, 0))
+                    drawPoints(points)
                     p.destroy()
+                    player.updateHP(-hitHP)
                     p = None
 
         # Si el jugador ha muerto, escogerá si vuelve al Menú principal (1), vuelve a jugar (2), o sale (0).
         if not player.isAlive():
+            player.drawHPBar()
+            player.drawSPBar()
+            drawPoints(points)
+            pygame.display.update()
             return DeathScreen.run()
 
-        Config.clock.tick(24)
+        points = round(time.time() - initialTime)
+        drawPoints(points)
+        player.drawHPBar()
+        player.drawSPBar()
+        Config.clock.tick(60)
         pygame.display.update()
 
 def assignProjectileSpeed():
@@ -250,3 +262,13 @@ def assignHitHP():
         return 100 // 3
     if Config.gameDifficulty == 4:
         return 100 // 99
+
+def drawPoints(points: int):
+    """
+    Dibuja en la esquina superior derecha la cantidad de tiempo que ha estado vivo el jugador en segundos.
+
+    :return: None
+    """
+    pointsRect = pygame.Rect((Config.width * 5 // 6, Config.height // 12), (Config.width // 6, Config.height // 12))
+    pointsText = Config.buttonFont.render(str(points), False, Config.white)
+    Config.screen.blit(pointsText, pointsRect)
