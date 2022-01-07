@@ -24,6 +24,11 @@ def run():
     # 1 - Jugar, 2 - Dificultades, 3 - audio, 4 - Salir
     selection = 1
 
+    # Dibujamos el botón para los créditos
+
+    # Escribimos los controles
+    Config.drawControls()
+
     # Dibujamos los botones:
     Config.drawButtons()
 

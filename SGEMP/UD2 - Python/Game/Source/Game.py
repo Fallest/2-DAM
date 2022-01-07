@@ -270,5 +270,5 @@ def drawPoints(points: int):
     :return: None
     """
     pointsRect = pygame.Rect((Config.width * 5 // 6, Config.height // 12), (Config.width // 6, Config.height // 12))
-    pointsText = Config.buttonFont.render(str(points), False, Config.white)
+    pointsText = Config.textFont.render(str(points), False, Config.white)
     Config.screen.blit(pointsText, pointsRect)
