@@ -502,13 +502,13 @@ class Player:
         if self.alive:
             self.speed = speed
             # Si la stamina es mayor que 0, el jugador se mueve.
-            if self.stamina >= 0:
+            if self.stamina > 0:
                 # Primero comprobamos que nos podemos mover
                 if checkBounds(pygame.Rect((self.playerHitBox.x + speed[0], self.playerHitBox.y + speed[1]), (self.playerHitBox.width, self.playerHitBox.height))):
                     # Si no vamos a colisionar con el área no jugable, comprobamos si vamos a mover el personaje.
                     if not self.isStopped():
                         # Si la velocidad no es (0,0), nos movemos y gastamos 1 de SP.
-                        self.updateSP(-1)
+                        self.updateSP(-2)
                         self.playerHitBox.move_ip(self.speed[0], self.speed[1])
                     else:
                         # Si estamos quietos, regeneramos 1 de MP.
@@ -516,6 +516,8 @@ class Player:
                 else:
                     # Si el personaje colisiona con el límite, tenemos que moverlo hacía atrás para que no siga colisionando.
                     self.playerHitBox.move_ip(-self.speed[0]*2, -self.speed[1]*2)
+            else:
+                self.updateSP(1)
 
 
             # Animamos el movimiento del jugador
