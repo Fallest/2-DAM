@@ -12,6 +12,12 @@ def run():
     """
     print("Ejecutando DeathScreen.run()...")
 
+    # Cargamos el audio de muerte:
+    pygame.mixer.music.unload()
+    pygame.mixer.music.load(Config.death)
+    if Config.audio:
+        pygame.mixer.music.play()
+
     # Se colorea la pantalla con una capa semitransparente roja oscura.
     fade = pygame.Surface((Config.width, Config.height), pygame.SRCALPHA)
     fade.fill(Config.fadedRed)

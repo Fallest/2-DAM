@@ -48,6 +48,10 @@ def run():
     Config.bgMainTitle.convert_alpha()
     Config.bgMainTitle.blit(Config.alpha_surf, (0, 0), special_flags=pygame.BLEND_RGBA_MULT)
 
+    # Ponemos el audio
+    pygame.mixer.music.load(Config.ost)
+    pygame.mixer.music.play()
+
     # Variable para controlar cuándo se ha seleccionado volver a jugar desde la pantalla de muerte
     playAgain = False
 
@@ -90,6 +94,11 @@ def start(dif):
     Si se muere y se selecciona "Salir", esta función devuelve 0.
     """
     print("Iniciando Game.start()...")
+    # Iniciamos el audio de fondo de nuevo
+    pygame.mixer.music.unload()
+    pygame.mixer.music.load(Config.ost)
+    if Config.audio:
+        pygame.mixer.music.play()
 
     # Asignación de la velocidad de los proyectiles y del jugador
     playerSpeed = assignPlayerSpeed()

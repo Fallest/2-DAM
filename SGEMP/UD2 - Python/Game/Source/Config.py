@@ -51,6 +51,12 @@ playerDeath = pygame.image.load("../Data/Images/playerDeath.png")
 # Localizaciones de los sprites de los proyectiles
 projectileImg = pygame.image.load("../Data/Images/projectile.png")
 projectileDestImg = pygame.image.load("../Data/Images/projectileDestruction.png")
+# Localizaciones de los archivos de audio
+pygame.mixer.init()
+ost = "../Data/Music/song.wav"
+arrow = pygame.mixer.Sound("../Data/Music/arrow.wav")
+hit = pygame.mixer.Sound("../Data/Music/hit.wav")
+death = "../Data/Music/death.wav"
 
 """     Apartado gráfico     """
 # Tamaño de la ventana
@@ -537,6 +543,10 @@ class Player:
         screen.blit(textFont.render(str(damage), False, red), pygame.Rect(self.playerHitBox.x + self.playerHitBox.width,
                                                                           self.playerHitBox.y, self.playerHitBox.width,
                                                                           self.playerHitBox.height))
+        # Reproducimos el sonido
+        if audio:
+            pygame.mixer.Sound.play(hit)
+
         if self.isAlive():
             # Si el jugador ha recibido daño pero sigue vivo
             screen.blit(playerHit, self.playerHitBox)
@@ -730,6 +740,9 @@ class Projectile:
 
         La altura y anchura del proyectil es de 1/40 de la anchura de la pantalla.
         """
+        # Reproducimos el sonido
+        if audio:
+            pygame.mixer.Sound.play(arrow)
         # Puerta 1
         if self.gate == 1:
             return Rect(( (width * 3 // 6) - (self.pWidth // 2), (height * 1 // 6) - (self.pHeight) ),

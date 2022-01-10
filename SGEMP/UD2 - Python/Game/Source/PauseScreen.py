@@ -72,6 +72,10 @@ def run():
                         return 1
                     if selection == 3:
                         Config.audio = not Config.audio
+                        if Config.audio:
+                            pygame.mixer.music.unpause()
+                        else:
+                            pygame.mixer.music.pause()
                         Config.drawSelectedButton(selection, first="Continuar", diff=False, second="Menú principal")
                     if selection == 4:
                         return 0

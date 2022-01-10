@@ -38,6 +38,12 @@ def run():
     Si se selecciona "Jugar", devuelve 1.
     """
     print("Iniciando MainTitle.run()...")
+    # Ponemos la música de fondo
+    pygame.mixer.music.unload()
+    pygame.mixer.music.load(Config.ost)
+    if Config.audio:
+        pygame.mixer.music.play()
+
     # Añade el bg con una capa de transparencia encima para oscurecerlo
     Config.screen.fill(Config.black)
 
@@ -123,6 +129,10 @@ def run():
                         return 1
                     if selection == 3:
                         Config.audio = not Config.audio
+                        if Config.audio:
+                            pygame.mixer.music.unpause()
+                        else:
+                            pygame.mixer.music.pause()
                         Config.drawSelectedButton(selection)
                     if selection == 4:
                         return 0
