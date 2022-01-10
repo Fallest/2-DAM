@@ -420,17 +420,19 @@ def drawControls():
     pygame.draw.rect(screen, buttonBorder, controlsRect, 15, border_radius=controlsRect.width // 10)
     # Controles
     textSurf = textFont.render("Controles:", False, yellow)
-    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 1 // 20))
+    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y))
     # ↑↓←→ : movimiento
     textSurf = textFont.render("flechas : movimiento", False, white)
-    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 2 // 10))
+    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 2 // 20))
     # z : confirmar/actuar
     textSurf = textFont.render("z : confirmar/actuar", False, white)
-    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 3 // 10))
+    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 4 // 20))
     # x : cancelar
     textSurf = textFont.render("x : cancelar", False, white)
-    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 4 // 10))
-
+    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 6 // 20))
+    # ESC: Pausa
+    textSurf = textFont.render("ESC: pausa", False, white)
+    screen.blit(textSurf, (controlsRect.x + controlsRect.width * 1 // 10, controlsRect.y + controlsRect.width * 8 // 20))
 
 """
 CLASE JUGADOR
