@@ -1,0 +1,2 @@
+Son herramientas que se usarán durante el desarrollo de la página web.
+Se tomarán capturas de su uso y se explicará cómo se han usado.
