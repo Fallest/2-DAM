@@ -1,5 +1,31 @@
 import pygame, Config
 
+import CreditScreen
+
+def redraw():
+    """
+    Redibuja los componentes de la pantalla.
+    :return: None
+    """
+    # Añade el bg con una capa de transparencia encima para oscurecerlo
+    Config.screen.fill(Config.black)
+
+    Config.screen.blit(Config.bgMainTitle, (0, 0))
+
+    # Escribimos el título
+    Config.screen.blit(Config.titleFontSurface, (Config.width // 20, Config.height // 20))
+
+    # Dibujamos el botón para los créditos
+
+    # Escribimos los controles
+    Config.drawControls()
+
+    # Dibujamos los botones:
+    Config.drawButtons()
+
+    # Al inicio está seleccionado "Créditos"
+    Config.drawSelectedButton(5)
+
 def run():
     """
     Pantalla principal.
@@ -30,7 +56,7 @@ def run():
     Config.drawControls()
 
     # Dibujamos los botones:
-    Config.drawButtons()
+    Config.drawButtons(credits=True)
 
     # Al inicio está seleccionado "Jugar"
     Config.drawSelectedButton(selection)
@@ -63,17 +89,27 @@ def run():
                         Config.drawSelectedButton(selection)
                 """
                 Si se presiona <- y se está seleccionando la dificultad, se baja de dificultad
+                Si se está seleccionando "Salir", se selecciona "Créditos".
                 """
                 if event.key == pygame.K_LEFT:
                     if selection == 2:
                         Config.decreaseDif()
                         Config.drawSelectedButton(selection)
+                    elif selection == 4:
+                        Config.drawUnselectedButton(selection)
+                        selection = 5
+                        Config.drawSelectedButton(selection)
                 """
                 Si se presiona -> y se está seleccionando la dificultad, se sube de dificultad
+                Si se está seleccionando "Créditos", se vuelve a "Salir".
                 """
                 if event.key == pygame.K_RIGHT:
                     if selection == 2:
                         Config.increaseDif()
+                        Config.drawSelectedButton(selection)
+                    elif selection == 5:
+                        Config.drawUnselectedButton(selection)
+                        selection = 4
                         Config.drawSelectedButton(selection)
                 """-------------------------------------------------------------------------"""
                 """
@@ -90,6 +126,9 @@ def run():
                         Config.drawSelectedButton(selection)
                     if selection == 4:
                         return 0
+                    if selection == 5:
+                        CreditScreen.run()
+                        redraw()
 
         Config.clock.tick(24)
         # No olvidemos actualizar el display en cada iteración

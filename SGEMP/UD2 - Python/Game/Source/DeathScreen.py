@@ -23,6 +23,12 @@ def run():
     # Escribimos el título de la pantalla de muerte
     Config.screen.blit(Config.deathFontSurface, (Config.width // 20, Config.height // 20))
 
+    # Escribimos la puntuación alcanzada y la dificultad
+    pointsText = Config.textFont.render("Puntuación: " + str(Config.points), False, Config.white)
+    Config.screen.blit(pointsText, (Config.width // 20, Config.height // 2))
+    diffText = Config.textFont.render("Dificultad: " + str(Config.gameDifficultyName).strip("<>"), False, Config.white)
+    Config.screen.blit(diffText, (Config.width // 20, Config.height * 4 // 6))
+
     # Dibujamos los botones:
     Config.drawButtons(first="Jugar de nuevo", diff=False, second="Menú principal", death=True)
 

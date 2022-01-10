@@ -19,7 +19,7 @@ def run():
 
     # Escribimos los datos
     authorSurf = Config.textFont.render("Autor                 David Bernal Navarrete", False, Config.white)
-    creditsSurf = Config.textFont.render("Software utilizado    Neural Composer de CodeParade")
+    creditsSurf = Config.textFont.render("Software utilizado    Neural Composer de CodeParade", False, Config.white)
     Config.screen.blit(authorSurf, ((Config.width // 6, Config.height * 3 // 6)))
     Config.screen.blit(creditsSurf, ((Config.width // 6, Config.height * 4 // 6)))
 
@@ -35,4 +35,6 @@ def run():
                 """
                 if event.key == pygame.K_x:
                     return 1
+
+        pygame.display.update()
 

@@ -213,8 +213,8 @@ def start(dif):
             pygame.display.update()
             return DeathScreen.run()
 
-        points = round(time.time() - initialTime)
-        drawPoints(points)
+        Config.points = round(time.time() - initialTime)
+        drawPoints(Config.points)
         player.drawHPBar()
         player.drawSPBar()
         Config.clock.tick(60)
@@ -227,13 +227,13 @@ def assignProjectileSpeed():
     if Config.gameDifficulty == 0:
         return speed * 1
     if Config.gameDifficulty == 1:
-        return speed * 3
+        return speed
     if Config.gameDifficulty == 2:
-        return speed * 9
+        return speed * 5
     if Config.gameDifficulty == 3:
-        return speed * 27
+        return speed * 10
     if Config.gameDifficulty == 4:
-        return speed * 81
+        return speed * 30
 
 def assignPlayerSpeed():
     # Velocidad base
@@ -253,15 +253,15 @@ def assignPlayerSpeed():
 def assignHitHP():
     # Modificadores según la dificultad
     if Config.gameDifficulty == 0:
-        return 100 // 1
+        return 1
     if Config.gameDifficulty == 1:
-        return 100 // 10
+        return 10
     if Config.gameDifficulty == 2:
-        return 100 // 5
+        return 20
     if Config.gameDifficulty == 3:
-        return 100 // 3
+        return 34
     if Config.gameDifficulty == 4:
-        return 100 // 99
+        return 99
 
 def drawPoints(points: int):
     """

@@ -20,6 +20,8 @@ audio = True
 gameRunning = False
 # Reloj
 clock = pygame.time.Clock()
+# Puntutación del jugador
+points = 0
 
 """     Dificultad del juego     """
 # Nivel de dificultad del juego
@@ -142,20 +144,6 @@ pauseFontSurface = titleFont.render("PAUSA", False, blue)
 deathFontSurface = titleFont.render("HAS MUERTO", False, red)
 textFont = pygame.font.Font("../Data/font.ttf", height // 12)
 
-def loadScores():
-    """
-    Carga los datos guardados en el archivo de puntuación
-    :return: Lista de tuplas con los datos de cada puntuación (nombre del jugador, dificultad, y puntuación).
-    """
-    scores = []
-
-    with open(scoresFile, 'r', encoding='utf-8') as s:
-        for line in s:
-            tupla = (line.split(';')[0], line.split(';')[1], line.split(';')[2])
-            scores.append(tupla)
-
-    return scores
-
 """
 CONTROL DE LA DIFICULTAD
 """
@@ -234,9 +222,49 @@ def assignDiffName():
         gameDifficultyName = "< Bullet Hell"
 
 """
-CONTROL DE LOS BOTONES
+CONTROL DE LOS BOTONES Y TEXTO
 """
-def drawButtons(first="Jugar", diff=True, second="", third="Audio: On", fourth="Salir", death=False):
+def drawButton(size: tuple[int, int],
+               surface: pygame.Surface,
+               text: str = "button",
+               text_color: tuple[int, int, int] = (0, 0, 0),
+               pos: tuple[int, int] = (0, 0),
+               color: tuple[int, int, int] = (255, 255, 255),
+               width: int = 0,
+               radius: int = 0,
+               border_color: tuple[int, int, int] = (200, 200, 200),
+               active: bool = False,
+               active_color: tuple[int, int, int] = (244, 252, 15)):
+    """
+    Función para dibujar un botón en la pantalla.
+
+    :param size: Tamaño del botón dado en una tupla (anchura, altura).
+    :param surface: Superficie en la que se dibujará el botón.
+    :param text: Texto que contendrá el botón.
+    :param text_color: Color del texto.
+    :param pos: Posición de la esquina superior izquierda del botón dada en una tupla (x, y).
+    :param color: Color del botón.
+    :param width: Anchura del rectángulo. (0 = completo, < 0 no se dibujará nada, > 0 indica la anchura de la línea a
+                    dibujar)
+    :param radius: Radio para redondear las esquinas del botón.
+    :param border_color: Color del borde del botón.
+    :param active: Si el botón está activo o no.
+    :param active_color: Color con el que resaltar los elementos activos. Por defecto es amarillo
+    :return: None
+    """
+    # Rectángulo base
+    rect = pygame.Rect(pos, size)
+    pygame.draw.rect(surface, color, rect, 0, border_radius=radius)
+    # Si tiene borde
+    if width != 0:
+        pygame.draw.rect(surface, active_color if active else border_color, rect, width, radius)
+
+    # Crear la superficie para escribir el texto
+    text = textFont.render(text, False, active_color if active else text_color)
+    # Escribimos el texto en la pantalla en el centro horizontal del rectángulo, pegado a la izquierda
+    surface.blit(text, (rect.x + rect.height * 2 // 6, rect.y + rect.height // 6))
+
+def drawButtons(first="Jugar", diff=True, second="", third="Audio: On", fourth="Salir", death=False, credits=False):
     # Jugar
     pygame.draw.rect(screen, buttonBg, playRect, 0, border_top_left_radius=playRect.height//6,
                      border_bottom_left_radius=playRect.height//6)
@@ -252,6 +280,11 @@ def drawButtons(first="Jugar", diff=True, second="", third="Audio: On", fourth="
                      border_bottom_left_radius=diffRect.height//6)
     diffButtonFontSurface = textFont.render(gameDifficultyName if diff else second, False, white)
     screen.blit(diffButtonFontSurface, (diffRect.x + diffRect.height*2//6, diffRect.y + diffRect.height//6))
+
+    if credits:
+        # Créditos
+        drawButton((width // 6, height // 9), screen, "Créditos", white, (width * 5 // 12, height * 5 // 6), buttonBg,
+                   15, (height // 9) // 6, buttonBorder, False)
 
     if not death:
         # Audio
@@ -321,6 +354,10 @@ def drawSelectedButton(selection = 1, first="Jugar", diff=True, second="", third
         exitButtonFontSurface = textFont.render("Salir", False, yellow)
         screen.blit(exitButtonFontSurface, (exitRect.x + exitRect.height*2//6, exitRect.y + exitRect.height//6))
 
+    if selection == 5:
+        drawButton((width // 6, height // 9), screen, "Créditos", white, (width * 5 // 12, height * 5 // 6), buttonBg,
+                   15, (height // 9) // 6, buttonBorder, True, yellow)
+
 def drawUnselectedButton(unselected, first="Jugar", diff=True, second="", third=False):
     # Se restaura el rectángulo a un botón no seleccionado
     # De nuevo, se distingue el botón del audio
@@ -331,14 +368,14 @@ def drawUnselectedButton(unselected, first="Jugar", diff=True, second="", third=
                          border_bottom_left_radius=playRect.height//6)
         playButtonFontSurface = textFont.render(first, False, white)
         screen.blit(playButtonFontSurface, (playRect.x + playRect.height*2//6, playRect.y + playRect.height//6))
-    if unselected == 2:
+    elif unselected == 2:
         pygame.draw.rect(screen, buttonBg, diffRect, 0, border_top_left_radius=diffRect.height//6,
                          border_bottom_left_radius=diffRect.height//6)
         pygame.draw.rect(screen, buttonBorder, diffRect, 15, border_top_left_radius=diffRect.height//6,
                          border_bottom_left_radius=diffRect.height//6)
         diffButtonFontSurface = textFont.render(gameDifficultyName if diff else second, False, white)
         screen.blit(diffButtonFontSurface, (diffRect.x + diffRect.height*2//6, diffRect.y + diffRect.height//6))
-    if unselected == 3:
+    elif unselected == 3:
         if not third:
             pygame.draw.rect(screen, buttonBg, audioRect, 0, border_top_left_radius=audioRect.height//6,
                              border_bottom_left_radius=audioRect.height//6)
@@ -354,13 +391,16 @@ def drawUnselectedButton(unselected, first="Jugar", diff=True, second="", third=
             exitButtonFontSurface = textFont.render("Salir", False, white)
             screen.blit(exitButtonFontSurface,
                         (audioRect.x + audioRect.height * 2 // 6, audioRect.y + audioRect.height // 6))
-    if unselected == 4:
+    elif unselected == 4:
         pygame.draw.rect(screen, buttonBg, exitRect, 0, border_top_left_radius=exitRect.height//6,
                          border_bottom_left_radius=exitRect.height//6)
         pygame.draw.rect(screen, buttonBorder, exitRect, 15, border_top_left_radius=exitRect.height//6,
                          border_bottom_left_radius=exitRect.height//6)
         exitButtonFontSurface = textFont.render("Salir", False, white)
         screen.blit(exitButtonFontSurface, (exitRect.x + exitRect.height*2//6, exitRect.y + exitRect.height//6))
+    elif unselected == 5:
+        drawButton((width // 6, height // 9), screen, "Créditos", white, (width * 5 // 12, height * 5 // 6), buttonBg,
+                   15, (height // 9) // 6, buttonBorder, False)
 
 def drawControls():
     """
@@ -424,9 +464,10 @@ class Player:
 
     def  updateHP(self, q):
         if self.alive:
-            self.animateHit()
+            self.animateHit(q)
             self.health += q
             if self.health <= 0:
+                self.health = 0
                 self.stop()
                 self.alive = False
             if self.health > 100:
@@ -439,20 +480,6 @@ class Player:
                 self.stamina = 0
             if self.stamina > 100:
                 self.stamina = 100
-
-
-    def moveUp(self, v):
-        if self.alive and self.stamina > 0:
-            self.speed = (self.speed[0], self.speed[1] - v)
-    def moveDown(self, v):
-        if self.alive and self.stamina > 0:
-            self.speed = (self.speed[0], self.speed[1] + v)
-    def moveLeft(self, v):
-        if self.alive and self.stamina > 0:
-            self.speed = (self.speed[0] - (v * (width // height)), self.speed[1]) # Aplicamos el ratio de la pantalla
-    def moveRight(self, v):
-        if self.alive and self.stamina > 0:
-            self.speed = (self.speed[0] + (v * (width // height)), self.speed[1]) # Aplicamos el ratio de la pantalla
 
     def stop(self):
         self.speed = (0, 0)
@@ -505,7 +532,11 @@ class Player:
             # Si el jugador se está moviendo en cualquier otra dirección
             screen.blit(playerMoveLeft, self.playerHitBox)
 
-    def animateHit(self):
+    def animateHit(self, damage: int):
+        # Se escribe al lado del jugador el daño recibido
+        screen.blit(textFont.render(str(damage), False, red), pygame.Rect(self.playerHitBox.x + self.playerHitBox.width,
+                                                                          self.playerHitBox.y, self.playerHitBox.width,
+                                                                          self.playerHitBox.height))
         if self.isAlive():
             # Si el jugador ha recibido daño pero sigue vivo
             screen.blit(playerHit, self.playerHitBox)

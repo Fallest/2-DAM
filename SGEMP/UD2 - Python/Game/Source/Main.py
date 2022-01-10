@@ -4,10 +4,7 @@ Ejecución principal del programa.
 
 """
     TO-DO
-    Audio (música de fondo y efectos),
-    Afinar las dificultades,
-    Tabla de puntuaciones,
-    Pantalla de créditos.
+    Audio (música de fondo y efectos).
 """
 
 import Game
