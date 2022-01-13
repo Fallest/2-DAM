@@ -1,0 +1,10 @@
+Partiendo de una base de datos relacional (puedes utilizar el Proyecto de Bases de Datos de 1º), desarrollar programas que realicen alta, baja, modificación y consulta de los datos almacenados en las principales tablas, haciendo uso de los conceptos estudiados:
+-Cursores implícitos.
+-Cursores explícitos (con y sin parámetros).
+-Variables de acoplamiento.
+-Ruptura de control.
+-Gestión de Excepciones predefinidas y de usuario.
+-Gestión de Transacciones.
+
+La práctica se realizará de forma individual y se defenderá en el taller.
+Fecha Límite de entrega: 12-01-22
