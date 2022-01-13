@@ -1,9 +1,10 @@
+set serveroutput on size 999999;
+
 /* Alta de datos */
 create or replace procedure añadirCliente(
     cod number,
 	nom varchar2,
 	pw varchar2,
-    ultacc timestamp,
     foto varchar2)
 as
     cod_existe exception;
@@ -12,13 +13,13 @@ as
 begin
     -- Comprobamos que el código no existe
     for cli in clientes loop
-        if cli.codigo == cod then
+        if cli.codigo = cod then
             raise cod_existe;
         end if;
     end loop;
 
     -- Si el código no existe, lo creamos
-    insert into cliente values(cod, nom, pw, ultacc, foto);
+    insert into cliente values(cod, nom, pw, foto);
     commit;
 
     exception
@@ -52,7 +53,7 @@ as
 begin
     -- Comprobamos que el código de cliente existe
     for cli in clientes loop
-        if cli.codigo == pcliCodigo then
+        if cli.codigo = pcliCodigo then
             existe_cod := 1;
         end if;
     end loop;
@@ -63,13 +64,13 @@ begin
 
     -- Comprobamos que no existe ningúna cuenta con ese número
     for c in cuentas loop
-        if c.numero == pnum then
+        if c.numero = pnum then
             raise num_existe;
         end if;
     end loop;
 
     -- Insertamos el valor
-    insert into cuenta values(pnumn, pfecha, psaldo, psaldoMinimo, pinteres, pcliCodigo);
+    insert into cuenta values(pnum, pfecha, psaldo, psaldoMinimo, pinteres, pcliCodigo);
     commit;
 
     exception
@@ -106,14 +107,14 @@ as
 
 begin
     
-    -- Tenemos que comprobar que el número de movimiento y de cuenta no son null
-    if pnumero is null or pcueNumero is null then
+    -- Tenemos que comprobar que el numero de cuenta no es null
+    if pcueNumero is null then
         raise pk_exception;
     end if;
 
     -- Comprobamos que la cuenta a la que se va a añadir el movimiento existe
     for c in cuentas loop 
-        if c.numero == pcueNumero then
+        if c.numero = pcueNumero then
             existe_cuenta := 1;
         end if;
     end loop;
@@ -124,7 +125,7 @@ begin
 
     -- Comprobamos que la cuenta tiene saldo para realizar el movimiento
     for c in cuentas loop 
-        if c.numero == pcueNumero and c.saldo + pimporte < 0 then
+        if c.numero = pcueNumero and c.saldo + pimporte < 0 then
             raise sin_saldo;
         end if;
     end loop;
@@ -133,9 +134,9 @@ begin
     --  Primero obtenemos el número de movimiento que se le va a asignar
     select max(numero) into numero_mov 
     from cuenta
-    where cueNumero = pcueNumero;
+    where numero = pcueNumero;
     --  Luego creamos el movimiento
-    insert into movimiento values(numero_mov, pcueNumero, pfecha, pimporte, pconcepto);
+    insert into movimiento values(numero_mov+1, pcueNumero, pfecha, pimporte, pconcepto);
     commit;
 
     exception
@@ -165,7 +166,7 @@ as
 begin
     -- Comprobamos que el código existe
     for cli in clientes loop
-        if cli.codigo == pcod then
+        if cli.codigo = pcod then
             existe_cod := 1;
         end if;
     end loop;
@@ -175,19 +176,20 @@ begin
     end if;
 
     -- Si el código existe, lo eliminamos
-    delete from cliente where codigo == pcod;
+    delete from cliente where codigo = pcod;
     commit;
 
     exception
         when cod_no_existe then
             dbms_output.put_line('ERROR: El cliente no existe.');
             rollback;
-        when others then+
+        when others then
             dbms_output.put_line('ERROR: Error en la transacción.');
             rollback;
 end;
 
 create or replace procedure eliminarCuenta(pnum number)
+as
     num_no_existe exception;
     num_existe integer default 0;
 
@@ -196,7 +198,7 @@ create or replace procedure eliminarCuenta(pnum number)
 begin
     -- Comprobamos que existe alguna cuenta con ese número
     for c in cuentas loop
-        if c.numero == pnum then
+        if c.numero = pnum then
             num_existe := 1;
         end if;
     end loop;
@@ -206,7 +208,7 @@ begin
     end if;
 
     -- Eliminamos el valor
-    delete from cuenta where numero == pnum;
+    delete from cuenta where numero = pnum;
     commit;
 
     exception
@@ -234,7 +236,7 @@ as
 begin
     -- Comprobamos que la cuenta existe
     for c in cuentas loop 
-        if c.cuenumero == pnumCue then
+        if c.numero = pnumCue then
             existe_cuenta := 1;
         end if;
     end loop;
@@ -245,7 +247,7 @@ begin
     
     -- Comprobamos que el movimiento existe
     for m in movimientos loop 
-        if m.numero == pnumMov then
+        if m.numero = pnumMov then
             existe_mov := 1;
         end if;
     end loop;
@@ -255,7 +257,7 @@ begin
     end if;
 
     --  Luego eliminamos el movimiento
-    delete from movimiento where numero == pnumMov and cueNumero == pnumCue;
+    delete from movimiento where numero = pnumMov and cueNumero = pnumCue;
     commit;
 
     exception
@@ -276,9 +278,8 @@ end;
 create or replace procedure modificarCliente(
     pCod integer,
     pNuevoNom cliente.nombre%type,
-    pNuevaPw cliente.constrasena%type;
-    pNuevoUltAcc cliente.ultimoAcceso%type;
-    pNuevaFoto cliente.foto%type;
+    pNuevaPw cliente.contrasena%type,
+    pNuevaFoto cliente.foto%type
     )
 as
     -- Cursor para recorrer los clientes
@@ -291,7 +292,7 @@ as
 begin
     -- Primero comprobamos que existe el cliente y si el nuevo código ya existe
     for c in clientes loop
-        if c.codigo == pCod then
+        if c.codigo = pCod then
             existe_cod := 1;
         end if;
 
@@ -306,7 +307,6 @@ begin
     update cliente 
     set nombre = pNuevoNom, 
         contrasena = pNuevaPw,
-        ultimoAcceso = pNuevoUltAcc,
         foto = pNuevaFoto
     where codigo = pcod;
 
@@ -347,7 +347,7 @@ as
 begin
     -- Primero comprobamos que existe la cuenta
     for cue in cuentas loop
-        if cue.numero == pNum then
+        if cue.numero = pNum then
             existe_cue := 1;
         end if;
     end loop;
@@ -358,7 +358,7 @@ begin
 
     -- Luego comprobamos que existe el cliente que queremos asignar
     for cli in clientes loop
-        if cli.codigo == pNCliCod then
+        if cli.codigo = pNCliCod then
             existe_cli := 1;
         end if;
     end loop;
@@ -414,7 +414,7 @@ as
 begin
     -- Primero comprobamos que existe la cuenta
     for cue in cuentas loop
-        if cue.numero == pCueNum then
+        if cue.numero = pCueNum then
             existe_cue := 1;
         end if;
     end loop;
@@ -425,7 +425,7 @@ begin
 
     -- Luego comprobamos que existe el movimiento que queremos modificar
     for mov in movimientos loop
-        if mov.numero == pNum then
+        if mov.numero = pNum then
             existe_mov := 1;
         end if;
     end loop;
@@ -459,7 +459,7 @@ end;
 /* Consulta de los datos */
 create or replace procedure consultarCliente(pCod integer)
 as
-    cursor clientes (cod) is    
+    cursor clientes(cod integer) is    
     select * from cliente where codigo = cod;
 begin
     /* Muestra los datos de un cliente concreto */
@@ -467,7 +467,6 @@ begin
         dbms_output.put_line('CLIENTE: ' || cli.codigo);
         dbms_output.put_line('  -Nombre: ' || cli.nombre);
         dbms_output.put_line('  -Contraseña: ' || cli.contrasena);
-        dbms_output.put_line('  -Último Acceso: ' || cli.ultimoAcceso);
         dbms_output.put_line('  -Foto: ' || cli.foto);
     end loop;
 
@@ -488,7 +487,7 @@ begin
     
     dbms_output.put_line('CLIENTE: ' || pCodCli);
     for c in cuentas loop
-        verMovimientosDeCuenta(c.numero)
+        verMovimientosDeCuenta(c.numero);
     end loop;
 
     -- Control de excepciones
@@ -521,7 +520,7 @@ begin
     exception
         when no_data_found then
             -- Si no existen datos
-            dbms_output.put_line('ERROR: No existe el movimiento indicado.')
+            dbms_output.put_line('ERROR: No existe el movimiento indicado.');
 
 end;
 

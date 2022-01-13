@@ -1,8 +1,9 @@
+ALTER SESSION SET NLS_DATE_FORMAT='YYYY/MM/DD/';
+
 CREATE TABLE cliente (
 	codigo INTEGER,
 	nombre VARCHAR2(30),
 	contrasena VARCHAR2(30),
-	ultimoAcceso TIMESTAMP,
     foto VARCHAR2(20),
 	PRIMARY KEY (codigo)
 );
@@ -26,11 +27,11 @@ CREATE TABLE movimiento (
     PRIMARY KEY (numero, cueNumero)
 );
 
-INSERT INTO cliente VALUES (101,'Ana','Ana','2021-09-01 10:39:58.376','1001.jpg');
-INSERT INTO cliente VALUES (102,'Juan','Juan','2021-10-02 12:59:59.999','1002.jpg');
-INSERT INTO cliente VALUES (103,'Sara','Sara','2021-10-03 15:39:18.000','1003.jpg');
-INSERT INTO cliente VALUES (104,'Manuel','Manuel','2021-11-04 19:11:23.655','1004.jpg');
-INSERT INTO cliente VALUES (105,'Rosa','Rosa','2021-11-05 23:45:08.791','1005.jpg');
+INSERT INTO cliente VALUES (101,'Ana','Ana','1001.jpg');
+INSERT INTO cliente VALUES (102,'Juan','Juan','1002.jpg');
+INSERT INTO cliente VALUES (103,'Sara','Sara','1003.jpg');
+INSERT INTO cliente VALUES (104,'Manuel','Manuel','1004.jpg');
+INSERT INTO cliente VALUES (105,'Rosa','Rosa','1005.jpg');
 
 INSERT INTO cuenta VALUES (1001,'2002-12-18',11.72,0.0,1.75,101);
 INSERT INTO cuenta VALUES (1002,'2009-11-2',15.94,0.0,0.55,102);
