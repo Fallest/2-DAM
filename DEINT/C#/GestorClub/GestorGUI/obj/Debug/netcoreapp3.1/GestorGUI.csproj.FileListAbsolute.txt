@@ -5,11 +5,9 @@ C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\bin\Debug\netcoreap
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\bin\Debug\netcoreapp3.1\GestorGUI.dll
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\bin\Debug\netcoreapp3.1\GestorGUI.pdb
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.csproj.AssemblyReference.cache
-C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\MainWindow.g.cs
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\App.g.cs
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI_MarkupCompile.cache
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI_MarkupCompile.lref
-C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\MainWindow.baml
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.g.resources
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.AssemblyInfoInputs.cache
@@ -18,3 +16,5 @@ C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreap
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.dll
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.pdb
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.genruntimeconfig.cache
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\AddWindow.g.cs
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\AddWindow.baml
