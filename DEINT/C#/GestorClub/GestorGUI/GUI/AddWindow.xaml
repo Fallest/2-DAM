@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GestorGUI"
         mc:Ignorable="d"
-        Title="Gestor Club" Height="380" Width="550">
+        Title="Gestor Club" Height="400" Width="550">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="20,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" FontStyle="Normal" TextDecorations="{x:Null}"><Run Language="es-es" Text="Añadir un ejemplar"/></TextBlock>
         <Button Content="Cancelar" HorizontalAlignment="Left" Margin="45,324,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
@@ -14,14 +14,16 @@
         <Label Content="Título:" HorizontalAlignment="Left" Margin="44,144,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.533" FontSize="20" Height="35"/>
         <Label Content="Género:" HorizontalAlignment="Left" Margin="42,191,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.533" FontSize="20"/>
         <Button Content="Añadir" HorizontalAlignment="Left" Margin="425,324,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <ComboBox HorizontalAlignment="Left" Margin="154,97,0,0" VerticalAlignment="Top" Width="144" FontSize="20" SelectedIndex="0">
+        <ComboBox x:Name="TipoEjemplar" HorizontalAlignment="Left" Margin="154,97,0,0" VerticalAlignment="Top" Width="144" FontSize="20" SelectedIndex="0">
             <Label Content="Videojuego"/>
             <Label Content="Película"/>
         </ComboBox>
         <TextBox HorizontalAlignment="Left" Margin="155,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20"/>
         <TextBox HorizontalAlignment="Left" Margin="155,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="20"/>
-        <Label Content="Fecha de Lanzamiento:" HorizontalAlignment="Left" Margin="41,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.533" FontSize="16"/>
-        <TextBox HorizontalAlignment="Left" Margin="214,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" FontSize="16" Text="DD/MM/YYYY"/>
+        <Label Content="Fecha de Lanzamiento:" HorizontalAlignment="Left" Margin="41,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.533" FontSize="16" Visibility="Hidden"/>
+        <TextBox HorizontalAlignment="Left" Margin="214,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" FontSize="16" Text="DD/MM/YYYY" Visibility="Hidden"/>
+        <Label Content="Plataformas:" HorizontalAlignment="Left" Margin="42,274,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.478,0.533" FontSize="16"/>
+        <TextBox HorizontalAlignment="Left" Margin="155,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="164" FontSize="16" Text=""/>
     </Grid>
 
 </Window>

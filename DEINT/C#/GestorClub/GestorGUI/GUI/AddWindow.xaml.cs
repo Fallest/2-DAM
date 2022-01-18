@@ -27,7 +27,14 @@ namespace GestorGUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            
+            if (TipoEjemplar.SelectedIndex == 0)
+            {
+                MessageBox.Show("Hello.");
+            }
+            else if (TipoEjemplar.SelectedIndex == 1)
+            {
+                MessageBox.Show("Goodbye.");
+            }
         }
     }
 }

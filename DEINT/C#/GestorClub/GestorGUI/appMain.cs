@@ -12,8 +12,8 @@ class GestorClub {
     };
 
     private static Fondo _fondo = new Fondo(_socios);
-
-    /*static void Main(string[] args) {
+    /*
+    static void Main(string[] args) {
         DataManager.LeerDatos(_fondo);
 
         //InicializarDatos();
@@ -21,8 +21,8 @@ class GestorClub {
         IniciarPrograma();
 
         DataManager.EscribirDatos(_fondo);
-    }*/
-
+    }
+    */
     /*-------------------------------------------------------------------------------*/
     private static void InicializarDatos() {
         /*
