@@ -29,7 +29,7 @@ namespace GestorGUI
         {
             if (TipoEjemplar.SelectedIndex == 0)
             {
-                MessageBox.Show("Hello.");
+                MessageBox.Show("Hello .");
             }
             else if (TipoEjemplar.SelectedIndex == 1)
             {
