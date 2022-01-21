@@ -6,7 +6,7 @@ import java.net.*;
  * Ejercicio 1:
  * Es necesario importar java.net
  *  1. Definir un objeto InetAddress de nombre dir. Obtener la IP de la máquina local.
- *  2. Crear el método priv static void pruebaMetodos(InetAddress dir) que pruebe 
+ *  2. Crear el método priv static void pruebaMetodos(InetAddress dir) q ue pruebe 
  *      los métodos GetByName(), getLocalHost(), getHostName(), getHostAdress(),
  *      toString(), y getCanonicalHostName().
  *  3. usar el objeto para obtener la IP de www.google.es.
