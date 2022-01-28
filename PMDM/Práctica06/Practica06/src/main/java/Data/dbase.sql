@@ -55,7 +55,7 @@ create table delivery(
     del_cod     integer         not null primary key,
     company     varchar(30),
     del_name    varchar(30),
-    pw          varchar(20)    not null
+    pw          varchar(20)     not null
 );
 
 create table shops(
