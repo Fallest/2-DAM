@@ -9,15 +9,13 @@ public class Client {
     private String pic;
     private Date reg_date;
     private String dir;
-    private String pw;
 
     // Constructor
-    public Client(int nif, String pic, Date reg_date, String dir, String pw) {
+    public Client(int nif, String pic, Date reg_date, String dir) {
         this.nif = nif;
         this.pic = pic;
         this.reg_date = reg_date;
         this.dir = dir;
-        this.pw = pw;
     }
 
     // Setters y Getters
@@ -53,17 +51,9 @@ public class Client {
         this.dir = dir;
     }
 
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
     // toString
     @Override
     public String toString() {
-        return "Client{" + "nif=" + nif + ", pic=" + pic + ", reg_date=" + reg_date + ", dir=" + dir + ", pw=" + pw + '}';
+        return "Client{" + "nif=" + nif + ", pic=" + pic + ", reg_date=" + reg_date + ", dir=" + dir + '}';
     }
 }
