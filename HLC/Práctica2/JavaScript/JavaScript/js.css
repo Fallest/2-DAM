@@ -1,0 +1,81 @@
+section {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    margin-bottom: 10%;
+    top: 100px;
+}
+
+article {
+    margin-bottom: 5%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    background-color: #efe4e4;
+}
+article * {
+    background-color: #efe4e4;
+}
+
+article input, article select {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+article-title {
+    position: relative;
+    left: 0;
+    bottom: 10px;
+    margin: 1%;
+    margin-left: 0;
+    padding: 1%;
+    background-color: #d2bcc0;
+    font-size: 200%;
+    border-radius: 10px;
+}
+
+article-content {
+    padding-top: 1%;
+    text-indent: 20px;
+    border-radius: 10px;
+}
+
+pre {
+    background-color: #1c1f23;
+    border: 5px solid orange;
+    border-radius: 10px;
+    color: #d7d4a3;
+    padding-left: 5%;
+    text-indent: 0;
+    width: 80%;
+}
+
+.italic {
+    font-style: italic;
+}
+
+/* Colores para los elementos de la lista desplegable */
+#colorAzul {
+    background-color: #a0a0da;
+}
+
+#colorVerde {
+    background-color: #bedaa0;
+}
+
+#colorRojo {
+    background-color: #daa0a0;
+}
+
+#colorNegro {
+    background-color: #000000;
+    color: white;
+}
+
+.textoModificable {
+    border-radius: 3px;
+    padding: 5px;
+}

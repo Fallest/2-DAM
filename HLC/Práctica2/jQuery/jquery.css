@@ -1,0 +1,67 @@
+section {
+    position: relative;
+    width: 90%;
+    left: 5%;
+    margin-bottom: 10%;
+    top: 100px;
+}
+
+article {
+    margin-bottom: 5%;
+    padding-right: 10%;
+    padding-left: 10%;
+    padding-bottom: 1%;
+    border-radius: 10px;
+    background-color: #6786c7;
+}
+article * {
+    background-color: #6786c7;
+}
+
+article input, article select {
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+article-title {
+    position: relative;
+    left: 0;
+    bottom: 10px;
+    margin: 1%;
+    margin-left: 0;
+    padding: 1%;
+    background-color: #495b81;
+    font-size: 200%;
+    border-radius: 10px;
+    color: white;
+}
+
+article-content {
+    color: white;
+    padding-top: 1%;
+    text-indent: 20px;
+    border-radius: 10px;
+}
+
+pre {
+    background-color: #1c1f23;
+    border: 5px solid orange;
+    border-radius: 10px;
+    color: #d7d4a3;
+    padding-left: 5%;
+    text-indent: 0;
+    width: 80%;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.codesect {
+    background-color: #a8a7a7;
+    padding: 3px;
+    padding-top: 0;
+    border-radius: 3px;
+}

@@ -1,0 +1,169 @@
+.header {
+  /* The header is always present at the top of the screen. */
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 10vh;
+  background-color: #59b3e7;
+  border-bottom: 1vh solid #1f506d;
+
+  font-size: 8vh;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  font-family: Verdana;
+  font-weight: bolder;
+}
+
+.mainNav {
+
+  position: fixed;
+  top: 10.3vh;
+  width: 15%;
+  left: 0;
+  bottom: 0;
+  background-color: #59b3e7;
+  border-right: 1vh solid #1f506d;
+}
+
+.mainNav ul {
+  /* Class for the list of links. */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: #59b3e7;
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
+li a {
+  /* Style applied to the links of the list. */
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-family: Verdana;
+  background-color: #59b3e7;
+}
+
+.goBack {
+  position: absolute;
+  bottom: 10vh;
+  left: 3vw;
+  padding: 5px;
+
+  color: white;
+  background-color: #1f506d;
+  border: 3px solid #0c2f44;
+
+  text-decoration: none;
+
+}
+
+th{
+  column-span: all;
+  text-align: center;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+}
+
+img{
+
+  width: auto;
+  padding-left: 25%;
+
+}
+
+aside {
+  width: 30%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  font-style: italic;
+  background-color: #59b3e785;
+}
+
+body{
+  padding-top: 5%;
+  padding-left: 16%;
+  background-color: #e8f3fa;
+}
+
+.footerNav nav table{
+  text-align: center;
+  padding: 20px;
+  padding-bottom: 30px;
+  border: 2px solid black;
+  color: rgb(0, 0, 0);
+  background-color: #59b3e7;
+  width: 100%;
+}
+
+.header
+{
+    /* The header is always present at the top of the screen. */
+	color:hsl(10, 18%, 93%);
+	font-family: Courier New, sans-serif;
+	text-align:center;
+	background-color: #59b3e7; 
+  border-bottom: 1vh solid #1f506d;
+	width: 100%;
+	height: 70px;
+}
+
+.footer {
+  /* The footer is at the end of the page. */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 30px;
+  width: 100%;
+  background-color: #59b3e7;
+  border-top: 1vh solid #59b3e7;
+}
+
+
+.footer a
+{
+	color: hsl(10, 18%, 93%);
+	text-decoration: none;
+}
+
+a:hover {
+  
+  font-weight: bold;
+  color: aliceblue;
+  text-decoration: none;
+
+}
+
+article h1{
+
+  text-decoration: underline wavy;
+  text-decoration-color: #59b3e7;
+
+}
+
+.code{
+  background-color: #59b3e746;
+  font-weight: bolder;
+  font-size: 12px;
+  margin-left: 25%;
+  margin-right: 35%;
+  
+}
+
+h1{
+  font-weight: bolder;
+  font-size: 25px;
+}
+
+.divBack{
+  text-align: center;
+  font-weight: bolder;
+  font-size: 20px;
+}

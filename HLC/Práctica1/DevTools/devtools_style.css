@@ -1,0 +1,135 @@
+* {
+    background-color: aliceblue;
+}
+
+span {
+    font-weight: bold;
+}
+
+img {
+    max-width: 50vw;
+    max-height: 50vh;
+}
+
+.note {
+    font-style: italic;
+}
+
+.back-button {
+    position: absolute;
+    bottom: 3vh;
+    left: 5vw;
+    padding: 5px;
+
+    color: white;
+    background-color: #1f506d;
+    border: 3px solid #0c2f44;
+
+    text-decoration: none;
+
+}
+
+.header {
+    /* The header is always present at the top of the screen. */
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 10vh;
+    background-color: #59b3e7;
+    border-bottom: 1vh solid #1f506d;
+
+    font-size: 8vh;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    font-family: Verdana;
+}
+
+.footer {
+    /* The footer is at the end of the page. */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background-color: #1f506d;
+    border-top: 1vh solid white;
+    color: white;
+}
+
+.footer a {
+    background-color: #1f506d;
+    color: white;
+    text-decoration: none;
+    font-size: 1vw;
+}
+
+.navigator {
+    /* The navigator is always present on the left side of the screen, under the header. */
+    position: fixed;
+    top: 11vh;
+    width: 15%;
+    left: 0;
+    bottom: 0;
+    border-right: 1vh solid #1f506d;
+}
+
+.navigator > ul {
+    /* Class for the list of links. */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    background-color: #59b3e7;
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
+li a {
+    /* Style applied to the links of the list. */
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-family: Verdana;
+    background-color: #59b3e7;
+}
+
+li a.active {
+    /* Style for active links. */
+    background-color: #1f506d;
+    color: white;
+}
+
+li a:hover:not(.active) {
+    /* Style for hovered links. */
+    background-color: #1f506d;
+    color: white;
+}
+
+.content {
+    /* Class for a container for the content of the page. It takes the rest of the available space. */
+    position: relative;
+    top: 11vh;
+    right: 0;
+    left: 15%;
+    width: 85%;
+    
+}
+
+.content-section {
+    /* Class for each section of the text. */
+    margin-left: 5vw ;
+    margin-right: 10vw ;
+    text-align: left;
+    font-family: Verdana;
+    font-size: 2.25vh;
+}
+
+.content-section-title {
+    /* Class for the title of a section. */
+    text-align: center;
+    font-family: Verdana;
+    font-size: 4vh;
+    background-color: #8799a4;
+}

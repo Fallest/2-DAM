@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">  
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Authors -->
+    <meta name="Author" lang="es" content="David Bernal Navarrete">
+    <meta name="Author" lang="es" content="Mercedes Cruz Portillo">
+    <meta name="Author" lang="es" content="Rocío Ibáñez Moreno">
+    <meta name="Author" lang="es" content="Juan Francisco Hernández Domínguez">
+    <meta name="Author" lang="es" content="Patricia E. Sánchez Pérez">
+    <meta name="Author" lang="es" content="Paula Moscosio Navarro">
+ 
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="devtools_style.css">
+ 
+    <!-- Icon -->
+    <link rel="shortcut icon" href="../index/images/favicon.png" type="image/ico" />	
+
+    <!-- Tab title -->
+    <title>Tools for Developers</title>
+</head>
+
+<body>
+    <!-- Content -->
+    <div class="content">
+        <!-- Introduction -->
+        <div class="content-section-title" id="intro">
+            Introduction
+        </div>
+        <div class="content-section">
+            <p>Browsers often offer tools to make it easier for developers to do their work. Each browser has its own ways, 
+                 but most of them have some common tools. In this section, we will study and review the tools offered by Firefox. 
+                 You can find detailed information from the original source <a href="https://firefox-dev.tools/">here</a> .
+            </p>
+            <p>
+                To access Firefox’s developer tools, you may go to the <span>Application Menu > More Tools > Web Developer Tools</span>. Alternatively, 
+                you can use the default keyboard shortcut: <span>CTRL+SHIFT+I</span>.
+            </p>
+
+            <p><span class="note">Note:</span> In most browsers, you can also use the function key <span>F12</span> to quickly access the developer tools.</p>
+
+            <img src="images/1.png" alt="1">
+            <img src="images/2.png" alt="2">
+
+            <p>Now we will do a rundown of the different tools offered by Firefox:</p>
+            <ul>
+                <li><span>Inspector</span>: Used to inspect and redefine the code live, so yo can see how the changes affect the page in each moment.</li>
+                <li><span>Console</span>: Used for tracking of CSS, JavaScript, security, and network issues.</li>
+                <li><span>Debugger</span>: JavaScript debugger.</li>
+                <li><span>Network</span>: Used to monitor network requests from and to the site.</li>
+                <li><span>Storage</span>: Used to add, modify and remove cache, cookies, databases and sesión data.</li>
+                <li><span>Responsive Design Mode</span>: Used to test sites on emulated devices in the browser.</li>
+                <li><span>Visual Editing</span>: Support to fine-tune animations, alignment and padding.</li>
+                <li><span>Performance</span>: Used to find and unblock bottlenecks, streamline processes, and optimize resources.</li>
+                <li><span>Memory</span>: Used to find memory leaks.</li>
+            </ul>
+            
+            Let’s dive into them!
+
+        </div>
+
+        <!-- Inspector -->
+        <div class="content-section-title" id="inspector">
+            Inspector
+        </div>
+        <div class="content-section">
+            <p>
+                The Inspector is used to examine and modify the HTML and CSS of the page. It can be used both in a 
+                local copy of the page loaded in Firefox, or in a remote target (e.g. Firefox for Android). This is how it looks:
+            </p>
+            <img src="images/3.png" alt="3">
+            <p>Using the Inspector, you can:</p>
+            <ul>
+                <li>Examine and edit HTML.</li>
+                <li>Examine and edit the box model.</li>
+                <li>Inspect and select colors.</li>
+                <li>Reposition elements in the page.</li>
+                <li>Edit fonts.</li>
+                <li>Visualize transforms.</li>
+                <li>Examine and edit CSS, including filters, shapes, grid layouts and flexbox layouts.</li>
+                <li>Examine event listeners.</li>
+                <li>Work with animations.</li>
+                <li>View images.</li>
+            </ul>
+            
+            <p>The Inspector has a UI to quickly access the three top-level components:</p>
+            <ul>
+                <li>HTML pane.</li>
+                <li>CSS pane.</li>
+                <li>Layout pane.</li>
+            </ul>
+            
+            <img src="images/4.png" alt="4">
+            <p>The Inspector also has quick acces to other useful panes or views, like:</p>
+            <ol type="1">
+                <li>The Rules view, that allows to quickly see all the rules applied to any given object. <br/>
+                <img src="images/5.png" alt="5"></li>
+                <li>The Changes view: where you can see the chages applied while in the rules view.
+                <img src="images/6.png" alt="6"></li>
+                <li>The Computed view: which shows the CSS style applied to the current selected element.
+                <img src="images/7.png" alt="7"></li>
+                <li>The Compatibility view: shows CSS compatiility issues for properties applied to the selected element. 
+                It will show icons for the browsers that <span>support</span> the properties, and will note properties that are either experimental or deprecated.
+                <img src="images/8.png" alt="8"></li>
+                <li>The Fonts view: show all the fonts used in the whole page, with editable samples.<br/>
+                <img src="images/9.png" alt="9"></li>
+                <li>The Animations view: shows details of animations applied to the selected element and allows the developer to pause them.
+                <img src="images/10.png" alt="10"></li>
+            </ol>
+        </div>
+
+        <!-- Console -->
+        <div class="content-section-title" id="console">
+            Console
+        </div>
+        <div class="content-section">
+            <p>
+                The Web Console allows the developer to interact with the page by executing JavaScript 
+                code in the context of the page itself. It also logs all the information associated with the page.
+                 The Console has a keyboard shortcut: <span>CTRL+SHIFT+K</span>.
+            </p>
+            <img src="images/11.png" alt="11">
+            <p>
+                Also, you can use some commands that are not JavaScript. They are listed 
+                <a href="https://developer.mozilla.org/en-US/docs/Tools/Web_Console/Helpers">here</a>.
+            </p>
+        </div>
+
+        <!-- Debugger -->
+        <div class="content-section-title" id="jsdebugger">
+            JavaScript Debugger
+        </div>
+        <div class="content-section">
+            <p>
+                The Debugger allows the developer to examine step by step JavaScript code and modify its state to track down bugs or do testing. 
+            </p>
+            <img src="images/12.png" alt="12">
+            <p>
+                The use of the debugger is like many others: with breakpoints you can stop the execution at a given moment, 
+                and can also go step by step through the code. It also has watch expressions and logpoints.
+            </p>
+        </div>
+
+        <!-- Network monitor -->
+        <div class="content-section-title" id="netmon">
+            Network Monitor
+        </div>
+        <div class="content-section">
+            <p>
+                It shows all the HTTP requests Firefox makes: how long they take and detailed information about the request. 
+                The shortcut for this tool is <span>CTRL+SHIFT+E</span>. When you first open the monitor, it will not show any information, 
+                since it starts logging the requests from the moment you open it.  
+            </p>
+            <img src="images/13.png" alt="13">
+            <p>
+                After reloading the page:
+            </p>
+            <img src="images/14.png" alt="14">
+            <p>
+                There is a load of useful information here. <br/>
+                To access an indepth article of the Network Monitor, go <a href="https://developer.mozilla.org/en-US/docs/Tools/Network_Monitor">here</a>.
+            </p>
+        </div>
+
+        <!-- Storage -->
+        <div class="content-section-title" id="storage">
+            Storage
+        </div>
+        <div class="content-section">
+            <p>The Storage Inspector allows the developer can be used to examine the following types of data stored:</p>
+            <ul>
+                <li>Cache storage: any caches created using the Cache API.</li>
+                <li>Cookies: All the cookies created by the page or any iframes inside the page.</li>
+                <li>IndexedDB: All IndexedDB databases created by the page or any iframes inside of it, their Object stores, and the items stored in these Object stores.</li>
+                <li>Local Storage: All local sotrage items created by the page or any iframes inside of it.</li>
+                <li>Session storage: All session storage items created byb the page or any iframes inside it.</li>
+            </ul>
+            
+            <p>At the moment the Storage inspector allows read only access, but storage editing is in the making for future releases.</p>
+            <p>The storage inspector separates the different types of storage.</p>
+            <img src="images/15.png" alt="15">
+        </div>
+
+        <!-- RD mode -->
+        <div class="content-section-title" id="rdmode">
+            Responsive Design Mode
+        </div>
+        <div class="content-section">
+            <p>
+                Responsive design is a type of design which objective is to allow access to the widest range of devices. 
+                This mode allows the developer to simulate screen size, pixel density and touchscreen on one device, so that 
+                the website design can be tested. 
+            </p>
+            <p>
+                This mode is a toggle, and to activate it you have to click the <span>Responsive Design Mode</span> button on the Developer Tools, 
+                or use its keyboard shortcut: <span>CTRL+SHIFT+M</span>.
+            </p>
+            <img src="images/16.png" alt="16">
+            <p>
+                The default screen size when activated is 320x480 px. To change the properties of the simulated device, you can click on the <span>Settings</span> button.
+            </p>
+            <img src="images/17.png" alt="17">
+        </div>
+
+        <!-- Style editor -->
+        <div class="content-section-title" id="styleedit">
+            Style Editor
+        </div>
+        <div class="content-section">
+            <p>
+                The style editor allows the developer to either view and edit stylesheets applied to the page; 
+                create new stylesheets for the page; or import and apply stylesheets for the page.
+            </p>
+            <p>
+                To the left of the editor are the CSS files, and on the right is the editor itself.
+            </p>
+            <img src="images/18.png" alt="18">
+            <p>
+                By clicking the eyeball button at the left side of the files, you can toggle the use 
+                of said file on and off. Also, any changes made in the editor are immediately applied 
+                to the page. And the editor supports autocomplete!
+            </p>
+            <p>
+                The style editor has a third section: the media sidebar. It appears whenever the selected 
+                document has a @media rule. The sidebar provides a link to the line where the rule is written.
+            </p>
+        </div>
+
+        <!-- Performance -->
+        <div class="content-section-title" id="perfor">
+            Performance
+        </div>
+        <div class="content-section">
+            <p>
+                The Performance tool is used to study the site’s responsiveness, JavaScript performance and layout performance. 
+                The tool profiles the page over a period of time, and then shows an overview of what te browser did to render the page during the profile.
+            </p>
+            <img src="images/19.png" alt="19">
+            <p>The performance tool also has other sub-tools for detailed examination of some aspects of the profiling. There are four sub-tools:</p>
+            <ul>
+                <li>The Waterfall (the one used in the picture above) shows the different operations the browser performed.</li>
+                <li>The Call Tree shows only the JavaScript functions the browser spend more time in.
+                <img src="images/20.png" alt="20"></li>
+                <li>The Flame Chart shows the JavaScript call stack during the profile.
+                <img src="images/21.png" alt="21"></li>
+                <li>The Allocations view only appears when you select the “Record Allocations”
+                in the Performance tool settings, and it shows the heap allocations made by the code during the profile.
+                <img src="images/22.png" alt="22"></li>
+            </ul>
+            
+        </div>
+
+        <!-- Memory -->
+        <div class="content-section-title" id="memory">
+            Memory
+        </div>
+        <div class="content-section">
+            <p>
+                The Memory tool allows the developer to take a snapshot of the memory heap of the selected tab. 
+                It then provides views of the heap that indicate which object are using memory and where exactly 
+                in the code there is memory being allocated.
+            </p>
+            <img src="images/23.png" alt="23">
+            <p>To analyze the snapshots, the tool provides three views:</p>
+            <ul>
+                <li>The Tree map view: it’s the one shown in the picture above.</li>
+                <li>The Aggregate view: shows memory usage as a table of allocated types.
+                <img src="images/24.png" alt="24"></li>
+                <li>The Dominators view: shows the size of objects plus the size of other objects that they keep alive through references. 
+                <img src="images/25.png" alt="25"></li>
+            </ul>
+            
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <a href="mailto:dbernav2306@g.educaand.es">dbernav2306@g.educaand.es &emsp;</a>
+            <a href="mailto:mcrupor155@g.educaand.es">mcrupor155@g.educaand.es &emsp;</a>
+            <a href="mailto:ribamor290@g.educaand.es">ribamor290@g.educaand.es &emsp;</a>
+            <a href="mailto:jherdomi495@g.educaand.es">jherdomi495@g.educaand.es &emsp;</a>
+            <a href="mailto:psanper307@g.educaand.es">psanper307@g.educaand.es &emsp;</a>
+            <a href="mailto:pmosnav3003@g.educaand.es">pmosnav3003@g.educaand.es</a>
+        </div>
+    </div>
+
+    <!-- Navigator -->
+    <div class="navigator">
+        <!-- List of all links -->
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#inspector">Inspector</a></li>
+            <li><a href="#console">Console</a></li>
+            <li><a href="#jsdebugger">JavaScript Debugger</a></li>
+            <li><a href="#netmon">Network Monitor</a></li>
+            <li><a href="#storage">Storage</a></li>
+            <li><a href="#rdmode">Responsive Design Mode</a></li>
+            <li><a href="#styleedit">Style Editor</a></li>
+            <li><a href="#perfor">Performance</a></li>
+            <li><a href="#memory">Memory</a></li>
+        </ul>
+
+        <!-- Go back to index button -->
+        <a href="../index/index.html" class="back-button">Go back</a>
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+        Tools for developers
+    </div>
+
+</body>

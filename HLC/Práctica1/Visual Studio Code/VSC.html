@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <!-- Authors -->
+    <meta name="Author" lang="es" content="David Bernal Navarrete">
+    <meta name="Author" lang="es" content="Mercedes Cruz Portillo">
+    <meta name="Author" lang="es" content="Rocío Ibáñez Moreno">
+    <meta name="Author" lang="es" content="Juan Francisco Hernández Domínguez">
+    <meta name="Author" lang="es" content="Patricia E. Sánchez Pérez">
+    <meta name="Author" lang="es" content="Paula Moscosio Navarro">
+
+    <meta name="title" content="Visual Studio Code">
+    <meta name="description" content="Visual Studio Code User Manual">
+    <title>Visual Studio Code Manual</title>
+    <!-- Icono de la pestaña -->
+    <link rel="shortcut icon" href="../index/images/favicon.png" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="header">
+            Visual Studio Code
+        </div>
+    </header>
+
+
+    <div class="mainNav">
+        <nav>
+            <ul>
+                <li><a href="#What_is">What is VS Code?</a></li>
+                <li><a href="#downloadAndInstall">How to download and install VS Code?</a></li>
+                <li><a href="#UsersWorkspace">How to create user and change workspace settings?</a></li>
+                <li><a href="#settingEditor">How to customize settings?</a></li>
+                <li><a href="#languageSpecific">How to customize editor language?</a></li>
+                <br />
+                <li><a href="../index/index.html" class="goBack">Go back to index</a></li>
+            </ul>
+
+        </nav>
+    </div>
+
+    <section class="What_is" id="What_is">
+        <article>
+            <h1>What is Visual Studio Code?</h1>
+            <p>Visual Studio Code is a source code editor developed by Microsoft for Windows, Linux and macOS. It is a
+                super fast and lightweight Source Code Editor which can be used to view, edit, run and debug source code
+                for applications. It is mainly used by front-end developers.</p>
+            <img src="images/VSCode.png" alt="First view of VSCode" width="600" height="400">
+        </article>
+    </section>
+
+    <section>
+
+        <h2 id="downloadAndInstall">Setup on Windows</h2>
+
+        <section class="download_Install">
+
+            <article>
+                <p>To get the most out of Visual Studio Code, start by installing VS Code for your platform and
+                    configure
+                    the tool set for your development needs.</p>
+                <h1>Installation</h1>
+                <aside>
+                    <p>.NET Framework 4.5.2 or higher is required for VS Code.</p>
+                </aside>
+                <ol>
+                    <li>Download the Visual Studio Code installer for Windows.</li>
+                    <li>Once it is downloaded, run the installer (VSCodeUserSetup-{version}.exe). </li>
+                    <li>Once you have installed Visual Studio Code, you can install some additional components or tools
+                        like Git, Node.js, TypeScript and so on.</li>
+                </ol>
+
+            </article>
+
+            <article id="UsersWorkspace">
+                <h1>Creating User and Workspace Settings</h1>
+                <p>To open your user and workspace settings, use the following VS Code menu command:<br />
+                <div>
+                    <pre>
+                        Windows/Linux - File > Preferences > Settings <br />
+                        On macOS - Code > Preferences > Settings</pre>
+                </div>
+                </p>
+                <p>You can also open the Settings editor from the Command Palette (Ctrl+Shift+P) with Preferences: Open
+                    Settings or use the keyboard shortcut (Ctrl+,). <br />
+                    In the example below, the side bar location and file icon theme have been changed.</p>
+
+                <img src="images/sidebarchanged.png" alt="Side bar change" width="600" height="400">
+                <p>Changes to settings are reloaded by VS Code as you change them. Modified settings are now indicated
+                    with
+                    a blue line similar to modified lines in the editor. The gear icon opens a context menu with options
+                    to
+                    reset the setting to its default value as well as copy setting as JSON.</p>
+            </article>
+        </section>
+
+        <section class="customizeVSCode" id="settingEditor">
+            <h1>VS Code settings</h1>
+            <article>
+                <h1>Settings editor</h1>
+                <p>When you open the settings editor, you can search and discover settings you are looking for. When you
+                    search using the Search bar, it will not only show and highlight the settings matching your
+                    criteria,
+                    but also filter out those which are not matching. This makes finding settings quick and easy.</p>
+                <img src="images/searchSettings.png" alt="How to search settings pictures" width="600" height="400">
+
+                <p>VS Code extensions can also add their own custom settings and they will be visible under an
+                    Extensions
+                    section.</p>
+
+            </article>
+
+            <article id="languageSpecific">
+                <h1>Language-specific editor settings</h1>
+                <p>To customize your editor by language, run the global command Preferences: Configure Language Specific
+                    Settings from the Command Palette (Ctrl+Shift+P) which opens the language picker. Select the
+                    language you want, which then opens your user settings.json with the language entry where you can
+                    add applicable settings.</p>
+                <img src="images/editorLanguage.png" alt="How to change language" width="700" height="150">
+                <p>Select the language via the dropdown:</p>
+                <img src="images/languageSelection.png" alt="Language selection" width="750" height="200">
+                <p>Add language-specific settings to your user settings:</p>
+                <img src="images/languageSettings.png" alt="Language settings" width="750" height="400">
+                <p>If you have a file open and you want to customize the editor for this file type, select the Language
+                    Mode in the Status Bar to the bottom-right of the VS Code window. This opens the Language Mode
+                    picker with an option Configure 'language_name' language based settings. Selecting this opens your
+                    user settings.json with the language entry where you can add applicable settings. <br />
+                    Language-specific editor settings in your user settings override workspace settings.
+                </p>
+
+                <p>You can scope language-specific settings to the workspace by placing them in the workspace settings
+                    just like other settings. If you have settings defined for a language in both user and workspace
+                    scopes, then they are merged by giving precedence to the ones defined in the workspace. <br />
+                    The following examples customize editor settings for language modes typescript and markdown.
+
+                <div class="code">
+                    <pre>
+
+                    {
+                    "[typescript]": {
+                        "editor.formatOnSave": true,
+                        "editor.formatOnPaste": true
+                    },
+                    "[markdown]": {
+                        "editor.formatOnSave": true,
+                        "editor.wordWrap": "on",
+                        "editor.renderWhitespace": "all",
+                        "editor.acceptSuggestionOnEnter": "off"
+                    }
+                    }
+                    </pre>
+                </div>
+
+                <br />
+                You can use IntelliSense in settings.json to help you find allowed language-based settings. All editor
+                settings and some non-editor settings are supported. Some languages have default language-specific
+                settings already set, which you can review in defaultSettings.json opened with the Preferences: Open
+                Default Settings command.
+                </p>
+            </article>
+        </section>
+    </section>
+
+    <aside>
+        <div class="divBack">
+            <p><a href="#What_is">Go back to top</a></p>
+        </div>
+    </aside>
+
+    <footer>
+        <div class="footerNav">
+            <nav>
+                <table>
+
+                    <th colspan="4">Others development tools</th>
+                    <tr>
+                        <td><a href="../HTML5/HTML5.html">HTML5</a></td>
+                        <td><a href="../CSS3/CSS3.html">CSS3</a></td>
+                        <td><a href="../GitHub/GitHub.html">GitHub</a></td>
+                        <td><a href="../DevTools/devtools.html">Browser developer tools</a></td>
+                    </tr>
+                    <th colspan="4"><a href="../index/index.html">Go back to index</a></th>
+                </table>
+            </nav>
+        </div>
+        <div class="footer">
+            <center>
+                <a href="mailto:dbernav2306@g.educaand.es">dbernav2306@g.educaand.es &emsp;</a>
+                <a href="mailto:mcrupor155@g.educaand.es">mcrupor155@g.educaand.es &emsp;</a>
+                <a href="mailto:ribamor290@g.educaand.es">ribamor290@g.educaand.es &emsp;</a>
+                <a href="mailto:jherdomi495@g.educaand.es">jherdomi495@g.educaand.es &emsp;</a>
+                <a href="mailto:psanper307@g.educaand.es">psanper307@g.educaand.es &emsp;</a>
+                <a href="mailto:pmosnav3003@g.educaand.es">pmosnav3003@g.educaand.es</a>
+            </center>
+        </div>
+    </footer>
+
+</body>
+
+</html>

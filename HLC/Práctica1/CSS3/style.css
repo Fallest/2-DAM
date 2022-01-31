@@ -1,0 +1,40 @@
+body{
+    float: right;
+    font-style: Serif;
+    background-color: rgb(27, 188, 236);
+    box-shadow: inset;
+}
+
+p{
+    font-style: italic;
+    text-shadow: rgb(7, 7, 1);
+    text-indent: 50px;
+}
+
+li{
+    font-style: monospace;
+}
+
+table{
+    border-style: groove;
+    background-color: rgb(177, 84, 177);
+}
+
+h1{
+    text-align: center;
+}
+
+img{
+    margin: 3px;
+    padding-left: 400px;
+}
+
+aside{
+    width: 90%;
+    border-radius: 50%;
+}
+
+h2{
+    background-color: rgb(41, 111, 240);
+}
+

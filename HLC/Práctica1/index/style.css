@@ -1,0 +1,50 @@
+.header
+{
+    /* The header is always present at the top of the screen. */
+	color:hsl(10, 18%, 93%);
+	font-family: Courier New, sans-serif;
+	text-align:center;
+	background-color: hsl(12, 72%, 50%); 
+    border-bottom: 1vh solid hsl(18, 79%, 52%);
+	width: 100%;
+	height: 70px;
+}
+
+.footer {
+    /* The footer is at the end of the page. */
+    position: absolute;
+	text-align:center;
+    bottom: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    background-color: hsl(12, 72%, 50%);
+    border-top: 1vh solid hsl(18, 79%, 52%);
+}
+
+
+.footer
+{
+	color: hsl(10, 18%, 93%);
+	text-decoration: none;
+}
+
+a:link
+{
+	color: hsl(10, 18%, 93%);
+	text-decoration: none;
+}
+
+a:hover
+{
+	color:hsl(10, 18%, 93%);
+	font-size:20px;
+	text-decoration: none;
+}
+
+a:active
+{
+	color:rgb(255, 0, 0);
+	font-size:20px;
+	text-decoration: none;
+}

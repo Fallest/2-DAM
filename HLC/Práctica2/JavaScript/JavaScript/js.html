@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto 2</title>
+    <link rel="icon" href="../Img/Icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="../JavaScript/js.css" media="screen" />
+    <script src="../JavaScript/js.js" defer></script>
+</head>
+<body>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../Img/A1.png" height="50px">
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#MenuNavegacion"
+                aria-controls="#MenuNavegacion"
+                aria-expanded="false"
+                aria-label="Toogle navegacion">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse bg-dark" id="MenuNavegacion">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="../Front/front.html">Front-End</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Back/back.html">Back-End</a></li>
+                <li class="nav-item "><a class="nav-link" href="../JavaScript/js.html">JavaScript</a></li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Enlaces externos
+                    </a>
+                    <ul class="dropdown-menu bg-light">
+                        <li><a class="dropdown-item text-dark" href="../../Bootstrap/index.html">Bootstrap</a></li>
+                        <li><a class="dropdown-item text-dark" href="../../jQuery/jquery.html">jQuery</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- INICIO CONTENIDO DE LA PAGINA-->
+
+<section>
+    <!-- Introducción -->
+    <article>
+        <article-title>
+            JavaScript: Qué es y para qué se utiliza
+        </article-title>
+        <article-content>
+            <p>
+                JavaScript es un lenguaje de programación para implementar funcionalidades complejas en una página web.
+                Una página web de hoy en día está compuesta por tres capas: HTML, CSS y JavaScript.
+                <br/>
+                Estas tres tecnologías son las fundamentales para cualquier página que se aprecie hoy en día.
+                <br/>
+                El código HTML contiene la estructura y el texto; el CSS adorna y colorea el HTML; y JavaScript
+                añade la funcionalidad y el movimiento al HTML. Ese es el objetivo de JavaScript en entornos web.
+            </p>
+
+            <p>
+                JavaScript se vuelve mucho más potente si usamos APIs (<span class="italic">Application Programming
+                    Interfaces</span>). Una API son bloques de código listos para implementar en tu script. Puedes
+                imaginarlas como si fueran piezas de un ordenador: imaginemos que quieres montar un ordenador.
+                No vas a comprar los chips, transistores, condensadores y demás elementos electrónicos, y soldarlos
+                a una placa tú mismo, ¿verdad? Lo suyo sería comprar una placa base, tarjeta gráfica, CPU, etc. y
+                montar las piezas en los sitios que deben ocupar. Seamos realistas, si tuviéramos que construir
+                nuestros ordenadores de la primera forma, no creo que muchos tuviéramos uno. Pues lo mismo pasa con
+                las APIs, son las piezas ya construidas, siendo posible montarlas donde queramos.
+            </p>
+
+            <p>
+                Las APIs tienen dos categorías: APIs de terceros o APIs del navegador. Las APIs del navegador están
+                ya incluidas en el propio navegador (duh), lo cual las hace de fácil acceso, además de permitir
+                acceder a datos del entorno del ordenador.
+                <br/>
+                Algunos ejemplos de APIs del navegador son:
+            </p>
+            <ul>
+                <li>La API DOM (<span class="italic">Document Object Model</span>) te permite manipular el HTML y el CSS
+                    de una página, aplicando un estilo dinámico.</li>
+                <li>La API <span class="italic">Geolocation</span> se usa para obtener información de, como su
+                    propio nombre indica, geolocalización.</li>
+                <li>Las APIs de Canvas y WebGL se usan para crear animaciones y gráficos en 2D y 3D.</li>
+                <li>APIs de vídeo y sonido, como HTMLMediaElement y WebRTC, te permiten animar tu web con sonidos y vídeo. </li>
+            </ul>
+        </article-content>
+    </article>
+
+    <!-- Un ejemplo básico -->
+    <article>
+        <article-title>
+            Un ejemplo básico
+        </article-title>
+        <article-content>
+            <p>
+                A continuación veremos un pequeño ejemplo de lo que puede hacer JavaScript.
+                El ejemplo consiste en
+                <span class="textoModificable">lo que tú quieras</span>.
+            </p>
+            <p>
+                Usando el siguiente campo de texto, botones y lista, puedes modificar una frase del párrafo anterior.
+                Adelante, pruébalo.
+            </p>
+            <br/>
+            <input type="text" id="texto" class="campoModificar">
+            <input type="submit" value="Modificar texto" class="botonModificar">
+            <select id="estiloModificar" class="listaModificar">
+                <option selected="yes" id="colorNegro">Color negro</option>
+                <option id="colorRojo">Color rojo</option>
+                <option id="colorVerde">Color verde</option>
+                <option id="colorAzul">Color azul</option>
+            </select>
+
+            <p>
+                Echémosle un vistazo al código responsable de estos cambios, paso a paso.<br/>
+                Primero veamos las variables:
+            </p>
+            <pre>
+// Variables para los elementos del documento
+const texto = document.querySelector(".campoModificar");
+const botonModificar = document.querySelector(".botonModificar");
+const listaModificar = document.querySelector(".listaModificar");
+const textoModificable = document.querySelector(".textoModificable");
+
+// Para mostrar y ocultar texto
+const titulos = document.querySelectorAll("article-title");
+const contenido = document.querySelectorAll("article-content");
+            </pre>
+            <p>
+                Como podemos ver, no es necesario indicar el tipo de elemento que van a almacenar estas variables.
+                Simplemente indicamos si van a ser constantes (con <span class="italic">const</span>) o no constantes
+                (con <span class="italic">let</span> o <span class="italic">var</span>).
+                <br/>
+                Las variables que se usan aquí están almacenando objetos DOM (anteriormente mencionados), y son básicamente
+                objetos que representan etiquetas HTML. En el caso de las variables <span class="italic">titulos</span> y
+                <span class="italic">contenido</span> son arrays de objetos DOM.
+            </p>
+            <p>Ahora echémosle un vistazo a las funciones utilizadas: </p>
+            <pre>
+function cambiarTexto() {
+    textoModificable.textContent = texto.value;
+}
+
+function cambiarColor(index) {
+    let bgcol = "white";
+    let col = "black"
+    switch (index) {
+        case 0:
+            bgcol = "black";
+            col = "white";
+            break;
+        case 1:
+            bgcol = "#daa0a0";
+            col = "black";
+            break;
+        case 2:
+            bgcol = "#bedaa0";
+            col = "black";
+            break;
+        case 3:
+            bgcol = "#a0a0da";
+            col = "black";
+            break;
+    }
+    listaModificar.style.color = col;
+    textoModificable.style.color = col;
+
+    listaModificar.style.backgroundColor = bgcol;
+    textoModificable.style.backgroundColor = bgcol;
+}
+
+function toggleInfo(id) {
+    let state = contenido[id].style.display;
+    if (state === 'none') {
+        contenido[id].style.display = "block";
+        titulos[id].textContent =  titulos[id].textContent.replace("(clic para mostrar)", "");
+    } else {
+        titulos[id].textContent += " (clic para mostrar)";
+        contenido[id].style.display = "none";
+    }
+}
+            </pre>
+            <p>Aquí tenemos 3 funciones:</p>
+            <ul>
+                <li>Una función que cambia el texto de uno de los objetos que tenemos almacenados en una variable.</li>
+                <li>Otra que cambia el color de la lista desplegable y del texto que se cambia.</li>
+                <li>Y otra que esconde y muestra el contenido de los artículos.</li>
+            </ul>
+            <p>Vamos a estudiarlas una a una:</p>
+            <h4>Función cambiarTexto()</h4>
+            <p>
+                Esta función cambia el contenido textual de la etiqueta clasificada como "textoModificable" por el
+                contenido textual almacenado en la etiqueta clasificada como "campoModificar". Es decir, recupera el
+                texto escrito en el elemento input y lo pone en la etiqueta clasificada como "textoModificado".
+            </p>
+            <h4>Función cambiarColor(index)</h4>
+            <p>
+                Con el parámetro <span class="italic">index</span> le indicamos a la función qué elemento de la lista
+                desplegable se ha escogido, y dependiendo de cuál sea se cambiarán los atributos
+                <span class="italic">color</span> y <span class="italic">backgroundColor</span> de la lista y del texto
+                modificable.
+            </p>
+            <h4>Función toggleInfo(id)</h4>
+            <p>
+                Esta función usa los dos arrays de DOMs, titulos y contenido. El contenido de esta página está estructurado
+                por artículos, los cuales tienen un título y un contenido. Estos dos arrays almacenan los cuatro títulos
+                y secciones de contenido que hay en esta página.
+                <br/>
+                Con el parámetro <span class="italic">id</span> se le indica a la función qué título se ha hecho clic en,
+                y esconderá/mostrará el contenido respectivo de dicho título. El cambio de esconder o mostrar lo hará
+                modificando el valor del atributo <span class="italic">display</span>.
+                <br/>
+                Además, esta función modificará el contenido textual del título, añadiendo un
+                <span class="italic">(clic para mostrar)</span> si el contenido se encuentra oculto.
+            </p>
+
+            <p>Y por último, tenemos que decirle al código que preste atención al usuario en ciertas partes. Esto lo
+                haremos con <span class="italic">event listeners</span>:</p>
+            <pre>
+botonModificar.addEventListener("click", cambiarTexto);
+listaModificar.addEventListener("click", function () {
+    cambiarColor(listaModificar.selectedIndex)
+});
+
+titulos[0].addEventListener("click", function () {
+    toggleInfo(0)
+});
+titulos[1].addEventListener("click", function () {
+    toggleInfo(1)
+});
+titulos[2].addEventListener("click", function () {
+    toggleInfo(2)
+});
+titulos[3].addEventListener("click", function () {
+    toggleInfo(3)
+});
+            </pre>
+            <p>
+                La función <span class="italic">addEventListener</span> toma un tipo de evento ("click") y una función,
+                ya sea un nombre de función (sin dar los parámetros), o una función anónima (que puede llamar a una función
+                con parámetros).
+            </p>
+        </article-content>
+    </article>
+
+    <!-- Cómo añadir JS a tu página -->
+    <article>
+        <article-title>
+            Cómo añadir JS a tu página
+        </article-title>
+        <article-content>
+            <p>
+                Existen varias formas de implementar JS a tu página. Se puede hacer de forma interna o externa, es
+                decir, en el propio archivo HTML o en un archivo externo de tipo .js.
+            </p>
+
+            <h2>JavaScript interno</h2>
+            <p>
+                Para añadir un bloque de código JS en un archivo HTML, se usa la etiqueta &lt;script&gt;.
+                Entre estas etiquetas se puede escribir código JavaScript, que se ejecutará cuando se llegue a la
+                sección del HTML donde se encuentre el código. Esto, por desgracia, puede provocar errores si el
+                código está intentando acceder a contenido del HTML que aún no se ha cargado. Más adelante hablaremos
+                de las posibles soluciones a este problema, por el momento simplemente estudiaremos el código.
+            </p>
+            <p>
+                Vamos a ver el código JS del ejemplo anterior, en el que cambiábamos el contenido y estilo de un texto.
+            </p>
+            <p class="codigo">
+                <!-- Añadir código JS aquí -->
+            </p>
+            <p>
+                Como podemos ver, la sintaxis es muy genérica, lo cual facilita el aprendizaje de este lenguaje.
+            </p>
+        </article-content>
+    </article>
+
+    <!-- Estrategias para la carga del código JS -->
+    <article>
+        <article-title>
+            Estrategias para cargar el script
+        </article-title>
+        <article-content>
+            <p>
+                Existen varios problemas a la hora de cargar los scripts, sobretodo si queremos que se ejecuten en
+                ciertos momentos. Un problema común es el orden en el que carga el código HTML. Como ya deberías saber,
+                el código HTML se carga en el orden en el que está escrito, por lo que si una etiqueta &lt;script&gt;
+                se encuentra entre las etiquetas &lt;head&gt;, se ejecutará antes que todo lo que haya en el cuerpo
+                del HTML. Y si nuestro código JavaScript quiere acceder a código HTML que aún no está cargado, nos
+                dará problemas.
+                <br/>
+                Para evitar este problema, podemos simplemente añadir el código JS al final de la etiqueta &lt;body&gt;.
+                Esta estrategia, sin embargo, viene acompañada de sus propios problemas. El más importante, y el que más
+                impacto tiene sobre la experiencia del usuario, es que no se cargará el código JS hasta que se haya
+                cargado todo el HTML, lo que significa que se cargará de golpe. En páginas con grandes cantidades de
+                código JS, esto puede congelar la página hasta que termine de cargar el JS, empeorando la experiencia
+                de usuario.
+                <br/>
+                Una solución para no colocar la etiqueta &lt;script&gt; al final del cuerpo del HTML es aplicar un
+                <span class="italic">event listener</span> al documento, para que una vez termine de cargar todo el
+                HTML se ejecute el JS. Así se puede añadir la etiqueta &lt;script&gt; donde queramos.
+                <br/>
+                La solución anterior es aplicada a código JS interno. En caso de que estemos usando código externo,
+                existe una solución mejor: usar el atributo <span class="italic">defer</span> en la etiqueta &lt;script&gt;.
+                Al añadir este atributo, el código JS se carga a la vez que el HTML, y se ejecuta una vez se haya
+                terminado de parsear el HTML.
+            </p>
+            <p>
+                En ocasiones, un archivo HTML usará varios scripts. En estos casos tendremos que decidir si queremos
+                que se carguen los scripts a la vez, o en orden. Si queremos que se carguen en orden, usaremos el
+                atributo <span class="italic">defer</span> en todos los scripts. En el caso de que no importe el
+                orden de ejecución (por ejemplo en el caso en el que los scripts no interfieran los unos con los otros),
+                usaremos el atributo <span class="italic">async</span>.
+            </p>
+        </article-content>
+    </article>
+</section>
+
+<!-- FIN CONTENIDO DE LA PAGINA-->
+
+<!-- Footer -->
+<footer class="page-footer pt-4 bg-dark">
+    <div class="container-xxl">
+        <div class="row">
+            <!-- CELDA 1 FILA 1 -->
+            <div class="col-6 col-sm-3 bg-dark text-light w-50">
+                <div class="row">
+                    <div class="col-6 col-sm-3 bg-dark pt-4 text-end align-text-top w-50">
+                        <ul class=" list-unstyled pt-0">
+                            <li class="text-decoration-underline">NUESTRA UBICACION</li>
+                            <li>IES El Majuelo</li>
+                            <li>Calle Enrique Granados, 43</li>
+                            <li>41960, Gines, Sevilla.</li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-sm-3 w-50 ">
+                        <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=ies%20el%20majuelo&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CELDA 2 FILA 1 -->
+            <div class="col-6 col-sm-3 bg-dark text-light w-50">
+                <form action="">
+                    <div class="row d-flex justify-content-center pt-5">
+                        <div class="col-auto">
+                            <p class="pt-2">
+                                <strong>Suscribete a nuestro newsletter</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-12">
+                            <div class="form-outline form-white mb-4">
+                                <input type="email" id="form5Example21" class="form-control" />
+                                <label class="form-label" for="form5Example21">Correo electronico</label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-outline-light mb-4">
+                                Suscribir
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- Fuerzo las siguientes columnas a que esten en una nueva linea -->
+            <div class="w-100"></div>
+            <!-- CELDA 2 FILA 1 -->
+            <div class="col-6 col-sm-3 bg-dark w-50 align-content-center">
+                <div class="text-center">
+                    <p class="text-decoration-underline text-light pt-3">Autores:</p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="https://github.com/AntonioRojo1998" target="_blank"><img src="../Img/antonio.png" alt="100" width="50px"></a></li>
+                        <li class="list-inline-item"><a href="https://github.com/Fallest" target="_blank"><img src="../Img/david.png" alt="100" width="50px"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CELDA 2 FILA 2 -->
+            <div class="col-6 col-sm-3 bg-dark w-50 align-self-center">
+                <div class="text-center">
+                    <a class="p-2" href="https://twitter.com" target="_blank"><img src="../Img/Twitter.png" width="50px"></a>
+                    <a class="p-2" href="https://www.instagram.com/" target="_blank"><img src="../Img/Instagram.png" width="50px"></a>
+                    <a class="p-2" href="https://www.facebook.com/" target="_blank"><img src="../Img/Facebook.png" width="50px"></a>
+                    <a class="p-2" href="https://www.youtube.com/" target="_blank"><img src="../Img/Youtube.png" width="50px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center text-light bg-black py-3">© 2022 Copyright:
+        <a href="https://github.com/AntonioRojo1998/Practica2-HTML"> github./Practica2-HTML.com</a>
+    </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto 2</title>
+    <link rel="icon" href="../Img/Icon.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" type="text/css" href="../Back/back.css" media="screen"/>
+    <script src="../Back/back.js" defer></script>
+</head>
+<body>
+<!-- Nav -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top border-bottom">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="../Img/A1.png" height="50px">
+        </a>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#MenuNavegacion"
+                aria-controls="#MenuNavegacion"
+                aria-expanded="false"
+                aria-label="Toogle navegacion">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse bg-dark" id="MenuNavegacion">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="../Front/front.html">Front-End</a></li>
+                <li class="nav-item"><a class="nav-link" href="../Back/back.html">Back-End</a></li>
+                <li class="nav-item "><a class="nav-link" href="../JavaScript/js.html">JavaScript</a></li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        Enlaces externos
+                    </a>
+                    <ul class="dropdown-menu bg-light">
+                        <li><a class="dropdown-item text-dark" href="../../Bootstrap/index.html">Bootstrap</a></li>
+                        <li><a class="dropdown-item text-dark" href="../../jQuery/jquery.html">jQuery</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- INICIO CONTENIDO DE LA PAGINA-->
+
+
+<section>
+    <!-- Introducción a React -->
+    <article>
+        <article-title>
+            Frameworks Back-end para JavaScript: Express.js
+        </article-title>
+        <article-content>
+            <p>
+                Express es un framework web para Node, que usa como lenguaje JavaScript. El objetivo de Express es ser
+                minimalista, aún aportando funciones y herramientas robustas. El objetivo al usar Express es crear una
+                API de forma rápida y sencilla. Algunos frameworks que usan Express son Sails, Poet, y Kites.
+            </p>
+            <p> Veamos un ejemplo de una aplicación con Express:</p>
+            <pre>
+const express = require('express')
+const app = express()
+const port = 3000
+
+app.get('/', (req, res) => {
+  res.send('¡Hola mundo!')
+})
+
+app.listen(port, () => {
+  console.log(`Aplicación de ejemplo escuchando en el puerto ${port}`)
+})
+            </pre>
+            <p>
+                Esta aplicación va a iniciar un servidor y escuchar solicitudes de conexión en el puerto 3000. La
+                aplicación responderá con "¡Hola mundo!" a las solicitudes que quieran acceder a la URL raíz (/), y
+                responderá con el error 404 a las demás.
+            </p>
+            <p>Ya vemos que para usar Express en nuestro entorno sólo hay que incluirlo en nuestro código JavaScript
+            usando <span class="italic">require('express')</span></p>. Previamente tendremos que tener instalados
+            Node.js (instalable directamente desde su <a href="https://nodejs.org/es/">página</a>) y npm (
+            <span class="italic">Node Packet Manager</span>).
+        </article-content>
+    </article>
+</section>
+
+<!-- FIN CONTENIDO DE LA PAGINA-->
+
+<!-- Footer -->
+<footer class="page-footer pt-4 bg-dark">
+    <div class="container-xxl">
+        <div class="row">
+            <!-- CELDA 1 FILA 1 -->
+            <div class="col-6 col-sm-3 bg-dark text-light w-50">
+                <div class="row">
+                    <div class="col-6 col-sm-3 bg-dark pt-4 text-end align-text-top w-50">
+                        <ul class=" list-unstyled pt-0">
+                            <li class="text-decoration-underline">NUESTRA UBICACION</li>
+                            <li>IES El Majuelo</li>
+                            <li>Calle Enrique Granados, 43</li>
+                            <li>41960, Gines, Sevilla.</li>
+                        </ul>
+                    </div>
+                    <div class="col-6 col-sm-3 w-50 ">
+                        <iframe width="100%" height="100%" id="gmap_canvas" src="https://maps.google.com/maps?q=ies%20el%20majuelo&t=&z=15&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CELDA 2 FILA 1 -->
+            <div class="col-6 col-sm-3 bg-dark text-light w-50">
+                <form action="">
+                    <div class="row d-flex justify-content-center pt-5">
+                        <div class="col-auto">
+                            <p class="pt-2">
+                                <strong>Suscribete a nuestro newsletter</strong>
+                            </p>
+                        </div>
+                        <div class="col-md-5 col-12">
+                            <div class="form-outline form-white mb-4">
+                                <input type="email" id="form5Example21" class="form-control" />
+                                <label class="form-label" for="form5Example21">Correo electronico</label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-outline-light mb-4">
+                                Suscribir
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <!-- Fuerzo las siguientes columnas a que esten en una nueva linea -->
+            <div class="w-100"></div>
+            <!-- CELDA 2 FILA 1 -->
+            <div class="col-6 col-sm-3 bg-dark w-50 align-content-center">
+                <div class="text-center">
+                    <p class="text-decoration-underline text-light pt-3">Autores:</p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="https://github.com/AntonioRojo1998" target="_blank"><img src="../Img/antonio.png" alt="100" width="50px"></a></li>
+                        <li class="list-inline-item"><a href="https://github.com/Fallest" target="_blank"><img src="../Img/david.png" alt="100" width="50px"></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CELDA 2 FILA 2 -->
+            <div class="col-6 col-sm-3 bg-dark w-50 align-self-center">
+                <div class="text-center">
+                    <a class="p-2" href="https://twitter.com" target="_blank"><img src="../Img/Twitter.png" width="50px"></a>
+                    <a class="p-2" href="https://www.instagram.com/" target="_blank"><img src="../Img/Instagram.png" width="50px"></a>
+                    <a class="p-2" href="https://www.facebook.com/" target="_blank"><img src="../Img/Facebook.png" width="50px"></a>
+                    <a class="p-2" href="https://www.youtube.com/" target="_blank"><img src="../Img/Youtube.png" width="50px"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright text-center text-light bg-black py-3">© 2022 Copyright:
+        <a href="https://github.com/AntonioRojo1998/Practica2-HTML"> github./Practica2-HTML.com</a>
+    </div>
+</footer>
+</body>
+</html>
