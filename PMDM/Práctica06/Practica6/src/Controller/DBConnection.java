@@ -12,18 +12,18 @@ public class DBConnection {
     private static final DBConnection ref = new DBConnection();
 
     public DBConnection() {
-        try {
-            Class.forName("org.apache.derby.jdbc.ClientDriver");
-        } catch (ClassNotFoundException ex) {
-            System.out.println("ERROR: Exception in DBConnection's Constructor "
-                    + "(ClassNotFound).");
-            System.out.println(ex.toString());
-        }
+//        try {
+//            Class.forName("org.apache.derby.jdbc.DriverManager");
+//        } catch (ClassNotFoundException ex) {
+//            System.out.println("ERROR: Exception in DBConnection's Constructor "
+//                    + "(ClassNotFound).");
+//            System.out.println(ex.toString());
+//        }
     }
 
     public static Connection getConnection() throws SQLException {
         String url = "jdbc:derby://localhost:1527/practica6";
-        return DriverManager.getConnection(url, "practica6", "practica6");
+        return DriverManager.getConnection(url, "adat", "adat");
     }
     
     public void validateCon(String table) throws SQLException {

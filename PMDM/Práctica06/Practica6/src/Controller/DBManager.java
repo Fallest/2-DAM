@@ -30,7 +30,8 @@ public class DBManager {
             DBConnection.close(stmt);
             DBConnection.close(con);
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DBManager.executeQuery().");
+            System.out.println("ERROR: An exception ocurred at DBManager.getUsers().");
+            System.out.println(ex);
         }
         return dict;    
     }
