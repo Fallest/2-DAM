@@ -2,14 +2,15 @@ package View;
 
 import Controller.*;
 import Model.*;
+import java.io.File;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 /**
  * TO-DO:
  * -Enlace del botón "My Orders" al panel Orders.
  * -Enlace del botón "New Order" al panel NewTransaction.
  * 
- * -Filechooser para cambiar la imagen de perfil.
  * -DatePicker para cambiar la fecha de registro (solo disponible en la cuenta admin).
  * -Posibilidad de cambiasr el NIF desde la cuenta admin, validándolo.
  */
@@ -31,7 +32,7 @@ public class Profile extends javax.swing.JPanel {
      * Función para inicializar los valores de las etiquetas y botones dependiendo
      * del tipo de usuario.
      */
-    public static void initProfile() {
+    public static void init() {
         User user = MainFrame.getUser();
         if (user != null && user.isDelivery()) {
             // Si es un repartidor:
@@ -46,7 +47,7 @@ public class Profile extends javax.swing.JPanel {
             profile.attr2Name.setText("Company:");
             profile.attr2.setText(del.getCompany());
             profile.image.setText("");
-            profile.image.setIcon(new ImageIcon("./Data/" + del.getCompany().toLowerCase() + ".png"));
+            profile.image.setIcon(new ImageIcon("./src/Data/" + del.getCompany().toLowerCase() + ".png"));
             
             // Desactivamos los botones que no puede usar y modificamos el botón
             // de "pedidos" a "repartos".
@@ -65,6 +66,12 @@ public class Profile extends javax.swing.JPanel {
             profile.attr1.setText(cli.getDir());
             profile.attr2Name.setText("Register Date:");
             profile.attr2.setText(cli.getReg_date().toString());
+            profile.image.setText("");
+            profile.image.setIcon(new ImageIcon("./src/Data/" + cli.getPic().trim() + ".jpg"));
+            
+            // Desactivamos los botones que no puede usar
+            profile.changeClientNif.setVisible(false);
+            profile.changeRegDate.setVisible(false);
         } 
         if (MainFrame.isAdmin()) {
             // Si es un administrador
@@ -74,7 +81,12 @@ public class Profile extends javax.swing.JPanel {
             profile.attr1.setText("");
             profile.attr2Name.setText("");
             profile.attr2.setText("");
+            profile.image.setText("");
+            profile.image.setIcon(new ImageIcon("./src/Data/default.jpg"));
         }
+        
+        MainFrame.orders.setEnabled(true);
+        MainFrame.newTransaction.setEnabled(true);
     }
     
     /**
@@ -122,9 +134,19 @@ public class Profile extends javax.swing.JPanel {
         attr2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         newOrder.setText("New Order");
+        newOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newOrderActionPerformed(evt);
+            }
+        });
 
         orders.setText("My Orders");
         orders.setFocusCycleRoot(true);
+        orders.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ordersActionPerformed(evt);
+            }
+        });
 
         exit.setText("Close session");
         exit.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -134,6 +156,11 @@ public class Profile extends javax.swing.JPanel {
         });
 
         changePicture.setText("Change picture");
+        changePicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePictureActionPerformed(evt);
+            }
+        });
 
         changeRegDate.setText("Change Register Date");
 
@@ -210,6 +237,37 @@ public class Profile extends javax.swing.JPanel {
         closeSession();
     }//GEN-LAST:event_exitMouseClicked
 
+    private void changePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePictureActionPerformed
+        // Permite seleccionar otra imagen para ponerla de perfil
+        fileChooser = new JFileChooser();
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setMultiSelectionEnabled(false);
+        int returnVal = fileChooser.showOpenDialog(MainFrame.getMainFrame());
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fileChooser.getSelectedFile();
+            MainFrame.getProfilePanel().setImage(file);
+        }
+    }//GEN-LAST:event_changePictureActionPerformed
+
+    private void ordersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ordersActionPerformed
+        // Cambia al panel Orders
+        MainFrame.getMainFrame().changePanel(MainFrame.getOrdersPanel());
+        MainFrame.orders.setEnabled(false);
+        MainFrame.profile.setEnabled(true);
+    }//GEN-LAST:event_ordersActionPerformed
+
+    private void newOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderActionPerformed
+        // Cambia al panel NewTransaction
+        MainFrame.getMainFrame().changePanel(MainFrame.getNewTransactionPanel());
+        MainFrame.profile.setEnabled(true);
+        MainFrame.newTransaction.setEnabled(false);
+    }//GEN-LAST:event_newOrderActionPerformed
+
+    public void setImage(File f) {
+        // Cambia el icono de la imagen
+        this.image.setIcon(new ImageIcon(f.getAbsolutePath()));
+    }
+    
     public static void closeSession() {
         // Reseteamos valores de las labels
         profile.typeUser.setText("TypeOfUser");
@@ -236,7 +294,9 @@ public class Profile extends javax.swing.JPanel {
         MainFrame.getMainFrame().resetMenu();
         Login.init();
     }
-
+    
+    
+    private JFileChooser fileChooser;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel attr1;
     private javax.swing.JLabel attr1Name;

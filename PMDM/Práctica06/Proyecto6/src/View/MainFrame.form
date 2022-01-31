@@ -11,6 +11,9 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="loginMouseClicked"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Menu>
         <Menu class="javax.swing.JMenu" name="profile">
           <Properties>
@@ -19,6 +22,9 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="profileMouseClicked"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="closeSession">
               <Properties>
@@ -37,6 +43,9 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="ordersMouseClicked"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Menu>
         <Menu class="javax.swing.JMenu" name="newTransaction">
           <Properties>
@@ -45,6 +54,9 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="newTransactionMouseClicked"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Menu>
         <Menu class="javax.swing.JMenu" name="about">
           <Properties>
@@ -53,6 +65,9 @@
           <Events>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="aboutMouseClicked"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="9"/>
+          </AuxValues>
         </Menu>
       </SubComponents>
     </Menu>

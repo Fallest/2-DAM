@@ -83,17 +83,6 @@ public final class MainFrame extends javax.swing.JFrame {
     }
     
     public void setUserAccess(boolean b) {
-        if (b) {
-            this.login.setEnabled(false);
-            this.profile.setEnabled(false);
-            this.orders.setEnabled(true);
-            this.newTransaction.setEnabled(true);
-        } else {
-            this.profile.setEnabled(false);
-            this.orders.setEnabled(false);
-            this.newTransaction.setEnabled(false);
-            changePanel(MainFrame.loginPanel);
-        }
         MainFrame.userAccess = b;
     }
     
@@ -205,27 +194,27 @@ public final class MainFrame extends javax.swing.JFrame {
     private void aboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutMouseClicked
         // Cambia el panel de contenido al panel About.
         changePanel(MainFrame.getAboutPanel());
-        this.login.setEnabled(!MainFrame.getUserAccess());
-        this.profile.setEnabled(userAccess);
-        this.newTransaction.setEnabled(userAccess);
-        this.orders.setEnabled(userAccess);
-        this.about.setEnabled(false);
+        MainFrame.login.setEnabled(!MainFrame.getUserAccess());
+        MainFrame.profile.setEnabled(userAccess);
+        MainFrame.newTransaction.setEnabled(userAccess);
+        MainFrame.orders.setEnabled(userAccess);
+        MainFrame.about.setEnabled(false);
     }//GEN-LAST:event_aboutMouseClicked
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
         // Cambia el panel del MainFrame al panel About.
         changePanel(MainFrame.getLoginPanel());
-        this.login.setEnabled(false);
-        this.about.setEnabled(true);
+        MainFrame.login.setEnabled(false);
+        MainFrame.about.setEnabled(true);
     }//GEN-LAST:event_loginMouseClicked
 
     private void profileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileMouseClicked
         // Desactivamos este menú y activamos los demás (menos login)
         changePanel(MainFrame.getProfilePanel());
-        this.profile.setEnabled(false);
-        this.newTransaction.setEnabled(userAccess);
-        this.orders.setEnabled(userAccess);
-        this.about.setEnabled(true);
+        MainFrame.profile.setEnabled(false);
+        MainFrame.newTransaction.setEnabled(userAccess);
+        MainFrame.orders.setEnabled(userAccess);
+        MainFrame.about.setEnabled(true);
     }//GEN-LAST:event_profileMouseClicked
 
     private void closeSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeSessionActionPerformed
@@ -236,25 +225,25 @@ public final class MainFrame extends javax.swing.JFrame {
     private void ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordersMouseClicked
         // Desactivamos este menú y activamos los demás (menos login)
         changePanel(MainFrame.getOrdersPanel());
-        this.orders.setEnabled(false);
-        this.newTransaction.setEnabled(userAccess);
-        this.profile.setEnabled(userAccess);
-        this.about.setEnabled(true);
+        MainFrame.orders.setEnabled(false);
+        MainFrame.newTransaction.setEnabled(userAccess);
+        MainFrame.profile.setEnabled(userAccess);
+        MainFrame.about.setEnabled(true);
     }//GEN-LAST:event_ordersMouseClicked
 
     private void newTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newTransactionMouseClicked
         // Desactivamos este menú y activamos los demás (menos login)
         changePanel(MainFrame.getNewTransactionPanel());
-        this.newTransaction.setEnabled(false);
-        this.orders.setEnabled(userAccess);
-        this.profile.setEnabled(userAccess);
-        this.about.setEnabled(true);
+        MainFrame.newTransaction.setEnabled(false);
+        MainFrame.orders.setEnabled(userAccess);
+        MainFrame.profile.setEnabled(userAccess);
+        MainFrame.about.setEnabled(true);
     }//GEN-LAST:event_newTransactionMouseClicked
 
     public void resetMenu() {
         // Resetea los botones del menú
-        this.login.setEnabled(false);
-        this.about.setEnabled(true);
+        MainFrame.login.setEnabled(false);
+        MainFrame.about.setEnabled(true);
     }
     // </editor-fold>
     /**
@@ -296,12 +285,12 @@ public final class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu about;
+    public static javax.swing.JMenu about;
     private javax.swing.JMenuItem closeSession;
-    private javax.swing.JMenu login;
+    public static javax.swing.JMenu login;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenu newTransaction;
-    private javax.swing.JMenu orders;
-    private javax.swing.JMenu profile;
+    public static javax.swing.JMenu newTransaction;
+    public static javax.swing.JMenu orders;
+    public static javax.swing.JMenu profile;
     // End of variables declaration//GEN-END:variables
 }

@@ -150,12 +150,18 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="New Order"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newOrderActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="orders">
       <Properties>
         <Property name="text" type="java.lang.String" value="My Orders"/>
         <Property name="focusCycleRoot" type="boolean" value="true"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ordersActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="exit">
       <Properties>
@@ -169,6 +175,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Change picture"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="changePictureActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="changeRegDate">
       <Properties>

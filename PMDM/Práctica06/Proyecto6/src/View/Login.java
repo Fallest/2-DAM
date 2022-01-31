@@ -21,6 +21,10 @@ public class Login extends javax.swing.JPanel {
     
     public static void init() {
         loginPane.user.grabFocus();
+        
+        // Credenciales para comprobar el programa
+        loginPane.user.setText("51600278");
+        loginPane.pw.setText("7wSSt0v");
     }
 
     /**
@@ -182,7 +186,7 @@ public class Login extends javax.swing.JPanel {
         if (MainFrame.getUserAccess()) {
             this.user.setText("user");
             this.pw.setText("password");
-            Profile.initProfile();
+            Profile.init();
         }
     }
 // </editor-fold>
