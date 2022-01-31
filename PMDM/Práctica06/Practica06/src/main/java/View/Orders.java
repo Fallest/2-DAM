@@ -8,6 +8,10 @@ package View;
 /**
  *
  * @author David
+ * TO-DO:
+ * -Añadir funcionalidad a los botones "First", "Previous", "Next" y "Last".
+ * -Mostrar en el JList las transacciones relacionadas con la orden que se 
+ * está mostrando en la izquierda.
  */
 public class Orders extends javax.swing.JPanel {
 

@@ -8,6 +8,10 @@ package View;
 /**
  *
  * @author David
+ * TO-DO:
+ * -Menú bar para moverse entre los paneles de forma directa (desactivado si no
+ * se ha iniciado sesión). En la barra el botón "About" siempre está activo, y el
+ * botón "Login" solo se muestra si no se ha iniciado sesión.
  */
 public class MainFrame extends javax.swing.JFrame {
 

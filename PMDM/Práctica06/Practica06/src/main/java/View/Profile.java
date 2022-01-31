@@ -8,6 +8,14 @@ package View;
 /**
  *
  * @author David
+ * TO-DO:
+ * -Enlace del botón "My Orders" al panel Orders.
+ * -Enlace del botón "New Order" al panel NewTransaction.
+ * -Enlace del botón "close session" al panel Login.
+ * 
+ * -Filechooser para cambiar la imagen de perfil.
+ * -DatePicker para cambiar la fecha de registro (solo disponible en la cuenta admin).
+ * -Posibilidad de cambiasr el NIF desde la cuenta admin, validándolo.
  */
 public class Profile extends javax.swing.JPanel {
 
@@ -37,6 +45,9 @@ public class Profile extends javax.swing.JPanel {
         newOrder = new javax.swing.JButton();
         orders = new javax.swing.JButton();
         exit = new javax.swing.JButton();
+        changePicture = new javax.swing.JButton();
+        changeRegDate = new javax.swing.JButton();
+        changeClientNif = new javax.swing.JButton();
 
         typeUser.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         typeUser.setText("TypeOfUser");
@@ -66,6 +77,17 @@ public class Profile extends javax.swing.JPanel {
 
         exit.setText("Close session");
 
+        changePicture.setText("Change picture");
+        changePicture.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changePictureActionPerformed(evt);
+            }
+        });
+
+        changeRegDate.setText("Change Register Date");
+
+        changeClientNif.setText("Change Client NIF");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,25 +98,28 @@ public class Profile extends javax.swing.JPanel {
                     .addComponent(typeUser)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(attr2Name, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                                    .addComponent(attr1Name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(attr1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                                    .addComponent(attr2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(newOrder)
-                            .addComponent(orders)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(exit)))
-                .addContainerGap(365, Short.MAX_VALUE))
+                            .addComponent(changePicture)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(image, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(attr2Name, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                                            .addComponent(attr1Name, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(attr1, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                            .addComponent(attr2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addComponent(exit))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(newOrder)
+                                    .addComponent(orders)
+                                    .addComponent(changeRegDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(changeClientNif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                .addContainerGap(353, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,20 +134,29 @@ public class Profile extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(newOrder)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(changePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(name)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(attr1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(attr1)
+                        .addComponent(changeClientNif))
                     .addComponent(attr1Name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(attr2Name, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(attr2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                    .addComponent(attr2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(changeRegDate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(exit)
-                .addGap(14, 14, 14))
+                .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void changePictureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePictureActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_changePictureActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -130,6 +164,9 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JLabel attr1Name;
     private javax.swing.JLabel attr2;
     private javax.swing.JLabel attr2Name;
+    private javax.swing.JButton changeClientNif;
+    private javax.swing.JButton changePicture;
+    private javax.swing.JButton changeRegDate;
     private javax.swing.JButton exit;
     private javax.swing.JLabel image;
     private javax.swing.JLabel name;

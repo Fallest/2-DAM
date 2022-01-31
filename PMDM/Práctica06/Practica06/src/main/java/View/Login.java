@@ -8,6 +8,10 @@ package View;
 /**
  *
  * @author David
+ * TO-DO:
+ * -El botón "exit" cierra la aplicación.
+ * -El botón "login" envía la información a LoginChecker y si es correcta enlaza
+ *  al panel Profile.
  */
 public class Login extends javax.swing.JPanel {
 

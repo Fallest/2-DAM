@@ -16,13 +16,343 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="transactionsTitle" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancel" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="newTransactionPriceLabel" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="newTransactionPriceLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="115" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <Component id="newTransactionPrice" min="-2" pref="75" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" max="-2" attributes="0"/>
+                                      <Component id="euroLabel" min="-2" pref="28" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                                      <Component id="generateTransaction" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <Component id="clientOrdersLoc" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="deliveryCompanyLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
+                              <Component id="deliveryCompanies" min="-2" pref="90" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="66" max="-2" attributes="0"/>
+                              <Component id="newTransactionTitle" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="12" max="32767" attributes="0"/>
+                      <Component id="generatedTransaction" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="300" max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="transactionsTitle" min="-2" pref="39" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+                      <Component id="newTransactionTitle" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="newTransactionPriceLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="clientOrdersLoc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                              <Component id="newTransactionPriceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="newTransactionPrice" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="euroLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="generateTransaction" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="deliveryCompanyLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="deliveryCompanies" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="cancel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <Component id="generatedTransaction" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+          </Group>
       </Group>
     </DimensionLayout>
   </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JLabel" name="transactionsTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="36" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Transactions"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel1"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="newTransactionPriceLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Price:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="deliveryCompanyLabel">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Delivery Company:"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="newTransactionTitle">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="24" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="New transaction"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="newTransactionPrice">
+    </Component>
+    <Component class="javax.swing.JComboBox" name="deliveryCompanies">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="3">
+            <StringItem index="0" value="Amazon"/>
+            <StringItem index="1" value="UPS"/>
+            <StringItem index="2" value="FedEx"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+    <Component class="javax.swing.JButton" name="generateTransaction">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Generate &gt;"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JPanel" name="generatedTransaction">
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="orderDelCode" min="-2" pref="109" max="-2" attributes="0"/>
+                      <Component id="orderloc" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="price" min="-2" pref="103" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Component id="delCosts" min="-2" pref="109" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="orderLocLabel" alignment="0" min="-2" pref="109" max="-2" attributes="0"/>
+                      <Component id="orderDelCodeLabel" alignment="0" min="-2" pref="176" max="-2" attributes="0"/>
+                      <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="clientLabel" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="delivererLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="priceLabel" min="-2" max="-2" attributes="0"/>
+                                  <Component id="clientNif" min="-2" pref="103" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="delCostsLabel" max="32767" attributes="0"/>
+                                  <Component id="delivererCode" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="13" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  <Component id="orderLocLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="orderloc" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="clientLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="delivererLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="clientNif" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="delivererCode" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="priceLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="delCostsLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="price" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="delCosts" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <Component id="orderDelCodeLabel" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="orderDelCode" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="28" max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JLabel" name="orderLocLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Order Loc. "/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="orderloc">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="orderloc"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="clientLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Client"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="clientNif">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="clientNif"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="priceLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Price"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="price">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="price"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="delivererLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Deliverer Code"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="delivererCode">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="delCode"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="orderDelCodeLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Order Delivery Code"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="delCostsLabel">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="0"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Delivery Costs"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="delCosts">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="delCosts"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="orderDelCode">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="orderDelCode"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="cancel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cancel"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="newTransactionPriceLabel1">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Segoe UI" size="18" style="0"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Order No. :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="euroLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#x20ac;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="clientOrdersLoc">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="4">
+            <StringItem index="0" value="Item 1"/>
+            <StringItem index="1" value="Item 2"/>
+            <StringItem index="2" value="Item 3"/>
+            <StringItem index="3" value="Item 4"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+      </AuxValues>
+    </Component>
+  </SubComponents>
 </Form>
