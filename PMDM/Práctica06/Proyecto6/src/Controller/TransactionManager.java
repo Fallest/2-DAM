@@ -36,6 +36,24 @@ public class TransactionManager {
 
         return res;
     }
+    
+    public static ArrayList<String> selectShops() {
+        ArrayList<String> res = new ArrayList<>();
+
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("select distinct shop_name from shops");
+
+            while (rset.next()) {
+                res.add(rset.getString(1));
+            }
+        } catch (SQLException ex) {
+            System.out.println("ERROR: An exception ocurred at TransactionManager.selectShops().");
+        }
+
+        return res;
+    }
 
     public static void update(String what, String where) {
         String query = "udpate shops set = " + what + " " + where;

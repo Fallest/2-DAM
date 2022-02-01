@@ -4,12 +4,6 @@ import Controller.DBConnection;
 import Model.User;
 import javax.swing.JPanel;
 
-/**
- * TO-DO:
- * -Menú bar para moverse entre los paneles de forma directa (desactivado si no
- * se ha iniciado sesión). En la barra el botón "About" siempre está activo, y el
- * botón "Login" solo se muestra si no se ha iniciado sesión.
- */
 public final class MainFrame extends javax.swing.JFrame {
     // Variables para los paneles:
     private final static MainFrame mainFrame = new MainFrame();
@@ -243,6 +237,7 @@ public final class MainFrame extends javax.swing.JFrame {
         MainFrame.orders.setEnabled(userAccess);
         MainFrame.profile.setEnabled(userAccess);
         MainFrame.about.setEnabled(true);
+        NewTransaction.init();
     }//GEN-LAST:event_newTransactionMouseClicked
 
     public void resetMenu() {

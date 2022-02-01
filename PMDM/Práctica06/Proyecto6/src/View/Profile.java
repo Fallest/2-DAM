@@ -8,9 +8,6 @@ import javax.swing.JFileChooser;
 
 /**
  * TO-DO:
- * -Enlace del botón "My Orders" al panel Orders.
- * -Enlace del botón "New Order" al panel NewTransaction.
- * 
  * -DatePicker para cambiar la fecha de registro (solo disponible en la cuenta admin).
  * -Posibilidad de cambiasr el NIF desde la cuenta admin, validándolo.
  */
@@ -54,7 +51,7 @@ public class Profile extends javax.swing.JPanel {
             profile.changePicture.setVisible(false);
             profile.changeClientNif.setVisible(false);
             profile.changeRegDate.setVisible(false);
-            profile.newOrder.setVisible(false);
+            profile.newTransaction.setVisible(false);
             profile.orders.setText("My Deliveries");
         } else if (user != null && !user.isDelivery()) {
             // Si es un cliente
@@ -109,7 +106,7 @@ public class Profile extends javax.swing.JPanel {
         profile.changePicture.setVisible(true);
         profile.changeClientNif.setVisible(true);
         profile.changeRegDate.setVisible(true);
-        profile.newOrder.setVisible(true);
+        profile.newTransaction.setVisible(true);
         profile.orders.setText("My Orders");
 
         // Cambiamos de panel y cerramos sesión
@@ -137,7 +134,7 @@ public class Profile extends javax.swing.JPanel {
         attr1 = new javax.swing.JLabel();
         attr2Name = new javax.swing.JLabel();
         attr2 = new javax.swing.JLabel();
-        newOrder = new javax.swing.JButton();
+        newTransaction = new javax.swing.JButton();
         orders = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         changePicture = new javax.swing.JButton();
@@ -165,10 +162,10 @@ public class Profile extends javax.swing.JPanel {
         attr2.setText("attr2");
         attr2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        newOrder.setText("New Order");
-        newOrder.addActionListener(new java.awt.event.ActionListener() {
+        newTransaction.setText("New Transaction");
+        newTransaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newOrderActionPerformed(evt);
+                newTransactionActionPerformed(evt);
             }
         });
 
@@ -225,10 +222,11 @@ public class Profile extends javax.swing.JPanel {
                                     .addComponent(exit))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(newOrder)
-                                    .addComponent(orders)
                                     .addComponent(changeRegDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(changeClientNif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                    .addComponent(changeClientNif, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(orders, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(newTransaction, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap(353, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -242,7 +240,7 @@ public class Profile extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(orders, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(newOrder)))
+                        .addComponent(newTransaction)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(changePicture, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -290,12 +288,13 @@ public class Profile extends javax.swing.JPanel {
         Orders.init();
     }//GEN-LAST:event_ordersActionPerformed
 
-    private void newOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderActionPerformed
+    private void newTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newTransactionActionPerformed
         // Cambia al panel NewTransaction
         MainFrame.getMainFrame().changePanel(MainFrame.getNewTransactionPanel());
         MainFrame.profile.setEnabled(true);
         MainFrame.newTransaction.setEnabled(false);
-    }//GEN-LAST:event_newOrderActionPerformed
+        NewTransaction.init();
+    }//GEN-LAST:event_newTransactionActionPerformed
     
     // </editor-fold>
     
@@ -311,7 +310,7 @@ public class Profile extends javax.swing.JPanel {
     private javax.swing.JButton exit;
     private javax.swing.JLabel image;
     private javax.swing.JLabel name;
-    private javax.swing.JButton newOrder;
+    private javax.swing.JButton newTransaction;
     private javax.swing.JButton orders;
     private javax.swing.JLabel typeUser;
     // End of variables declaration//GEN-END:variables

@@ -133,6 +133,25 @@ public class OrderManager {
 
         return res;
     }
+    
+    public static ArrayList<String> selectLocs(String nif) {
+        ArrayList<String> res = new ArrayList<>();
+
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("select loc from orders where nif_cli = " + nif);
+
+            while (rset.next()) {
+                res.add(String.valueOf(rset.getInt(1)));
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR: An exception ocurred at OrderManager.selectLocs().");
+        }
+
+        return res;
+    }
 
     public static void update(String what, String where) {
         String query = "udpate orders set = " + what + " " + where;

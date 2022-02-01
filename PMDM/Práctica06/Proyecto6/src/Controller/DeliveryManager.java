@@ -36,6 +36,25 @@ public class DeliveryManager {
 
         return res;
     }
+    
+    public static String selectDelCod(String where) {
+        String res = "";
+
+        try {
+            Connection con = DBConnection.getConnection();
+            Statement stmt = con.createStatement();
+            ResultSet rset = stmt.executeQuery("select del_cod from delivery " + where);
+
+            while (rset.next()) {
+                res = rset.getString(1);
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("ERROR: An exception ocurred at DeliveryManager.selectDelCod().");
+        }
+
+        return res;
+    }
 
     public static void update(String what, String where) {
         String query = "udpate delivery set = " + what + " " + where;

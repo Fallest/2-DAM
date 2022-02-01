@@ -1,5 +1,13 @@
 package View;
 
+import Controller.DeliveryManager;
+import Controller.OrderManager;
+import Controller.TransactionManager;
+import Model.ShopTransaction;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+
 /**
  * TO-DO:
  * -Genera una nueva transacción al usar el botón "Generate" con los campos de la
@@ -22,6 +30,82 @@ public class NewTransaction extends javax.swing.JPanel {
         return newTransactionPane;
     }
     
+    public static void init() {
+        /**
+         * Inicializa los siguientes campos:
+         *  -Las tiendas disponibles (en un ComboBox).
+         *  -Los pedidos disponibles (los relacionados con el cliente conectado).
+         *  -Se vacían los campos de la zona de la derecha.
+         */
+        // Vacíamos los campos de texto de la revisión de la transacción.
+        newTransactionPane.orderLoc.setText("");
+        newTransactionPane.clientNif.setText("");
+        newTransactionPane.delivererCode.setText("");
+        newTransactionPane.price.setText("");
+        newTransactionPane.delCosts.setText("");
+        newTransactionPane.orderDelCode.setText("");
+        newTransactionPane.shopTransaction.setText("");
+        
+        // Cargamos las tiendas disponibles
+        DefaultComboBoxModel<String> shops = new DefaultComboBoxModel<>();
+        TransactionManager.selectShops().forEach(s -> {
+            shops.addElement(s);
+        });
+        newTransactionPane.shop.setModel(shops);
+        
+        // Cargamos los pedidos disponibles
+        DefaultComboBoxModel<String> orders = new DefaultComboBoxModel<>();
+        OrderManager.selectLocs(MainFrame.getUser().getUsrName()).forEach(l -> {
+            orders.addElement(l);
+        });
+        newTransactionPane.clientOrdersLoc.setModel(orders);
+        
+        // Cantidad predefinida
+        newTransactionPane.deliveryCosts.setText("0.00");
+    }
+    
+    private boolean checkPK(String orderLoc, String delCompany) {
+        // Esta función comprueba que la pareja localizador-repartidor es válida.
+        ArrayList<ShopTransaction> transactions = TransactionManager.select(
+                "where loc = " + orderLoc 
+                + " and del_cod = ("
+                        + "select del_cod "
+                        + "from delivery "
+                        + "where company = " + delCompany 
+                + ")");
+        
+        // Si no está vacío, ha encontrado una transacción que ya tiene esa pareja,
+        // y por ende no es una combinación válida.
+        return transactions.get(0) == null;
+    }
+    
+    private void showTransaction(String loc, String del_cod) {
+        ShopTransaction str
+                = TransactionManager.select(
+                        "where loc = " + loc
+                        + " and del_cod = " + del_cod).get(0);
+        
+        // Obtenemos el precio total añadido
+        ArrayList<Float> fullPriceL = new ArrayList<>();
+        TransactionManager.select("where loc = " + str.getLoc()).forEach(t -> {
+            fullPriceL.add(t.getDel_costs());
+        });
+        float fullPrice 
+                = (OrderManager.select("where loc = " + str.getLoc())
+                .get(0))
+                .getPrice();
+        for (float f : fullPriceL) 
+            fullPrice += f;
+        // Actualizamos los datos de los campos
+        newTransactionPane.orderLoc.setText(String.valueOf(str.getLoc()));
+        newTransactionPane.clientNif.setText(MainFrame.getUser().getUsrName());
+        newTransactionPane.delivererCode.setText(String.valueOf(str.getDel_cod()));
+        newTransactionPane.price.setText(String.format("%.2f", fullPrice));
+        newTransactionPane.delCosts.setText(String.format("%.2f", str.getDel_costs()));
+        newTransactionPane.orderDelCode.setText(String.valueOf(str.getTransaction_code()));
+        newTransactionPane.shopTransaction.setText(str.getShop_name());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,15 +117,15 @@ public class NewTransaction extends javax.swing.JPanel {
 
         transactionsTitle = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        newTransactionPriceLabel = new javax.swing.JLabel();
+        deliveryCostsLabel = new javax.swing.JLabel();
         deliveryCompanyLabel = new javax.swing.JLabel();
         newTransactionTitle = new javax.swing.JLabel();
-        newTransactionPrice = new javax.swing.JTextField();
+        deliveryCosts = new javax.swing.JTextField();
         deliveryCompanies = new javax.swing.JComboBox<>();
         generateTransaction = new javax.swing.JButton();
         generatedTransaction = new javax.swing.JPanel();
         orderLocLabel = new javax.swing.JLabel();
-        orderloc = new javax.swing.JLabel();
+        orderLoc = new javax.swing.JLabel();
         clientLabel = new javax.swing.JLabel();
         clientNif = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
@@ -52,18 +136,23 @@ public class NewTransaction extends javax.swing.JPanel {
         delCostsLabel = new javax.swing.JLabel();
         delCosts = new javax.swing.JLabel();
         orderDelCode = new javax.swing.JLabel();
+        shopTransactionLabel = new javax.swing.JLabel();
+        shopTransaction = new javax.swing.JLabel();
         cancel = new javax.swing.JButton();
         newTransactionPriceLabel1 = new javax.swing.JLabel();
         euroLabel = new javax.swing.JLabel();
         clientOrdersLoc = new javax.swing.JComboBox<>();
+        subtitleLabel = new javax.swing.JLabel();
+        shopLabel = new javax.swing.JLabel();
+        shop = new javax.swing.JComboBox<>();
 
         transactionsTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         transactionsTitle.setText("Transactions");
 
         jLabel1.setText("jLabel1");
 
-        newTransactionPriceLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        newTransactionPriceLabel.setText("Price:");
+        deliveryCostsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        deliveryCostsLabel.setText("Delivery Costs:");
 
         deliveryCompanyLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         deliveryCompanyLabel.setText("Delivery Company:");
@@ -74,26 +163,35 @@ public class NewTransaction extends javax.swing.JPanel {
         deliveryCompanies.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Amazon", "UPS", "FedEx" }));
 
         generateTransaction.setText("Generate >");
+        generateTransaction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                generateTransactionActionPerformed(evt);
+            }
+        });
 
         orderLocLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         orderLocLabel.setText("Order Loc. ");
 
-        orderloc.setText("orderloc");
+        orderLoc.setText("orderloc");
+        orderLoc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         clientLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         clientLabel.setText("Client");
 
         clientNif.setText("clientNif");
+        clientNif.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         priceLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         priceLabel.setText("Price");
 
         price.setText("price");
+        price.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         delivererLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         delivererLabel.setText("Deliverer Code");
 
         delivererCode.setText("delCode");
+        delivererCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         orderDelCodeLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         orderDelCodeLabel.setText("Order Delivery Code");
@@ -102,70 +200,87 @@ public class NewTransaction extends javax.swing.JPanel {
         delCostsLabel.setText("Delivery Costs");
 
         delCosts.setText("delCosts");
+        delCosts.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         orderDelCode.setText("orderDelCode");
+        orderDelCode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        shopTransactionLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        shopTransactionLabel.setText("Shop");
+
+        shopTransaction.setText("shop");
+        shopTransaction.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout generatedTransactionLayout = new javax.swing.GroupLayout(generatedTransaction);
         generatedTransaction.setLayout(generatedTransactionLayout);
         generatedTransactionLayout.setHorizontalGroup(
             generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(generatedTransactionLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
+                .addGap(16, 16, 16)
                 .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(orderDelCode, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(orderloc, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(shopTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(generatedTransactionLayout.createSequentialGroup()
-                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(delCosts, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(delCosts, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(orderLocLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(orderDelCodeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, generatedTransactionLayout.createSequentialGroup()
-                            .addComponent(clientLabel)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(delivererLabel))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, generatedTransactionLayout.createSequentialGroup()
-                            .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(priceLabel)
-                                .addComponent(clientNif, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(shopTransactionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(generatedTransactionLayout.createSequentialGroup()
+                        .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(orderLoc, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(priceLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(clientNif, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(clientLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(delivererLabel)
                             .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(delCostsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(delivererCode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(13, Short.MAX_VALUE))
+                                .addComponent(delivererCode, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(orderDelCode, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
         generatedTransactionLayout.setVerticalGroup(
             generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(generatedTransactionLayout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(17, 17, 17)
                 .addComponent(orderLocLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(orderloc)
+                .addComponent(orderLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(clientLabel)
                     .addComponent(delivererLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(clientNif)
-                    .addComponent(delivererCode))
+                    .addComponent(clientNif, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delivererCode, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priceLabel)
                     .addComponent(delCostsLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(generatedTransactionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(price)
-                    .addComponent(delCosts))
-                .addGap(32, 32, 32)
+                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delCosts, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(orderDelCodeLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(orderDelCode)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addComponent(orderDelCode, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(shopTransactionLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(shopTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         cancel.setText("Cancel");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
 
         newTransactionPriceLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         newTransactionPriceLabel1.setText("Order No. :");
@@ -174,78 +289,173 @@ public class NewTransaction extends javax.swing.JPanel {
 
         clientOrdersLoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        subtitleLabel.setText("Generate a new transaction for an already existing order.");
+
+        shopLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        shopLabel.setText("Shop:");
+
+        shop.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(transactionsTitle)
-                            .addComponent(cancel))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(transactionsTitle)
+                    .addComponent(cancel)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(newTransactionPriceLabel)
-                                    .addComponent(newTransactionPriceLabel1))
-                                .addGap(115, 115, 115)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(newTransactionPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(euroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(2, 2, 2)
-                                        .addComponent(generateTransaction))
-                                    .addComponent(clientOrdersLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(deliveryCompanyLabel)
-                                .addGap(54, 54, 54)
-                                .addComponent(deliveryCompanies, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(66, 66, 66)
-                                .addComponent(newTransactionTitle)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                                .addComponent(newTransactionTitle))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(subtitleLabel))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(deliveryCostsLabel)
+                                    .addComponent(newTransactionPriceLabel1)
+                                    .addComponent(deliveryCompanyLabel)
+                                    .addComponent(shopLabel))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(deliveryCompanies, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(clientOrdersLoc, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(deliveryCosts, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(euroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(generateTransaction))
+                                    .addComponent(shop, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(18, 18, 18)
                         .addComponent(generatedTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(transactionsTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addComponent(newTransactionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(newTransactionPriceLabel1)
-                            .addComponent(clientOrdersLoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(newTransactionPriceLabel)
-                                .addComponent(newTransactionPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(euroLabel))
-                            .addComponent(generateTransaction))
-                        .addGap(18, 18, 18)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(51, 51, 51)
+                                .addComponent(newTransactionTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(subtitleLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(newTransactionPriceLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(deliveryCostsLabel)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(deliveryCompanyLabel)
+                                    .addComponent(deliveryCompanies, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(clientOrdersLoc, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(deliveryCosts, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(euroLabel)
+                                    .addComponent(generateTransaction))
+                                .addGap(40, 40, 40)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(deliveryCompanyLabel)
-                            .addComponent(deliveryCompanies, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(shopLabel)
+                            .addComponent(shop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cancel)
                         .addGap(18, 18, 18))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                         .addComponent(generatedTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32))))
+                        .addGap(29, 29, 29))))
         );
     }// </editor-fold>//GEN-END:initComponents
+    
+    // <editor-fold defaultstate="collapsed" desc="Event Listeners">
+    private void generateTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateTransactionActionPerformed
+        /**
+         * Esta función va a comprobar que se han introducido datos correctos 
+         * antes de proceder a insertar una nueva transacción.
+         * Para ello tendrá que comprobar lo siguiente:
+         *  -El precio no es nulo ni negativo.
+         *  -La combinación de la empresa repartidora y el localizador (No.) del
+         *  pedido no puede existir en ninguna otra transacción, ya que el tercer
+         *  elemento de la PK de la tabla shops (la que contiene las transacciones)
+         *  se calcula en base al código del repartidor (sólo hay 1 repartidor
+         *  por empresa) junto al localizador del pedido.
+         * 
+         * Los costes de envío se generarán con números pseudoaleatorios entre 
+         * 1 y 5, con dos decimales.
+         */
+        // Flag para hacer el insert o no
+        boolean isValid = true;
+        
+        // Comprobación del precio
+        String price = this.deliveryCosts.getText();
+        if (price.equals("") || Float.parseFloat(price) < 0) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), 
+                    "Wrong transaction price.\n"
+                    + "Please enter a valid price.");
+            isValid = false;
+        }
+        // Comprobación de la combinación localizador-repartidor
+        if (!checkPK((String)clientOrdersLoc.getSelectedItem(), 
+                (String)deliveryCompanies.getSelectedItem())) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), 
+                    "Wrong Order Number - Company combination.\n"
+                    + "Please enter a valid combination.");
+            isValid = false;
+        }
+        
+        // Si siguen siendo datos válidos, realizamos el insert.
+        if (isValid) {
+            String  loc = (String) clientOrdersLoc.getSelectedItem(),
+                    del_cod = DeliveryManager.selectDelCod("where company = " +
+                        (String) deliveryCompanies.getSelectedItem()),
+                    shop_name = (String) shop.getSelectedItem(),
+                    del_costs = deliveryCosts.getText();
+            
+            TransactionManager.insert(
+                loc + ", "
+                + del_cod + ", "
+                + "0" + ", " 
+                + shop_name + ", "
+                + del_costs);
+            
+            // Mostramos los datos de la nueva transacción en la derecha
+            showTransaction(loc, del_cod);
+        }
+    }//GEN-LAST:event_generateTransactionActionPerformed
 
+    private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
+        // Limpia todos los campos y vuelve al perfil
+        newTransactionPane.orderLoc.setText("");
+        newTransactionPane.clientNif.setText("");
+        newTransactionPane.delivererCode.setText("");
+        newTransactionPane.price.setText("");
+        newTransactionPane.delCosts.setText("");
+        newTransactionPane.orderDelCode.setText("");
+        newTransactionPane.shopTransaction.setText("");
+        newTransactionPane.deliveryCosts.setText("");
+        
+        newTransactionPane.clientOrdersLoc.removeAllItems();
+        newTransactionPane.deliveryCompanies.removeAllItems();
+        newTransactionPane.shop.removeAllItems();
+        
+        MainFrame.getMainFrame().changePanel(MainFrame.getProfilePanel());
+    }//GEN-LAST:event_cancelActionPerformed
+    
+    
+    
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancel;
@@ -258,20 +468,25 @@ public class NewTransaction extends javax.swing.JPanel {
     private javax.swing.JLabel delivererLabel;
     private javax.swing.JComboBox<String> deliveryCompanies;
     private javax.swing.JLabel deliveryCompanyLabel;
+    private javax.swing.JTextField deliveryCosts;
+    private javax.swing.JLabel deliveryCostsLabel;
     private javax.swing.JLabel euroLabel;
     private javax.swing.JButton generateTransaction;
     private javax.swing.JPanel generatedTransaction;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField newTransactionPrice;
-    private javax.swing.JLabel newTransactionPriceLabel;
     private javax.swing.JLabel newTransactionPriceLabel1;
     private javax.swing.JLabel newTransactionTitle;
     private javax.swing.JLabel orderDelCode;
     private javax.swing.JLabel orderDelCodeLabel;
+    private javax.swing.JLabel orderLoc;
     private javax.swing.JLabel orderLocLabel;
-    private javax.swing.JLabel orderloc;
     private javax.swing.JLabel price;
     private javax.swing.JLabel priceLabel;
+    private javax.swing.JComboBox<String> shop;
+    private javax.swing.JLabel shopLabel;
+    private javax.swing.JLabel shopTransaction;
+    private javax.swing.JLabel shopTransactionLabel;
+    private javax.swing.JLabel subtitleLabel;
     private javax.swing.JLabel transactionsTitle;
     // End of variables declaration//GEN-END:variables
 }
