@@ -7,13 +7,14 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 /**
- * TO-DO:
- * -DatePicker para cambiar la fecha de registro (solo disponible en la cuenta admin).
- * -Posibilidad de cambiasr el NIF desde la cuenta admin, validándolo.
+ * TO-DO: -DatePicker para cambiar la fecha de registro (solo disponible en la
+ * cuenta admin). -Posibilidad de cambiasr el NIF desde la cuenta admin,
+ * validándolo.
  */
 public class Profile extends javax.swing.JPanel {
 
     private static Profile profile = new Profile();
+
     /**
      * Creates new form Profile
      */
@@ -26,16 +27,16 @@ public class Profile extends javax.swing.JPanel {
     }
 
     /**
-     * Función para inicializar los valores de las etiquetas y botones dependiendo
-     * del tipo de usuario.
+     * Función para inicializar los valores de las etiquetas y botones
+     * dependiendo del tipo de usuario.
      */
     public static void init() {
         User user = MainFrame.getUser();
         if (user != null && user.isDelivery()) {
             // Si es un repartidor:
-            DeliveryPerson del = (DeliveryManager.select("where del_cod = " + 
-                    user.getUsrName())).get(0);
-            
+            DeliveryPerson del = (DeliveryManager.select("where del_cod = "
+                    + user.getUsrName())).get(0);
+
             // Asignamos valores a las labels
             profile.typeUser.setText("Delivery");
             profile.name.setText(del.getDel_name());
@@ -45,7 +46,7 @@ public class Profile extends javax.swing.JPanel {
             profile.attr2.setText(del.getCompany());
             profile.image.setText("");
             profile.image.setIcon(new ImageIcon("./src/Data/" + del.getCompany().toLowerCase() + ".png"));
-            
+
             // Desactivamos los botones que no puede usar y modificamos el botón
             // de "pedidos" a "repartos".
             profile.changePicture.setVisible(false);
@@ -55,8 +56,8 @@ public class Profile extends javax.swing.JPanel {
             profile.orders.setText("My Deliveries");
         } else if (user != null && !user.isDelivery()) {
             // Si es un cliente
-            Client cli = (ClientManager.select("where nif = " + 
-                    user.getUsrName())).get(0);
+            Client cli = (ClientManager.select("where nif = "
+                    + user.getUsrName())).get(0);
             profile.typeUser.setText("Client");
             profile.name.setText(String.valueOf(cli.getNif()));
             profile.attr1Name.setText("Address:");
@@ -65,11 +66,11 @@ public class Profile extends javax.swing.JPanel {
             profile.attr2.setText(cli.getReg_date().toString());
             profile.image.setText("");
             profile.image.setIcon(new ImageIcon("./src/Data/" + cli.getPic().trim() + ".jpg"));
-            
+
             // Desactivamos los botones que no puede usar
             profile.changeClientNif.setVisible(false);
             profile.changeRegDate.setVisible(false);
-        } 
+        }
         if (MainFrame.isAdmin()) {
             // Si es un administrador
             profile.typeUser.setText("Admin");
@@ -80,17 +81,21 @@ public class Profile extends javax.swing.JPanel {
             profile.attr2.setText("");
             profile.image.setText("");
             profile.image.setIcon(new ImageIcon("./src/Data/default.jpg"));
+            profile.orders.setText("All Orders");
+            
+            profile.changePicture.setVisible(false);
+            profile.newTransaction.setVisible(false);
         }
-        
+
         MainFrame.orders.setEnabled(true);
-        MainFrame.newTransaction.setEnabled(true);
+        MainFrame.newTransaction.setEnabled(MainFrame.isAdmin() ? false : true);
     }
-    
+
     public void setImage(File f) {
         // Cambia el icono de la imagen
         this.image.setIcon(new ImageIcon(f.getAbsolutePath()));
     }
-    
+
     public static void closeSession() {
         // Reseteamos valores de las labels
         profile.typeUser.setText("TypeOfUser");
@@ -117,7 +122,7 @@ public class Profile extends javax.swing.JPanel {
         MainFrame.getMainFrame().resetMenu();
         Login.init();
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -261,7 +266,7 @@ public class Profile extends javax.swing.JPanel {
                 .addGap(10, 10, 10))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // <editor-fold defaultstate="collapsed" desc="Event Listeners">
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         // Cerrar sesión
@@ -295,9 +300,8 @@ public class Profile extends javax.swing.JPanel {
         MainFrame.newTransaction.setEnabled(false);
         NewTransaction.init();
     }//GEN-LAST:event_newTransactionActionPerformed
-    
+
     // </editor-fold>
-    
     private JFileChooser fileChooser;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel attr1;

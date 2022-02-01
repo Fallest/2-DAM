@@ -1,7 +1,9 @@
 package Controller;
 
+import View.MainFrame;
 import java.sql.*;
 import java.util.HashMap;
+import javax.swing.JOptionPane;
 
 public class DBManager {
     /**
@@ -30,7 +32,11 @@ public class DBManager {
             DBConnection.close(stmt);
             DBConnection.close(con);
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DBManager.getUsers().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in DBManager.getUsers().\n"
+                    + "Validation of credentials not possible.\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return dict;    
     }

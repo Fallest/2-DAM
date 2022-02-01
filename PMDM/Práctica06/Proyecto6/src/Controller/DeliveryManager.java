@@ -1,11 +1,13 @@
 package Controller;
 
 import Model.DeliveryPerson;
+import View.MainFrame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class DeliveryManager {
 
@@ -31,12 +33,15 @@ public class DeliveryManager {
             }
 
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DeliveryManager.select().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in Delivery.select().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
     }
-    
+
     public static String selectDelCod(String where) {
         String res = "";
 
@@ -50,7 +55,10 @@ public class DeliveryManager {
             }
 
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DeliveryManager.selectDelCod().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in DeliveryManager.selectDelCod().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
@@ -66,7 +74,10 @@ public class DeliveryManager {
 
             System.out.println(rowsAffected + " rows affected in the update.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DeliveryManager.update()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in DeliveryManager.update().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -80,7 +91,10 @@ public class DeliveryManager {
 
             System.out.println(rowsAffected + " rows affected in the delete.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DeliveryManager.delete()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in DeliveryManager.delete().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -92,7 +106,10 @@ public class DeliveryManager {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at DeliveryManager.insert()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in DeliveryManager.insert().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
     // </editor-fold>

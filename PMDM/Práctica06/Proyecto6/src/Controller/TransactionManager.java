@@ -1,11 +1,13 @@
 package Controller;
 
 import Model.ShopTransaction;
+import View.MainFrame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class TransactionManager {
 
@@ -31,7 +33,10 @@ public class TransactionManager {
                 ));
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at TransactionManager.select().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in TransactionManager.select().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
@@ -49,7 +54,10 @@ public class TransactionManager {
                 res.add(rset.getString(1));
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at TransactionManager.selectShops().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in TransactionManager.selectShops().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
@@ -65,7 +73,10 @@ public class TransactionManager {
 
             System.out.println(rowsAffected + " rows affected in the update.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at TransactionManager.update()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in TransactionManager.update().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -79,7 +90,10 @@ public class TransactionManager {
 
             System.out.println(rowsAffected + " rows affected in the delete.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at TransactionManager.delete()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in TransactionManager.delete().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -91,7 +105,10 @@ public class TransactionManager {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at TransactionManager.insert()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in TransactionManager.insert().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
     // </editor-fold>

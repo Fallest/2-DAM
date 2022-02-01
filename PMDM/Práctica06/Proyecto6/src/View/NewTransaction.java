@@ -8,17 +8,10 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
-/**
- * TO-DO:
- * -Genera una nueva transacción al usar el botón "Generate" con los campos de la
- * izquierda, si "price" es válido.
- * -Se muestran los datos de la nueva orden y transacción en la zona de la derecha.
- * -El botón "cancel" limpia los campos y vuelve al panel Profile.
- */
 public class NewTransaction extends javax.swing.JPanel {
-    
+
     private static NewTransaction newTransactionPane = new NewTransaction();
-    
+
     /**
      * Creates new form NewTransaction
      */
@@ -29,13 +22,12 @@ public class NewTransaction extends javax.swing.JPanel {
     public static NewTransaction getPane() {
         return newTransactionPane;
     }
-    
+
     public static void init() {
         /**
-         * Inicializa los siguientes campos:
-         *  -Las tiendas disponibles (en un ComboBox).
-         *  -Los pedidos disponibles (los relacionados con el cliente conectado).
-         *  -Se vacían los campos de la zona de la derecha.
+         * Inicializa los siguientes campos: -Las tiendas disponibles (en un
+         * ComboBox). -Los pedidos disponibles (los relacionados con el cliente
+         * conectado). -Se vacían los campos de la zona de la derecha.
          */
         // Vacíamos los campos de texto de la revisión de la transacción.
         newTransactionPane.orderLoc.setText("");
@@ -45,57 +37,58 @@ public class NewTransaction extends javax.swing.JPanel {
         newTransactionPane.delCosts.setText("");
         newTransactionPane.orderDelCode.setText("");
         newTransactionPane.shopTransaction.setText("");
-        
+
         // Cargamos las tiendas disponibles
         DefaultComboBoxModel<String> shops = new DefaultComboBoxModel<>();
         TransactionManager.selectShops().forEach(s -> {
             shops.addElement(s);
         });
         newTransactionPane.shop.setModel(shops);
-        
+
         // Cargamos los pedidos disponibles
         DefaultComboBoxModel<String> orders = new DefaultComboBoxModel<>();
         OrderManager.selectLocs(MainFrame.getUser().getUsrName()).forEach(l -> {
             orders.addElement(l);
         });
         newTransactionPane.clientOrdersLoc.setModel(orders);
-        
+
         // Cantidad predefinida
         newTransactionPane.deliveryCosts.setText("0.00");
     }
-    
+
     private boolean checkPK(String orderLoc, String delCompany) {
         // Esta función comprueba que la pareja localizador-repartidor es válida.
         ArrayList<ShopTransaction> transactions = TransactionManager.select(
-                "where loc = " + orderLoc 
+                "where loc = " + orderLoc
                 + " and del_cod = ("
-                        + "select del_cod "
-                        + "from delivery "
-                        + "where company = " + delCompany 
+                + "select del_cod "
+                + "from delivery "
+                + "where company = " + delCompany
                 + ")");
-        
+
         // Si no está vacío, ha encontrado una transacción que ya tiene esa pareja,
         // y por ende no es una combinación válida.
         return transactions.get(0) == null;
     }
-    
+
     private void showTransaction(String loc, String del_cod) {
         ShopTransaction str
                 = TransactionManager.select(
                         "where loc = " + loc
                         + " and del_cod = " + del_cod).get(0);
-        
+
         // Obtenemos el precio total añadido
         ArrayList<Float> fullPriceL = new ArrayList<>();
         TransactionManager.select("where loc = " + str.getLoc()).forEach(t -> {
             fullPriceL.add(t.getDel_costs());
         });
-        float fullPrice 
+        float fullPrice
                 = (OrderManager.select("where loc = " + str.getLoc())
-                .get(0))
-                .getPrice();
-        for (float f : fullPriceL) 
+                        .get(0))
+                        .getPrice();
+        for (float f : fullPriceL) {
             fullPrice += f;
+        }
         // Actualizamos los datos de los campos
         newTransactionPane.orderLoc.setText(String.valueOf(str.getLoc()));
         newTransactionPane.clientNif.setText(MainFrame.getUser().getUsrName());
@@ -105,7 +98,7 @@ public class NewTransaction extends javax.swing.JPanel {
         newTransactionPane.orderDelCode.setText(String.valueOf(str.getTransaction_code()));
         newTransactionPane.shopTransaction.setText(str.getShop_name());
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -378,58 +371,57 @@ public class NewTransaction extends javax.swing.JPanel {
                         .addGap(29, 29, 29))))
         );
     }// </editor-fold>//GEN-END:initComponents
-    
+
     // <editor-fold defaultstate="collapsed" desc="Event Listeners">
     private void generateTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateTransactionActionPerformed
         /**
-         * Esta función va a comprobar que se han introducido datos correctos 
-         * antes de proceder a insertar una nueva transacción.
-         * Para ello tendrá que comprobar lo siguiente:
-         *  -El precio no es nulo ni negativo.
-         *  -La combinación de la empresa repartidora y el localizador (No.) del
-         *  pedido no puede existir en ninguna otra transacción, ya que el tercer
-         *  elemento de la PK de la tabla shops (la que contiene las transacciones)
-         *  se calcula en base al código del repartidor (sólo hay 1 repartidor
-         *  por empresa) junto al localizador del pedido.
-         * 
-         * Los costes de envío se generarán con números pseudoaleatorios entre 
-         * 1 y 5, con dos decimales.
+         * Esta función va a comprobar que se han introducido datos correctos
+         * antes de proceder a insertar una nueva transacción. Para ello tendrá
+         * que comprobar lo siguiente: -El precio no es nulo ni negativo. -La
+         * combinación de la empresa repartidora y el localizador (No.) del
+         * pedido no puede existir en ninguna otra transacción, ya que el tercer
+         * elemento de la PK de la tabla shops (la que contiene las
+         * transacciones) se calcula en base al código del repartidor (sólo hay
+         * 1 repartidor por empresa) junto al localizador del pedido.
+         *
+         * Los costes de envío se generarán con números pseudoaleatorios entre 1
+         * y 5, con dos decimales.
          */
         // Flag para hacer el insert o no
         boolean isValid = true;
-        
+
         // Comprobación del precio
         String price = this.deliveryCosts.getText();
         if (price.equals("") || Float.parseFloat(price) < 0) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), 
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
                     "Wrong transaction price.\n"
                     + "Please enter a valid price.");
             isValid = false;
         }
         // Comprobación de la combinación localizador-repartidor
-        if (!checkPK((String)clientOrdersLoc.getSelectedItem(), 
-                (String)deliveryCompanies.getSelectedItem())) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), 
+        if (!checkPK((String) clientOrdersLoc.getSelectedItem(),
+                (String) deliveryCompanies.getSelectedItem())) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
                     "Wrong Order Number - Company combination.\n"
                     + "Please enter a valid combination.");
             isValid = false;
         }
-        
+
         // Si siguen siendo datos válidos, realizamos el insert.
         if (isValid) {
-            String  loc = (String) clientOrdersLoc.getSelectedItem(),
-                    del_cod = DeliveryManager.selectDelCod("where company = " +
-                        (String) deliveryCompanies.getSelectedItem()),
+            String loc = (String) clientOrdersLoc.getSelectedItem(),
+                    del_cod = DeliveryManager.selectDelCod("where company = "
+                            + (String) deliveryCompanies.getSelectedItem()),
                     shop_name = (String) shop.getSelectedItem(),
                     del_costs = deliveryCosts.getText();
-            
+
             TransactionManager.insert(
-                loc + ", "
-                + del_cod + ", "
-                + "0" + ", " 
-                + shop_name + ", "
-                + del_costs);
-            
+                    loc + ", "
+                    + del_cod + ", "
+                    + "0" + ", "
+                    + shop_name + ", "
+                    + del_costs);
+
             // Mostramos los datos de la nueva transacción en la derecha
             showTransaction(loc, del_cod);
         }
@@ -445,16 +437,15 @@ public class NewTransaction extends javax.swing.JPanel {
         newTransactionPane.orderDelCode.setText("");
         newTransactionPane.shopTransaction.setText("");
         newTransactionPane.deliveryCosts.setText("");
-        
+
         newTransactionPane.clientOrdersLoc.removeAllItems();
         newTransactionPane.deliveryCompanies.removeAllItems();
         newTransactionPane.shop.removeAllItems();
-        
+
         MainFrame.getMainFrame().changePanel(MainFrame.getProfilePanel());
+        Profile.init();
     }//GEN-LAST:event_cancelActionPerformed
-    
-    
-    
+
     // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

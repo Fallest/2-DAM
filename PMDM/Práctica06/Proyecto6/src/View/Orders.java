@@ -12,7 +12,7 @@ public class Orders extends javax.swing.JPanel {
     private static Orders orders = new Orders();
     private static User user;
     private static DefaultListModel<String> model;
-    
+
     /**
      * Creates new form Orders
      */
@@ -23,48 +23,51 @@ public class Orders extends javax.swing.JPanel {
     public static Orders getPane() {
         return orders;
     }
-    
+
     public static void init() {
         // Inicializa el ResultSet de Ordermanager
         user = MainFrame.getUser();
-        OrderManager.start(user.getUsrName());
+        OrderManager.start(user != null ? user.getUsrName() : "admin");
+        orders.toggleBackward(false);
+        orders.toggleForward(true);
         orders.showOrder(OrderManager.next());
     }
 
     private void showOrder(Order o) {
         // Muestra los datos del pedido indicado
-        this.clientNif.setText(user.getUsrName());
+        this.clientNif.setText(user != null ? user.getUsrName() : "Administrator");
         this.orderloc.setText(String.valueOf(o.getLoc()));
         this.price.setText(String.valueOf(o.getPrice()));
-        
+
         // Actualizamos el JList
         updateList(o);
     }
-    
+
     private void updateList(Order o) {
         // Actualiza los datos del JList con transacciones referentes al pedido
         // actual.
         model = new DefaultListModel<>();
-        
+
         // Obtener el precio total del pedido
         ArrayList<Float> fullPriceL = new ArrayList<>();
         TransactionManager.select("where loc = " + o.getLoc()).forEach(t -> {
             fullPriceL.add(t.getDel_costs());
         });
         float fullPrice = o.getPrice();
-        for (float f : fullPriceL) 
+        for (float f : fullPriceL) {
             fullPrice += f;
-        
+        }
+
         // Obtener las transacciones para la lista
         TransactionManager.select("where loc = " + o.getLoc()).forEach(t -> {
             model.addElement(t.toString());
         });
-        
+
         this.priceCosts.setText(String.format("%.2f", fullPrice));
-        
+
         transactionList.setModel(model);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -241,10 +244,10 @@ public class Orders extends javax.swing.JPanel {
     private void firstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstButtonActionPerformed
         // Muestra el primer pedido
         showOrder(OrderManager.first());
-        
+
         // Estamos en el primero > No podemos retroceder
         toggleBackward(false);
-        
+
         // Ya se puede avanzar si antes no se podía
         if (!nextButton.isEnabled())
             toggleForward(true);
@@ -253,10 +256,10 @@ public class Orders extends javax.swing.JPanel {
     private void lastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastButtonActionPerformed
         // Muestra el último pedido
         showOrder(OrderManager.last());
-        
+
         // Estamos en el último > No podemos avanzar
         toggleForward(false);
-        
+
         // Ya se puede retroceder si antes no se podía
         if (!prevButton.isEnabled())
             toggleBackward(true);
@@ -265,35 +268,37 @@ public class Orders extends javax.swing.JPanel {
     private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
         // Muestra el pedido anterior
         showOrder(OrderManager.prev());
-        
+
         // Si hemos llegado al principio > No podemos retroceder
-        if (OrderManager.isFirst())
+        if (OrderManager.isFirst()) {
             toggleBackward(false);
-        
+        }
+
         // Si antes no podíamos avanzar, ahora ya sí
-        if (!nextButton.isEnabled()) 
+        if (!nextButton.isEnabled())
             toggleForward(true);
     }//GEN-LAST:event_prevButtonActionPerformed
-    
+
     private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
         // Muestra el pedido siguiente
         showOrder(OrderManager.next());
-        
+
         // Si hemos llegado al final, no podemos avanzar
-        if (OrderManager.isLast())
+        if (OrderManager.isLast()) {
             toggleForward(false);
-        
+        }
+
         // Si antes no podíamos retroceder, ahora ya sí
-        if (!prevButton.isEnabled()) 
+        if (!prevButton.isEnabled())
             toggleBackward(true);
     }//GEN-LAST:event_nextButtonActionPerformed
-    
+
     private void toggleForward(boolean b) {
         // Método interruptor para activar y desactivar los botones para avanzar
         lastButton.setEnabled(b);
         nextButton.setEnabled(b);
     }
-    
+
     private void toggleBackward(boolean b) {
         // Método interruptor para activar y desactivar los botones para retroceder
         firstButton.setEnabled(b);

@@ -1,11 +1,13 @@
 package Controller;
 
 import Model.Order;
+import View.MainFrame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class OrderManager {
 
@@ -23,9 +25,16 @@ public class OrderManager {
             Statement stmt = con.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-            orders = stmt.executeQuery("select * from orders where nif_cli = " + nif);
+            if (nif.equals("admin")) {
+                orders = stmt.executeQuery("select * from orders");
+            } else {
+                orders = stmt.executeQuery("select * from orders where nif_cli = " + nif);
+            }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.start().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.start().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -34,20 +43,26 @@ public class OrderManager {
         try {
             return orders.isFirst();
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.isFirst().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.isFirst().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return false;
     }
-    
+
     public static boolean isLast() {
         try {
             return orders.isLast();
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.isLast().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.isLast().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return false;
     }
-    
+
     public static Order first() {
         try {
             if (orders.first()) {
@@ -58,7 +73,10 @@ public class OrderManager {
                 );
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.first().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.first().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return null;
     }
@@ -73,7 +91,10 @@ public class OrderManager {
                 );
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.last+().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.last().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return null;
 
@@ -89,7 +110,10 @@ public class OrderManager {
                 );
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.next().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.next().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return null;
     }
@@ -104,7 +128,10 @@ public class OrderManager {
                 );
             }
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.prev().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.prev().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
         return null;
     }
@@ -128,12 +155,15 @@ public class OrderManager {
             }
 
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.select().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.select().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
     }
-    
+
     public static ArrayList<String> selectLocs(String nif) {
         ArrayList<String> res = new ArrayList<>();
 
@@ -147,7 +177,10 @@ public class OrderManager {
             }
 
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.selectLocs().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.selectLocs().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
@@ -163,7 +196,10 @@ public class OrderManager {
 
             System.out.println(rowsAffected + " rows affected in the update.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.update()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.update().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -177,7 +213,10 @@ public class OrderManager {
 
             System.out.println(rowsAffected + " rows affected in the delete.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.delete()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.delete().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -189,7 +228,10 @@ public class OrderManager {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at OrderManager.insert()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in OrderManager.insert().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
     // </editor-fold>

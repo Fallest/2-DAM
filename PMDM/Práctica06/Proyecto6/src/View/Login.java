@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JPanel {
 
     private static Login loginPane = new Login();
-    
+
     /**
      * Creates new form Login
      */
@@ -18,13 +18,13 @@ public class Login extends javax.swing.JPanel {
     public static Login getPane() {
         return loginPane;
     }
-    
+
     public static void init() {
         loginPane.user.grabFocus();
-        
-        // Credenciales para comprobar el programa
-        loginPane.user.setText("51600278");
-        loginPane.pw.setText("7wSSt0v");
+
+//        // Credenciales para comprobar el programa
+//        loginPane.user.setText("51600278");
+//        loginPane.pw.setText("7wSSt0v");
     }
 
     /**
@@ -164,7 +164,7 @@ public class Login extends javax.swing.JPanel {
             System.exit(0);
         }
     }//GEN-LAST:event_exitKeyPressed
-    
+
     private void logIn() {
         // Realiza una comprobación de inicio de sesión.
         User usr = LoginChecker.login(user.getText(), pw.getPassword());
@@ -172,24 +172,22 @@ public class Login extends javax.swing.JPanel {
             (MainFrame.getMainFrame()).changePanel(MainFrame.getProfilePanel());
             MainFrame.changeUserAccess(true);
             MainFrame.setAdmin(true);
-        }
-        else if (usr != null) {
+        } else if (usr != null) {
             (MainFrame.getMainFrame()).changePanel(MainFrame.getProfilePanel());
             MainFrame.changeUserAccess(true);
             MainFrame.setAdmin(false);
             MainFrame.setUser(usr);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "Wrong credentials\nPlease try again.");
         }
-        
+
         if (MainFrame.getUserAccess()) {
             this.user.setText("user");
             this.pw.setText("password");
             Profile.init();
         }
     }
-// </editor-fold>
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton exit;

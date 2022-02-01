@@ -5,6 +5,7 @@ import Model.User;
 import javax.swing.JPanel;
 
 public final class MainFrame extends javax.swing.JFrame {
+
     // Variables para los paneles:
     private final static MainFrame mainFrame = new MainFrame();
     private static Login loginPanel;
@@ -15,17 +16,16 @@ public final class MainFrame extends javax.swing.JFrame {
     private static boolean userAccess = false;
     private static boolean isAdmin = false;
     private static User user;
-    
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        
+
         // Validamos la conexión a la base de datos
         DBConnection.validateCon();
-        
+
         // Usamos referencias propias de los paneles para acceder a variables
         // y métodos no estáticos.
         loginPanel = Login.getPane();
@@ -33,19 +33,19 @@ public final class MainFrame extends javax.swing.JFrame {
         newTransactionPanel = NewTransaction.getPane();
         ordersPanel = Orders.getPane();
         profilePanel = Profile.getPane();
-        
+
         // Desactivar botones que no se usan hasta estar logeado.
         MainFrame.login.setEnabled(false);
         MainFrame.newTransaction.setEnabled(false);
         MainFrame.orders.setEnabled(false);
         MainFrame.profile.setEnabled(false);
-        
+
         // Mostrar el panel de Login.
         Login.init();
         this.setContentPane(loginPanel);
         this.pack();
     }
-    
+
     // <editor-fold defaultstate="collapsed" desc="Métodos para cambiar paneles"> 
     public void changePanel(JPanel panel) {
         mainFrame.setContentPane(panel);
@@ -75,34 +75,35 @@ public final class MainFrame extends javax.swing.JFrame {
     public static Profile getProfilePanel() {
         return profilePanel;
     }
-    
+
     public static void changeUserAccess(boolean b) {
         mainFrame.setUserAccess(b);
     }
-    
+
     public void setUserAccess(boolean b) {
         MainFrame.userAccess = b;
     }
-    
+
     public static boolean getUserAccess() {
         return MainFrame.userAccess;
     }
-    
+
     public static void setAdmin(boolean b) {
         MainFrame.isAdmin = b;
     }
-    
+
     public static boolean isAdmin() {
         return MainFrame.isAdmin;
     }
-    
+
     public static void setUser(User usr) {
         MainFrame.user = usr;
     }
-    
+
     public static User getUser() {
         return MainFrame.user;
     }
+
     // </editor-fold>
     /**
      * This method is called from within the constructor to initialize the form.
@@ -191,28 +192,47 @@ public final class MainFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Event Listeners">
     private void aboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_aboutMouseClicked
         // Cambia el panel de contenido al panel About.
-        changePanel(MainFrame.getAboutPanel());
-        MainFrame.login.setEnabled(!MainFrame.getUserAccess());
-        MainFrame.profile.setEnabled(userAccess);
-        MainFrame.newTransaction.setEnabled(userAccess);
-        MainFrame.orders.setEnabled(userAccess);
-        MainFrame.about.setEnabled(false);
+        if (about.isEnabled()) {
+            changePanel(MainFrame.getAboutPanel());
+            MainFrame.login.setEnabled(!MainFrame.getUserAccess());
+            MainFrame.profile.setEnabled(userAccess);
+            MainFrame.newTransaction.setEnabled((userAccess ^ isAdmin) && userAccess);
+            MainFrame.orders.setEnabled(userAccess);
+            MainFrame.about.setEnabled(false);
+        }
     }//GEN-LAST:event_aboutMouseClicked
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
         // Cambia el panel del MainFrame al panel About.
-        changePanel(MainFrame.getLoginPanel());
-        MainFrame.login.setEnabled(false);
-        MainFrame.about.setEnabled(true);
+        if (login.isEnabled()) {
+            changePanel(MainFrame.getLoginPanel());
+            MainFrame.login.setEnabled(false);
+            MainFrame.about.setEnabled(true);
+        }
     }//GEN-LAST:event_loginMouseClicked
 
     private void profileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileMouseClicked
         // Desactivamos este menú y activamos los demás (menos login)
-        changePanel(MainFrame.getProfilePanel());
-        MainFrame.profile.setEnabled(false);
-        MainFrame.newTransaction.setEnabled(userAccess);
-        MainFrame.orders.setEnabled(userAccess);
-        MainFrame.about.setEnabled(true);
+        /*
+        Queremos que se tenga acceso al menú New Transaction sólo cuando 
+        isAdmin es True.
+        Para ello usamos en conjunto una XOR y un NOT, relacionados con una AND, 
+        para que la tabla de verdad quede tal que:
+        
+    userAccess | isAdmin | userAccess^isAdmin | (userAccess^isAdmin) && userAccess
+    ----------------------------------------------------------------------------
+        0           0               0                        0
+        0           1               1                        0
+        1           0               1                        1
+        1           1               0                        0
+         */
+        if (profile.isEnabled()) {
+            changePanel(MainFrame.getProfilePanel());
+            MainFrame.profile.setEnabled(false);
+            MainFrame.newTransaction.setEnabled((userAccess ^ isAdmin) && userAccess);
+            MainFrame.orders.setEnabled(userAccess);
+            MainFrame.about.setEnabled(true);
+        }
     }//GEN-LAST:event_profileMouseClicked
 
     private void closeSessionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeSessionActionPerformed
@@ -222,22 +242,26 @@ public final class MainFrame extends javax.swing.JFrame {
 
     private void ordersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ordersMouseClicked
         // Desactivamos este menú y activamos los demás (menos login)
-        changePanel(MainFrame.getOrdersPanel());
-        MainFrame.orders.setEnabled(false);
-        MainFrame.newTransaction.setEnabled(userAccess);
-        MainFrame.profile.setEnabled(userAccess);
-        MainFrame.about.setEnabled(true);
-        Orders.init();
+        if (orders.isEnabled()) {
+            changePanel(MainFrame.getOrdersPanel());
+            MainFrame.orders.setEnabled(false);
+            MainFrame.newTransaction.setEnabled((userAccess ^ isAdmin) && userAccess);
+            MainFrame.profile.setEnabled(userAccess);
+            MainFrame.about.setEnabled(true);
+            Orders.init();
+        }
     }//GEN-LAST:event_ordersMouseClicked
 
     private void newTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newTransactionMouseClicked
         // Desactivamos este menú y activamos los demás (menos login)
-        changePanel(MainFrame.getNewTransactionPanel());
-        MainFrame.newTransaction.setEnabled(false);
-        MainFrame.orders.setEnabled(userAccess);
-        MainFrame.profile.setEnabled(userAccess);
-        MainFrame.about.setEnabled(true);
-        NewTransaction.init();
+        if (newTransaction.isEnabled()) {
+            changePanel(MainFrame.getNewTransactionPanel());
+            MainFrame.newTransaction.setEnabled(false);
+            MainFrame.orders.setEnabled(userAccess);
+            MainFrame.profile.setEnabled(userAccess);
+            MainFrame.about.setEnabled(true);
+            NewTransaction.init();
+        }
     }//GEN-LAST:event_newTransactionMouseClicked
 
     public void resetMenu() {
@@ -245,6 +269,7 @@ public final class MainFrame extends javax.swing.JFrame {
         MainFrame.login.setEnabled(false);
         MainFrame.about.setEnabled(true);
     }
+
     // </editor-fold>
     /**
      * @param args the command line arguments

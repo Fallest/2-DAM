@@ -1,15 +1,16 @@
 package Controller;
 
 import Model.Client;
+import View.MainFrame;
 import java.sql.*;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class ClientManager {
 
     /**
      * Clase para realizar consultas sobre la tabla "clients" de la BD.
      */
-
     // <editor-fold defaultstate="collapsed" desc="Funciones Select, Update, Delete e Insert">
     public static ArrayList<Client> select(String where) {
         ArrayList<Client> res = new ArrayList<>();
@@ -29,7 +30,10 @@ public class ClientManager {
             }
 
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at ClientManager.select().");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in ClientManager.select().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
 
         return res;
@@ -45,7 +49,10 @@ public class ClientManager {
 
             System.out.println(rowsAffected + " rows affected in the update.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at ClientManager.update()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in ClientManager.update().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -59,7 +66,10 @@ public class ClientManager {
 
             System.out.println(rowsAffected + " rows affected in the delete.");
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at ClientManager.delete()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in ClientManager.delete().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
 
@@ -71,7 +81,10 @@ public class ClientManager {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            System.out.println("ERROR: An exception ocurred at ClientManager.insert()");
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in ClientManager.insert().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
         }
     }
     // </editor-fold>
