@@ -14,21 +14,40 @@ public class OrderManager {
      */
     private static ResultSet orders;
 
-    public static void start(String where) {
+    public static void start(String nif) {
         // Inicializa el ResultSet de pedidos, para recorrerlo desde el navegador
         // de pedidos.
+        System.out.println("OrderManager started");
         try {
             Connection con = DBConnection.getConnection();
             Statement stmt = con.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY);
-            orders = stmt.executeQuery("select * from orders " + where);
+            orders = stmt.executeQuery("select * from orders where nif_cli = " + nif);
         } catch (SQLException ex) {
             System.out.println("ERROR: An exception ocurred at OrderManager.start().");
         }
     }
 
     // <editor-fold defaultstate="collapsed" desc="Funciones para recorrer el ResultSet">
+    public static boolean isFirst() {
+        try {
+            return orders.isFirst();
+        } catch (SQLException ex) {
+            System.out.println("ERROR: An exception ocurred at OrderManager.isFirst().");
+        }
+        return false;
+    }
+    
+    public static boolean isLast() {
+        try {
+            return orders.isLast();
+        } catch (SQLException ex) {
+            System.out.println("ERROR: An exception ocurred at OrderManager.isLast().");
+        }
+        return false;
+    }
+    
     public static Order first() {
         try {
             if (orders.first()) {

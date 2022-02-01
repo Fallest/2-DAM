@@ -12,7 +12,7 @@ public class TransactionManager {
     /**
      * Clase para realizar consultas sobre la tabla "shops" de la BD.
      */
-
+    // <editor-fold defaultstate="collapsed" desc="Funciones Select, Update, Delete e Insert">
     public static ArrayList<ShopTransaction> select(String where) {
         ArrayList<ShopTransaction> res = new ArrayList<>();
 
@@ -76,4 +76,5 @@ public class TransactionManager {
             System.out.println("ERROR: An exception ocurred at TransactionManager.insert()");
         }
     }
+    // </editor-fold>
 }

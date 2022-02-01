@@ -10,6 +10,7 @@ public class ClientManager {
      * Clase para realizar consultas sobre la tabla "clients" de la BD.
      */
 
+    // <editor-fold defaultstate="collapsed" desc="Funciones Select, Update, Delete e Insert">
     public static ArrayList<Client> select(String where) {
         ArrayList<Client> res = new ArrayList<>();
 
@@ -73,5 +74,5 @@ public class ClientManager {
             System.out.println("ERROR: An exception ocurred at ClientManager.insert()");
         }
     }
-
+    // </editor-fold>
 }

@@ -1,5 +1,6 @@
 package View;
 
+import Controller.DBConnection;
 import Model.User;
 import javax.swing.JPanel;
 
@@ -28,6 +29,9 @@ public final class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         
+        // Validamos la conexión a la base de datos
+        DBConnection.validateCon();
+        
         // Usamos referencias propias de los paneles para acceder a variables
         // y métodos no estáticos.
         loginPanel = Login.getPane();
@@ -37,10 +41,10 @@ public final class MainFrame extends javax.swing.JFrame {
         profilePanel = Profile.getPane();
         
         // Desactivar botones que no se usan hasta estar logeado.
-        this.login.setEnabled(false);
-        this.newTransaction.setEnabled(false);
-        this.orders.setEnabled(false);
-        this.profile.setEnabled(false);
+        MainFrame.login.setEnabled(false);
+        MainFrame.newTransaction.setEnabled(false);
+        MainFrame.orders.setEnabled(false);
+        MainFrame.profile.setEnabled(false);
         
         // Mostrar el panel de Login.
         Login.init();
@@ -229,6 +233,7 @@ public final class MainFrame extends javax.swing.JFrame {
         MainFrame.newTransaction.setEnabled(userAccess);
         MainFrame.profile.setEnabled(userAccess);
         MainFrame.about.setEnabled(true);
+        Orders.init();
     }//GEN-LAST:event_ordersMouseClicked
 
     private void newTransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_newTransactionMouseClicked

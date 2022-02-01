@@ -1,6 +1,8 @@
 package Controller;
 
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class DBConnection {
 
@@ -26,17 +28,21 @@ public class DBConnection {
         return DriverManager.getConnection(url, "practica6", "practica6");
     }
     
-    public void validateCon(String table) throws SQLException {
-        PreparedStatement stmt = 
-                getConnection().prepareStatement("select count(*) from clients");
-        ResultSet res = stmt.executeQuery();
-        res.next();
-        if (res.getInt(1) != 0)
-            System.out.println("Validation complete.");
-        else
+    public static void validateCon() {
+        try {
+            PreparedStatement stmt =
+                    getConnection().prepareStatement("select count(*) from clients");
+            ResultSet res = stmt.executeQuery();
+            res.next();
+            if (res.getInt(1) != 0)
+                System.out.println("Validation complete.");
+        } catch (SQLException ex) {
             System.out.println("ERROR: An error ocurred in the validation. Is the \"clients\" table empty?");
+            System.out.println(ex);
+        }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Funciones close()">
     public static void close(ResultSet rs) {
         try {
             rs.close();
@@ -57,4 +63,5 @@ public class DBConnection {
         } catch (Exception ignored) {
         }
     }
+    // </editor-fold>
 }

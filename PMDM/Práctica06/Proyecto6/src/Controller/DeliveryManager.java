@@ -12,6 +12,7 @@ public class DeliveryManager {
     /**
      * Clase para realizar consultas sobre la tabla "delivery" de la BD.
      */
+    // <editor-fold defaultstate="collapsed" desc="Funciones Select, Update, Delete e Insert">
     public static ArrayList<DeliveryPerson> select(String where) {
         ArrayList<DeliveryPerson> res = new ArrayList<>();
 
@@ -75,5 +76,5 @@ public class DeliveryManager {
             System.out.println("ERROR: An exception ocurred at DeliveryManager.insert()");
         }
     }
-
+    // </editor-fold>
 }

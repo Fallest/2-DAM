@@ -1,14 +1,17 @@
 package View;
 
-/**
- * TO-DO:
- * -Añadir funcionalidad a los botones "First", "Previous", "Next" y "Last".
- * -Mostrar en el JList las transacciones relacionadas con la orden que se 
- * está mostrando en la izquierda.
- */
+import Controller.OrderManager;
+import Controller.TransactionManager;
+import Model.Order;
+import Model.User;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+
 public class Orders extends javax.swing.JPanel {
 
     private static Orders orders = new Orders();
+    private static User user;
+    private static DefaultListModel<String> model;
     
     /**
      * Creates new form Orders
@@ -20,7 +23,48 @@ public class Orders extends javax.swing.JPanel {
     public static Orders getPane() {
         return orders;
     }
+    
+    public static void init() {
+        // Inicializa el ResultSet de Ordermanager
+        user = MainFrame.getUser();
+        OrderManager.start(user.getUsrName());
+        orders.showOrder(OrderManager.next());
+    }
 
+    private void showOrder(Order o) {
+        // Muestra los datos del pedido indicado
+        this.clientNif.setText(user.getUsrName());
+        this.orderloc.setText(String.valueOf(o.getLoc()));
+        this.price.setText(String.valueOf(o.getPrice()));
+        
+        // Actualizamos el JList
+        updateList(o);
+    }
+    
+    private void updateList(Order o) {
+        // Actualiza los datos del JList con transacciones referentes al pedido
+        // actual.
+        model = new DefaultListModel<>();
+        
+        // Obtener el precio total del pedido
+        ArrayList<Float> fullPriceL = new ArrayList<>();
+        TransactionManager.select("where loc = " + o.getLoc()).forEach(t -> {
+            fullPriceL.add(t.getDel_costs());
+        });
+        float fullPrice = o.getPrice();
+        for (float f : fullPriceL) 
+            fullPrice += f;
+        
+        // Obtener las transacciones para la lista
+        TransactionManager.select("where loc = " + o.getLoc()).forEach(t -> {
+            model.addElement(t.toString());
+        });
+        
+        this.priceCosts.setText(String.format("%.2f", fullPrice));
+        
+        transactionList.setModel(model);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -45,6 +89,8 @@ public class Orders extends javax.swing.JPanel {
         transactionList = new javax.swing.JList<>();
         transactionsTitle = new javax.swing.JLabel();
         separator = new javax.swing.JSeparator();
+        priceCostsLabel = new javax.swing.JLabel();
+        priceCosts = new javax.swing.JLabel();
 
         ordersTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         ordersTitle.setText("Orders");
@@ -65,22 +111,49 @@ public class Orders extends javax.swing.JPanel {
         price.setText("price");
 
         firstButton.setText("First");
+        firstButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstButtonActionPerformed(evt);
+            }
+        });
 
         prevButton.setText("Previous");
+        prevButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevButtonActionPerformed(evt);
+            }
+        });
 
         nextButton.setText("Next");
+        nextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextButtonActionPerformed(evt);
+            }
+        });
 
         lastButton.setText("Last");
+        lastButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastButtonActionPerformed(evt);
+            }
+        });
 
+        transactionList.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         transactionList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        transactionList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane.setViewportView(transactionList);
 
         transactionsTitle.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
         transactionsTitle.setText("Transactions");
+
+        priceCostsLabel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        priceCostsLabel.setText("Price + Delivery Costs");
+
+        priceCosts.setText("pricePlusDelCosts");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -108,7 +181,9 @@ public class Orders extends javax.swing.JPanel {
                             .addComponent(clientLabel)
                             .addComponent(clientNif, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(priceLabel)
-                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(priceCostsLabel)
+                            .addComponent(priceCosts, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(separator, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -141,6 +216,10 @@ public class Orders extends javax.swing.JPanel {
                         .addComponent(priceLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(price)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(priceCostsLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(priceCosts)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(prevButton)
@@ -158,6 +237,69 @@ public class Orders extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    // <editor-fold defaultstate="collapsed" desc="Event Listeners y recorrido de pedidos">
+    private void firstButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstButtonActionPerformed
+        // Muestra el primer pedido
+        showOrder(OrderManager.first());
+        
+        // Estamos en el primero > No podemos retroceder
+        toggleBackward(false);
+        
+        // Ya se puede avanzar si antes no se podía
+        if (!nextButton.isEnabled())
+            toggleForward(true);
+    }//GEN-LAST:event_firstButtonActionPerformed
+
+    private void lastButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastButtonActionPerformed
+        // Muestra el último pedido
+        showOrder(OrderManager.last());
+        
+        // Estamos en el último > No podemos avanzar
+        toggleForward(false);
+        
+        // Ya se puede retroceder si antes no se podía
+        if (!prevButton.isEnabled())
+            toggleBackward(true);
+    }//GEN-LAST:event_lastButtonActionPerformed
+
+    private void prevButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevButtonActionPerformed
+        // Muestra el pedido anterior
+        showOrder(OrderManager.prev());
+        
+        // Si hemos llegado al principio > No podemos retroceder
+        if (OrderManager.isFirst())
+            toggleBackward(false);
+        
+        // Si antes no podíamos avanzar, ahora ya sí
+        if (!nextButton.isEnabled()) 
+            toggleForward(true);
+    }//GEN-LAST:event_prevButtonActionPerformed
+    
+    private void nextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextButtonActionPerformed
+        // Muestra el pedido siguiente
+        showOrder(OrderManager.next());
+        
+        // Si hemos llegado al final, no podemos avanzar
+        if (OrderManager.isLast())
+            toggleForward(false);
+        
+        // Si antes no podíamos retroceder, ahora ya sí
+        if (!prevButton.isEnabled()) 
+            toggleBackward(true);
+    }//GEN-LAST:event_nextButtonActionPerformed
+    
+    private void toggleForward(boolean b) {
+        // Método interruptor para activar y desactivar los botones para avanzar
+        lastButton.setEnabled(b);
+        nextButton.setEnabled(b);
+    }
+    
+    private void toggleBackward(boolean b) {
+        // Método interruptor para activar y desactivar los botones para retroceder
+        firstButton.setEnabled(b);
+        prevButton.setEnabled(b);
+    }
+    // </editor-fold>
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel clientLabel;
@@ -171,6 +313,8 @@ public class Orders extends javax.swing.JPanel {
     private javax.swing.JLabel ordersTitle;
     private javax.swing.JButton prevButton;
     private javax.swing.JLabel price;
+    private javax.swing.JLabel priceCosts;
+    private javax.swing.JLabel priceCostsLabel;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JSeparator separator;
     private javax.swing.JList<String> transactionList;

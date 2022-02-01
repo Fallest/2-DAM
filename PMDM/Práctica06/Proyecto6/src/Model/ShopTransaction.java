@@ -62,7 +62,13 @@ public class ShopTransaction {
     // toString
     @Override
     public String toString() {
-        return "ShopTransaction{" + "loc=" + loc + ", del_cod=" + del_cod + ", transaction_code=" + transaction_code + ", shop_name=" + shop_name + ", del_costs=" + del_costs + '}';
+        return "ShopTransaction{" 
+                + "Locator = " + loc 
+                + ", Order Deliery Code = " + del_cod 
+                + ", Transaction code = " + transaction_code 
+                + ", Shop Name = " + shop_name 
+                + ", Delivery Costs = " + del_costs 
+                + "}";
     }
 
 }

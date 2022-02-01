@@ -89,6 +89,38 @@ public class Profile extends javax.swing.JPanel {
         MainFrame.newTransaction.setEnabled(true);
     }
     
+    public void setImage(File f) {
+        // Cambia el icono de la imagen
+        this.image.setIcon(new ImageIcon(f.getAbsolutePath()));
+    }
+    
+    public static void closeSession() {
+        // Reseteamos valores de las labels
+        profile.typeUser.setText("TypeOfUser");
+        profile.name.setText("Name");
+        profile.attr1Name.setText("Attr1:");
+        profile.attr1.setText("attr1");
+        profile.attr2Name.setText("Attr2:");
+        profile.attr2.setText("attr2");
+        profile.image.setText("Image");
+        profile.image.setIcon(null);
+
+        // Reseteamos los botones
+        profile.changePicture.setVisible(true);
+        profile.changeClientNif.setVisible(true);
+        profile.changeRegDate.setVisible(true);
+        profile.newOrder.setVisible(true);
+        profile.orders.setText("My Orders");
+
+        // Cambiamos de panel y cerramos sesión
+        MainFrame.getMainFrame().changePanel(MainFrame.getLoginPanel());
+        MainFrame.setAdmin(false);
+        MainFrame.changeUserAccess(false);
+        MainFrame.setUser(null);
+        MainFrame.getMainFrame().resetMenu();
+        Login.init();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -232,6 +264,7 @@ public class Profile extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     
+    // <editor-fold defaultstate="collapsed" desc="Event Listeners">
     private void exitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitMouseClicked
         // Cerrar sesión
         closeSession();
@@ -254,6 +287,7 @@ public class Profile extends javax.swing.JPanel {
         MainFrame.getMainFrame().changePanel(MainFrame.getOrdersPanel());
         MainFrame.orders.setEnabled(false);
         MainFrame.profile.setEnabled(true);
+        Orders.init();
     }//GEN-LAST:event_ordersActionPerformed
 
     private void newOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newOrderActionPerformed
@@ -262,39 +296,8 @@ public class Profile extends javax.swing.JPanel {
         MainFrame.profile.setEnabled(true);
         MainFrame.newTransaction.setEnabled(false);
     }//GEN-LAST:event_newOrderActionPerformed
-
-    public void setImage(File f) {
-        // Cambia el icono de la imagen
-        this.image.setIcon(new ImageIcon(f.getAbsolutePath()));
-    }
     
-    public static void closeSession() {
-        // Reseteamos valores de las labels
-        profile.typeUser.setText("TypeOfUser");
-        profile.name.setText("Name");
-        profile.attr1Name.setText("Attr1:");
-        profile.attr1.setText("attr1");
-        profile.attr2Name.setText("Attr2:");
-        profile.attr2.setText("attr2");
-        profile.image.setText("Image");
-        profile.image.setIcon(null);
-
-        // Reseteamos los botones
-        profile.changePicture.setVisible(true);
-        profile.changeClientNif.setVisible(true);
-        profile.changeRegDate.setVisible(true);
-        profile.newOrder.setVisible(true);
-        profile.orders.setText("My Orders");
-
-        // Cambiamos de panel y cerramos sesión
-        MainFrame.getMainFrame().changePanel(MainFrame.getLoginPanel());
-        MainFrame.setAdmin(false);
-        MainFrame.changeUserAccess(false);
-        MainFrame.setUser(null);
-        MainFrame.getMainFrame().resetMenu();
-        Login.init();
-    }
-    
+    // </editor-fold>
     
     private JFileChooser fileChooser;
     // Variables declaration - do not modify//GEN-BEGIN:variables
