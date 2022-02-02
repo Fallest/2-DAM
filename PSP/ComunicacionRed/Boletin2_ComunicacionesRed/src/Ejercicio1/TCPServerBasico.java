@@ -3,7 +3,7 @@ package Ejercicio1;
 import java.io.IOException;
 import java.net.*;
 
-public class Server {
+public class TCPServerBasico {
     
     /**
      * En esta clase se crea un Servidor y se abre un socket para escuchar las
@@ -24,7 +24,6 @@ public class Server {
             client.close();
 
             server.close();
-
         } catch (IOException ex) {
             System.out.println(ex);
         }
