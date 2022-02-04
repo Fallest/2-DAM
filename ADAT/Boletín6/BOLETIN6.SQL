@@ -255,11 +255,10 @@ registros, creada previamente, con la siguiente información:
 - Nombre del usuario, hora, 'Salida' si finaliza la conexión.
 */
 
-create table registros
-(
-nomb 	varchar2(20),
-hora 	timestamp,
-entsal	varchar2(10)
+create table registros (
+    nomb 	    varchar2(20) not null primary key,
+    hora 	    timestamp,
+    entsal	    varchar2(10)
 );
 
 create or replace trigger ejercicio4
