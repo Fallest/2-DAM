@@ -49,7 +49,7 @@ begin
 	select cod into Ncod from asignaturas where nombre = :old.nombre;
 
 	delete from notas
-	where dni = Ndni 
+	where dni = Ndni
 	and cod = Ncod;
 end;
 
@@ -83,7 +83,7 @@ where e.dept_no=d.dept_no and e.dir=j.emp_no;
 create or replace trigger ejercicio2_insert
 instead of insert on vemp
 for each row
-declare 
+declare
 	Nemp_no emple.emp_no%type;
 	Ndir emple.dir%type;
 	Ndept_no emple.dept_no%type;
@@ -100,45 +100,54 @@ end;
 create or replace trigger ejercicio2_update_1
 instead of update on vemp
 for each row
-declare 
+declare
 	Ndept_no emple.dept_no%type;
 	Nemp_no emple.emp_no%type;
 begin
 	if updating('dnombre') then
-		select emp_no, dept_no, dir
-		into Nemp_no, Ndept_no, Ndir
+		select emp_no, dept_no
+		into Nemp_no, Ndept_no
 		from emple
 		where apellido = :new.ApeEmple;
 
 		update emple
-		set dept_no = :new.dept_no;
-		where dept_no = :old.dept_no;
+		set dept_no = Ndept_no
+		where emp_no = Nemp_no;
 	end if;
 end;
 
 create or replace trigger ejercicio2_update_2
 instead of update on vemp
 for each row
+declare
+    Ndept_no emple.dept_no%type;
+	Nemp_no emple.emp_no%type;
 begin
 	if updating('dir') then
 		update emple
-		set dir = :new.dir;
-		where dir = :old.dir;
+		set dir = :new.dir
+		where apellido = :old.ApeEmple;
 	end if;
 end;
 
 create or replace trigger ejercicio2_delete
 instead of delete on vemp
 for each row
+declare
+    Ndir emple.dir%type;
 begin
-	if deleting then
-		update emple
-		set dir = null
-		where dir = :old.emp_no;
-	
-		delete on emple
-		where emp_no = :old.emp_no;
-	end if;
+    -- Borramos el empleado indicado teniendo en cuenta que puede ser el jefe de otro
+    -- Seleccionamos el número de empleado de los empleados que puedan tener como jefe al que queremos borrar
+    select empl_no into Ndir
+    from emple
+    where apellido = :old.ApeEmple;
+
+    update emple
+    set dir = null
+    where dir = :Ndir;
+
+    delete on emple
+    where apellido = :old.ApeEmple;
 end;
 
 /* Ejercicio 3
@@ -156,59 +165,87 @@ Diseñar disparadores para:
 */
 
 create view vcliente as
-select nombre, descripcion, fecha, unidades, precio_uni, (precio_uni*unidades) "subtotal" from clientes c, productos p, ventas v
-where c.nif=v.nif and p.cod_producto=v.cod_producto;
+select nombre, descripcion, fecha, unidades, precio_uni, (precio_uni*unidades) "subtotal"
+from clientes c, productos p, ventas v
+where c.nif = v.nif
+and p.cod_producto = v.cod_producto;
 
 create or replace trigger ejercicio3_insert
 instead of insert on vcliente
 for each row
+declare
+    Nnif ventas.nif%type;
+    Ncod_producto ventas.cod_producto%type;
 begin
-	if inserting then
-		insert into ventas
-		values(:new.nif, :new.cod_producto, :new.fecha, :new.unidades);
-	end if;
+    select nit into Nnif from clientes where nombre = :new.nombre;
+    select cod_producto into Ncod_producto
+    from productos
+    where descripcion = :new.descripcion;
+
+    insert into ventas
+    values(Nnif, Ncod_producto, :new.fecha, :new.unidades);
 end;
 
 create or replace trigger ejercicio3_delete_1
 instead of delete on vcliente
 for each row
+declare
+    Nnif ventas.nif%type;
+    Ncod_producto ventas.cod_producto%type;
 begin
-	if deleting then
-		delete from ventas
-		where nif = :old.nif
-		and cod_producto = :old.cod_producto;
-	end if;
+    select nit into Nnif from clientes where nombre = :new.nombre;
+    select cod_producto into Ncod_producto
+    from productos
+    where descripcion = :new.descripcion;
+
+    delete from ventas
+    where nif = Nnif
+    and cod_producto = Ncod_producto;
 end;
 
 create or replace trigger ejercicio3_update
 instead of update on vcliente
 for each row
-begin 
+declare
+    Nnif ventas.nif%type;
+    Ncod_producto ventas.cod_producto%type;
+begin
 	if updating('unidades') then
+	    select nit into Nnif from clientes where nombre = :new.nombre;
+        select cod_producto into Ncod_producto
+        from productos
+        where descripcion = :new.descripcion;
+
 		update ventas
 		set unidades = :new.unidades
-		where unidades = :old.unidades;
+		where nif = Nnif
+	    and cod_producto = Ncod_producto;
 	end if;
 end;
 
 create or replace trigger ejercicio3_delete_2
 instead of delete on vcliente
 for each row
+declare
+    Nnif ventas.nif%type;
 begin
-	if deleting then
-		delete from ventas
-		where nif = :old.nif;
-	end if;
+    select nit into Nnif from clientes where nombre = :new.nombre;
+    delete from ventas
+    where nif = Nnif;
 end;
 
 create or replace trigger ejercicio3_delete_3
 instead of delete on vcliente
 for each row
+declare
+    Ncod_producto ventas.cod_producto%type;
 begin
-	if deleting then
-		delete from ventas
-		where cod_producto = :old.cod_producto;
-	end if;
+    select cod_producto into Ncod_producto
+    from productos
+    where descripcion = :new.descripcion;
+
+    delete from ventas
+    where cod_producto = Ncod_producto;
 end;
 
 /* Ejercicio 4
@@ -231,9 +268,3 @@ begin
 	insert into registros
 	values(ora_login_user, systimestamp, ora_sysevent);
 end;
-
-----------------------------------------------------------------------------------------------------------------------------------
-
-
-
-----------------------------------------------------------------------------------------------------------------------------------
