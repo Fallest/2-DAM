@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using GestorClub.Objetos;
+using GestorGUI.Objetos;
 
-namespace GestorClub {
+namespace GestorGUI {
 public class DataManager {
     /*
      * Esta clase se va a encargar de escribir y leer datos de un archivo .dat.

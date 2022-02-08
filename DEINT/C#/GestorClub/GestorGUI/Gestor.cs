@@ -1,11 +1,9 @@
-﻿using GestorClub.Objetos;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+using GestorGUI.Objetos;
 
-namespace GestorClub
+namespace GestorGUI
 {
-    class Gestor
+public class Gestor
     {
         // Inicialización del Fondo y de 3 socios.
         private static Socio[] _socios = {
@@ -32,6 +30,10 @@ namespace GestorClub
                 _fondo.Add(new Pelicula(titulo, genero, "true", "0", attr));
             }
             _fondo.Mostrar();
+        }
+
+        public void Remove(int Id) {
+            _fondo.Remove(Id);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace GestorClub.Objetos {
+namespace GestorGUI.Objetos {
 class Videojuego : Ejemplar {
     // Atributos
     private string _plataforma;

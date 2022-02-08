@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GestorClub.Objetos {
+namespace GestorGUI.Objetos {
 public abstract class Ejemplar {
     // Atributos
     protected static int CountId;

@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace GestorClub.Objetos {
+namespace GestorGUI.Objetos {
 class Pelicula : Ejemplar {
     // Atributos
     private Fecha _fechaEstreno;

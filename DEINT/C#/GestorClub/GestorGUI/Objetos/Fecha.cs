@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GestorClub.Objetos {
+namespace GestorGUI.Objetos {
 class Fecha {
     // Atributos
     private int _dia;

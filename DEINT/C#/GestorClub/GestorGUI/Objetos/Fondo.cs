@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GestorClub.Objetos {
+namespace GestorGUI.Objetos {
 public class Fondo {
     // Array principal, que al inicio tiene nada más que 10 posiciones.
     private Ejemplar[] _fondo;
