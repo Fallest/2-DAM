@@ -7,24 +7,32 @@
         Title="Listado" Height="400" Width="550">
     <Grid>
         <!-- Menú -->
-        <Menu>
-            <MenuItem Name="MenuPrincipalBoton" Header="_Menú Principal"></MenuItem>
+        <Menu IsMainMenu="True">
+            <MenuItem x:Name="MenuPrincipalBoton" Header="Menú Principal" Click="MenuPrincipalBoton_OnClicklick"></MenuItem>
         </Menu>
         <!-- Título -->
         <TextBlock HorizontalAlignment="Left" Margin="20,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" FontStyle="Normal" TextDecorations="{x:Null}"><Run Language="es-es" Text="Listado"/></TextBlock>
         <!-- Listado -->
         <ListBox Name="ListaEjemplares" HorizontalContentAlignment="Left" Margin="20, 100, 20, 20">
-            
         </ListBox>
-        
+        <!-- Buscador -->
         <Label Content="Buscar:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0"/>
         <TextBox x:Name="Buscador" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 70, 0, 0" Height="20" Width="150"></TextBox>
-        
+        <!-- Filtros -->
         <Label Content="Prestado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,30,0,0"/>
-        <CheckBox IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,35,0,0">Sí</CheckBox>
-        <CheckBox IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="290,35,0,0">No</CheckBox>
-        
-        <CheckBox IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,70,0,0">Videojuegos</CheckBox>
-        <CheckBox IsChecked="True" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="280,70,0,0">Películas</CheckBox>
+        <Label Content="Tipo:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,70,0,0"/>
+        <!-- ComboBoxes -->
+        <ComboBox x:Name="Disponibilidad" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,35,0,0" FontSize="12" SelectedIndex="0" >
+            <Label x:Name="LabelTodos" Content="Todos"/>
+            <Label x:Name="LabelSi" Content="Sí"/>
+            <Label x:Name="LabelNo" Content="No"/>
+        </ComboBox>
+        <ComboBox x:Name="Tipo" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="250,70,0,0" FontSize="12" SelectedIndex="0" >
+            <Label x:Name="LabelAmbos" Content="Todos"/>
+            <Label x:Name="LabelVideojuegos" Content="Videojuego"/>
+            <Label x:Name="LabelPeliculas" Content="Pelicula"/>
+        </ComboBox>
+        <!-- Botones -->
+        <Button x:Name="BotonFiltrar" Click="BotonFiltrar_OnClick" Content="Filtrar" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="350,70,0,0" Width="100"></Button>
     </Grid>
 </Window>

@@ -16,11 +16,13 @@ C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreap
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.dll
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.pdb
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GestorGUI.genruntimeconfig.cache
-C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\AddWindow.g.cs
-C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\AddWindow.baml
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Eliminar.g.cs
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Listado.g.cs
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Main.g.cs
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Eliminar.baml
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Listado.baml
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Main.baml
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Agregar.baml
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\Agregar.g.cs
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\SolDev.g.cs
+C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\obj\Debug\netcoreapp3.1\GUI\SolDev.baml

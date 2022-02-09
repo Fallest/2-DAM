@@ -139,7 +139,7 @@ public class Fondo {
     }
     
     /*-------------------------------------*/
-    public void Mostrar(List<Tuple<int, string>> lista) {
+    public List<Ejemplar> Filtrar(List<Tuple<int, string>> lista) {
         /*
          * Esta función va a mostrar los datos siguiendo una serie de condiciones
          * indicadas en la Lista de tupladas dada por parámetros.
@@ -202,6 +202,11 @@ public class Fondo {
                             if (e is Videojuego)
                                 auxiliar1.Add(e);
                     }
+                    
+                    else if (tupla.Item2.Equals("ambos")) {
+                        foreach (Ejemplar e in copiaFondo)
+                            auxiliar1.Add(e);
+                    }
 
                     Console.Write(" - Tipo \"" + tupla.Item2 + "\"");
                     break;
@@ -209,7 +214,7 @@ public class Fondo {
                     // Filtrar por título
                     auxiliar2 = new HashSet<Ejemplar>();
                     foreach (Ejemplar e in copiaFondo) 
-                        if (e.GetTitulo().ToLower().Trim().Equals(tupla.Item2.ToLower().Trim()))
+                        if (e.GetTitulo().ToLower().Trim().Contains(tupla.Item2.ToLower().Trim()) || tupla.Item2 == "")
                             auxiliar2.Add(e);
                     Console.Write(" - Titulo \"" + tupla.Item2 + "\"");
                     break;
@@ -240,6 +245,10 @@ public class Fondo {
                         foreach (Ejemplar ej in copiaFondo)
                             if (!ej.GetDisponible())
                                 auxiliar4.Add(ej);
+                    }
+                    else if (tupla.Item2.Equals("ambos")) {
+                        foreach (Ejemplar e in copiaFondo)
+                            auxiliar4.Add(e);
                     }
                     Console.Write(" - Disponibilidad \"" + tupla.Item2 + "\"");
                     break;
@@ -337,16 +346,13 @@ public class Fondo {
             if (auxiliar5 != null) resultado.IntersectWith(auxiliar5);
             if (auxiliar6 != null) resultado.IntersectWith(auxiliar6);
             if (auxiliar7 != null) resultado.IntersectWith(auxiliar7);
-
-            
         }
         Console.WriteLine("\n");
         // Queda mostrar por pantalla los elementos
         if (resultado.Count != 0)
-            foreach (Ejemplar e in resultado)
-                Console.WriteLine(e);
+            return new List<Ejemplar>(resultado);
         else {
-            Console.WriteLine("\t\tSystem: No hay datos para el filtro aplicado.");
+            return null;
         }
     }
     

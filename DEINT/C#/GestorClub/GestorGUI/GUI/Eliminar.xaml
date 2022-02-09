@@ -8,8 +8,8 @@
         Title="Gestor Club" Height="400" Width="550">
     <Grid>
         <!-- Menú -->
-        <Menu>
-            <MenuItem Name="MenuPrincipalBoton" Header="_Menú Principal"></MenuItem>
+        <Menu IsMainMenu="True">
+            <MenuItem x:Name="MenuPrincipalBoton" Header="Menú Principal" Click="MenuPrincipalBoton_OnClicklBoton_OnClick"></MenuItem>
         </Menu>
         <!-- Título -->
         <TextBlock HorizontalAlignment="Left" Margin="20,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" FontStyle="Normal" TextDecorations="{x:Null}"><Run Language="es-es" Text="Eliminar un ejemplar"/></TextBlock>
@@ -22,7 +22,7 @@
         <Label Content="Seleccione un ejemplar del listado." FontSize="10" Margin="20, 50, 20,20" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         <Label Content="Después haga click en eliminar." FontSize="10" Margin="20, 65, 20,20" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         <!-- Botones -->
-        <Button x:Name="BotonEliminar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="225, 350, 0, 0" Width="100" Content="Eliminar" IsEnabled="False"></Button>
-        <Button x:Name="BotonCancelar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20, 350, 0, 0" Content="Cancelar"></Button>
+        <Button x:Name="BotonEliminar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="200, 330, 0, 0" Width="100" Content="Eliminar" IsEnabled="False"></Button>
+        <Button x:Name="BotonCancelar" Click="BotonCancelar_OnClick" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20, 330, 0, 0" Content="Cancelar"></Button>
     </Grid>
 </Window>

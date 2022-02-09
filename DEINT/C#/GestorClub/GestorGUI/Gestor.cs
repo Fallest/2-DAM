@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using GestorGUI.Objetos;
 
 namespace GestorGUI
@@ -18,6 +19,7 @@ public class Gestor
         public void Init()
         {
             DataManager.LeerDatos(_fondo);
+            _fondo.Mostrar();
         }
 
         public void Add(String tipo, String titulo, String genero, String attr)
@@ -34,6 +36,14 @@ public class Gestor
 
         public void Remove(int Id) {
             _fondo.Remove(Id);
+        }
+
+        public Ejemplar[] GetEjemplares() {
+            return _fondo.GetEjemplares();
+        }
+
+        public List<Ejemplar> Filtrar(List<Tuple<int, string>> lista) {
+            return _fondo.Filtrar(lista);
         }
     }
 }

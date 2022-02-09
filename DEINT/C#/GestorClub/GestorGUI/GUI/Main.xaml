@@ -7,10 +7,10 @@
         Title="Gestor Club" Height="400" Width="550">
     <Grid>
         <TextBlock HorizontalAlignment="Left" Margin="20,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" FontStyle="Normal" TextDecorations="{x:Null}"><Run Language="es-es" Text="Gestor de Películas y Videojuegos"/></TextBlock>
-        <Button Content="Salir" HorizontalAlignment="Left" Margin="30,330,0,10" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Ver listado" HorizontalAlignment="Left" Margin="150,100,0,0" VerticalAlignment="Top" Width="250" FontSize="20"/>
-        <Button Content="Solicitudes y devoluciones" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top" Width="250" FontSize="20"/>
-        <Button Content="Añadir un ejemplar" HorizontalAlignment="Left" Margin="150,200,0,0" VerticalAlignment="Top" Width="250"/>
-        <Button Content="Eliminar un ejemplar" HorizontalAlignment="Left" Margin="150,230,0,0" VerticalAlignment="Top" Width="250"/>
+        <Button x:Name="BotonSalir" Click="BotonSalir_OnClick" Content="Salir" HorizontalAlignment="Left" Margin="30,330,0,10" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="BotonListado" Click="BotonListado_OnClick" Content="Ver listado" HorizontalAlignment="Left" Margin="150,100,0,0" VerticalAlignment="Top" Width="250" FontSize="20"/>
+        <Button x:Name="BotonSolDev" Click="BotonSolDev_OnClick" Content="Solicitudes y devoluciones" HorizontalAlignment="Left" Margin="150,150,0,0" VerticalAlignment="Top" Width="250" FontSize="20"/>
+        <Button x:Name="BotonAñadir" Click="BotonAñadir_OnClick" Content="Añadir un ejemplar" HorizontalAlignment="Left" Margin="150,200,0,0" VerticalAlignment="Top" Width="250"/>
+        <Button x:Name="BotonEliminar" Click="BotonEliminar_OnClick" Content="Eliminar un ejemplar" HorizontalAlignment="Left" Margin="150,230,0,0" VerticalAlignment="Top" Width="250"/>
     </Grid>
 </Window>

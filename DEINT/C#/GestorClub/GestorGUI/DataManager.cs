@@ -29,7 +29,7 @@ public class DataManager {
         try {
             // Archivo del que se va a leer
             using FileStream lector = new FileStream(
-                "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\GestorClub\\GestorClub\\GestorClub\\Datos\\archivo.dat",
+                "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\GestorClub\\GestorGUI\\Datos\\archivo.dat",
                 FileMode.Open);
 
             byte[] dataB = new byte[lector.Length];
@@ -51,7 +51,7 @@ public class DataManager {
         try {
             // Archivo al que se va a escribir.
             using FileStream escritor = new FileStream(
-                "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\GestorClub\\GestorClub\\GestorClub\\Datos\\archivo.dat",
+                "C:\\Users\\David\\Documents\\2-DAM\\DEINT\\C#\\GestorClub\\GestorGUI\\Datos\\archivo.dat",
                 FileMode.Create);
             
                 foreach (Ejemplar e in datos.GetEjemplares()) {
