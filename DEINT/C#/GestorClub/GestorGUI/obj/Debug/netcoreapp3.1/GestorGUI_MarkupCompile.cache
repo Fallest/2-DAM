@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
 C:\Users\David\Documents\2-DAM\DEINT\C#\GestorClub\GestorGUI\App.xaml
-4715030141
+4388665842
 
-14698044053
+14-793901146
 192-1533232326
-GUI\AddWindow.xaml;GUI\Eliminar.xaml;GUI\Listado.xaml;GUI\Main.xaml;
+GUI\Añadir.xaml;GUI\Eliminar.xaml;GUI\Listado.xaml;GUI\Main.xaml;
 
-False
+True
 

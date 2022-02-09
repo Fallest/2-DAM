@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Page Update="GUI\AddWindow.xaml">
+    <Page Update="GUI\Añadir.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
