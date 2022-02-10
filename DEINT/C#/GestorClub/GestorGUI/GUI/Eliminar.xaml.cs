@@ -81,10 +81,7 @@ public partial class Eliminar : Window {
             }
         }
         else {
-            MessageBoxButton button = MessageBoxButton.OK;
-            MessageBoxImage icon = MessageBoxImage.Error;
-            MessageBoxResult result;
-            result = MessageBox.Show("No has seleccionado ningún ejemplar.", "Error", button, icon,
+            MessageBoxResult result = MessageBox.Show("No has seleccionado ningún ejemplar.", "Error", MessageBoxButton.OK, MessageBoxImage.Error,
                 MessageBoxResult.Yes);
         }
     }
