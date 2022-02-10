@@ -15,14 +15,13 @@
         <TextBlock HorizontalAlignment="Left" Margin="20,25,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="24" FontWeight="Bold" FontStyle="Normal" TextDecorations="{x:Null}"><Run Language="es-es" Text="Eliminar un ejemplar"/></TextBlock>
         <!-- Listado -->
         <ListBox Name="ListaEjemplares" HorizontalContentAlignment="Left" Margin="20, 100, 20, 100">
-            
         </ListBox>
         <!-- Labels -->
         <Label Content="Listado de ejemplares en stock" FontStyle="Italic" Width="200" HorizontalContentAlignment="Center" Margin="175, 80, 20,20" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         <Label Content="Seleccione un ejemplar del listado." FontSize="10" Margin="20, 50, 20,20" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         <Label Content="Después haga click en eliminar." FontSize="10" Margin="20, 65, 20,20" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         <!-- Botones -->
-        <Button x:Name="BotonEliminar" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="200, 330, 0, 0" Width="100" Content="Eliminar" IsEnabled="False"></Button>
+        <Button x:Name="BotonEliminar" Click="BotonEliminar_OnClick" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="200, 330, 0, 0" Width="100" Content="Eliminar"></Button>
         <Button x:Name="BotonCancelar" Click="BotonCancelar_OnClick" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20, 330, 0, 0" Content="Cancelar"></Button>
     </Grid>
 </Window>

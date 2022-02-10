@@ -38,6 +38,7 @@ public partial class Main : Window {
         // Botón para cambiar a la ventana de Solicitudes y devoluciones
         HideForm(main);
         ShowForm(SolDev);
+        SolDev.Fill();
     }
     private void BotonAñadir_OnClick(object sender, RoutedEventArgs e) {
         // Botón para cambiar a la ventana de Agregar
@@ -49,6 +50,7 @@ public partial class Main : Window {
          // Botón para cambiar a la ventana de Eliminar
          HideForm(main);
          ShowForm(Eliminar);
+         Eliminar.Fill();
      }
     //--------------------------------------------------
     // Variables y métodos para cambiar entre ventanas.

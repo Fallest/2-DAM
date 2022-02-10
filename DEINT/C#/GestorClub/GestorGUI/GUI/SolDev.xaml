@@ -16,16 +16,16 @@
         <!-- Labels -->
         <Label Content="Seleccione un ejemplar del listado. Introduzca su ID y después haga click en solicitar o devolver." FontSize="10" Margin="20, 50, 20,20" HorizontalAlignment="Left" VerticalAlignment="Top"></Label>
         <!-- RadioButtons -->
-        <RadioButton Content="Solicitar" IsChecked="True" Margin="40, 80, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top"></RadioButton>
-        <RadioButton Content="Devoler" Margin="120, 80, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top"></RadioButton>
+        <RadioButton x:Name="RadioSolicitar" Click="RadioSolicitar_OnClick" Content="Solicitar" IsChecked="True" Margin="40, 80, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top"></RadioButton>
+        <RadioButton x:Name="RadioDevolver" Click="RadioDevolver_OnClick" Content="Devoler" Margin="120, 80, 0, 0" HorizontalAlignment="Left" VerticalAlignment="Top"></RadioButton>
         <!-- Listado -->
         <ListBox x:Name="ListaEjemplares" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 100, 0, 0" Height="150" Width="400">
         </ListBox>
         <!-- Botones -->
         <Button x:Name="BotonCancelar" Click="BotonCancelar_OnClick" Content="Cancelar" HorizontalAlignment="Left" Margin="20,324,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Solicitar" HorizontalAlignment="Left" Margin="20,260,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Devolver" IsEnabled="False" HorizontalAlignment="Left" Margin="20,290,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="BotonSolicitar" Click="BotonSolicitar_OnClick" Content="Solicitar" HorizontalAlignment="Left" Margin="20,260,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="BotonDevolver" Click="BotonDevolver_OnClick" Content="Devolver" IsEnabled="False" HorizontalAlignment="Left" Margin="20,290,0,0" VerticalAlignment="Top" Width="75"/>
         <!-- TextBoxes -->
-        <TextBox HorizontalAlignment="Left" Margin="120,280,0,0" VerticalAlignment="Top" Width="50">ID</TextBox>
+        <TextBox x:Name="TboxId" HorizontalAlignment="Left" Margin="100,260,0,0" VerticalAlignment="Top" Width="50">ID</TextBox>
     </Grid>
 </Window>

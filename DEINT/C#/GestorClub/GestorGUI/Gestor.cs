@@ -34,8 +34,16 @@ public class Gestor
             _fondo.Mostrar();
         }
 
-        public void Remove(int Id) {
-            _fondo.Remove(Id);
+        public void Remove(int id) {
+            _fondo.Remove(id);
+        }
+
+        public void Prestar(int id, int socioId) {
+            _fondo.Prestar(id, socioId);
+        }
+
+        public void Devolver(int id) {
+            _fondo.Devolver(id);
         }
 
         public Ejemplar[] GetEjemplares() {

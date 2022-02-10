@@ -363,12 +363,12 @@ public class Fondo {
     }
 
     /*-------------------------------------*/
-    public void Prestar(int id) {
-        CambiarDisponibilidad(id, false);
+    public void Prestar(int id, int socioId) {
+        CambiarDisponibilidad(id, false, socioId);
     }
 
     /*-------------------------------------*/
-    private void CambiarDisponibilidad(int id, bool disp) {
+    private void CambiarDisponibilidad(int id, bool disp, int socioId = 0) {
         /*
          * Método para cambiar la disponibilidad de un ejemplar.
          * Lo utilizar los métodos Prestar y Devolver para ahorrar código
@@ -382,10 +382,8 @@ public class Fondo {
             if (item != null && item.GetId() == id) {
                 encontrado = true;
                 item.SetDisponible(disp);
-                if(disp)
-                    Console.WriteLine("\t\tSystem: El ejemplar con ID \"" + id + "\" está ahora disponible.\n\n");
-                else
-                    Console.WriteLine("\t\tSystem: El ejemplar con ID \"" + id + "\" ya no está disponible.\n\n");
+                if (!disp) 
+                    item.SetSocioId(socioId);
             }
         if (!encontrado)
             Console.WriteLine("\t\tSystem: Ejemplar no encontrado.");
