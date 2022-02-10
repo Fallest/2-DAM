@@ -11,7 +11,8 @@ namespace GestorGUI.GUI {
 
         private void Fill() {
             // Llena la lista con todos los ejemplares en la base de datos.
-            List<Ejemplar> lista = new List<Ejemplar>();
+            List<Ejemplar> aux = new List<Ejemplar>();
+            List<String> lista = new List<string>();
             List<Tuple<int, string>> filtro = new List<Tuple<int, string>>();
 
             switch (Disponibilidad.SelectedIndex) {
@@ -40,15 +41,21 @@ namespace GestorGUI.GUI {
                     break;
             }
             
-            lista = Main.gestor.Filtrar(filtro);
+            aux = Main.gestor.Filtrar(filtro);
 
-            if (lista == null) {
+            if (aux == null) {
                 // Si la lista está vacía
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Information;
                 MessageBoxResult result;
                 result = MessageBox.Show("No hay datos para su búsqueda.", "Sin datos", button, icon,
                     MessageBoxResult.Yes);
+            }
+            else {
+                
+                foreach (Ejemplar e in aux) {
+                    lista.Add(e.ToString("show"));
+                }
             }
             
             ListaEjemplares.ItemsSource = lista;

@@ -135,6 +135,8 @@ public abstract class Ejemplar {
     /*-------------------------------------------------------------------------------*/
     // Método abstracto ToString.
     public abstract override string ToString();
+
+    public abstract string ToString(string s);
     
     // Método parse
 

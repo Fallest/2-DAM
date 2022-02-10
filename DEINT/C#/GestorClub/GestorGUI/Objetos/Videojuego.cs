@@ -45,6 +45,19 @@ class Videojuego : Ejemplar {
                + SocioId.ToString() + ";" + _plataforma.PadRight(30);
     }
     
+    public override string ToString(string purpose) {
+        if (purpose.Equals("show"))
+            return "Videojuego [ "
+                   + "Id: " + Id.ToString()
+                   + "; Título: " + Titulo.Trim()
+                   + "; Género: " + Genero.Trim()
+                   + "; Disponible: " + Disponible.ToString()
+                   + "; ID Socio: " + SocioId
+                   + "; Plataforma: " + _plataforma.Trim() + " ]";
+        else
+            return ToString();
+    }
+    
     /*-------------------------------------------------------------------------------*/
     // Método ToBytes.
     public byte[] ToByteArray() {

@@ -15,20 +15,28 @@ public partial class Eliminar : Window {
     
     public void Fill() {
         // Llena la lista con todos los ejemplares en la base de datos.
-        List<Ejemplar> lista = new List<Ejemplar>();
+        List<Ejemplar> aux = new List<Ejemplar>();
+        List<String> lista = new List<string>();
+        
 
         foreach (Ejemplar e in Main.gestor.GetEjemplares()) {
             if (e != null && e.GetDisponible())
-                lista.Add(e);
+                aux.Add(e);
         }
         
-        if (lista == null) {
+        if (aux == null) {
             // Si la lista está vacía
             MessageBoxButton button = MessageBoxButton.OK;
             MessageBoxImage icon = MessageBoxImage.Information;
             MessageBoxResult result;
             result = MessageBox.Show("No hay ejemplares disponibles.", "Sin ejemplares", button, icon,
                 MessageBoxResult.Yes);
+        }
+        else {
+                
+            foreach (Ejemplar e in aux) {
+                lista.Add(e.ToString("show"));
+            }
         }
             
         ListaEjemplares.ItemsSource = lista;

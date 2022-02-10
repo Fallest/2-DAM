@@ -45,6 +45,19 @@ class Pelicula : Ejemplar {
                + Genero.PadRight(30) + ";" + Disponible.ToString().PadRight(5) + ";" 
                + SocioId.ToString() + ";" + _fechaEstreno;
     }
+
+    public override string ToString(string s) {
+        if (s.Equals("show"))
+            return "Pelicula [ "
+                   + "Id: " + Id.ToString()
+                   + "; Título: " + Titulo.Trim()
+                   + "; Género: " + Genero.Trim()
+                   + "; Disponible: " + Disponible.ToString()
+                   + "; ID Socio: " + SocioId
+                   + "; Fecha de Estreno: " + _fechaEstreno + " ]";
+        else
+            return ToString();
+    }
     
     /*-------------------------------------------------------------------------------*/
     // Método ToByteArray.

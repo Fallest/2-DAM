@@ -13,7 +13,8 @@ namespace GestorGUI.GUI {
         
         public void Fill() {
             // Llena la lista con todos los ejemplares en la base de datos.
-            List<Ejemplar> lista = new List<Ejemplar>();
+            List<Ejemplar> aux = new List<Ejemplar>();
+            List<String> lista = new List<string>();
             // Variable para saber si queremos buscar los disponibles (estamos seleccionando "Solicitar", false) o
             // los prestados (estamos seleccionando "Devolver", true).
             bool estadoDisponibilidad = (bool) RadioSolicitar.IsChecked;
@@ -22,16 +23,16 @@ namespace GestorGUI.GUI {
                 if (e != null) {
                     if (estadoDisponibilidad && e.GetDisponible()) {
                         // Queremos solicitar, así que buscamos los disponibles
-                        lista.Add(e);
+                        aux.Add(e);
                     }
                     else if (!estadoDisponibilidad && !e.GetDisponible()) {
                         // Queremos devolver, así que buscamos los no disponibles.
-                        lista.Add(e);
+                        aux.Add(e);
                     }
                 }
             }
         
-            if (lista == null) {
+            if (aux == null) {
                 // Si la lista está vacía
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Information;
@@ -39,6 +40,11 @@ namespace GestorGUI.GUI {
                 result = MessageBox.Show(!estadoDisponibilidad ? "No hay ejemplares disponibles." :
                         "No hay ejemplares prestados.",
                     "Sin ejemplares", button, icon, MessageBoxResult.Yes);
+            }
+            else {    
+                foreach (Ejemplar e in aux) {
+                    lista.Add(e.ToString("show"));
+                }
             }
             
             ListaEjemplares.ItemsSource = lista;
