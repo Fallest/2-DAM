@@ -40,7 +40,5 @@ public class Numeros implements Serializable {
     public String toString() {
         return "Numeros{" + "numero=" + numero + ", cuadrado=" + cuadrado + ", cubo=" + cubo + '}';
     }
-    
-    
 
 }

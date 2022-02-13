@@ -4,6 +4,9 @@ import java.io.*;
 import java.net.*;
 
 public class Client {
+    /**
+     * Cliente UDP
+     */
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         int sendPort = 12345;
         int myPort = 34567;
