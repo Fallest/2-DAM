@@ -1,8 +1,6 @@
 package Controller;
 
-import View.MainFrame;
 import java.sql.*;
-import javax.swing.JOptionPane;
 
 public class DBConnection {
 
@@ -16,11 +14,7 @@ public class DBConnection {
         try {
             Class.forName("org.apache.derby.jdbc.ClientDriver");
         } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in DBConnection's Constructor (ClassNotFound).\n"
-                    + "All database connections will be invalid.\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(0, "DBConnection.DBConnection()");
         }
     }
 
@@ -39,11 +33,7 @@ public class DBConnection {
                 System.out.println("Validation complete.");
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in DBConnection's validation.\n"
-                    + "Is the \"clients\" table empty?.\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "DBManager.validateCon()");
         }
     }
 

@@ -2,17 +2,12 @@ package View;
 
 import Controller.*;
 import Model.*;
-import java.awt.BorderLayout;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import net.sourceforge.jdatepicker.impl.*;
 
 /**
@@ -428,17 +423,11 @@ public class Profile extends javax.swing.JPanel {
         try {
             int nif = Integer.parseInt(newNif);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Invalid NIF.\n"
-                    + "Please enter a valid NIF.\n"
-            );
+            ExceptionManager.getError(2, "Profile.changeClientNifActionPerformed()");
         }
         if (newNif.length() != 8) {
             // El nif no es válido en longitud.
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Invalid NIF.\n"
-                    + "Please enter a valid NIF.\n"
-            );
+            ExceptionManager.getError(3, "");
         } else {
             String cliente = clientsList.getSelectedValue();
             String oldNif = cliente.substring(cliente.indexOf("nif") + 4,
@@ -446,7 +435,6 @@ public class Profile extends javax.swing.JPanel {
             OrderManager.update("nif_cli = " + newNif, "where nif_cli = " + oldNif);
             ClientManager.update("nif = " + newNif, "where nif = " + oldNif);
 
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "NIF updated.");
             Profile.fillClientsList();
         }
 
@@ -475,8 +463,7 @@ public class Profile extends javax.swing.JPanel {
         Date selectedDate = (Date) profile.datePicker.getModel().getValue();
         // Si es despues de la fecha actual o antes de 2020.
         if (selectedDate.after(new Date())) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), 
-                    "ERROR: Invalid date.\nPlease enter a valid date.");
+            ExceptionManager.getError(4, "");
         } else {
             // Realizamos el update
             String cliente = clientsList.getSelectedValue();
@@ -484,9 +471,9 @@ public class Profile extends javax.swing.JPanel {
                     cliente.indexOf("nif") + 12);
             SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
             String date = dateFormatter.format(selectedDate);
-            ClientManager.update("reg_date = \'" + date + "\'", 
+            ClientManager.update("reg_date = \'" + date + "\'",
                     "where nif = " + nif);
-            
+
             Profile.fillClientsList();
         }
     }//GEN-LAST:event_changeRegDateActionPerformed

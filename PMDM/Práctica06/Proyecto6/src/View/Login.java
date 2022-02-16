@@ -1,8 +1,8 @@
 package View;
 
+import Controller.ExceptionManager;
 import Controller.LoginChecker;
 import Model.User;
-import javax.swing.JOptionPane;
 
 public class Login extends javax.swing.JPanel {
 
@@ -179,7 +179,7 @@ public class Login extends javax.swing.JPanel {
             MainFrame.setAdmin(false);
             MainFrame.setUser(usr);
         } else {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(), "Wrong credentials\nPlease try again.");
+            ExceptionManager.getError(6, "");
         }
 
         if (MainFrame.getUserAccess()) {

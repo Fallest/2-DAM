@@ -1,14 +1,11 @@
 package Controller;
 
 import Model.ShopTransaction;
-import View.MainFrame;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import org.apache.derby.iapi.sql.PreparedStatement;
 
 public class TransactionManager {
 
@@ -34,15 +31,12 @@ public class TransactionManager {
                 ));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in TransactionManager.select().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "TransactionManager.select()");
         }
 
         return res;
     }
-    
+
     public static ArrayList<ShopTransaction> selectWithLoc(String loc) {
         ArrayList<ShopTransaction> res = new ArrayList<>();
 
@@ -62,15 +56,12 @@ public class TransactionManager {
                 ));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in TransactionManager.select().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "TransactionManager.selectWithLoc()");
         }
 
         return res;
     }
-    
+
     public static ArrayList<String> selectShops() {
         ArrayList<String> res = new ArrayList<>();
 
@@ -83,10 +74,7 @@ public class TransactionManager {
                 res.add(rset.getString(1));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in TransactionManager.selectShops().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "TransactionManager.selectShops()");
         }
 
         return res;
@@ -102,10 +90,7 @@ public class TransactionManager {
 
             System.out.println(rowsAffected + " rows affected in the update.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in TransactionManager.update().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "TransactionManager.update()");
         }
     }
 
@@ -119,10 +104,7 @@ public class TransactionManager {
 
             System.out.println(rowsAffected + " rows affected in the delete.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in TransactionManager.delete().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "TransactionManager.delete()");
         }
     }
 
@@ -134,10 +116,7 @@ public class TransactionManager {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in TransactionManager.insert().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "TransactionManager.insert()");
         }
     }
     // </editor-fold>

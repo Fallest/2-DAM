@@ -1,10 +1,8 @@
 package Controller;
 
 import Model.Client;
-import View.MainFrame;
 import java.sql.*;
 import java.util.*;
-import javax.swing.JOptionPane;
 
 public class ClientManager {
 
@@ -30,10 +28,7 @@ public class ClientManager {
             }
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in ClientManager.select().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "ClientManager.select()");
         }
 
         return res;
@@ -49,10 +44,7 @@ public class ClientManager {
 
             System.out.println(rowsAffected + " rows affected in the update.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in ClientManager.update().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "ClientManager.update()");
         }
     }
 
@@ -66,10 +58,7 @@ public class ClientManager {
 
             System.out.println(rowsAffected + " rows affected in the delete.");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in ClientManager.delete().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "ClientManager.delete()");
         }
     }
 
@@ -81,10 +70,7 @@ public class ClientManager {
             Statement stmt = con.createStatement();
             stmt.executeUpdate(query);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "ERROR: Exception in ClientManager.insert().\n"
-                    + "Please contact your system adminsitrator.\n"
-                    + "Error Message:\n" + ex);
+            ExceptionManager.getError(1, "ClientManager.insert()");
         }
     }
     // </editor-fold>

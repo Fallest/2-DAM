@@ -1,12 +1,12 @@
 package View;
 
 import Controller.DeliveryManager;
+import Controller.ExceptionManager;
 import Controller.OrderManager;
 import Controller.TransactionManager;
 import Model.ShopTransaction;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
 
 public class NewTransaction extends javax.swing.JPanel {
 
@@ -54,7 +54,7 @@ public class NewTransaction extends javax.swing.JPanel {
 
         // Cantidad predefinida
         newTransactionPane.deliveryCosts.setText("0.00");
-        
+
         newTransactionPane.updateUI();
     }
 
@@ -62,44 +62,49 @@ public class NewTransaction extends javax.swing.JPanel {
         // Esta función comprueba que la pareja localizador-repartidor es válida.
         ArrayList<ShopTransaction> transactions = TransactionManager.select(
                 "where loc = " + orderLoc
-                + " and del_cod = " 
+                + " and del_cod = "
                 + DeliveryManager.selectDelCod("where company = \'" + delCompany.toLowerCase() + "\'")
-                );
+        );
 
         // Si no está vacío, ha encontrado una transacción que ya tiene esa pareja,
         // y por ende no es una combinación válida.
-        if (transactions.isEmpty())
+        if (transactions.isEmpty()) {
             return true;
-        else
+        } else {
             return false;
+        }
     }
 
     private void showTransaction(String loc, String del_cod) {
-        ShopTransaction str
-                = TransactionManager.select(
-                        "where loc = " + loc
-                        + " and del_cod = " + del_cod).get(0);
+        try {
+                ShopTransaction str
+                    = TransactionManager.select(
+                            "where loc = " + loc
+                            + " and del_cod = " + del_cod).get(0);
 
-        // Obtenemos el precio total añadido
-        ArrayList<Float> fullPriceL = new ArrayList<>();
-        TransactionManager.select("where loc = " + str.getLoc()).forEach(t -> {
-            fullPriceL.add(t.getDel_costs());
-        });
-        float fullPrice
-                = (OrderManager.select("where loc = " + str.getLoc())
-                        .get(0))
-                        .getPrice();
-        for (float f : fullPriceL) {
-            fullPrice += f;
+            // Obtenemos el precio total añadido
+            ArrayList<Float> fullPriceL = new ArrayList<>();
+            TransactionManager.select("where loc = " + str.getLoc()).forEach(t -> {
+                fullPriceL.add(t.getDel_costs());
+            });
+            float fullPrice
+                    = (OrderManager.select("where loc = " + str.getLoc())
+                            .get(0))
+                            .getPrice();
+            for (float f : fullPriceL) {
+                fullPrice += f;
+            }
+            // Actualizamos los datos de los campos
+            newTransactionPane.orderLoc.setText(String.valueOf(str.getLoc()));
+            newTransactionPane.clientNif.setText(MainFrame.getUser().getUsrName());
+            newTransactionPane.delivererCode.setText(String.valueOf(str.getDel_cod()));
+            newTransactionPane.price.setText(String.format("%.2f", fullPrice));
+            newTransactionPane.delCosts.setText(String.format("%.2f", str.getDel_costs()));
+            newTransactionPane.orderDelCode.setText(String.valueOf(str.getTransaction_code()));
+            newTransactionPane.shopTransaction.setText(str.getShop_name());
+        } catch (NullPointerException ex) {
+            ExceptionManager.getError(9, "NewTransaction.showTransaction()");
         }
-        // Actualizamos los datos de los campos
-        newTransactionPane.orderLoc.setText(String.valueOf(str.getLoc()));
-        newTransactionPane.clientNif.setText(MainFrame.getUser().getUsrName());
-        newTransactionPane.delivererCode.setText(String.valueOf(str.getDel_cod()));
-        newTransactionPane.price.setText(String.format("%.2f", fullPrice));
-        newTransactionPane.delCosts.setText(String.format("%.2f", str.getDel_costs()));
-        newTransactionPane.orderDelCode.setText(String.valueOf(str.getTransaction_code()));
-        newTransactionPane.shopTransaction.setText(str.getShop_name());
     }
 
     /**
@@ -396,17 +401,13 @@ public class NewTransaction extends javax.swing.JPanel {
         // Comprobación del precio
         String price = this.deliveryCosts.getText();
         if (price.equals("") || Float.parseFloat(price) < 0) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "Wrong transaction price.\n"
-                    + "Please enter a valid price.");
+            ExceptionManager.getError(7, "");
             isValid = false;
         }
         // Comprobación de la combinación localizador-repartidor
         if (!checkPK((String) clientOrdersLoc.getSelectedItem(),
                 (String) deliveryCompanies.getSelectedItem())) {
-            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
-                    "Wrong Order Number - Company combination.\n"
-                    + "Please enter a valid combination.");
+            ExceptionManager.getError(5, "");
             isValid = false;
         }
 

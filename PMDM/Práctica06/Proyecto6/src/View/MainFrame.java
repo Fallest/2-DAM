@@ -1,6 +1,7 @@
 package View;
 
 import Controller.DBConnection;
+import Controller.ExceptionManager;
 import Model.User;
 import javax.swing.JPanel;
 
@@ -40,8 +41,6 @@ public final class MainFrame extends javax.swing.JFrame {
         MainFrame.orders.setEnabled(false);
         MainFrame.profile.setEnabled(false);
 
-        
-        
         // Mostrar el panel de Login.
         Login.init();
         this.setContentPane(loginPanel);
@@ -125,6 +124,7 @@ public final class MainFrame extends javax.swing.JFrame {
         about = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("DaviiExpress");
 
         login.setText("Login");
         login.addMouseListener(new java.awt.event.MouseAdapter() {
