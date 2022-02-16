@@ -187,7 +187,7 @@ public class OrderManager {
     }
 
     public static void update(String what, String where) {
-        String query = "udpate orders set = " + what + " " + where;
+        String query = "update orders set " + what + " " + where;
 
         try {
             Connection con = DBConnection.getConnection();

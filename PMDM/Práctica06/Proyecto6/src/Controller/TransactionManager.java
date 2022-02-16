@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import org.apache.derby.iapi.sql.PreparedStatement;
 
 public class TransactionManager {
 
@@ -22,6 +23,34 @@ public class TransactionManager {
             Connection con = DBConnection.getConnection();
             Statement stmt = con.createStatement();
             ResultSet rset = stmt.executeQuery("select * from shops " + where);
+
+            while (rset.next()) {
+                res.add(new ShopTransaction(
+                        rset.getInt(1),
+                        rset.getInt(2),
+                        rset.getInt(3),
+                        rset.getString(4),
+                        rset.getFloat(5)
+                ));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(MainFrame.getMainFrame(),
+                    "ERROR: Exception in TransactionManager.select().\n"
+                    + "Please contact your system adminsitrator.\n"
+                    + "Error Message:\n" + ex);
+        }
+
+        return res;
+    }
+    
+    public static ArrayList<ShopTransaction> selectWithLoc(String loc) {
+        ArrayList<ShopTransaction> res = new ArrayList<>();
+
+        try {
+            Connection con = DBConnection.getConnection();
+            java.sql.PreparedStatement stmt = con.prepareStatement("select * from shops where loc = ?");
+            stmt.setInt(1, Integer.parseInt(loc));
+            ResultSet rset = stmt.executeQuery();
 
             while (rset.next()) {
                 res.add(new ShopTransaction(
@@ -64,7 +93,7 @@ public class TransactionManager {
     }
 
     public static void update(String what, String where) {
-        String query = "udpate shops set = " + what + " " + where;
+        String query = "update shops set " + what + " " + where;
 
         try {
             Connection con = DBConnection.getConnection();

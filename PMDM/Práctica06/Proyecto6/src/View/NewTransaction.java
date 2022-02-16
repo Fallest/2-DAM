@@ -54,21 +54,24 @@ public class NewTransaction extends javax.swing.JPanel {
 
         // Cantidad predefinida
         newTransactionPane.deliveryCosts.setText("0.00");
+        
+        newTransactionPane.updateUI();
     }
 
     private boolean checkPK(String orderLoc, String delCompany) {
         // Esta función comprueba que la pareja localizador-repartidor es válida.
         ArrayList<ShopTransaction> transactions = TransactionManager.select(
                 "where loc = " + orderLoc
-                + " and del_cod = ("
-                + "select del_cod "
-                + "from delivery "
-                + "where company = " + delCompany
-                + ")");
+                + " and del_cod = " 
+                + DeliveryManager.selectDelCod("where company = \'" + delCompany.toLowerCase() + "\'")
+                );
 
         // Si no está vacío, ha encontrado una transacción que ya tiene esa pareja,
         // y por ende no es una combinación válida.
-        return transactions.get(0) == null;
+        if (transactions.isEmpty())
+            return true;
+        else
+            return false;
     }
 
     private void showTransaction(String loc, String del_cod) {
@@ -410,9 +413,9 @@ public class NewTransaction extends javax.swing.JPanel {
         // Si siguen siendo datos válidos, realizamos el insert.
         if (isValid) {
             String loc = (String) clientOrdersLoc.getSelectedItem(),
-                    del_cod = DeliveryManager.selectDelCod("where company = "
-                            + (String) deliveryCompanies.getSelectedItem()),
-                    shop_name = (String) shop.getSelectedItem(),
+                    del_cod = DeliveryManager.selectDelCod("where company = \'"
+                            + ((String) deliveryCompanies.getSelectedItem()).toLowerCase() + "\'"),
+                    shop_name = "\'" + (String) shop.getSelectedItem() + "\'",
                     del_costs = deliveryCosts.getText();
 
             TransactionManager.insert(

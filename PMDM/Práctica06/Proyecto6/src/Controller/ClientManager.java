@@ -40,7 +40,7 @@ public class ClientManager {
     }
 
     public static void update(String what, String where) {
-        String query = "udpate clients set = " + what + " " + where;
+        String query = "update clients set " + what + " " + where;
 
         try {
             Connection con = DBConnection.getConnection();

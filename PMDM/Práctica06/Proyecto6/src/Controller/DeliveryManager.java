@@ -48,7 +48,9 @@ public class DeliveryManager {
         try {
             Connection con = DBConnection.getConnection();
             Statement stmt = con.createStatement();
-            ResultSet rset = stmt.executeQuery("select del_cod from delivery " + where);
+            String query = "select del_cod from delivery " + where;
+            System.out.println(query);
+            ResultSet rset = stmt.executeQuery(query);
 
             while (rset.next()) {
                 res = rset.getString(1);
@@ -65,7 +67,7 @@ public class DeliveryManager {
     }
 
     public static void update(String what, String where) {
-        String query = "udpate delivery set = " + what + " " + where;
+        String query = "update delivery set " + what + " " + where;
 
         try {
             Connection con = DBConnection.getConnection();

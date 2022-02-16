@@ -77,7 +77,7 @@ create table shops(
     constraint ck_del_costs check (del_costs > 0)
 );
 
-/* Trigger asignar un código de envío para la tienda */
+/* Trigger para asignar un código de envío para la tienda */
 create trigger assign_order_del_code
 after insert on shops
 referencing new as n
@@ -85,6 +85,8 @@ for each row
 mode DB2SQL
 update shops set order_delivery_code = (n.loc / 7) + (n.del_cod / 3) + ((n.loc + n.del_cod) / 5)
     where loc = n.loc and del_cod = n.del_cod;
+
+/* Trigger para modificar el NIF de un cliente en todas las tablas donde aparece */
 
 
 /* Inserción de datos */
@@ -105,9 +107,9 @@ insert into orders values (2690, 13344267, 12.75);
 insert into orders values (1848, 51600278, 103.57);
 insert into orders values (9907, 71593828, 70.6);
 
-insert into delivery values (771, 'FedEx', 'Briana', 'GqRUWfB');
-insert into delivery values (369, 'Amazon', 'Lindsay', 'KM98h571yxKi');
-insert into delivery values (371, 'UPS', 'Herman', 'qZ8wn1Xu');
+insert into delivery values (771, 'fedex', 'Briana', 'GqRUWfB');
+insert into delivery values (369, 'amazon', 'Lindsay', 'KM98h571yxKi');
+insert into delivery values (371, 'ups', 'Herman', 'qZ8wn1Xu');
 
 insert into shops values (3569, 771, 0, 'Drive Shack Inc.', 1.02);
 insert into shops values (9854, 369, 0, 'ADMA Biologics Inc', 3.53);
@@ -123,3 +125,5 @@ insert into shops values (9854, 771, 0, 'Wells Fargo & Company', 3.53);
 insert into shops values (1848, 371, 0, 'Drive Shack Inc.', 1.02);
 insert into shops values (9907, 371, 0, 'ADMA Biologics Inc', 3.53);
 insert into shops values (9907, 369, 0, 'Drive Shack Inc.', 1.02);
+
+alter table orders drop constraint fk_orders;

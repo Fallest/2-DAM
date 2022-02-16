@@ -40,6 +40,8 @@ public final class MainFrame extends javax.swing.JFrame {
         MainFrame.orders.setEnabled(false);
         MainFrame.profile.setEnabled(false);
 
+        
+        
         // Mostrar el panel de Login.
         Login.init();
         this.setContentPane(loginPanel);
@@ -267,6 +269,9 @@ public final class MainFrame extends javax.swing.JFrame {
     public void resetMenu() {
         // Resetea los botones del menú
         MainFrame.login.setEnabled(false);
+        MainFrame.orders.setEnabled(false);
+        MainFrame.newTransaction.setEnabled(false);
+        MainFrame.profile.setEnabled(false);
         MainFrame.about.setEnabled(true);
     }
 

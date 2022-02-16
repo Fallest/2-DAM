@@ -31,6 +31,7 @@ public class Orders extends javax.swing.JPanel {
         orders.toggleBackward(false);
         orders.toggleForward(true);
         orders.showOrder(OrderManager.next());
+        orders.updateUI();
     }
 
     private void showOrder(Order o) {

@@ -21,6 +21,7 @@ public class Login extends javax.swing.JPanel {
 
     public static void init() {
         loginPane.user.grabFocus();
+        loginPane.updateUI();
 
 //        // Credenciales para comprobar el programa
 //        loginPane.user.setText("51600278");
@@ -98,7 +99,7 @@ public class Login extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
                 .addComponent(title)
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
@@ -172,7 +173,7 @@ public class Login extends javax.swing.JPanel {
             (MainFrame.getMainFrame()).changePanel(MainFrame.getProfilePanel());
             MainFrame.changeUserAccess(true);
             MainFrame.setAdmin(true);
-        } else if (usr != null) {
+        } else if (usr != null && !usr.isDelivery()) {
             (MainFrame.getMainFrame()).changePanel(MainFrame.getProfilePanel());
             MainFrame.changeUserAccess(true);
             MainFrame.setAdmin(false);
