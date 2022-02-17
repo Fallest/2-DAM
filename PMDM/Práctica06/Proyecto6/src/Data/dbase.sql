@@ -86,9 +86,6 @@ mode DB2SQL
 update shops set order_delivery_code = (n.loc / 7) + (n.del_cod / 3) + ((n.loc + n.del_cod) / 5)
     where loc = n.loc and del_cod = n.del_cod;
 
-/* Trigger para modificar el NIF de un cliente en todas las tablas donde aparece */
-
-
 /* Inserción de datos */
 insert into clients values (51600278, '1002', '2020-06-10', '6980 Pearson Alley', '7wSSt0v');
 insert into clients values (44351392, '1013', '2020-07-15', '4 Saint Paul Park', 'FlATNciIk');
