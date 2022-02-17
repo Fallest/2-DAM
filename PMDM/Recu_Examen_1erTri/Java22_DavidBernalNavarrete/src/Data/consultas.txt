@@ -1,0 +1,29 @@
+# Todos los sueldos y la suma del valor de los trabajos en febrero
+
+select e.numero, e.sueldobase, e.sueldoextra, e.sueldomaximo, e.sueldoreal, sum(t.valor)
+from empleado E, trabajo T
+where e.numero = t.empnumero
+and t.fecha between '02/01/2022' and '02/28/2022'
+group by e.numero, e.sueldobase, e.sueldoextra, e.sueldomaximo, e.sueldoreal;
+
+
+
+# Calculo del sueldo final calculado (base + valor de los trabajos) en febrero y sueldo máximo.
+
+select e.numero, e.sueldobase + sum(t.valor), e.sueldomaximo 
+from empleado E, trabajo T
+where e.numero = t.empnumero
+and t.fecha between '02/01/2022' and '02/28/2022'
+group by e.numero, e.sueldobase, e.sueldomaximo;
+
+
+
+
+select *
+from trabajo
+where fecha between '02/01/2022' and '02/28/2022';
+
+
+
+
+DELETE FROM trabajo;

@@ -1,0 +1,241 @@
+Wed Feb 16 20:34:46 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:34:48 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:34:49 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:35:44 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:35:47 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:35:47 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:40:53 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:40:55 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:40:56 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:45:00 CET 2022
+ERROR: ClassNotFoundException en DBConnection.DBConnection().
+Todos los accesos a la base de datos serán inválidos.
+Por favor, contacte al administrador de su sistema.
+
+---- END OF ERROR.
+Wed Feb 16 20:45:03 CET 2022
+ERROR: SQLException en DBManager.getUsers().
+Por favor, contacte al administrador de su sistema.
+
+---- END OF ERROR.
+Wed Feb 16 20:45:05 CET 2022
+ERROR: Credenciales no válidos.
+Vuelva a intentarlo.
+
+---- END OF ERROR.
+Wed Feb 16 20:49:16 CET 2022
+ERROR: Credenciales no válidos.
+Vuelva a intentarlo.
+
+---- END OF ERROR.
+Wed Feb 16 20:49:17 CET 2022
+ERROR: Credenciales no válidos.
+Vuelva a intentarlo.
+
+---- END OF ERROR.
+Wed Feb 16 20:49:29 CET 2022
+ERROR: SQLException en DBManager.getUsers().
+Por favor, contacte al administrador de su sistema.
+
+---- END OF ERROR.
+Wed Feb 16 20:49:32 CET 2022
+ERROR: Credenciales no válidos.
+Vuelva a intentarlo.
+
+---- END OF ERROR.
+Wed Feb 16 20:50:56 CET 2022
+ERROR: SQLException en DBManager.getUsers().
+Por favor, contacte al administrador de su sistema.
+
+---- END OF ERROR.
+Wed Feb 16 20:50:58 CET 2022
+ERROR: Credenciales no válidos.
+Vuelva a intentarlo.
+
+---- END OF ERROR.
+Wed Feb 16 20:51:35 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:51:42 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:51:52 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:51:53 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:51:57 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:51:57 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:52:09 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 20:52:14 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:02:23 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:02:48 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:13:35 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:16:14 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:17:17 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:17:24 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:17:29 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:17:33 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:17:35 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:17:37 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:18:59 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:05 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:08 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:11 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:14 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:16 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:21 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:22 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:23 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:19:28 CET 2022
+ERROR: El sueldo real no puede ser superior al sueldo máximo.
+El sueldo máximo será el asignado como real.
+
+---- END OF ERROR.
+Wed Feb 16 21:24:55 CET 2022
+ERROR: SQLException en DBManager.getUsers().
+Por favor, contacte al administrador de su sistema.
+
+---- END OF ERROR.
+Wed Feb 16 21:24:56 CET 2022
+ERROR: Credenciales no válidos.
+Vuelva a intentarlo.
+
+---- END OF ERROR.
