@@ -65,7 +65,7 @@
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="changeRegDate" max="32767" attributes="0"/>
-                                          <Component id="changeNifTField" max="32767" attributes="0"/>
+                                          <Component id="changeNifTField" min="-2" pref="143" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                   </Group>

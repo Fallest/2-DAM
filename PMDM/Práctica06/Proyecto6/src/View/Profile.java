@@ -94,6 +94,7 @@ public class Profile extends javax.swing.JPanel {
             profile.changeClientNif.setVisible(false);
             profile.changeRegDate.setVisible(false);
             profile.datePicker.setVisible(false);
+            profile.jScrollPane1.setVisible(false);
         }
         if (MainFrame.isAdmin()) {
             // Si es un administrador
@@ -109,6 +110,7 @@ public class Profile extends javax.swing.JPanel {
 
             profile.changePicture.setVisible(false);
             profile.newTransaction.setVisible(false);
+            profile.changeRegDate.setVisible(true);
 
             // Rellenamos la lista de clientes con Clientes
             profile.fillClientsList();
@@ -152,11 +154,13 @@ public class Profile extends javax.swing.JPanel {
         profile.newTransaction.setVisible(true);
         profile.clientsSectionTitle.setVisible(true);
         profile.clientsList.setVisible(true);
+        profile.jScrollPane1.setVisible(true);
         profile.clientsLabel.setVisible(true);
         profile.datePicker.setVisible(true);
         profile.changeNifTField.setVisible(true);
         profile.changeNifTField.setEnabled(false);
         profile.changeClientNif.setEnabled(false);
+        profile.datePicker.setEnabled(false);
         profile.orders.setText("My Orders");
 
         // Cambiamos de panel y cerramos sesión
@@ -328,7 +332,7 @@ public class Profile extends javax.swing.JPanel {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(changeRegDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(changeNifTField))
+                                            .addComponent(changeNifTField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(34, 34, 34)))))))
                 .addContainerGap())
         );

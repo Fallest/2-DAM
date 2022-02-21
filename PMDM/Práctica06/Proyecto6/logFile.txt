@@ -8,3 +8,33 @@ ERROR: Invalid login credentials.
 Please try again.
 
 ---- END OF ERROR.
+Mon Feb 21 16:11:31 CET 2022
+ERROR: Invalid login credentials.
+Please try again.
+
+---- END OF ERROR.
+Mon Feb 21 16:13:30 CET 2022
+ERROR: Invalid Order Number - Company combination.
+Please enter a valid combination.
+
+---- END OF ERROR.
+Mon Feb 21 16:17:59 CET 2022
+ERROR: Invalid login credentials.
+Please try again.
+
+---- END OF ERROR.
+Mon Feb 21 16:23:42 CET 2022
+ERROR: Invalid NIF.
+Please enter a valid NIF.
+
+---- END OF ERROR.
+Mon Feb 21 16:26:14 CET 2022
+ERROR: Invalid NIF.
+Please enter a valid NIF.
+
+---- END OF ERROR.
+Mon Feb 21 16:26:16 CET 2022
+ERROR: Invalid NIF.
+Please enter a valid NIF.
+
+---- END OF ERROR.

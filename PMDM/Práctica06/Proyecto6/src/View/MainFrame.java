@@ -1,7 +1,6 @@
 package View;
 
 import Controller.DBConnection;
-import Controller.ExceptionManager;
 import Model.User;
 import javax.swing.JPanel;
 
@@ -47,7 +46,7 @@ public final class MainFrame extends javax.swing.JFrame {
         this.pack();
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Métodos para cambiar paneles"> 
+    // <editor-fold defaultstate="collapsed" desc="Métodos para cambiar entre paneles"> 
     public void changePanel(JPanel panel) {
         mainFrame.setContentPane(panel);
         mainFrame.pack();
@@ -301,9 +300,6 @@ public final class MainFrame extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
