@@ -1,0 +1,25 @@
+# Entrar en el contenedor de MySQL
+docker exec -it 417d8e2c3fb1 bash
+
+# Entrar en MySQL
+mysql -u usuario -p
+
+# Ver bases de datos:
+show databases;
+
+# Usar una BDs.
+use db;
+
+# Ver tablas:
+show tables;
+
+# Select sobre la tabla USUARIOS (mayúsculas):
+select * from USUARIOS;
+
+# Salir de MySQL:
+\q
+
+# CUIDADO: desprenderse o detach (NO COMFUNDIR CON Salir) del contenedor:
+Ctrl+p y q ("Ctrl+p" y sin saltar Ctrl se pulsa "q")
+
+# CUIDADO con salir de un contenedor con "exit" (o Ctrl+d) ya que detiene la ejecución del contenedor.

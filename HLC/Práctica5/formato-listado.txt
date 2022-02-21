@@ -1,0 +1,16 @@
+<article>
+    <a class="enlace" href="pagina web">'
+    <table>
+        <tr>
+            <td class="td_imagen">
+                <figure><img class="imagen" src="./imagenes/imagen.jpg"></figure>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <h1 class="titulo"> String o nombre </h1>
+            </td>
+        </tr>
+    </table>
+    </a>
+</article>';

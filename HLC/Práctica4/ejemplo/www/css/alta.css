@@ -1,0 +1,110 @@
+html, body{
+    margin: 0px;
+    padding: 0px;
+}
+
+/* Titulos de los formularios */
+legend{
+	padding-left: 0px;
+    padding-right: 4px;
+	font-family: 'Solway', cursive;
+	font-weight: bold;
+	font-size: 30px;
+	text-align: center;
+	text-shadow: 
+		2px 1px black,
+        3px 2px black;
+	color: white;
+}
+
+form{
+	display: inline-block;
+	width: 100%;
+	margin-top: 50px;
+}
+
+
+/* Las cajas que tienen los formularios */
+fieldset {
+    border: 0px;
+	border-radius: 10px 10px;
+	margin-bottom: 20px;
+	display: inline;
+	padding-bottom: 20px;
+}
+
+
+/* Texto que esta encima del formulario */
+p{
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-bottom: 5px;
+	font-weight: bold;
+	font-family: "Times New Roman", Times, serif;
+    text-justify: inter-word;	
+	color: white;
+}
+
+/* Caja que contiene cada caja de datos */
+div{
+	display: inline-block;
+	width: 100%;
+}
+
+/* Caja que contiene el formulario de alta */
+#formulario_alta{
+	margin: 0 auto;
+	width: 300px;
+	float: none;
+	display: block;
+	background-color: #75CA5B;
+	box-shadow: 0 4px 5px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Campos del formulario */
+.entrada_datos
+{
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 250px;
+	height: 27px;
+	transition: all 0.2s linear;
+	background-color: white;
+}
+
+/* Cuando pones el raton en encima de los campos del formulario */
+.entrada_datos:hover
+{
+	background: #ccc;
+}
+
+.entrada_datos.error{
+	background-color: red;
+}
+
+td{
+	display: block;
+}
+
+#caja_boton{
+	text-align: center;
+	margin-top: 20px;
+}
+
+#enviar{
+	color: #FFFFFF;
+	border: 0px;
+    background-color: DodgerBlue;
+	font-size: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-radius: 10px 10px;
+	display: inline;
+	transition: all 0.3s linear;
+}
+
+#enviar:hover{
+	background-color: SlateBlue;
+}

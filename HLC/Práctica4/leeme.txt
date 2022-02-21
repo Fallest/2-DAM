@@ -1,0 +1,43 @@
+# Copiar la carpeta "ejemplo" a "Documentos" e ir a ella:
+cd /home/alumno/Documentos/ejemplo
+
+# Arrancar docker
+systemctl start docker
+
+# Arrancar los tres contenedores con docker-compose. Debemos estar en la carpeta con el fichero "docker-compose.yml"
+# La primera vez los descarga
+docker-compose up -d
+	Creating network "ejemplo_default" with the default driver
+	Creating mysql
+	Creating phpmyadmin
+	Creating webserver
+
+# En el navegador:
+http://localhost/
+http://localhost/alta.php
+http://localhost/testSesion.php
+http://localhost/verDatos.php.php
+
+# Test envio GET (usando la URL):
+# La secuencia es index -> iniciarSesion -> testSesion -> verDatos
+	http://localhost/iniciarSesion.php?datosJugador=USU3@GMAIL.COM
+
+
+
+# phpMyAdmin (usuario/1234)
+http://localhost:8080/
+
+# Parar contenedores:
+docker-compose stop
+	Stopping phpmyadmin ... done
+	Stopping webserver ... done
+	Stopping mysql ... done
+
+# Parar y borrar contenedores:
+docker-compose down
+	Removing phpmyadmin ... done
+	Removing webserver ... done
+	Removing mysql ... done
+	Removing network ejemplo_default
+
+
