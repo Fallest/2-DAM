@@ -28,10 +28,10 @@
             <Label x:Name="LabelPelicula" Content="Película" MouseDown="Label_MouseDown"/>
         </ComboBox>
         <!-- TextBoxes -->
-        <TextBox x:Name="TboxTitulo" HorizontalAlignment="Left" Margin="155,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="20"/>
-        <TextBox x:Name="TboxGenero" HorizontalAlignment="Left" Margin="155,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="20"/>
+        <TextBox x:Name="TboxTitulo" MaxLines="1" HorizontalAlignment="Left" Margin="155,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="20"/>
+        <TextBox x:Name="TboxGenero" MaxLines="1" HorizontalAlignment="Left" Margin="155,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="20"/>
         <TextBox x:Name="TboxFechaLanzamiento" HorizontalAlignment="Left" Margin="214,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="107" FontSize="16" Text="DD/MM/YYYY" Visibility="Hidden"/>
-        <TextBox x:Name="TboxPlataformas" HorizontalAlignment="Left" Margin="155,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="16" Text=""/>
+        <TextBox x:Name="TboxPlataformas" MaxLines="1" HorizontalAlignment="Left" Margin="155,282,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="16" Text=""/>
     </Grid>
 
 </Window>

@@ -156,7 +156,6 @@ class Fecha {
         }
         catch (Exception) {
             throw new FormatException();
-            
         }
         return null;
     }

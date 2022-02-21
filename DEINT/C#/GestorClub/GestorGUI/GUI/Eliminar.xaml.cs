@@ -7,7 +7,7 @@ using GestorGUI.Objetos;
 
 namespace GestorGUI.GUI {
 public partial class Eliminar : Window {
-    private object EjemplarEliminar;
+    private String EjemplarEliminar;
     public Eliminar() {
         InitializeComponent();
         ListaEjemplares.SelectionMode = SelectionMode.Single;
@@ -57,13 +57,14 @@ public partial class Eliminar : Window {
     
     private void BotonEliminar_OnClick(object sender, RoutedEventArgs e) {
         // Si tenemos algún elemento seleccionado, lo eliminamos. Si no, mostramos un mensaje de error
-        EjemplarEliminar = ListaEjemplares.SelectedItem;
+        EjemplarEliminar = (String) ListaEjemplares.SelectedItem;
         if (EjemplarEliminar != null) {
             try {
-                if (EjemplarEliminar is Videojuego v)
-                    Main.gestor.Remove(v.GetId());
-                else if (EjemplarEliminar is Pelicula p)
-                    Main.gestor.Remove(p.GetId());
+                Main.gestor.Remove(
+                    Int32.Parse(
+                        EjemplarEliminar.Substring(EjemplarEliminar.IndexOf("Id") + 4, 1)
+                        )
+                    );
                 
                 MessageBoxButton button = MessageBoxButton.OK;
                 MessageBoxImage icon = MessageBoxImage.Information;

@@ -79,13 +79,12 @@ namespace GestorGUI.GUI {
         private void BotonSolicitar_OnClick(object sender, RoutedEventArgs e) {
             int socioId;
             int id = 0;
-            object ejemplarPrestar = ListaEjemplares.SelectedItem;
+            String ejemplarPrestar = (String) ListaEjemplares.SelectedItem;
             if (Int32.TryParse(TboxId.Text, out socioId)) {
                 try {
-                    if (ejemplarPrestar is Videojuego v)
-                        id = v.GetId();
-                    else if (ejemplarPrestar is Pelicula p)
-                        id = p.GetId();
+                    id = Int32.Parse(
+                        ejemplarPrestar.Substring(ejemplarPrestar.IndexOf("Id") + 4, 1)
+                    );
                     try {
                         Main.gestor.Prestar(id, socioId);
                         MessageBoxResult result = MessageBox.Show("Se ha prestado el ejemplar.",
@@ -114,13 +113,14 @@ namespace GestorGUI.GUI {
 
         private void BotonDevolver_OnClick(object sender, RoutedEventArgs e) {
             int id = 0;
-            object ejemplarPrestar = ListaEjemplares.SelectedItem;
+            String ejemplarPrestar = (String) ListaEjemplares.SelectedItem;
             
             try {
-                if (ejemplarPrestar is Videojuego v)
-                    id = v.GetId();
-                else if (ejemplarPrestar is Pelicula p)
-                    id = p.GetId();
+
+                id = Int32.Parse(
+                    ejemplarPrestar.Substring(ejemplarPrestar.IndexOf("Id") + 4, 1)
+                );
+                
                 try {
                     Main.gestor.Devolver(id);
                     MessageBoxResult result = MessageBox.Show("Se ha devuelto el ejemplar.",

@@ -1,0 +1,4 @@
+Sumando 23 + 39 => Resultado esperado: 62 | Resultado obtenido: 42
+Restando 23 - 39 => Resultado esperado: -16 | Resultado obtenido: -16
+Multiplicando 23 * 39 => Resultado esperado: 897 | Resultado obtenido: 897
+dividiendo 23 / 39 => Resultado esperado: 0,589743... | Resultado obtenido: 0,5897435897435897

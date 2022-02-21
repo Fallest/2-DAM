@@ -17,7 +17,7 @@
         </ListBox>
         <!-- Buscador -->
         <Label Content="Buscar:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,50,0,0"/>
-        <TextBox x:Name="Buscador" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 70, 0, 0" Height="20" Width="150"></TextBox>
+        <TextBox x:Name="Buscador" MaxLines="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20, 70, 0, 0" Height="20" Width="150"></TextBox>
         <!-- Filtros -->
         <Label Content="Prestado:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,30,0,0"/>
         <Label Content="Tipo:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="190,70,0,0"/>

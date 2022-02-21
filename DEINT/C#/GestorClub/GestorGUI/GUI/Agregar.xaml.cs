@@ -56,6 +56,11 @@ namespace GestorGUI.GUI {
             if (TipoEjemplar.SelectedIndex == 0) {
                 // Añadir un videojuego
                 try {
+                    if (   TboxTitulo.Text == "" || TboxTitulo.Text.Length > 30
+                           || TboxGenero.Text == "" || TboxGenero.Text.Length > 30
+                           || TboxPlataformas.Text == "" || TboxPlataformas.Text.Length > 30)
+                        throw new Exception();
+                    
                     Main.gestor.Add("videojuego", TboxTitulo.Text, TboxGenero.Text, TboxPlataformas.Text);
                     result = MessageBox.Show("Añadido un videojuego.", "Ejemplar añadido", button, icon,
                         MessageBoxResult.Yes);
@@ -68,6 +73,11 @@ namespace GestorGUI.GUI {
             else if (TipoEjemplar.SelectedIndex == 1) {
                 // Añadir una película
                 try {
+                    if (   TboxTitulo.Text == "" || TboxTitulo.Text.Length > 30
+                         || TboxGenero.Text == "" || TboxGenero.Text.Length > 30
+                         || TboxFechaLanzamiento.Text == "" || TboxFechaLanzamiento.Text.Length > 10)
+                        throw new Exception();
+                    
                     Main.gestor.Add("pelicula", TboxTitulo.Text, TboxGenero.Text, TboxFechaLanzamiento.Text);
                     result = MessageBox.Show("Añadido una película.", "Ejemplar añadido", button, icon,
                         MessageBoxResult.Yes);
