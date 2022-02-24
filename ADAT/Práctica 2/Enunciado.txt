@@ -1,0 +1,10 @@
+Transforma tu BD Relacional a una BD Objeto Relacional.
+
+Deberás crear objetos y tablas tipadas y relacionarlas mediante punteros. Inserta datos en ellas.
+Crea un paquete para gestionar alguna de las tablas principales.
+El paquete incluirá programas que realicen alta, baja, modificación y consulta de los datos.
+Añade triggers de tablas y de sustitución que puedan ser útiles.
+Utiliza también tipos registro y tablas indexadas.
+
+La práctica se realizará de forma individual y se defenderá en el taller.
+Fecha Límite de entrega: 10/03/2022
