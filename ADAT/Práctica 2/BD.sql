@@ -40,7 +40,6 @@ alter table Cuentas add                 constraint pk_cuentas               prim
 alter table Cuentas add                 constraint ck_interes_cuentas       check(interes >= 0);
 alter table Cuentas modify cliente      constraint cliente_nonulo_cuentas   not null;
 alter table Cuentas modify banco        constraint banco_nonulo_cuentas     not null;
---alter table Cuentas add                 constraint ck_id_banco_cuentas      check(substr(ID, 5, 8) = banco.ID);
 -------------------------
 -- Objeto Movimiento
 create type OMovimiento as object (
@@ -75,3 +74,59 @@ alter table Transferencias modify destino   constraint destino_nonulo_trans     
 alter table Transferencias modify fecha                                         default sysdate;
 alter table Transferencias modify importe   constraint importe_nonulo_trans     not null;
 alter table Transferencias modify concepto                                      default '';
+/*----------------------------------------------------------------------------------------------------*/
+/* Creación de los triggers */
+------------------------------------------
+/* 
+Comprobar que el ID del banco al crear la cuenta existe.
+El ID de la cuenta consiste en 24 dígitos, de los cuales los 8 dígitos después del IBAN
+determinan la entidad financiera a la que pertenece la cuenta.
+Hay que comprobar que estos 8 dígitos se corresponden con -alguna- de las entidades financieras
+existentes en la tabla Bancos.
+*/
+create or replace trigger comprobarIDBanco
+before insert or update on Cuentas
+for each row
+declare
+    id_banco number(8);
+    existe_id integer default 0; -- 0 si no existe, 1 si sí existe.
+begin
+    if inserting or updating('ID') then
+        -- Primero extraemos los 8 dígitos del ID de la cuenta
+        select to_number(substr(:new.ID, 5, 8)) into id_banco
+        from dual;
+
+        -- Luego comprobamos si existe
+        for b in (select * from Bancos) loop
+            if b.ID = id_banco then
+                -- Existe el banco
+                existe_id := 1;
+            end if;
+        end loop;
+
+        -- Si no existe el ID, mostramos una excepción
+        if existe_id = 0 then
+            raise_application_error(-20501, 'ERROR: No existe esa ID Bancaria. Compruebe su ID de cuenta.');
+        else
+            commit;
+        end if;
+    end if;
+
+    exception
+      when others then
+        dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en el trigger comprobarIDBanco.');
+end comprobarIDBanco;
+
+/*
+Comprobar que, al realizar una nueva transferencia, las cuentas origen y destino no son las mismas.
+*/
+create or replace trigger comprobarTransferencia
+before insert or update on Transferencias
+for each row
+declare
+
+begin
+    if inserting or updating('origen') or updating('destino') then
+        
+    end if;
+end;
