@@ -619,6 +619,7 @@ create or replace package body gestor as
     end;
 
     -- Procedimientos de consulta
+    --- Consulta de clientes
     procedure ver_Clientes
     as
         cursor c_clientes is
@@ -626,61 +627,163 @@ create or replace package body gestor as
     begin
         -- Muestra los datos de todos los clientes
         for c in c_clientes loop
-            dbms_output.put_line(
-                'NIF: '         || c.NIF        || ' * ' ||
-                'Nombre: '      || c.nombre     || ' * ' ||
-                'Apellidos: '   || c.apellidos  || ' * ' ||
-                'Edad: '        || c.edad       || ' * '
-            );
+            dbms_output.put_line('NIF:         ' || c.NIF);
+            dbms_output.put_line('Nombre:      ' || c.nombre);
+            dbms_output.put_line('Apellidos:   ' || c.apellidos);
+            dbms_output.put_line('Edad:        ' || c.edad);
         end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Clientes.');
     end;
-    ---
+    --- Consulta de bancos
     procedure ver_Bancos
     as
     begin
         -- Muestra los datos de todos los bancos
+        for c in (select * from Bancos) loop
+            dbms_output.put_line('ID:              ' || c.ID);
+            dbms_output.put_line('Nombre:          ' || c.nombre);
+            dbms_output.put_line('Interés base:    ' || c.int_base);            
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Bancos.');
     end;
-    ---
+    --- Consulta de cuentas
     procedure ver_Cuentas
     as
     begin
         -- Muestra los datos de todas las cuentas
+        for c in (select * from Cuentas) loop
+            dbms_output.put_line('ID:         ' || c.ID);   
+            dbms_output.put_line('Interés:    ' || c.interes);   
+            dbms_output.put_line('Cliente:    ' || c.cliente.NIF);   
+            dbms_output.put_line('Banco:      ' || c.banco.nombre);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Cuentas.');
     end;
-    ---
+    --- Consulta de cuentas de un banco
     procedure ver_Cuentas_de_Banco(PID number)
     as
+        banco Bancos%rowtype;
     begin
-        -- Muestra los datos de las cuentass de un determinado banco
+        -- Muestra los datos de las cuentas de un determinado banco
+        select * into banco from Bancos where ID = PID;
+        dbms_output.put_line('-- Banco: ' || banco.ID || ' * ' || banco.nombre);
+
+        for c in (select * from Cuentas c where c.banco.ID = PID) loop
+            dbms_output.put_line('ID:         ' || c.ID);   
+            dbms_output.put_line('Interés:    ' || c.interes);   
+            dbms_output.put_line('Cliente:    ' || c.cliente.NIF);   
+            dbms_output.put_line('Banco:      ' || c.banco.nombre);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Cuentas_de_Banco.');
     end;
-    ---
+    --- Consulta de cuentas de un cliente
     procedure ver_Cuentas_de_Cli(PNIF varchar2)
     as
+        cliente Clientes%rowtype;
     begin
         -- Muestra las cuentas de un determinado cliente
+        select * into cliente from Clientes where NIF = PNIF;
+        dbms_output.put_line('-- Cliente: ' || cliente.NIF || ' * ' || cliente.nombre);
+
+        for c in (select * from Cuentas c where c.cliente.NIF = PNIF) loop
+            dbms_output.put_line('ID:         ' || c.ID);   
+            dbms_output.put_line('Interés:    ' || c.interes);   
+            dbms_output.put_line('Cliente:    ' || c.cliente.NIF);   
+            dbms_output.put_line('Banco:      ' || c.banco.nombre);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Cuentas_de_Clis.');
     end;
-    ---
+    --- Consulta de movimientos
     procedure ver_Movimientos
     as
     begin
         -- Muestra todos los movimientos
+        for c in (select * from Movimientos) loop
+            dbms_output.put_line('NID:        ' || c.NID);
+            dbms_output.put_line('Cuenta:     ' || c.cuenta.ID);
+            dbms_output.put_line('Fecha:      ' || c.fecha);
+            dbms_output.put_line('Importe:    ' || c.importe);
+            dbms_output.put_line('Concepto:   ' || c.concepto);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Movimientos.');
     end;
-    ---
+    --- Consulta de movimientos de un cliente
     procedure ver_Movimientos_de_Cli(PNIF varchar2)
     as
+        cliente Clientes%rowtype;
     begin
         -- Muestra los movimientos de un determinado cliente
+        select * into cliente from Clientes where NIF = PNIF;
+        dbms_output.put_line('-- Cliente: ' || cliente.NIF || ' * ' || cliente.nombre);
+
+        for c in (select * from Movimientos m where m.cuenta.cliente.NIF = PNIF) loop
+            dbms_output.put_line('NID:        ' || c.NID);
+            dbms_output.put_line('Cuenta:     ' || c.cuenta.ID);
+            dbms_output.put_line('Fecha:      ' || c.fecha);
+            dbms_output.put_line('Importe:    ' || c.importe);
+            dbms_output.put_line('Concepto:   ' || c.concepto);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Movimientos_de_Cli.');
     end;
-    ---
+    --- Consulta de transferencias
     procedure ver_Transferencias
     as
     begin
         -- Muestra los datos de todas las transferencias
+        for c in (select * from Transferencias) loop
+            dbms_output.put_line('NID:        ' || c.NID);
+            dbms_output.put_line('Origen:     ' || c.origen.ID);
+            dbms_output.put_line('Destino:    ' || c.destino.ID);
+            dbms_output.put_line('Fecha:      ' || c.fecha);
+            dbms_output.put_line('Importe:    ' || c.importe);
+            dbms_output.put_line('Concepto:   ' || c.concepto);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Transferencias.');
     end;
-    ---
+    --- Consulta de transferencias de clientes
     procedure ver_Transferencias_de_Cli(PNIF varchar2)
     as
     begin
         -- Muestra los datos de las transferencias de un determinado cliente
+        select * into cliente from Clientes where NIF = PNIF;
+        dbms_output.put_line('-- Cliente: ' || cliente.NIF || ' * ' || cliente.nombre);
+
+        for c in (select * from Cuentas) loop
+            dbms_output.put_line('NID:        ' || c.NID);
+            dbms_output.put_line('Origen:     ' || c.origen.ID);
+            dbms_output.put_line('Destino:    ' || c.destino.ID);
+            dbms_output.put_line('Fecha:      ' || c.fecha);
+            dbms_output.put_line('Importe:    ' || c.importe);
+            dbms_output.put_line('Concepto:   ' || c.concepto);
+        end loop;
+
+        exception
+          when others then
+            dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.ver_Transferencias_de_Cli.');
     end;
     
 end gestor;
