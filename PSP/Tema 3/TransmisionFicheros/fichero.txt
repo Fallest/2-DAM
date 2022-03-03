@@ -1,0 +1,2 @@
+Este es un fichero de ejemplo
+con algunos datos en su interior.
