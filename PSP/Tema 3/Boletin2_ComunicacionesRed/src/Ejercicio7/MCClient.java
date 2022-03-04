@@ -19,6 +19,7 @@ public class MCClient {
             socket.joinGroup(mcGroup);
 
             while (true) {
+                buffer = new byte[2048];
                 DatagramPacket receive = new DatagramPacket(buffer, buffer.length);
 
                 // Recibir y mostrar el mensaje
