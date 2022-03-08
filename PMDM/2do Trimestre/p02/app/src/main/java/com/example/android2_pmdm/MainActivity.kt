@@ -3,6 +3,7 @@ package com.example.android2_pmdm
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -40,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         buttonRegHora = findViewById<Button>(R.id.button_regHora)
         buttonVerDatos = findViewById<Button>(R.id.button_verDatos)
         buttonSalir = findViewById<Button>(R.id.button_salir)
+
+        Log.w(idioma, "Ha ocurrido un error con el idioma")
     }
 
     // Sobrescritura de onResume
