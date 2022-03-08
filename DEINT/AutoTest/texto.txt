@@ -1,0 +1,8 @@
+Este programa va a realizar las siguientes acciones:
+1. Mostrar la versión de Notepad.
+2. Escribir una cita célebre.
+		El cielo está destinado a crecer.
+3. Tomar una captura del texto y guardarla como captura.png
+4. Guardar el texto en texto.txt
+5. Cerrar el programa.
+
