@@ -207,3 +207,8 @@ localhost:80 172.18.0.1 - - [21/Feb/2022:19:50:45 +0000] "GET /verDatos.php HTTP
 localhost:80 172.18.0.1 - - [21/Feb/2022:19:50:53 +0000] "GET /iniciarSesion.php?datosJugador=USU2@GMAIL.COM HTTP/1.1" 302 370 "http://localhost/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
 localhost:80 172.18.0.1 - - [21/Feb/2022:19:50:53 +0000] "GET /testSesion.php HTTP/1.1" 302 367 "http://localhost/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
 localhost:80 172.18.0.1 - - [21/Feb/2022:19:50:53 +0000] "GET /verDatos.php HTTP/1.1" 200 843 "http://localhost/" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:86.0) Gecko/20100101 Firefox/86.0"
+localhost:80 172.19.0.1 - - [08/Mar/2022:17:42:10 +0000] "GET / HTTP/1.1" 200 847 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+localhost:80 172.19.0.1 - - [08/Mar/2022:17:42:10 +0000] "GET /css/lista.css HTTP/1.1" 200 946 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+localhost:80 172.19.0.1 - - [08/Mar/2022:17:42:10 +0000] "GET /favicon.ico HTTP/1.1" 404 500 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+localhost:80 172.19.0.1 - - [08/Mar/2022:17:42:39 +0000] "GET / HTTP/1.1" 403 501 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
+localhost:80 172.19.0.1 - - [08/Mar/2022:17:44:35 +0000] "GET / HTTP/1.1" 200 281 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:97.0) Gecko/20100101 Firefox/97.0"
