@@ -329,7 +329,7 @@ create or replace package gestor as
     -- Procedimientos de alta, baja, modificación y consulta
     procedure insertar_Cliente(PNIF varchar2, Pnombre varchar2, Papellidos varchar2, Pedad number);
     procedure insertar_Banco(PID number, Pnombre varchar2, Pint_base number);
-    procedure insertar_Cuenta(PID varchar2, Pinteres number, Pcliente ref OCliente, Pbanco ref OBanco);
+    procedure insertar_Cuenta(PID varchar2, Pinteres number, PNifCliente Clientes.NIF%type, PNombreBanco Bancos.nombre%type);
     procedure insertar_Movimiento(PNID integer, Pcuenta ref OCuenta, Pfecha date, Pimporte number, Pconcepto varchar2);
     procedure insertar_Transferencia(PNID integer, Porigen ref OCuenta, Pdestino ref OCuenta, Pfecha date, Pimporte number, Pconcepto varchar2);
 
@@ -343,7 +343,7 @@ create or replace package gestor as
     procedure modificar_Nombre_Banco(PID number, Pnombre varchar2);
     procedure modificar_Interes_Cuenta(PID varchar2, Pinteres number);
     procedure modificar_Concepto_Mov(PNID integer, Pconcepto varchar2);
-    procedure modificar_Concepto_Trans(PNID integer, Pconcpeto varchar2);
+    procedure modificar_Concepto_Trans(PNID integer, Pconcepto varchar2);
 
     procedure ver_Clientes;
     procedure ver_Bancos;
@@ -370,7 +370,7 @@ create or replace package body gestor as
           when others then
             dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.insertar_Cliente.');
             rollback;
-    end;
+    end insertar_Cliente;
     --- Insertar Banco
     procedure insertar_Banco(PID number, Pnombre varchar2, Pint_base number)
     as
@@ -382,24 +382,30 @@ create or replace package body gestor as
           when others then
             dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.insertar_Banco.');
             rollback;
-    end;
+    end insertar_Banco;
     --- Insertar cuenta
-    procedure insertar_Cuenta(PID varchar2, Pinteres number, Pcliente ref OCliente, Pbanco ref OBanco)
+    procedure insertar_Cuenta(PID varchar2, Pinteres number, PNifCliente Clientes.NIF%type,
+        PNombreBanco Bancos.nombre%type)
     as
+        cli ref OCliente;
+        ban ref OBanco;
     begin
-        insert into Cuentas values (PID, Pinteres, Pcliente, Pbanco);
+    
+        select ref(Cl) into cli from Clientes Cl where NIF = PNifCliente;
+        select ref(Ba) into ban from Bancos Ba where nombre = PNombreBanco;
+        insert into Cuentas values (PID, Pinteres, cli, ban);
         dbms_output.put_line('Nueva cuenta insertada.');
 
         exception
           when others then
             dbms_output.put_line('ERROR: Ha ocurrido un error no identificado en gestor.insertar_Cuenta.');
             rollback;
-    end;
+    end insertar_Cuenta;
     --- Insertar movimiento
     procedure insertar_Movimiento(PNID integer, Pcuenta ref OCuenta, Pfecha date, Pimporte number, Pconcepto varchar2)
     as
     begin
-        insert into Clientes values (PNID, Pcuenta, Pfecha, Pimporte, Pconcepto);
+        insert into Movimientos values (PNID, Pcuenta, Pfecha, Pimporte, Pconcepto);
         dbms_output.put_line('Nuevo movimiento insertado.');
 
         exception
@@ -411,7 +417,7 @@ create or replace package body gestor as
     procedure insertar_Transferencia(PNID integer, Porigen ref OCuenta, Pdestino ref OCuenta, Pfecha date, Pimporte number, Pconcepto varchar2)
     as
     begin
-        insert into Clientes values (PNID, Porigen, Pdestino, Pfecha, Pimporte, Pconcepto);
+        insert into Transferencias values (PNID, Porigen, Pdestino, Pfecha, Pimporte, Pconcepto);
         dbms_output.put_line('Nueva transferencia insertada.');
 
         exception
@@ -656,16 +662,22 @@ create or replace package body gestor as
     --- Consulta de cuentas
     procedure ver_Cuentas
     as
-        aux OCliente;
-        ban OBanco;
+        cli Clientes.NIF%type;
+        ban Bancos.nombre%type;
     begin
         -- Muestra los datos de todas las cuentas
         for c in (select * from Cuentas) loop
-            select deref(c.cliente), deref(c.banco) into aux, ban from dual;
+            select Cl.NIF into cli
+            from Clientes Cl
+            where ref(Cl) = c.cliente;
+            select Ba.nombre into ban 
+            from Clientes Cl, Bancos Ba
+            where ref(Ba) = c.banco;
+
             dbms_output.put_line('ID:         ' || c.ID);   
             dbms_output.put_line('Interés:    ' || c.interes);   
-            dbms_output.put_line('Cliente:    ' || aux.NIF);   
-            dbms_output.put_line('Banco:      ' || ban.nombre);
+            dbms_output.put_line('Cliente:    ' || cli);   
+            dbms_output.put_line('Banco:      ' || ban);
         end loop;
 
         exception
@@ -675,19 +687,25 @@ create or replace package body gestor as
     --- Consulta de cuentas de un banco
     procedure ver_Cuentas_de_Banco(PID number)
     as
-        banco OBanco;
-        aux OCliente;
+        cli Clientes.NIF%type;
+        banNom Bancos.nombre%type;
+        banID Bancos.ID%type;
     begin
         -- Muestra los datos de las cuentas de un determinado banco
-        select * into banco from Bancos where ID = PID;
-        dbms_output.put_line('-- Banco: ' || banco.ID || ' * ' || banco.nombre);
+        select ID, nombre into banID, banNom from Bancos where ID = PID;
+        dbms_output.put_line('-- Banco: ' || banID || ' * ' || banNom);
 
         for c in (select * from Cuentas c where c.banco.ID = PID) loop
-            select deref(c.cliente) into aux from dual;
+            select Cl.NIF into cli
+            from Clientes Cl
+            where ref(Cl) = c.cliente;
+            select Ba.nombre into banNom 
+            from Clientes Cl, Bancos Ba
+            where ref(Ba) = c.banco;
             dbms_output.put_line('ID:         ' || c.ID);   
             dbms_output.put_line('Interés:    ' || c.interes);   
-            dbms_output.put_line('Cliente:    ' || aux.NIF);
-            dbms_output.put_line('Banco:      ' || banco.nombre);
+            dbms_output.put_line('Cliente:    ' || cli);
+            dbms_output.put_line('Banco:      ' || banNom);
         end loop;
 
         exception
@@ -697,19 +715,25 @@ create or replace package body gestor as
     --- Consulta de cuentas de un cliente
     procedure ver_Cuentas_de_Cli(PNIF varchar2)
     as
-        cliente OCliente;
-        aux OBanco;
+        cliNif Clientes.NIF%type;
+        cliNom Clientes.nombre%type;
+        ban Bancos.nombre%type;
     begin
         -- Muestra las cuentas de un determinado cliente
-        select * into cliente from Clientes where NIF = PNIF;
-        dbms_output.put_line('-- Cliente: ' || cliente.NIF || ' * ' || cliente.nombre);
+        select NIF, nombre into cliNif, cliNom from Clientes where NIF = PNIF;
+        dbms_output.put_line('-- Cliente: ' || cliNif || ' * ' || cliNom);
 
         for c in (select * from Cuentas c where c.cliente.NIF = PNIF) loop
-            select deref(c.banco) into aux from dual;
+            select Cl.NIF into cliNif
+            from Clientes Cl
+            where ref(Cl) = c.cliente;
+            select Ba.nombre into ban 
+            from Clientes Cl, Bancos Ba
+            where ref(Ba) = c.banco;
             dbms_output.put_line('ID:         ' || c.ID);   
             dbms_output.put_line('Interés:    ' || c.interes);   
-            dbms_output.put_line('Cliente:    ' || cliente.NIF);   
-            dbms_output.put_line('Banco:      ' || aux.nombre);
+            dbms_output.put_line('Cliente:    ' || cliNif);   
+            dbms_output.put_line('Banco:      ' || ban);
         end loop;
 
         exception
@@ -719,13 +743,15 @@ create or replace package body gestor as
     --- Consulta de movimientos
     procedure ver_Movimientos
     as
-        aux OCuenta;
+        aux Cuentas.ID%type;
     begin
         -- Muestra todos los movimientos
         for c in (select * from Movimientos) loop
-            select deref(c.cuenta) into aux from dual;
+            select Cu.ID into aux
+            from Cuentas Cu
+            where ref(Cu) = c.cuenta;
             dbms_output.put_line('NID:        ' || c.NID);
-            dbms_output.put_line('Cuenta:     ' || aux.ID);
+            dbms_output.put_line('Cuenta:     ' || aux);
             dbms_output.put_line('Fecha:      ' || c.fecha);
             dbms_output.put_line('Importe:    ' || c.importe);
             dbms_output.put_line('Concepto:   ' || c.concepto);
@@ -738,17 +764,20 @@ create or replace package body gestor as
     --- Consulta de movimientos de un cliente
     procedure ver_Movimientos_de_Cli(PNIF varchar2)
     as
-        cliente OCliente;
-        aux OCuenta;
+        cliNif Clientes.NIF%type;
+        cliNom Clientes.nombre%type;
+        aux Cuentas.ID%type;
     begin
         -- Muestra los movimientos de un determinado cliente
-        select * into cliente from Clientes where NIF = PNIF;
-        dbms_output.put_line('-- Cliente: ' || cliente.NIF || ' * ' || cliente.nombre);
+        select NIF, nombre into cliNif, cliNom from Clientes where NIF = PNIF;
+        dbms_output.put_line('-- Cliente: ' || cliNif || ' * ' || cliNom);
 
         for c in (select * from Movimientos m where m.cuenta.cliente.NIF = PNIF) loop
-            select deref(c.cuenta) into aux from dual;
+            select Cu.ID into aux
+            from Cuentas Cu
+            where ref(Cu) = c.cuenta;
             dbms_output.put_line('NID:        ' || c.NID);
-            dbms_output.put_line('Cuenta:     ' || aux.ID);
+            dbms_output.put_line('Cuenta:     ' || aux);
             dbms_output.put_line('Fecha:      ' || c.fecha);
             dbms_output.put_line('Importe:    ' || c.importe);
             dbms_output.put_line('Concepto:   ' || c.concepto);
@@ -761,15 +790,20 @@ create or replace package body gestor as
     --- Consulta de transferencias
     procedure ver_Transferencias
     as
-        ori OCuenta;
-        des OCuenta;
+        ori Cuentas.ID%type;
+        des Cuentas.ID%type;
     begin
         -- Muestra los datos de todas las transferencias
         for c in (select * from Transferencias) loop
-            select deref(c.origen), deref(c.destino) into ori, des from dual;
+            select Cu.ID into ori
+            from Cuentas Cu
+            where ref(Cu) = c.origen;
+            select Cu.ID into des
+            from Cuentas Cu
+            where ref(Cu) = c.destino;
             dbms_output.put_line('NID:        ' || c.NID);
-            dbms_output.put_line('Origen:     ' || ori.nombre);
-            dbms_output.put_line('Destino:    ' || des.nombre);
+            dbms_output.put_line('Origen:     ' || ori);
+            dbms_output.put_line('Destino:    ' || des);
             dbms_output.put_line('Fecha:      ' || c.fecha);
             dbms_output.put_line('Importe:    ' || c.importe);
             dbms_output.put_line('Concepto:   ' || c.concepto);
@@ -782,18 +816,25 @@ create or replace package body gestor as
     --- Consulta de transferencias de clientes
     procedure ver_Transferencias_de_Cli(PNIF varchar2)
     as
-        ori OCuenta;
-        des OCuenta;
+        ori Cuentas.ID%type;
+        des Cuentas.ID%type;
+        cliNif Clientes.NIF%type;
+        cliNom Clientes.nombre%type;
     begin
         -- Muestra los datos de las transferencias de un determinado cliente
-        select * into cliente from Clientes where NIF = PNIF;
-        dbms_output.put_line('-- Cliente: ' || cliente.NIF || ' * ' || cliente.nombre);
+        select NIF, nombre into cliNif, cliNom from Clientes where NIF = PNIF;
+        dbms_output.put_line('-- Cliente: ' || cliNif || ' * ' || cliNom);
 
-        for c in (select * from Cuentas) loop
-            select deref(c.origen), deref(c.destino) into ori, des from dual;
+        for c in (select * from Transferencias) loop
+            select Cu.ID into ori
+            from Cuentas Cu
+            where ref(Cu) = c.origen;
+            select Cu.ID into des
+            from Cuentas Cu
+            where ref(Cu) = c.destino;
             dbms_output.put_line('NID:        ' || c.NID);
-            dbms_output.put_line('Origen:     ' || ori.nombre);
-            dbms_output.put_line('Destino:    ' || des.nombre);
+            dbms_output.put_line('Origen:     ' || ori);
+            dbms_output.put_line('Destino:    ' || des);
             dbms_output.put_line('Fecha:      ' || c.fecha);
             dbms_output.put_line('Importe:    ' || c.importe);
             dbms_output.put_line('Concepto:   ' || c.concepto);
