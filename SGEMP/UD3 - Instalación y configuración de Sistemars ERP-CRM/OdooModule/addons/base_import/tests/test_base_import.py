@@ -257,7 +257,7 @@ class TestColumnMapping(TransactionCase):
                     u"chhagan,10,1\n"
                     u"magan,20,2\n".encode('utf-8'),
             'file_type': 'text/csv',
-            'file_name': 'data.csv',
+            'file_name': 'ir.model.access.csv',
         })
         import_record.execute_import(
             ['name', 'somevalue', 'othervalue'],

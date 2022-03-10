@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<odoo>
+    <!-- Aerolíneas -->
+    <record id="sgemp_aerolinea_action_view_tree" model="ir.ui.view">
+        <field name="name">sgemp.aerolinea.tree</field>
+        <field name="model">sgemp.aerolinea</field>
+        <field name="arch" type="xml">
+            <tree string="Aerolíneas">
+                <field name="name"/>
+                <field name="planes"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sgemp_aerolinea_action" model="ir.actions.act_window">
+        <field name="name">Ver Aerolíneas</field>
+        <field name="res_model">sgemp.aerolinea</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Ciudades -->
+    <record id="sgemp_ciudad_action_view_tree" model="ir.ui.view">
+        <field name="name">sgemp.ciudad.tree</field>
+        <field name="model">sgemp.ciudad</field>
+        <field name="arch" type="xml">
+            <tree string="Ciudades">
+                <field name="name"/>
+                <field name="country"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sgemp_ciudad_action" model="ir.actions.act_window">
+        <field name="name">Ver Ciudades</field>
+        <field name="res_model">sgemp.ciudad</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Formulario para las ciudades -->
+    <record id="sgemp_ciudad_view_form" model="ir.ui.view">
+        <field name="name">sgemp.ciudad.form</field>
+        <field name="model">sgemp.ciudad</field>
+        <field name="arch" type="xml">
+            <form string="Ciudad">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="country"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Pasajeros -->
+    <record id="sgemp_pasajero_action_view_tree" model="ir.ui.view">
+        <field name="name">sgemp.pasajero.tree</field>
+        <field name="model">sgemp.pasajero</field>
+        <field name="arch" type="xml">
+            <tree string="Pasajeros">
+                <field name="name"/>
+                <field name="surname"/>
+                <field name="age"/>
+                <field name="luggage_weight"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="sgemp_pasajero_action" model="ir.actions.act_window">
+        <field name="name">Ver Pasajeros</field>
+        <field name="res_model">sgemp.pasajero</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Formulario para los pasajeros -->
+    <record id="sgemp_pasajero_view_form" model="ir.ui.view">
+        <field name="name">sgemp.pasajero.form</field>
+        <field name="model">sgemp.pasajero</field>
+        <field name="arch" type="xml">
+            <form string="Pasajero">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="surname"/>
+                        </group>
+                        <group>
+                            <field name="age"/>
+                        </group>
+                        <group>
+                            <field name="luggage_weight"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Menús -->
+    <menuitem id="test_menu_root" name="Aerolíneas">
+        <menuitem id="test_first_level_menu1" name="Aerolíneas">
+            <menuitem id="sgemp_menu_aerolinea_action" action="sgemp_aerolinea_action"/>
+        </menuitem>
+        <menuitem id="test_first_level_menu2" name="Pasajeros">
+            <menuitem id="sgemp_menu_pasajero_action" action="sgemp_pasajero_action"/>
+        </menuitem>
+        <menuitem id="test_first_level_menu3" name="Ciudades">
+            <menuitem id="sgemp_menu_ciudad_action" action="sgemp_ciudad_action"/>
+        </menuitem>
+    </menuitem>
+</odoo>
