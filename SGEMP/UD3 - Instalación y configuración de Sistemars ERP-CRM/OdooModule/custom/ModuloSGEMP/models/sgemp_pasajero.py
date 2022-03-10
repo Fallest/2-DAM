@@ -6,5 +6,6 @@ class Pasajero(models.Model):
 
     name = fields.Text(required=True, default="Doe")
     surname = fields.Text()
-    age = fields.Integer(readonly=True, default=25)
+    age = fields.Integer(default=25)
     luggage_weight = fields.Float(required=True, default=50)
+    precio = fields.Float(readonly=True, default=0)
