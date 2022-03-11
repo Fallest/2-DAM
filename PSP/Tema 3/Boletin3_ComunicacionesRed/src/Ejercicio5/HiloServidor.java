@@ -11,6 +11,7 @@ public class HiloServidor extends Thread {
     private ObjectInputStream in;
     private Socket client;
     private String cad;
+    private boolean run = true;
 
     public HiloServidor(Socket s) throws IOException {
         client = s;
@@ -40,7 +41,7 @@ public class HiloServidor extends Thread {
     public synchronized void leerCadena() throws IOException, ClassNotFoundException {
         cad = (String) in.readObject();
         if (cad.equals("*")) {
-            Server.running = false;
+            run = false;
         }
     }
 

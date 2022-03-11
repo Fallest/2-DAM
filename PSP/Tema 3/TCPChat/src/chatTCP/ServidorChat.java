@@ -15,7 +15,7 @@ public class ServidorChat {
         System.out.println("Servidor iniciado..");
         Socket users[] = new Socket[maxCon];
         ComunHilos commonThread = new ComunHilos(maxCon, 0, 0, users);
-        while (commonThread.getConnections() < maxCon) {
+        while (commonThread.getConnections() <= maxCon) {
             Socket socket = new Socket();
             socket = server.accept();// esperando cliente
             commonThread.addUsers(socket, commonThread.getConnections());

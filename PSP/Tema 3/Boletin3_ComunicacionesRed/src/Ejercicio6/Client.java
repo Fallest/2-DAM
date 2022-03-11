@@ -11,8 +11,8 @@ public class Client {
      */
     public static void main(String[] args) throws IOException {
         try {
-            // Socket localConn = new Socket("DESKTOP-L337VTB", 6000); // portatil
-            Socket localConn = new Socket("DESKTOP-A2NJM1I", 6000);    // PC de casa
+            Socket localConn = new Socket("DESKTOP-L337VTB", 6000); // portatil
+            
             System.out.println("Conexión realizada.");
 
             // Recibimos datos del server
