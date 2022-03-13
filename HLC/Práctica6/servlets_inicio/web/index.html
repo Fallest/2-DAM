@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Bienvenidos a la págian incial de JSP y Servlet</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <h1>Servlet y JSP</h1>
+        <p> Esta es la <a href="http://www.iesmajuelo.com"> Web del IES "EL Majuelo"</a></p>
+        <p>Pusal <a href="ServletNombre?nombre=Tomas+Fernandez"> aquí</a> si eres Tomás</p>
+        <p> Si no eres Tomás, dime quien eres y pulsa enviar </p>
+        <p> Envio de datos por metodo Post</p>
+        <form action="ServletNombre" method="post" id="FormNombrePost" name="FormNombrePost" >
+            <label for="nombre">Tu nombre: </label>
+            <input type="text" id="nombre" name="nombre" value="tu nombre aquí..."/>
+            <input type="submit" id="enviar" name="enviar" value="enviar" />
+        </form>
+        <p> Envio de datos por metodo Get. Sugerencia (placeholder)</p>
+        <form action="ServletNombre" method="get" id="FormNombreGet" name="FormNombreGet">
+            <label for="nombre">Apellidos: </label>
+            <input type="text" id="apellido" name="apellido" placeholder="Introduce tus dos apellidos"/>
+            <input type="submit" id="enviar" name="enviar" value="enviar" />
+        </form>
+        <p> Envio de datos por metodo Get. Uso de patron (pattern)</p>
+        <form action="ServletNombre" method="get" id="FormNombreGet" name="CheckForm">
+            <label for="telefono">Número de teléfono: </label>
+            <input type="text" id="telefono" name="telefono" placeholder="654.91.72.53" pattern="[0-9]{3}.[0-9]{2}.[0-9]{2}.[0-9]{2}">
+            <input type="submit" id="enviar" name="enviar" value="enviar" />
+        </form>
+        <p>Pulsa <a href="ServletDatos"> aquí</a> para ver algunos datos red</p>
+        <p>Pulsa <a href="ServletCabecera"> aquí</a> para las cabeceras </p>
+    </body>
+</html>
+

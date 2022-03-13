@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-mar-2022 0:40:59 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Shops" table="SHOPS" schema="USUARIO" optimistic-lock="version">
+        <composite-id name="id" class="Model.ShopsId">
+            <key-property name="loc" type="int">
+                <column name="LOC" />
+            </key-property>
+            <key-property name="delCod" type="int">
+                <column name="DEL_COD" />
+            </key-property>
+            <key-property name="orderDeliveryCode" type="int">
+                <column name="ORDER_DELIVERY_CODE" />
+            </key-property>
+        </composite-id>
+        <property name="shopName" type="string">
+            <column name="SHOP_NAME" length="30" not-null="true" />
+        </property>
+        <property name="delCosts" type="java.lang.Float">
+            <column name="DEL_COSTS" precision="23" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>
