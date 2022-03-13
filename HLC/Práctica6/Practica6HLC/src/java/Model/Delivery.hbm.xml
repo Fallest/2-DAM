@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12-mar-2022 0:40:59 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="Model.Delivery" table="DELIVERY" schema="USUARIO" optimistic-lock="version">
+        <id name="delCod" type="int">
+            <column name="DEL_COD" />
+            <generator class="assigned" />
+        </id>
+        <property name="company" type="string">
+            <column name="COMPANY" length="30" />
+        </property>
+        <property name="delName" type="string">
+            <column name="DEL_NAME" length="30" />
+        </property>
+        <property name="pw" type="string">
+            <column name="PW" length="20" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>
