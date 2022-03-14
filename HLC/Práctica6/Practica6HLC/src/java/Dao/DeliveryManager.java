@@ -9,6 +9,17 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class DeliveryManager implements IDelivery {
+
+    public static String getPicOf(int delCod) {
+        // Esta función va a devolver el nombre de la foto de la empresa del repartidor.
+        Delivery res = null;
+        
+        for (Delivery d: (new DeliveryManager()).getAll())
+            if (d.getDelCod() == delCod)
+                res = d;
+        
+        return res.getCompany();
+    }
     @Override
     public ArrayList<Delivery> getAll() {
         Session session = null;

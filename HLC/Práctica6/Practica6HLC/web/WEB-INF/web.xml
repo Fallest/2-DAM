@@ -5,7 +5,35 @@
             30
         </session-timeout>
     </session-config>
+    
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    
+    <servlet>
+        <servlet-name>loginSession</servlet-name>
+        <servlet-class>Servlets.Login</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginSession</servlet-name>
+        <url-pattern>/userLogged</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>seeTransaction</servlet-name>
+        <servlet-class>Servlets.Transaction</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>seeTransaction</servlet-name>
+        <url-pattern>/transaction</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>destroySession</servlet-name>
+        <servlet-class>Servlets.DestroySession</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>destroySession</servlet-name>
+        <url-pattern>/destroySession</url-pattern>
+    </servlet-mapping>
 </web-app>

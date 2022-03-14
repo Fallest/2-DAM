@@ -1,5 +1,6 @@
 package Dao;
 
+import Model.Clients;
 import Model.Orders;
 import Persistence.NewHibernateUtil;
 import java.util.ArrayList;
@@ -9,6 +10,18 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class OrderManager implements IOrder {
+    
+    public static ArrayList<Orders> getOrdersOf(Clients c) {
+        // Devuelve los pedidos de un cliente determinado
+        ArrayList<Orders> res = new ArrayList<>();
+        
+        for (Orders o: (new OrderManager()).getAll()) {
+            if (o.getNifCli() == c.getNif())
+                res.add(o);
+        }
+        
+        return res;
+    }
 
     @Override
     public ArrayList<Orders> getAll() {

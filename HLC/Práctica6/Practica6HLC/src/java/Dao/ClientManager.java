@@ -10,6 +10,22 @@ import org.hibernate.Transaction;
 
 public class ClientManager implements IClient {
 
+    public static Clients tryLogin(String usr, String pwd) {
+        // Comprueba que una pareca usuario-contraseña existe en la BD
+        ArrayList<Clients> clients = (new ClientManager()).getAll();
+        
+        // Iteramos por todos los clientes
+        for(Clients c: clients) {
+            // Si encontramos un par de datos válido
+            if (String.valueOf(c.getNif()).equals(usr) && c.getPw().equals(pwd)) {
+                return c;
+            }
+        }
+        
+        return null;
+        
+    }
+
     @Override
     public ArrayList<Clients> getAll() {
         Session session = null;

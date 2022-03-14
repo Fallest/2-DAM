@@ -1,0 +1,32 @@
+* {
+    background-color: #878bc1;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    background-color: #54588e;
+    border-radius: 10px;
+    padding: 5px;
+}
+
+form, form h3 {
+    background-color: #9d9fc4;
+    border-radius: 15px;
+    padding: 5px;
+    width: fit-content;
+    margin: 5px;
+}
+
+error {
+    color: red;
+}
+
+input .exit {
+    background-color: #9d9fc4;
+    border: none;
+    border-radius: 3px;
+}
+
+input {
+    border: none;
+}

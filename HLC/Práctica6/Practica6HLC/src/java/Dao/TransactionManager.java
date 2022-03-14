@@ -9,6 +9,19 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public class TransactionManager implements IShop {
+
+    public static ArrayList<Shops> getTransactionsOfOrder(String orderLoc) {
+        // Devuelve las transacciones de un determinado pedido
+        ArrayList<Shops> res = new ArrayList<>();
+        
+        for (Shops s: (new TransactionManager()).getAll()) {
+            if (String.valueOf(s.getId().getLoc()).equals(orderLoc))
+                res.add(s);
+        }
+        
+        return res;
+    }
+    
     @Override
     public ArrayList<Shops> getAll() {
         Session session = null;
